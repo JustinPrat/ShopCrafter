@@ -1,5 +1,7 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class Interaction : MonoBehaviour
     [SerializeField]
     private PlayerBrain playerBrain;
 
+    [SerializeField]
+    private SpriteRenderer iconHolder;
+
     private void Start()
     {
         inputReceiver.Actions.Player.Interact.started += OnInteractStarted;
@@ -22,16 +27,34 @@ public class Interaction : MonoBehaviour
         inputReceiver.Actions.Player.Interact.started -= OnInteractStarted;
     }
 
+    private void Update()
+    {
+        Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
+        if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
+        {
+            if (interactable.CanInteract(playerBrain))
+            {
+                iconHolder.gameObject.SetActive(true);
+                iconHolder.sprite = interactable.Icon;
+            }
+        }
+        else if (iconHolder.gameObject.activeInHierarchy)
+        {
+            iconHolder.gameObject.SetActive(false);
+        }
+    }
+
     private void OnInteractStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         Debug.Log("Interact");
         Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
-        if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
+        if (hit && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.CanInteract(playerBrain))
         {
             Debug.Log("hit element : " + hit.transform.name);
-            interactable.DoInteract();
+            interactable.DoInteract(playerBrain);
         }
     }
 }

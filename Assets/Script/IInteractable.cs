@@ -1,4 +1,10 @@
+using UnityEngine;
+
 public interface IInteractable
 {
-    public void DoInteract();
+    public Sprite Icon { get;  }
+
+    public void DoInteract(PlayerBrain playerBrain);
+
+    public bool CanInteract(PlayerBrain playerBrain);
 }
