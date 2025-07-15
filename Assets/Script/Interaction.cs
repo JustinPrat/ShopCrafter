@@ -36,7 +36,7 @@ public class Interaction : MonoBehaviour
             if (interactable.CanInteract(playerBrain))
             {
                 iconHolder.gameObject.SetActive(true);
-                iconHolder.sprite = interactable.Icon;
+                iconHolder.sprite = interactable.InteractIcon;
             }
         }
         else if (iconHolder.gameObject.activeInHierarchy)

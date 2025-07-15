@@ -10,6 +10,8 @@ public class PlayerBrain : MonoBehaviour
 
     public CraftedObject HeldObject { get; set; }
 
+    public bool HasItem => HeldObject != null;
+
     public void TryHoldItem (CraftedObject craftedObject)
     {
         if (CanHoldItem())
@@ -21,5 +23,10 @@ public class PlayerBrain : MonoBehaviour
     public bool CanHoldItem ()
     {
         return HeldObject == null;
+    }
+
+    public void DropItem ()
+    {
+        HeldObject = null;
     }
 }

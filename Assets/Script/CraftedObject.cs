@@ -4,7 +4,14 @@ public class CraftedObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private Sprite icon;
 
-    Sprite IInteractable.Icon => icon;
+    private CraftedObjectData craftedObjectData;
+
+    Sprite IInteractable.InteractIcon => icon;
+
+    public void Init (CraftedObjectData data)
+    {
+        craftedObjectData = data;
+    }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

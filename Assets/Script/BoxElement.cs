@@ -6,7 +6,7 @@ public class BoxElement : MonoBehaviour, IInteractable
     [SerializeField] private float squishScale;
     [SerializeField] private Sprite icon;
 
-    public Sprite Icon => icon;
+    public Sprite InteractIcon => icon;
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    public Sprite Icon { get;  }
+    public Sprite InteractIcon { get;  }
 
     public void DoInteract(PlayerBrain playerBrain);
 
