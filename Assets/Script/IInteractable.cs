@@ -7,4 +7,6 @@ public interface IInteractable
     public void DoInteract(PlayerBrain playerBrain);
 
     public bool CanInteract(PlayerBrain playerBrain);
+
+    public void OutOfInteractRange(PlayerBrain playerBrain);
 }

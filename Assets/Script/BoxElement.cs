@@ -18,4 +18,8 @@ public class BoxElement : MonoBehaviour, IInteractable
         transform.localScale = Vector3.one;
         transform.DOPunchScale(Vector3.one * squishScale, 0.3f);
     }
+
+    public void OutOfInteractRange(PlayerBrain playerBrain)
+    {
+    }
 }

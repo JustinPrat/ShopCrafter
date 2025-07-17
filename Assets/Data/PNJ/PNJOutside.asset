@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c0f39d188ec82045a421f5b96da107e, type: 3}
-  m_Name: ControllerData
+  m_Script: {fileID: 11500000, guid: cc0aea0092c004a429860dd2ec60323f, type: 3}
+  m_Name: PNJOutside
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  interactionRange: 3
-  interactionLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295

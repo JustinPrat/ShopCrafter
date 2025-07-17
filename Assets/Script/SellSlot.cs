@@ -35,4 +35,8 @@ public class SellSlot : MonoBehaviour, IInteractable
         heldObject.transform.SetParent(objectHoldAnchor, false);
         playerBrain.DropItem();
     }
+
+    public void OutOfInteractRange(PlayerBrain playerBrain)
+    {
+    }
 }

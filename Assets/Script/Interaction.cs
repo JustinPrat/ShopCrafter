@@ -17,6 +17,8 @@ public class Interaction : MonoBehaviour
     [SerializeField]
     private SpriteRenderer iconHolder;
 
+    private IInteractable lastInteractable;
+
     private void Start()
     {
         inputReceiver.Actions.Player.Interact.started += OnInteractStarted;
@@ -30,18 +32,36 @@ public class Interaction : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
-        if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
+        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
+        IInteractable interacted = null;
+        foreach (RaycastHit2D item in hit)
         {
-            if (interactable.CanInteract(playerBrain))
+            if (item && item.transform.TryGetComponent(out IInteractable interactable))
             {
-                iconHolder.gameObject.SetActive(true);
-                iconHolder.sprite = interactable.InteractIcon;
+                if (interactable.CanInteract(playerBrain))
+                {
+                    iconHolder.gameObject.SetActive(true);
+                    iconHolder.sprite = interactable.InteractIcon;
+                    lastInteractable = interactable;
+                }
+
+                interacted = interactable;
+                break;
             }
         }
-        else if (iconHolder.gameObject.activeInHierarchy)
+
+        if (lastInteractable != null && interacted != lastInteractable)
         {
-            iconHolder.gameObject.SetActive(false);
+            lastInteractable.OutOfInteractRange(playerBrain);
+            lastInteractable = null;
+        }
+
+        if (interacted == null)
+        {
+            if (iconHolder.gameObject.activeInHierarchy)
+            {
+                iconHolder.gameObject.SetActive(false);
+            }
         }
     }
 

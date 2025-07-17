@@ -24,4 +24,8 @@ public class CraftedObject : MonoBehaviour, IInteractable
         transform.localPosition = Vector3.zero;
         playerBrain.TryHoldItem(this);
     }
+
+    public void OutOfInteractRange(PlayerBrain playerBrain)
+    {
+    }
 }
