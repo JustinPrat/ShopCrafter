@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2742724138226711751}
   - component: {fileID: 5940720520110901808}
   - component: {fileID: 5858041055573552615}
-  - component: {fileID: 9083821779736056348}
+  - component: {fileID: 6101161668790887329}
   m_Layer: 0
   m_Name: PNJ
   m_TagString: Untagged
@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2742724138226711751}
-  PNJBuyingEvent: {fileID: 11400000, guid: 9494371ea78e476439d60fd605c65aae, type: 2}
-  PNJOutsideEvent: {fileID: 11400000, guid: 2a8cd2760f4eb724886ae939322bb02e, type: 2}
+  PNJBuyingEvent: {fileID: 11400000, guid: b34e483f710149049b83d7c7f11f5e63, type: 2}
+  PNJOutsideEvent: {fileID: 11400000, guid: 3fa63490166440446a0cecb1b3b109e6, type: 2}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   interactIcon: {fileID: 0}
 --- !u!114 &2742724138226711751
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 8846013420386903887, guid: 6b854f7bb0141cf4b8077568bbe257e1, type: 2}
+  m_Graph: {fileID: 246828197533223718, guid: 6b854f7bb0141cf4b8077568bbe257e1, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 3472448268713066502
   - rid: 3472448269364232571
@@ -109,7 +109,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6362052680927295878}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -119,7 +119,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.4226667
-  m_BaseOffset: 0.71133333
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &5858041055573552615
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &9083821779736056348
-BoxCollider2D:
+--- !u!58 &6101161668790887329
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -169,17 +169,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!1 &6547600056336448238
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,9 @@ public class PNJManager : MonoBehaviour
 
     [SerializeField]
     private float waitBeforeSpawnPNJ;
+    
+    [SerializeField]
+    private PNJPool basePool;
 
     private List<PNJBrain> PNJList;
 
@@ -39,10 +42,16 @@ public class PNJManager : MonoBehaviour
             if (waitPNJCounter >= waitBeforeSpawnPNJ)
             {
                 waitPNJCounter = 0;
-                PNJBrain PNJ = Instantiate(PnjPrefab).GetComponent<PNJBrain>();
-                PNJ.transform.position = PnjSpawnOutside.position;
+                SpawnPNJ();
             }
         }
+    }
+
+    private void SpawnPNJ ()
+    {
+        PNJBrain PNJ = Instantiate(PnjPrefab).GetComponent<PNJBrain>();
+        PNJ.transform.position = PnjSpawnOutside.position;
+        PNJ.Setup(basePool.PNJPoolList.GetRandomElement());
     }
 
     public void AddPnj (PNJBrain pnj)

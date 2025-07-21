@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fda3a40248d1c7468cd5983f79ee2c7, type: 3}
+  m_Name: PNJPool
+  m_EditorClassIdentifier: 
+  PNJPoolList:
+  - {fileID: 11400000, guid: f71dd8cf057b9304a837b464ed1a6e6e, type: 2}
+  - {fileID: 11400000, guid: aecd76477e79f1346a1fdd9f956aa627, type: 2}
+  - {fileID: 11400000, guid: 433c8818da32d714b9820c9fdee564b9, type: 2}
+  - {fileID: 11400000, guid: fb40774e446a2d64eb93474380fffeb9, type: 2}

@@ -5,41 +5,65 @@ using UnityEngine;
 public class PNJBrain : MonoBehaviour, IInteractable
 {
     [SerializeField] private BehaviorGraphAgent agent;
-    [SerializeField] private PNJEvents PNJBuyingEvent;
-    [SerializeField] private PNJEvents PNJOutsideEvent;
 
     [SerializeField] private ManagerRefs managerRefs;
     [SerializeField] private Sprite interactIcon;
 
+    private PNJStats PNJInfos;
+    private BlackboardVariable<PnjEvent> pnjBuying;
+    private BlackboardVariable<PnjEvent> pnjOutside;
+
     public Sprite InteractIcon => interactIcon;
+    public ManagerRefs ManagerRefs => managerRefs;
+
+    public BlackboardVariable<PnjEvent> PNJBuying => pnjBuying;
+    public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
 
     [Button]
     public void TriggerNewBuyingPos ()
     {
-        agent.SetVariableValue<Vector3>("BuyingObjectPos", Vector3.zero);
-        agent.SetVariableValue<State>("CurrentState", State.Buying);
+        agent.SetVariableValue<Vector3>("BuyingObjectPos", managerRefs.SellManager.GetRandomSellSlot().transform.position);
+        agent.SetVariableValue<State>("ActualState", State.Buying);
     }
 
-    private void Start()
+    public void ChangeState (State state)
     {
-        PNJBuyingEvent.Event += OnPNJBuying;
-        PNJOutsideEvent.Event += OnPNJOutside;
+        agent.SetVariableValue<State>("ActualState", state);
+    }
 
+    public SellSlot RandomChooseSellSlot ()
+    {
+        SellSlot sellSlot = managerRefs.SellManager.GetRandomSellSlot();
+        agent.SetVariableValue<Vector3>("BuyingObjectPos", sellSlot.transform.position);
+        return sellSlot;
+    }
+
+    public void Setup (PNJData datas)
+    {
+        if (agent.BlackboardReference.GetVariable("PNJBuying", out pnjBuying))
+            pnjBuying.Value.Event += OnPNJBuying;
+
+        if (agent.BlackboardReference.GetVariable("PNJOutside", out pnjOutside))
+            pnjOutside.Value.Event += OnPNJOutside;
+
+        PNJInfos = datas.GetStats();
+        PNJInfos.OnSpawn(this);
+        transform.name = PNJInfos.Name;
         managerRefs.PNJManager.AddPnj(this);
     }
 
     private void OnDestroy()
     {
-        PNJBuyingEvent.Event -= OnPNJBuying;
-        PNJOutsideEvent.Event -= OnPNJOutside;
+        pnjBuying.Value.Event -= OnPNJBuying;
+        pnjOutside.Value.Event -= OnPNJOutside;
     }
 
-    private void OnPNJBuying()
+    private void OnPNJBuying(GameObject caller)
     {
-        Debug.Log("On PNJ end pos buying");
+        Debug.Log("On PNJ end pos buying Prouting : " + caller.GetComponent<PNJBrain>().PNJInfos.Name + " / receiver : " + PNJInfos.Name);
     }
 
-    private void OnPNJOutside()
+    private void OnPNJOutside(GameObject caller)
     {
         Debug.Log("On PNJ outside");
         managerRefs.PNJManager.RemovePnj(this);
@@ -49,17 +73,18 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public void DoInteract(PlayerBrain playerBrain)
     {
         Debug.Log("Interact with PNJ");
+        PNJInfos.OnInteract(this);
     }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
         Debug.Log("Can interact asking");
-        agent.SetVariableValue<State>("CurrentState", State.Stop);
+        agent.SetVariableValue<State>("ActualState", State.Stop);
         return true;
     }
 
     public void OutOfInteractRange(PlayerBrain playerBrain)
     {
-        agent.SetVariableValue<State>("CurrentState", State.RoamingAround);
+        agent.SetVariableValue<State>("ActualState", State.RoamingAround);
     }
 }

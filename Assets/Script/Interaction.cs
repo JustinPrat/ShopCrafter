@@ -32,11 +32,11 @@ public class Interaction : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
-        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
         IInteractable interacted = null;
-        foreach (RaycastHit2D item in hit)
+        foreach (RaycastHit2D hit in hits)
         {
-            if (item && item.transform.TryGetComponent(out IInteractable interactable))
+            if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
             {
                 if (interactable.CanInteract(playerBrain))
                 {
@@ -70,11 +70,14 @@ public class Interaction : MonoBehaviour
         Debug.Log("Interact");
         Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
-        if (hit && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.CanInteract(playerBrain))
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
+        foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log("hit element : " + hit.transform.name);
-            interactable.DoInteract(playerBrain);
+            if (hit && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.CanInteract(playerBrain))
+            {
+                Debug.Log("hit element : " + hit.transform.name);
+                interactable.DoInteract(playerBrain);
+            }
         }
     }
 }

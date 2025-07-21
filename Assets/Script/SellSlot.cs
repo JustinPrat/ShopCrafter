@@ -21,7 +21,7 @@ public class SellSlot : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        refs.SellManager.SellSlots.Add(this);
+        refs.SellManager.OnItemRemoved(this);
     }
 
     public bool CanInteract(PlayerBrain playerBrain)
@@ -33,6 +33,7 @@ public class SellSlot : MonoBehaviour, IInteractable
     {
         heldObject = playerBrain.HeldObject;
         heldObject.transform.SetParent(objectHoldAnchor, false);
+        refs.SellManager.OnItemSelling(this);
         playerBrain.DropItem();
     }
 
