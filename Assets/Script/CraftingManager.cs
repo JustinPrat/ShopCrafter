@@ -18,4 +18,19 @@ public partial class CraftingManager : MonoBehaviour
     {
         managerRefs.CraftingManager = this;
     }
+
+    public void ConsumeItem (Item item)
+    {
+        if (itemInventory.ContainsKey(item))
+        {
+            if (itemInventory[item] - 1 <= 0)
+            {
+                itemInventory.Remove(item);
+            }
+            else
+            {
+                itemInventory[item] -= 1;
+            }
+        }
+    }
 }

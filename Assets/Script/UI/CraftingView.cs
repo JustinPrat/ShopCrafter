@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,15 +9,21 @@ public class CraftingView : UIView
     private Transform itemHolder;
 
     [SerializeField]
-    private ItemUI itemUI;
+    private ItemUI itemUIPrefab;
 
     [SerializeField]
-    private List<Image> itemsConfirmed;
+    private List<ItemUI> itemsConfirmedUI;
 
     [SerializeField]
     private ManagerRefs managerRefs;
 
+    [SerializeField]
+    private Sprite normalSprite;
+
     private List<Item> selectedItems = new List<Item>();
+    private List<ItemUI> selectionSlotsUI = new List<ItemUI>();
+
+    public bool CanAdd => selectedItems.Count < 3;
 
     public override void Toggle(bool isOn)
     {
@@ -26,23 +33,69 @@ public class CraftingView : UIView
         {
             foreach (KeyValuePair<Item, int> item in managerRefs.CraftingManager.ItemInventory)
             {
-                ItemUI itemScript = Instantiate(itemUI).GetComponent<ItemUI>();
-                itemScript.Setup(item.Key, this);
+                ItemUI itemScript = Instantiate(itemUIPrefab).GetComponent<ItemUI>();
+                itemScript.Setup(item.Key, this, item.Value);
                 itemScript.transform.SetParent(itemHolder, false);
+                selectionSlotsUI.Add(itemScript);
             }
         }
     }
 
-    public void OnItemClick (Item item)
+    public void ValidateCrafting ()
     {
-        if (selectedItems.Count < 3)
+        foreach (Item selectedItem in selectedItems)
         {
-            itemsConfirmed[selectedItems.Count].sprite = item.ItemSprite;
-            selectedItems.Add(item);
+            managerRefs.CraftingManager.ConsumeItem(selectedItem);
+        }
+
+        managerRefs.UIManager.ToggleMiniGameView(true, transform.position);
+        managerRefs.UIManager.ToggleCraftingView(false);
+    }
+
+    public void OnItemClick (Item item, ItemUI itemUi)
+    {
+        selectedItems.Add(item);
+        itemUi.UpdateAmount(-1);
+
+        foreach (ItemUI confirmedItemUI in itemsConfirmedUI)
+        {
+            if (confirmedItemUI.IsEmpty)
+            {
+                confirmedItemUI.Setup(item, this);
+                break;
+            }
         }
     }
 
-    public void OnItemRemove (Item item)
+    public void UpdateItemPoses(Item itemRemoved)
+    {
+        for (int i = 0; i < selectionSlotsUI.Count; i++)
+        {
+            ItemUI itemUi = selectionSlotsUI[i];
+            if (itemUi.HeldItem == itemRemoved)
+            {
+                itemUi.UpdateAmount(1);
+            }
+        }
+
+        for (int i = 0; i < itemsConfirmedUI.Count; i++)
+        {
+            if (i >= selectedItems.Count)
+            {
+                if (!itemsConfirmedUI[i].IsEmpty)
+                {
+                    itemsConfirmedUI[i].RemoveItem();
+                    itemsConfirmedUI[i].ItemImage.sprite = normalSprite;
+                }
+            }
+            else
+            {
+                itemsConfirmedUI[i].Setup(selectedItems[i], this);
+            }
+        }
+    }
+ 
+    public bool OnItemRemove (Item item)
     {
         if (selectedItems.Contains(item))
         {
@@ -50,11 +103,13 @@ public class CraftingView : UIView
             {
                 if (selectedItems[i] == item)
                 {
-                    itemsConfirmed[i].sprite = null;
                     selectedItems.RemoveAt(i);
-                    return;
+                    UpdateItemPoses(item);
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 }

@@ -1487,6 +1487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   craftingView: {fileID: 5475771195858154003, guid: 119e3286333a70c4cbfb7d916f6400da, type: 3}
+  miniGameView: {fileID: 5475771195858154003, guid: c3e0856b884f0fa43ae43f3556bff90a, type: 3}
 --- !u!1001 &6973355303023109725
 PrefabInstance:
   m_ObjectHideFlags: 0
