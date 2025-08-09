@@ -33,4 +33,9 @@ public partial class CraftingManager : MonoBehaviour
             }
         }
     }
+
+    //public CraftedObjectData PoolCraftedItem ()
+    //{
+
+    //}
 }

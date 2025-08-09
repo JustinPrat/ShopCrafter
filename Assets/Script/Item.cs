@@ -5,5 +5,6 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public EItemType Type;
+    public Rarity RarityInfos;
     public Sprite ItemSprite;
 }
