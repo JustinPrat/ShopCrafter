@@ -1422,6 +1422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  currentCraftedObjectPool: {fileID: 11400000, guid: 013289cb4ba79a94c9ce0d664843c693, type: 2}
+  craftedObjectPrefab: {fileID: 0}
   __alchemySerializationData_CraftingManager:
     itemInventory:
       isCreated: 1

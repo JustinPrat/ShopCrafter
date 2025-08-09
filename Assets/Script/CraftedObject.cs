@@ -5,14 +5,16 @@ public class CraftedObject : MonoBehaviour, IInteractable
     [SerializeField] private Sprite icon;
     private int price;
 
-    private CraftedObjectData craftedObjectData;
+    private CraftedObjectRecipe craftedObjectData;
 
     Sprite IInteractable.InteractIcon => icon;
     public int Price => price;
 
-    public void Init (CraftedObjectData data)
+    public void Init (CraftedObjectRecipe data)
     {
         craftedObjectData = data;
+
+        // evaluate price depending on the required items
     }
 
     public bool CanInteract(PlayerBrain playerBrain)

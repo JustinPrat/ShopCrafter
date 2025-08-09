@@ -12,11 +12,29 @@ public partial class CraftingManager : MonoBehaviour
     [AlchemySerializeField, NonSerialized]
     private Dictionary<Item, int> itemInventory = new Dictionary<Item, int>();
 
+    [SerializeField]
+    private CraftedObjectPool currentCraftedObjectPool;
+
+    [SerializeField]
+    private CraftedObject craftedObjectPrefab;
+
     public Dictionary<Item, int> ItemInventory => itemInventory;
+
+    public Action<List<Item>> OnItemsConsumed;
 
     private void Awake()
     {
         managerRefs.CraftingManager = this;
+    }
+
+    public void ConsumeItems (List<Item> items)
+    {
+        foreach (Item item in items)
+        {
+            ConsumeItem(item);
+        }
+
+        OnItemsConsumed?.Invoke(items);
     }
 
     public void ConsumeItem (Item item)
@@ -34,8 +52,8 @@ public partial class CraftingManager : MonoBehaviour
         }
     }
 
-    //public CraftedObjectData PoolCraftedItem ()
-    //{
-
-    //}
+    public CraftedObjectRecipe PoolCraftedItem(List<Item> items)
+    {
+        return currentCraftedObjectPool.FindCraftableRecipe(items);
+    }
 }

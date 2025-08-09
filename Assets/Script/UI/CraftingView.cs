@@ -43,12 +43,8 @@ public class CraftingView : UIView
 
     public void ValidateCrafting ()
     {
-        foreach (Item selectedItem in selectedItems)
-        {
-            managerRefs.CraftingManager.ConsumeItem(selectedItem);
-        }
-
         managerRefs.UIManager.ToggleMiniGameView(true, transform.position);
+        managerRefs.CraftingManager.ConsumeItems(selectedItems);
         managerRefs.UIManager.ToggleCraftingView(false);
     }
 
