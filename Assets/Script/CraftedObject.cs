@@ -2,31 +2,29 @@ using UnityEngine;
 
 public class CraftedObject : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Sprite icon;
-    private int price;
+    [SerializeField] 
+    private Sprite icon;
 
-    private CraftedObjectRecipe craftedObjectData;
+    private CraftedObjectData craftedObjectData;
 
     Sprite IInteractable.InteractIcon => icon;
-    public int Price => price;
+    public int Price => craftedObjectData.GetPrice();
 
-    public void Init (CraftedObjectRecipe data)
+    public void Init (CraftedObjectData data)
     {
         craftedObjectData = data;
-
-        // evaluate price depending on the required items
     }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        return playerBrain.CanHoldItem();
+        return false;
     }
 
     public void DoInteract(PlayerBrain playerBrain)
     {
-        transform.SetParent(playerBrain.ObjectHoldAnchor);
-        transform.localPosition = Vector3.zero;
-        playerBrain.TryHoldItem(this);
+        //transform.SetParent(playerBrain.ObjectHoldAnchor);
+        //transform.localPosition = Vector3.zero;
+        //playerBrain.TryHoldItem(this);
     }
 
     public void OutOfInteractRange(PlayerBrain playerBrain)

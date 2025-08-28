@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CraftingTable : MonoBehaviour, IInteractable
@@ -8,20 +9,39 @@ public class CraftingTable : MonoBehaviour, IInteractable
     [SerializeField] 
     private Sprite icon;
 
+    [SerializeField]
+    private List<CraftedItemReceiver> receiveSlots;
+
     public Sprite InteractIcon => icon;
+    public List<CraftedItemReceiver> ReceiveSlots => receiveSlots;
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        return true;
+        foreach (CraftedItemReceiver slots in receiveSlots)
+        {
+            if (!slots.HasHeldItem)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void DoInteract(PlayerBrain playerBrain)
     {
-        managerRefs.UIManager.ToggleCraftingView(true, transform.position);
+        managerRefs.UIManager.ToggleCraftingView(true, this, transform.position);
     }
 
     public void OutOfInteractRange(PlayerBrain playerBrain)
     {
         
+    }
+
+    public void SpawnCraftedItem (CraftedObjectRecipe craftedObjectRecipe, List<Item> items, int boostNumber)
+    {
+        CraftedObjectData craftedObjectData = new CraftedObjectData(craftedObjectRecipe, managerRefs, items, boostNumber);
+
+        CraftedObject craftedObject = Instantiate(managerRefs.CraftingManager.CraftedObjectPrefab);
+        craftedObject.Init(craftedObjectData);
     }
 }

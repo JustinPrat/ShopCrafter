@@ -14,15 +14,10 @@ public class PlayerBrain : MonoBehaviour
 
     public void TryHoldItem (CraftedObject craftedObject)
     {
-        if (CanHoldItem())
+        if (!HasItem)
         {
             HeldObject = craftedObject;
         }
-    }
-
-    public bool CanHoldItem ()
-    {
-        return HeldObject == null;
     }
 
     public void DropItem ()

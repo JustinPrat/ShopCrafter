@@ -18,7 +18,16 @@ public partial class CraftingManager : MonoBehaviour
     [SerializeField]
     private CraftedObject craftedObjectPrefab;
 
+    [SerializeField]
+    private RarityHierarchy rarityHierarchy;
+
+    [SerializeField]
+    private BasePrices basePrices;
+
     public Dictionary<Item, int> ItemInventory => itemInventory;
+    public RarityHierarchy RarityHierarchy => rarityHierarchy;
+    public CraftedObject CraftedObjectPrefab => craftedObjectPrefab;
+    public BasePrices BasePrices => basePrices;
 
     public Action<List<Item>> OnItemsConsumed;
 

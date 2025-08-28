@@ -1,5 +1,6 @@
 using Alchemy.Inspector;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,9 @@ public class MiniGameView : UIView
     [SerializeField]
     private GameObject targetPrefab;
 
+    [SerializeField]
+    private TextMeshProUGUI debugInfos;
+
     [SerializeField, Blockquote("Entre 0 (gauche) et 1 (droite), définit la range pour la target")]
     private Vector2 rangeSpawn;
 
@@ -39,6 +43,7 @@ public class MiniGameView : UIView
     private GameObject currentTarget;
 
     private bool CanUpgrade => tierCount < tierList.Tiers.Count;
+    public CraftingTable CurrentCraftingTable { get; set; }
 
     private void Awake()
     {
@@ -83,15 +88,14 @@ public class MiniGameView : UIView
 
     private void EndGame ()
     {
-        managerRefs.UIManager.ToggleMiniGameView(false);
+        CurrentCraftingTable.SpawnCraftedItem(craftedObjectRecipe, items, tierCount);
+        managerRefs.UIManager.ToggleMiniGameView(false, CurrentCraftingTable);
     }
 
     private void OnItemClick ()
     {
-        Debug.Log("actual pos : " + barCount + " / targetPos : " + targetPos + " / target size : " + tierList.Tiers[tierCount].TierTargetSize);
-
         RectTransform progressRect = progressBar.GetComponent<RectTransform>();
-        if (targetPos - tierList.Tiers[tierCount].TierTargetSize <= barCount && targetPos + tierList.Tiers[tierCount].TierTargetSize >= barCount)
+        if (targetPos - (tierList.Tiers[tierCount].TierTargetSize/2) <= barCount && targetPos + (tierList.Tiers[tierCount].TierTargetSize / 2) >= barCount)
         {
             //win
             tierCount += 1;
@@ -118,8 +122,6 @@ public class MiniGameView : UIView
         if (!gameObject.activeInHierarchy)
             return;
 
-        Debug.Log("barcount : " + barCount);
-
         if (countingUp)
         {
             barCount += Time.deltaTime * currentSpeed;
@@ -142,5 +144,7 @@ public class MiniGameView : UIView
         }
 
         progressBar.value = barCount;
+
+        debugInfos.text = "actual pos : " + barCount + "\ntargetPos : " + targetPos + "\ntarget size : " + tierList.Tiers[tierCount].TierTargetSize;
     }
 }

@@ -25,6 +25,8 @@ public class CraftingView : UIView
 
     public bool CanAdd => selectedItems.Count < 3;
 
+    public CraftingTable CurrentCraftingTable { get; set; }
+
     public override void Toggle(bool isOn)
     {
         base.Toggle(isOn);
@@ -43,9 +45,9 @@ public class CraftingView : UIView
 
     public void ValidateCrafting ()
     {
-        managerRefs.UIManager.ToggleMiniGameView(true, transform.position);
+        managerRefs.UIManager.ToggleMiniGameView(true, CurrentCraftingTable, transform.position);
         managerRefs.CraftingManager.ConsumeItems(selectedItems);
-        managerRefs.UIManager.ToggleCraftingView(false);
+        managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
     }
 
     public void OnItemClick (Item item, ItemUI itemUi)

@@ -5,7 +5,7 @@ public class SellSlot : MonoBehaviour, IInteractable
     [SerializeField] 
     private Sprite icon;
 
-    [SerializeField] 
+    [SerializeField]
     private Transform objectHoldAnchor;
 
     [SerializeField] 
