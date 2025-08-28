@@ -32,10 +32,18 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         }
         else if (CanGiveItem(playerBrain))
         {
-            transform.SetParent(playerBrain.ObjectHoldAnchor);
-            transform.localPosition = Vector3.zero;
+            heldObject.transform.SetParent(playerBrain.ObjectHoldAnchor);
+            heldObject.transform.localPosition = Vector3.zero;
             playerBrain.TryHoldItem(heldObject);
+            heldObject = null;
         }
+    }
+
+    public void SetItem (CraftedObject craftedObject)
+    {
+        heldObject = craftedObject;
+        heldObject.transform.SetParent(objectHoldAnchor, false);
+        heldObject.transform.localPosition = Vector3.zero;
     }
 
     public void OutOfInteractRange(PlayerBrain playerBrain)

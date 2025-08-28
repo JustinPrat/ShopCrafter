@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 
 public enum ECraftedType
@@ -21,11 +22,18 @@ public class CraftedObjectRecipe : ScriptableObject
     public Sprite CraftedSprite;
 }
 
+[Serializable]
 public class CraftedObjectData
 {
+    [ReadOnly, SerializeField]
     private CraftedObjectRecipe craftedObjectRecipe;
+
+    [ReadOnly, SerializeField]
     private Rarity rarity;
+
     private ManagerRefs managerRefs;
+
+    [ReadOnly, SerializeField]
     private int basePrice;
 
     public CraftedObjectRecipe CraftedObjectRecipe => craftedObjectRecipe;
@@ -34,6 +42,7 @@ public class CraftedObjectData
     public CraftedObjectData (CraftedObjectRecipe craftedObjectRecipe, ManagerRefs managerRefs, List<Item> items, int boostNumber)
     {
         this.craftedObjectRecipe = craftedObjectRecipe;
+        this.managerRefs = managerRefs;
         FindRarity(items, boostNumber);
         SetPrice();
     }

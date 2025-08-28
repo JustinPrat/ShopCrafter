@@ -1,3 +1,4 @@
+using Alchemy.Inspector;
 using UnityEngine;
 
 public class CraftedObject : MonoBehaviour, IInteractable
@@ -5,6 +6,7 @@ public class CraftedObject : MonoBehaviour, IInteractable
     [SerializeField] 
     private Sprite icon;
 
+    [ReadOnly, SerializeField]
     private CraftedObjectData craftedObjectData;
 
     Sprite IInteractable.InteractIcon => icon;

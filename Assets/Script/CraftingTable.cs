@@ -43,5 +43,14 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
         CraftedObject craftedObject = Instantiate(managerRefs.CraftingManager.CraftedObjectPrefab);
         craftedObject.Init(craftedObjectData);
+
+        foreach (CraftedItemReceiver itemReceiver in receiveSlots)
+        {
+            if (!itemReceiver.HasHeldItem)
+            {
+                itemReceiver.SetItem(craftedObject);
+                break;
+            }
+        }
     }
 }
