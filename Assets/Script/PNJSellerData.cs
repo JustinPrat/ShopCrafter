@@ -7,16 +7,17 @@ public class PNJSellerData : PNJRandomData
 
     public override PNJStats GetStats()
     {
-        PNJSellerStats stats = new PNJSellerStats();
-        stats.Name = Name;
-        stats.Description = Description;
-        stats.ShopStayDuration = ShopStayDuration;
-        stats.NumberItemSold = NumberItemSold;
+        PNJSellerStats stats = new PNJSellerStats(this);
         return stats;
     }
 }
 
 public class PNJSellerStats : PNJRandomStats
 {
-    public float NumberItemSold;
+    private PNJSellerData data;
+
+    public PNJSellerStats(PNJSellerData data) : base(data)
+    {
+        this.data = data;
+    }
 }

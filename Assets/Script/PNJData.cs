@@ -4,12 +4,11 @@ public class PNJData : ScriptableObject
 {
     public string Name;
     public string Description;
+    public ManagerRefs ManagerRefs;
 
     public virtual PNJStats GetStats ()
     {
-        PNJStats stats = new PNJStats ();
-        stats.Name = Name;
-        stats.Description = Description;
+        PNJStats stats = new PNJStats(this);
         return stats;
     }
 }
@@ -17,8 +16,14 @@ public class PNJData : ScriptableObject
 [Serializable]
 public class PNJStats
 {
-    public string Name;
-    public string Description;
+    private PNJData data;
+
+    public PNJData PNJData => data;
+
+    public PNJStats (PNJData data)
+    {
+        this.data = data;
+    }
 
     public virtual void OnInteract(PNJBrain pnjBrain) { }
 

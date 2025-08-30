@@ -7,4 +7,5 @@ public class ManagerRefs : ScriptableObject
     public PNJManager PNJManager { get; set; }
     public CraftingManager CraftingManager { get; set; }
     public UIManager UIManager { get; set; }
+    public DialogueManager DialogueManager { get; set; }
 }

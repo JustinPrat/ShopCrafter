@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Zob
   Description: 
-  ShopStayDuration: 0
+  ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  ShopStayDuration: 5
+  PNJDialogueData: {fileID: 11400000, guid: 78c4c20c6f3c04a42ba17ba929bdfa54, type: 2}
   NumberItemSold: 0

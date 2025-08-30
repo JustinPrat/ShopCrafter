@@ -48,7 +48,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
         PNJInfos = datas.GetStats();
         PNJInfos.OnSpawn(this);
-        transform.name = PNJInfos.Name;
+        transform.name = PNJInfos.PNJData.name;
         managerRefs.PNJManager.AddPnj(this);
     }
 
@@ -60,7 +60,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     private void OnPNJBuying(GameObject caller)
     {
-        Debug.Log("On PNJ end pos buying Prouting : " + caller.GetComponent<PNJBrain>().PNJInfos.Name + " / receiver : " + PNJInfos.Name);
+        Debug.Log("On PNJ end pos buying Prouting : " + caller.GetComponent<PNJBrain>().PNJInfos.PNJData.Name + " / receiver : " + PNJInfos.PNJData.Name);
     }
 
     private void OnPNJOutside(GameObject caller)

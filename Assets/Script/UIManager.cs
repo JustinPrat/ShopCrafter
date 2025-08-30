@@ -6,22 +6,32 @@ public class UIManager : MonoBehaviour
     private ManagerRefs managerRefs;
 
     [SerializeField]
-    private GameObject craftingView;
+    private GameObject craftingViewPrefab;
 
     [SerializeField]
-    private GameObject miniGameView;
+    private GameObject miniGameViewPrefab;
+
+    [SerializeField]
+    private GameObject dialogueViewPrefab;
+
+    [SerializeField]
+    private Canvas canvas;
 
     private CraftingView craftingViewInstance;
     private MiniGameView miniGameViewInstance;
+    private DialogueView dialogueViewInstance;
 
     private void Awake()
     {
         managerRefs.UIManager = this;
-        craftingViewInstance = Instantiate(craftingView).GetComponent<CraftingView>();
+        craftingViewInstance = Instantiate(craftingViewPrefab).GetComponent<CraftingView>();
         craftingViewInstance.gameObject.SetActive(false);
 
-        miniGameViewInstance = Instantiate(miniGameView).GetComponent<MiniGameView>();
+        miniGameViewInstance = Instantiate(miniGameViewPrefab).GetComponent<MiniGameView>();
         miniGameViewInstance.gameObject.SetActive(false);
+
+        dialogueViewInstance = Instantiate(dialogueViewPrefab, canvas.transform).GetComponent<DialogueView>();
+        dialogueViewInstance.gameObject.SetActive(false);
     }
 
     public void ToggleCraftingView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
@@ -36,5 +46,11 @@ public class UIManager : MonoBehaviour
         miniGameViewInstance.CurrentCraftingTable = craftingTable;
         miniGameViewInstance.Toggle(isOn);
         miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
+    }
+
+    public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJData pnjData = null)
+    {
+        dialogueViewInstance.Toggle(isOn);
+        dialogueViewInstance.Setup(firstData, pnjData);
     }
 }

@@ -7,19 +7,20 @@ public class PNJBuyerData : PNJRandomData
 
     public override PNJStats GetStats()
     {
-        PNJBuyerStats stats = new PNJBuyerStats();
-        stats.Name = Name;
-        stats.Description = Description;
-        stats.ShopStayDuration = ShopStayDuration;
-        stats.BuyProbability = BuyProbability;
+        PNJBuyerStats stats = new PNJBuyerStats(this);
         return stats;
     }
 }
 
 public class PNJBuyerStats : PNJRandomStats
 {
-    public float BuyProbability;
     public SellSlot Slot;
+    private PNJBuyerData data;
+
+    public PNJBuyerStats(PNJBuyerData data) : base(data)
+    {
+        this.data = data;
+    }
 
     public override void OnSpawn(PNJBrain pnjBrain)
     {
@@ -32,7 +33,7 @@ public class PNJBuyerStats : PNJRandomStats
             pnjBrain.ChangeState(State.Buying);
         }
 
-        Debug.Log("Je suis un acheteur nommé " + Name);
+        Debug.Log("Je suis un acheteur nommé " + data.Name);
     }
 
     public override void OnDespawn(PNJBrain pnjBrain)
