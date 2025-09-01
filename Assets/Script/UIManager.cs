@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -15,11 +16,17 @@ public class UIManager : MonoBehaviour
     private GameObject dialogueViewPrefab;
 
     [SerializeField]
+    private GameObject shopViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
     private MiniGameView miniGameViewInstance;
     private DialogueView dialogueViewInstance;
+    private ShopView shopViewInstance;
+
+    public DialogueView DialogueView => dialogueViewInstance;
 
     private void Awake()
     {
@@ -32,6 +39,9 @@ public class UIManager : MonoBehaviour
 
         dialogueViewInstance = Instantiate(dialogueViewPrefab, canvas.transform).GetComponent<DialogueView>();
         dialogueViewInstance.gameObject.SetActive(false);
+
+        shopViewInstance = Instantiate(shopViewPrefab, canvas.transform).GetComponent<ShopView>();
+        shopViewInstance.gameObject.SetActive(false);
     }
 
     public void ToggleCraftingView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
@@ -54,6 +64,15 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             dialogueViewInstance.Setup(firstData, pnjBehaviour);
+        }
+    }
+
+    public void ToggleShopView (bool isOn, List<SellingItem> sellingItems = null, PNJBehaviour pnjBehaviour = null)
+    {
+        shopViewInstance.Toggle(isOn);
+        if (isOn)
+        {
+            shopViewInstance.Setup(sellingItems, pnjBehaviour);
         }
     }
 }

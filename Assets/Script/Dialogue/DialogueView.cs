@@ -81,7 +81,7 @@ public class DialogueView : UIView
         StartDialogue();
     }
 
-    private void NextLine ()
+    public void NextLine ()
     {
         currentDialogueIndex++;
 

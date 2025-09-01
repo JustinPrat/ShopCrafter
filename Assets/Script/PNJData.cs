@@ -19,6 +19,7 @@ public class PNJData : ScriptableObject
 public class PNJBehaviour
 {
     protected PNJData data;
+    protected ManagerRefs managerRefs;
 
     public PNJData PNJData => data;
 
@@ -29,7 +30,10 @@ public class PNJBehaviour
 
     public virtual void OnInteract(PNJBrain pnjBrain) { }
 
-    public virtual void OnSpawn(PNJBrain pnjBrain) { }
+    public virtual void OnSpawn(PNJBrain pnjBrain) 
+    {
+        managerRefs = pnjBrain.ManagerRefs;
+    }
 
     public virtual void OnDespawn (PNJBrain pnjBrain) { }
 

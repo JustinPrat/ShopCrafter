@@ -18,4 +18,10 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: 8e444a2943df1be41ab0ca388902e175, type: 3}
   ShopStayDuration: 5
   PNJDialogueData: {fileID: 11400000, guid: 78c4c20c6f3c04a42ba17ba929bdfa54, type: 2}
-  NumberItemSold: 0
+  sellingItems:
+  - item: {fileID: 11400000, guid: 4ea713ee766b7b3479af8a820ed81661, type: 2}
+    priceEach: 5
+    amount: 17
+  - item: {fileID: 11400000, guid: a23cc05a44ae5664eb417ab9f683bcaa, type: 2}
+    priceEach: 2
+    amount: 3
