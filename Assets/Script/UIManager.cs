@@ -48,9 +48,12 @@ public class UIManager : MonoBehaviour
         miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
     }
 
-    public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJData pnjData = null)
+    public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJBehaviour pnjBehaviour = null)
     {
         dialogueViewInstance.Toggle(isOn);
-        dialogueViewInstance.Setup(firstData, pnjData);
+        if (isOn)
+        {
+            dialogueViewInstance.Setup(firstData, pnjBehaviour);
+        }
     }
 }

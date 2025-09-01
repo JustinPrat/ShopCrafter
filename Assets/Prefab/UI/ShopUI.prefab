@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5742452551669428460}
   - component: {fileID: 3622813781165345728}
+  - component: {fileID: 2310742199738227186}
   - component: {fileID: 4928602383719361649}
-  - component: {fileID: 6120953500666851730}
   m_Layer: 5
-  m_Name: DialogueUI
+  m_Name: ShopUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2813235343791059201}
   m_CullTransparentMesh: 1
+--- !u!114 &2310742199738227186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813235343791059201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 467075780ea7e9249b18d952afebd50e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4928602383719361649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,25 +91,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6120953500666851730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2813235343791059201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa87201954cfc6c43a10fd63cc77ccac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textHolder: {fileID: 491850706719701988}
-  textWriter: {fileID: 3029599447527084123}
-  textAnimator: {fileID: 2742720293150204497}
-  portrait: {fileID: 5144875373979950590}
-  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  answerParent: {fileID: 8740137156828823018}
-  answerPrefab: {fileID: -2462103965180629770, guid: cb0f527aefb201c438b5b70154d90cbf, type: 3}
 --- !u!1 &3706679026937017933
 GameObject:
   m_ObjectHideFlags: 0

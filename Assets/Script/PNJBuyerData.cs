@@ -5,19 +5,19 @@ public class PNJBuyerData : PNJRandomData
 {
     public float BuyProbability;
 
-    public override PNJStats GetStats()
+    public override PNJBehaviour GetStats()
     {
-        PNJBuyerStats stats = new PNJBuyerStats(this);
+        PNJBuyerBehaviour stats = new PNJBuyerBehaviour(this);
         return stats;
     }
 }
 
-public class PNJBuyerStats : PNJRandomStats
+public class PNJBuyerBehaviour : PNJRandomBehaviour
 {
     public SellSlot Slot;
-    private PNJBuyerData data;
+    private PNJBuyerData currentData => (PNJBuyerData)data;
 
-    public PNJBuyerStats(PNJBuyerData data) : base(data)
+    public PNJBuyerBehaviour(PNJBuyerData data) : base(data)
     {
         this.data = data;
     }

@@ -1,3 +1,4 @@
+using TMPEffects.TMPEvents;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PNJSellerData", menuName = "ShopCrafter/PNJSellerData")]
@@ -5,19 +6,29 @@ public class PNJSellerData : PNJRandomData
 {
     public int NumberItemSold;
 
-    public override PNJStats GetStats()
+    public override PNJBehaviour GetStats()
     {
-        PNJSellerStats stats = new PNJSellerStats(this);
+        PNJSellerBehaviour stats = new PNJSellerBehaviour(this);
         return stats;
     }
 }
 
-public class PNJSellerStats : PNJRandomStats
+public class PNJSellerBehaviour : PNJRandomBehaviour
 {
-    private PNJSellerData data;
+    private PNJSellerData currentData => (PNJSellerData)data;
 
-    public PNJSellerStats(PNJSellerData data) : base(data)
+    public PNJSellerBehaviour(PNJSellerData data) : base(data)
     {
         this.data = data;
+    }
+
+    public override void OnTextEvent(TMPEventArgs args)
+    {
+        base.OnTextEvent(args);
+
+        if (args.Tag.Name == "shop")
+        {
+
+        }
     }
 }

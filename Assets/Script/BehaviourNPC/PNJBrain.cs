@@ -9,7 +9,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private ManagerRefs managerRefs;
     [SerializeField] private Sprite interactIcon;
 
-    private PNJStats PNJInfos;
+    private PNJBehaviour PNJInfos;
     private BlackboardVariable<PnjEvent> pnjBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
 

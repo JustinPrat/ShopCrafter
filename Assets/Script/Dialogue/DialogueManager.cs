@@ -10,8 +10,8 @@ public class DialogueManager : MonoBehaviour
         managerRefs.DialogueManager = this;
     }
 
-    public void StartDialogue (DialogueData data, PNJData pnjData)
+    public void StartDialogue (DialogueData data, PNJBehaviour pnjBehaviour)
     {
-        managerRefs.UIManager.ToggleDialogueView(true, data, pnjData);
+        managerRefs.UIManager.ToggleDialogueView(true, data, pnjBehaviour);
     }
 }

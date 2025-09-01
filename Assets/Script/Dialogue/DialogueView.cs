@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.IO;
 using TMPEffects.Components;
+using TMPEffects.TMPEvents;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueView : UIView
 {
@@ -8,20 +12,42 @@ public class DialogueView : UIView
     private TextMeshProUGUI textHolder;
 
     [SerializeField]
-    private TMPEffectComponent textEffectComponent;
+    private TMPWriter textWriter;
 
     [SerializeField]
     private TMPAnimator textAnimator;
 
-    private DialogueData currentDialogue;
-    private PNJData currentPNJ;
-    private int currentDialogueIndex;
+    [SerializeField]
+    private Image portrait;
 
-    public void Setup (DialogueData dialogueData, PNJData pnjData)
+    [SerializeField]
+    private ManagerRefs managerRefs;
+
+    [SerializeField]
+    private RectTransform answerParent;
+
+    [SerializeField]
+    private AnswerUIButton answerPrefab;
+
+    private DialogueData currentDialogue;
+    private PNJBehaviour currentPNJ;
+    private int currentDialogueIndex;
+    private List<AnswerUIButton> answerUIButtons = new List<AnswerUIButton>();
+
+    public void Setup (DialogueData dialogueData, PNJBehaviour pnjBehaviour)
     {
         currentDialogue = dialogueData;
-        currentPNJ = pnjData;
+        currentPNJ = pnjBehaviour;
+
+        portrait.sprite = currentPNJ.PNJData.Portrait;
         StartDialogue();
+
+        textWriter.OnTextEvent.AddListener(OnTextEvent);
+    }
+
+    private void OnTextEvent(TMPEventArgs args) 
+    {
+        currentPNJ.OnTextEvent(args);
     }
 
     private void StartDialogue ()
@@ -32,14 +58,34 @@ public class DialogueView : UIView
 
     private void AskQuestion ()
     {
+        for (int i = 0; i < currentDialogue.Answers.Count; i++)
+        {
+            AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
+            answer.Setup(currentDialogue.Answers[i]);
+            answer.OnAnswerClicked += ChooseAnswer;
 
+            answerUIButtons.Add(answer);
+        }
+    }
+
+    private void ChooseAnswer (Answer selectedAnswer)
+    {
+        for (int i = answerUIButtons.Count - 1; i >= 0; i--)
+        {
+            Destroy(answerUIButtons[i].gameObject);
+        }
+
+        answerUIButtons.Clear();
+
+        currentDialogue = selectedAnswer.NextDialogueData;
+        StartDialogue();
     }
 
     private void NextLine ()
     {
         currentDialogueIndex++;
 
-        if (currentDialogueIndex >= currentDialogue.Lines.Count - 1)
+        if (currentDialogueIndex > currentDialogue.Lines.Count - 1)
         {
             if (currentDialogue.HasQuestion)
             {
@@ -63,12 +109,12 @@ public class DialogueView : UIView
 
     private void StopDialogue ()
     {
-
+        managerRefs.UIManager.ToggleDialogueView(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             NextLine();
         }

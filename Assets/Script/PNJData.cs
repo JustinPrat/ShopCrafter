@@ -1,26 +1,28 @@
 using System;
+using TMPEffects.TMPEvents;
 using UnityEngine;
 public class PNJData : ScriptableObject
 {
     public string Name;
     public string Description;
     public ManagerRefs ManagerRefs;
+    public Sprite Portrait;
 
-    public virtual PNJStats GetStats ()
+    public virtual PNJBehaviour GetStats ()
     {
-        PNJStats stats = new PNJStats(this);
+        PNJBehaviour stats = new PNJBehaviour(this);
         return stats;
     }
 }
 
 [Serializable]
-public class PNJStats
+public class PNJBehaviour
 {
-    private PNJData data;
+    protected PNJData data;
 
     public PNJData PNJData => data;
 
-    public PNJStats (PNJData data)
+    public PNJBehaviour (PNJData data)
     {
         this.data = data;
     }
@@ -30,4 +32,6 @@ public class PNJStats
     public virtual void OnSpawn(PNJBrain pnjBrain) { }
 
     public virtual void OnDespawn (PNJBrain pnjBrain) { }
+
+    public virtual void OnTextEvent(TMPEventArgs args) { }
 }
