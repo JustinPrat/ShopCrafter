@@ -61,6 +61,18 @@ public partial class CraftingManager : MonoBehaviour
         }
     }
 
+    public void AddItem (Item item)
+    {
+        if (itemInventory.ContainsKey(item))
+        {
+            itemInventory[item] += 1;
+        }
+        else
+        {
+            itemInventory.Add(item, 1);
+        }
+    }
+
     public CraftedObjectRecipe PoolCraftedItem(List<Item> items)
     {
         return currentCraftedObjectPool.FindCraftableRecipe(items);

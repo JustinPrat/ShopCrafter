@@ -31,9 +31,16 @@ public class ShopView : UIView
             ItemShopUI itemShopUI = Instantiate(itemUIPrefab, itemContainer);
             itemShopUI.Setup(itemSelling);
             itemSellingInstantiated.Add(itemShopUI);
+            itemShopUI.OnItemBuy += OnItemBuy;
         }
 
         portrait.sprite = pnjBehaviour.PNJData.Portrait;
+    }
+
+    private void OnItemBuy (SellingItem clickedItem)
+    {
+        managerRefs.SellManager.PayForItem(clickedItem.priceEach);
+        managerRefs.CraftingManager.AddItem(clickedItem.item);
     }
 
     public void CloseShop () // inspector button click

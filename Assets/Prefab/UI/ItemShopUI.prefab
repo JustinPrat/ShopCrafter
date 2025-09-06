@@ -610,6 +610,7 @@ MonoBehaviour:
   itemImage: {fileID: 7305588125825612018}
   itemPrice: {fileID: 7783372552063477985}
   itemNumber: {fileID: 610484323144953733}
+  buttonBuy: {fileID: 5937668289633754504}
 --- !u!114 &488693155079087153
 MonoBehaviour:
   m_ObjectHideFlags: 0

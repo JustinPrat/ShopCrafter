@@ -40,6 +40,11 @@ public class SellManager : MonoBehaviour
         }
     }
 
+    public void PayForItem (int amount)
+    {
+        coinAmount = Mathf.Max(coinAmount - amount, 0);
+    }
+
     public SellSlot GetRandomSellSlot ()
     {
         return SellingSlots.GetRandomElement();
