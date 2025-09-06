@@ -38,4 +38,6 @@ public class PNJBehaviour
     public virtual void OnDespawn (PNJBrain pnjBrain) { }
 
     public virtual void OnTextEvent(TMPEventArgs args) { }
+
+    public virtual void OnItemBuy (SellingItem clickedItem, ItemShopUI itemShopUI) { }
 }

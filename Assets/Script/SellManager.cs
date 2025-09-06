@@ -1,3 +1,6 @@
+using Alchemy.Inspector;
+using Alchemy.Serialization;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +14,18 @@ public class SellManager : MonoBehaviour
 
     private int coinAmount;
 
+    [ShowInInspector]
+    public int CoinAmount => coinAmount;
+
     private void Awake()
     {
         managerRefs.SellManager = this;
+    }
+
+    [Button]
+    private void Add100Coins ()
+    {
+        coinAmount += 100;
     }
 
     public bool IsSellingSlots => SellingSlots.Count > 0;
@@ -40,9 +52,15 @@ public class SellManager : MonoBehaviour
         }
     }
 
-    public void PayForItem (int amount)
+    public bool TryPayForItem (int amount)
     {
-        coinAmount = Mathf.Max(coinAmount - amount, 0);
+        if (coinAmount >= amount)
+        {
+            coinAmount -= amount;
+            return true;
+        }
+
+        return false;
     }
 
     public SellSlot GetRandomSellSlot ()

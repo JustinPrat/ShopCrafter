@@ -21,7 +21,7 @@ MonoBehaviour:
   sellingItems:
   - item: {fileID: 11400000, guid: 4ea713ee766b7b3479af8a820ed81661, type: 2}
     priceEach: 5
-    amount: 17
+    amount: 15
   - item: {fileID: 11400000, guid: a23cc05a44ae5664eb417ab9f683bcaa, type: 2}
     priceEach: 2
-    amount: 3
+    amount: 5

@@ -16,7 +16,7 @@ public class PNJSellerData : PNJRandomData
 }
 
 [Serializable]
-public class SellingItem
+public struct SellingItem
 {
     public Item item;
     public int priceEach;
@@ -27,9 +27,12 @@ public class PNJSellerBehaviour : PNJRandomBehaviour
 {
     private PNJSellerData currentData => (PNJSellerData)data;
 
+    private List<SellingItem> sellingItems = new List<SellingItem>();
+
     public PNJSellerBehaviour(PNJSellerData data) : base(data)
     {
         this.data = data;
+        sellingItems.AddRange(data.sellingItems);
     }
 
     public override void OnTextEvent(TMPEventArgs args)
@@ -38,7 +41,13 @@ public class PNJSellerBehaviour : PNJRandomBehaviour
 
         if (args.Tag.Name == "shop")
         {
-            managerRefs.UIManager.ToggleShopView(true, currentData.sellingItems, this);
+            managerRefs.UIManager.ToggleShopView(true, sellingItems, this);
         }
+    }
+
+    public override void OnItemBuy(SellingItem clickedItem, ItemShopUI itemShopUI)
+    {
+        base.OnItemBuy(clickedItem, itemShopUI);
+        sellingItems.Remove(clickedItem);
     }
 }
