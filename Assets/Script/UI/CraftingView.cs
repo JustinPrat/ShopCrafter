@@ -41,6 +41,36 @@ public class CraftingView : UIView
                 selectionSlotsUI.Add(itemScript);
             }
         }
+        else
+        {
+            RemoveItems();
+        }
+    }
+
+    private void RemoveItems ()
+    {
+        for (int i = selectedItems.Count - 1; i >= 0; i--)
+        {
+            selectedItems.RemoveAt(i);
+        }
+
+        selectedItems.Clear();
+
+        for (int i = selectionSlotsUI.Count - 1; i >= 0; i--)
+        {
+            Destroy(selectionSlotsUI[i].gameObject);
+        }
+
+        selectionSlotsUI.Clear();
+
+        for (int i = 0; i < itemsConfirmedUI.Count; i++)
+        {
+            if (!itemsConfirmedUI[i].IsEmpty)
+            {
+                itemsConfirmedUI[i].RemoveItem();
+                itemsConfirmedUI[i].ItemImage.sprite = normalSprite;
+            }
+        }
     }
 
     public void ValidateCrafting ()

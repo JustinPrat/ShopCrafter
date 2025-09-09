@@ -4,6 +4,7 @@ using TMPEffects.Components;
 using TMPEffects.TMPEvents;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class DialogueView : UIView
@@ -43,6 +44,25 @@ public class DialogueView : UIView
         StartDialogue();
 
         textWriter.OnTextEvent.AddListener(OnTextEvent);
+    }
+
+    public override void Toggle(bool isOn)
+    {
+        base.Toggle(isOn);
+
+        if (isOn)
+        {
+            managerRefs.InputManager.Actions.Player.NextDialogue.started += OnNextDialogueStarted;
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.Player.NextDialogue.started -= OnNextDialogueStarted;
+        }
+    }
+
+    private void OnNextDialogueStarted (InputAction.CallbackContext ctx)
+    {
+        NextLine();
     }
 
     private void OnTextEvent(TMPEventArgs args) 
@@ -110,13 +130,5 @@ public class DialogueView : UIView
     private void StopDialogue ()
     {
         managerRefs.UIManager.ToggleDialogueView(false);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            NextLine();
-        }
     }
 }

@@ -52,13 +52,11 @@ public class UIManager : MonoBehaviour
 
         if (isOn)
         {
-            managerRefs.InputManager.Actions.Player.Move.Disable();
-            managerRefs.InputManager.Actions.Player.Interact.Disable();
+            managerRefs.InputManager.SetActionType(false, false, true);
         }
         else
         {
-            managerRefs.InputManager.Actions.Player.Move.Enable();
-            managerRefs.InputManager.Actions.Player.Interact.Enable();
+            managerRefs.InputManager.SetActionType(true, true, true);
         }
     }
 
@@ -70,13 +68,11 @@ public class UIManager : MonoBehaviour
 
         if (isOn)
         {
-            managerRefs.InputManager.Actions.Player.Move.Disable();
-            managerRefs.InputManager.Actions.Player.Interact.Disable();
+            managerRefs.InputManager.SetActionType(false, false, true);
         }
         else
         {
-            managerRefs.InputManager.Actions.Player.Move.Enable();
-            managerRefs.InputManager.Actions.Player.Interact.Enable();
+            managerRefs.InputManager.SetActionType(true, true, true);
         }
     }
 
@@ -86,11 +82,11 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             dialogueViewInstance.Setup(firstData, pnjBehaviour);
-            managerRefs.InputManager.Actions.Player.Disable();
+            managerRefs.InputManager.SetActionType(false, false, true);
         }
         else
         {
-            managerRefs.InputManager.Actions.Player.Enable();
+            managerRefs.InputManager.SetActionType(true, true, true);
         }
     }
 

@@ -2,6 +2,7 @@ using Alchemy.Inspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MiniGameView : UIView
@@ -51,6 +52,11 @@ public class MiniGameView : UIView
         currentTarget = Instantiate(targetPrefab, progressBar.transform);
     }
 
+    private void OnCraftHit (InputAction.CallbackContext ctx)
+    {
+        OnItemClick();
+    }
+
     public override void Toggle(bool isOn)
     {
         base.Toggle(isOn);
@@ -58,6 +64,15 @@ public class MiniGameView : UIView
         tierCount = 0;
         countingUp = true;
         barCount = 0f;
+
+        if (isOn)
+        {
+            managerRefs.InputManager.Actions.Player.NextDialogue.started += OnCraftHit;
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.Player.NextDialogue.started -= OnCraftHit;
+        }
     }
 
     public void Setup (List<Item> itemConsumed)

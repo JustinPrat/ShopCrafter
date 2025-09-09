@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputReceiver : MonoBehaviour
 {
@@ -15,5 +17,20 @@ public class InputReceiver : MonoBehaviour
         action.Enable();
 
         managerRefs.InputManager = this;
+    }
+
+    public void SetActionType (bool canMove = true, bool canInteract = true, bool canNextDialogue = true)
+    {
+        SetAction(managerRefs.InputManager.Actions.Player.Move, canMove);
+        SetAction(managerRefs.InputManager.Actions.Player.Interact, canInteract);
+        SetAction(managerRefs.InputManager.Actions.Player.NextDialogue, canNextDialogue);
+    }
+
+    private void SetAction (InputAction inputAction, bool newState)
+    {
+        if (newState)
+            inputAction.Enable();
+        else
+            inputAction.Disable();
     }
 }
