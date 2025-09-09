@@ -32,9 +32,12 @@ public class CraftingTable : MonoBehaviour, IInteractable
         managerRefs.UIManager.ToggleCraftingView(true, this, transform.position);
     }
 
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
     public void OutOfInteractRange(PlayerBrain playerBrain)
     {
-        
     }
 
     public void SpawnCraftedItem (CraftedObjectRecipe craftedObjectRecipe, List<Item> items, int boostNumber)

@@ -92,4 +92,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     {
         agent.SetVariableValue<State>("ActualState", State.RoamingAround);
     }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
 }

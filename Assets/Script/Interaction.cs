@@ -53,6 +53,11 @@ public class Interaction : MonoBehaviour
             lastInteractable = null;
         }
 
+        if (lastInteractable == null && interacted != null)
+        {
+            interacted.OnInteractRange(playerBrain);
+        }
+
         if (interacted == null)
         {
             if (iconHolder.gameObject.activeInHierarchy)

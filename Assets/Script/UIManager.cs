@@ -19,12 +19,16 @@ public class UIManager : MonoBehaviour
     private GameObject shopViewPrefab;
 
     [SerializeField]
+    private GameObject craftedStatViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
     private MiniGameView miniGameViewInstance;
     private DialogueView dialogueViewInstance;
     private ShopView shopViewInstance;
+    private CraftedStatView craftedStatViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -42,6 +46,9 @@ public class UIManager : MonoBehaviour
 
         shopViewInstance = Instantiate(shopViewPrefab, canvas.transform).GetComponent<ShopView>();
         shopViewInstance.gameObject.SetActive(false);
+
+        craftedStatViewInstance = Instantiate(craftedStatViewInstance, canvas.transform).GetComponent<CraftedStatView>();
+        craftedStatViewInstance.gameObject.SetActive(false);
     }
 
     public void ToggleCraftingView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
@@ -101,6 +108,16 @@ public class UIManager : MonoBehaviour
         else
         {
             managerRefs.InputManager.Actions.Player.Enable();
+        }
+    }
+
+    public void ToggleCraftedStatView (bool isOn, CraftedObjectData craftedObjectData = null, Vector3 pos = new Vector3())
+    {
+        craftedStatViewInstance.Toggle(isOn);
+
+        if (isOn)
+        {
+            craftedStatViewInstance.Setup(craftedObjectData, pos);
         }
     }
 }

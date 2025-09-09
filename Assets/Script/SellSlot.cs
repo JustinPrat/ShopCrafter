@@ -40,4 +40,8 @@ public class SellSlot : MonoBehaviour, IInteractable
     public void OutOfInteractRange(PlayerBrain playerBrain)
     {
     }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
 }

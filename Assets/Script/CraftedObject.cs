@@ -12,6 +12,8 @@ public class CraftedObject : MonoBehaviour, IInteractable
     Sprite IInteractable.InteractIcon => icon;
     public int Price => craftedObjectData.GetPrice();
 
+    public CraftedObjectData CraftedData => craftedObjectData;
+
     public void Init (CraftedObjectData data)
     {
         craftedObjectData = data;
@@ -30,6 +32,10 @@ public class CraftedObject : MonoBehaviour, IInteractable
     }
 
     public void OutOfInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
     {
     }
 }

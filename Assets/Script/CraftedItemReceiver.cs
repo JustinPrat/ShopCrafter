@@ -8,6 +8,9 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
     [SerializeField]
     private Transform objectHoldAnchor;
 
+    [SerializeField]
+    private ManagerRefs managerRefs;
+
     private CraftedObject heldObject;
 
     public Sprite InteractIcon => icon;
@@ -46,8 +49,13 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         heldObject.transform.localPosition = Vector3.zero;
     }
 
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+        managerRefs.UIManager.ToggleCraftedStatView(true, heldObject.CraftedData);
+    }
+
     public void OutOfInteractRange(PlayerBrain playerBrain)
     {
-        
+        managerRefs.UIManager.ToggleCraftedStatView(false);
     }
 }
