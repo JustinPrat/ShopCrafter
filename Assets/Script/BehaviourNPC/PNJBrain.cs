@@ -16,6 +16,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public Sprite InteractIcon => interactIcon;
     public ManagerRefs ManagerRefs => managerRefs;
 
+    public BehaviorGraphAgent Agent => agent;
+
     public BlackboardVariable<PnjEvent> PNJBuying => pnjBuying;
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
 
@@ -79,7 +81,10 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public bool CanInteract(PlayerBrain playerBrain)
     {
         Debug.Log("Can interact asking");
-        agent.SetVariableValue<State>("ActualState", State.Stop);
+        if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state) && state.Value != State.GoOut)
+        {
+            agent.SetVariableValue<State>("ActualState", State.Stop);
+        }
         return true;
     }
 

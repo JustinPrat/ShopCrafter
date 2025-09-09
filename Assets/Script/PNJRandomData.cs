@@ -27,6 +27,13 @@ public class PNJRandomBehaviour : PNJBehaviour
         base.OnTextEvent(args);
     }
 
+    public override void OnSpawn(PNJBrain pnjBrain)
+    {
+        base.OnSpawn(pnjBrain);
+        pnjBrain.Agent.SetVariableValue<float>("ShopDuration", currentData.ShopStayDuration);
+        pnjBrain.Agent.SetVariableValue<Vector3>("OutsidePos", managerRefs.PNJManager.PnjSpawnOutside);
+    }
+
     public override void OnInteract(PNJBrain pnjBrain)
     {
         base.OnInteract(pnjBrain);

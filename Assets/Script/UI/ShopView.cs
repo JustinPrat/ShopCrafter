@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,9 @@ public class ShopView : UIView
 
     [SerializeField]
     private ManagerRefs managerRefs;
+
+    [SerializeField]
+    private TextMeshProUGUI coinAmountText;
 
     private List<ItemShopUI> itemSellingInstantiated = new List<ItemShopUI>();
 
@@ -37,6 +41,7 @@ public class ShopView : UIView
         }
 
         portrait.sprite = pnjBehaviour.PNJData.Portrait;
+        coinAmountText.text = managerRefs.SellManager.CoinAmount.ToString();
     }
 
     private void OnItemBuy (SellingItem clickedItem, ItemShopUI itemShopUI)
@@ -45,6 +50,7 @@ public class ShopView : UIView
         {
             managerRefs.CraftingManager.AddItem(clickedItem.item);
             itemShopUI.RemoveItemBought();
+            coinAmountText.text = managerRefs.SellManager.CoinAmount.ToString();
         }
 
         foreach (ItemShopUI itemUI in itemSellingInstantiated)

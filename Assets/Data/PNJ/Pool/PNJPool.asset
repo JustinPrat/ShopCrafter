@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PNJPoolList:
   - {fileID: 11400000, guid: 08f0e6808004c204cb428401c6e008b2, type: 2}
+  - {fileID: 11400000, guid: f71dd8cf057b9304a837b464ed1a6e6e, type: 2}

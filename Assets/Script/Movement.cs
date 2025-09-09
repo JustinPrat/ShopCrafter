@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     private ControllerData controllerData;
 
     [SerializeField]
-    private InputReceiver inputReceiver;
+    private ManagerRefs managerRefs;
 
     [SerializeField]
     private PlayerBrain playerBrain;
@@ -18,15 +18,15 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        inputReceiver.Actions.Player.Move.performed += OnMovePerformed;
-        inputReceiver.Actions.Player.Move.canceled += OnMoveCanceled;
+        managerRefs.InputManager.Actions.Player.Move.performed += OnMovePerformed;
+        managerRefs.InputManager.Actions.Player.Move.canceled += OnMoveCanceled;
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void OnDestroy()
     {
-        inputReceiver.Actions.Player.Move.performed -= OnMovePerformed;
-        inputReceiver.Actions.Player.Move.canceled -= OnMoveCanceled;
+        managerRefs.InputManager.Actions.Player.Move.performed -= OnMovePerformed;
+        managerRefs.InputManager.Actions.Player.Move.canceled -= OnMoveCanceled;
     }
 
     private void Update()

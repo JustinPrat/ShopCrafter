@@ -1,12 +1,9 @@
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour
 {
     [SerializeField]
-    private InputReceiver inputReceiver;
+    private ManagerRefs managerRefs;
 
     [SerializeField]
     private ControllerData controllerData;
@@ -21,12 +18,12 @@ public class Interaction : MonoBehaviour
 
     private void Start()
     {
-        inputReceiver.Actions.Player.Interact.started += OnInteractStarted;
+        managerRefs.InputManager.Actions.Player.Interact.started += OnInteractStarted;
     }
 
     private void OnDestroy()
     {
-        inputReceiver.Actions.Player.Interact.started -= OnInteractStarted;
+        managerRefs.InputManager.Actions.Player.Interact.started -= OnInteractStarted;
     }
 
     private void Update()

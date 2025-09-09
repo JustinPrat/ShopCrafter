@@ -49,6 +49,17 @@ public class UIManager : MonoBehaviour
         craftingViewInstance.CurrentCraftingTable = craftingTable;
         craftingViewInstance.Toggle(isOn);
         craftingViewInstance.transform.position = pos + 1f * Vector3.up;
+
+        if (isOn)
+        {
+            managerRefs.InputManager.Actions.Player.Move.Disable();
+            managerRefs.InputManager.Actions.Player.Interact.Disable();
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.Player.Move.Enable();
+            managerRefs.InputManager.Actions.Player.Interact.Enable();
+        }
     }
 
     public void ToggleMiniGameView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
@@ -56,6 +67,17 @@ public class UIManager : MonoBehaviour
         miniGameViewInstance.CurrentCraftingTable = craftingTable;
         miniGameViewInstance.Toggle(isOn);
         miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
+
+        if (isOn)
+        {
+            managerRefs.InputManager.Actions.Player.Move.Disable();
+            managerRefs.InputManager.Actions.Player.Interact.Disable();
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.Player.Move.Enable();
+            managerRefs.InputManager.Actions.Player.Interact.Enable();
+        }
     }
 
     public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJBehaviour pnjBehaviour = null)
@@ -64,6 +86,11 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             dialogueViewInstance.Setup(firstData, pnjBehaviour);
+            managerRefs.InputManager.Actions.Player.Disable();
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.Player.Enable();
         }
     }
 
@@ -73,6 +100,11 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             shopViewInstance.Setup(sellingItems, pnjBehaviour);
+            managerRefs.InputManager.Actions.Player.Disable();
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.Player.Enable();
         }
     }
 }

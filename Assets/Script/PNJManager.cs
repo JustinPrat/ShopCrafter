@@ -10,7 +10,7 @@ public class PNJManager : MonoBehaviour
     private GameObject PnjPrefab;
 
     [SerializeField] 
-    private Transform PnjSpawnOutside;
+    private Transform pnjSpawnOutside;
 
     [SerializeField]
     private int targetNumberPnj;
@@ -24,6 +24,8 @@ public class PNJManager : MonoBehaviour
     private List<PNJBrain> PNJList;
 
     private float waitPNJCounter;
+
+    public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
 
     public bool HasEnoughtPNJ => PNJList.Count >= targetNumberPnj;
 
@@ -50,7 +52,7 @@ public class PNJManager : MonoBehaviour
     private void SpawnPNJ ()
     {
         PNJBrain PNJ = Instantiate(PnjPrefab).GetComponent<PNJBrain>();
-        PNJ.transform.position = PnjSpawnOutside.position;
+        PNJ.transform.position = PnjSpawnOutside;
         PNJ.Setup(basePool.PNJPoolList.GetRandomElement());
     }
 

@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 169730499205960435}
   - component: {fileID: 2121583507091329011}
   - component: {fileID: 6847489411027567951}
-  - component: {fileID: 7920886179117617242}
   - component: {fileID: 189320528897327458}
   - component: {fileID: 1286097577132865807}
   m_Layer: 0
@@ -140,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerData: {fileID: 11400000, guid: 13a286a525f508840bec9d5df10292d8, type: 2}
-  inputReceiver: {fileID: 7920886179117617242}
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   playerBrain: {fileID: 6847489411027567951}
 --- !u!114 &2121583507091329011
 MonoBehaviour:
@@ -154,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce905b459ed8a2e40a00d69cb47e7af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputReceiver: {fileID: 7920886179117617242}
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   controllerData: {fileID: 11400000, guid: 13a286a525f508840bec9d5df10292d8, type: 2}
   playerBrain: {fileID: 6847489411027567951}
   iconHolder: {fileID: 4980631292201026227}
@@ -171,18 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectHoldAnchor: {fileID: 3531761092125774024}
---- !u!114 &7920886179117617242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2732015029319344982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 730f422c22414f04bbd8547da12bfb01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &189320528897327458
 Rigidbody2D:
   serializedVersion: 5

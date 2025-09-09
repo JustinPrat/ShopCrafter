@@ -8,4 +8,5 @@ public class ManagerRefs : ScriptableObject
     public CraftingManager CraftingManager { get; set; }
     public UIManager UIManager { get; set; }
     public DialogueManager DialogueManager { get; set; }
+    public InputReceiver InputManager { get; set; }
 }
