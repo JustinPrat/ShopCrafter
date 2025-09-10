@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ControllerData
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  interactionRange: 3
+  interactionRange: 1
   interactionLayer:
     serializedVersion: 2
     m_Bits: 4294967295

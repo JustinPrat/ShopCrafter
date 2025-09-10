@@ -50,8 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2742724138226711751}
-  PNJBuyingEvent: {fileID: 11400000, guid: b34e483f710149049b83d7c7f11f5e63, type: 2}
-  PNJOutsideEvent: {fileID: 11400000, guid: 3fa63490166440446a0cecb1b3b109e6, type: 2}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   interactIcon: {fileID: 0}
 --- !u!114 &2742724138226711751
@@ -118,8 +116,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 1.4226667
-  m_BaseOffset: 0.5
+  m_Height: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &5858041055573552615

@@ -90,7 +90,10 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     public void OutOfInteractRange(PlayerBrain playerBrain)
     {
-        agent.SetVariableValue<State>("ActualState", State.RoamingAround);
+        if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state) && state.Value != State.GoOut)
+        {
+            agent.SetVariableValue<State>("ActualState", State.RoamingAround);
+        }
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)

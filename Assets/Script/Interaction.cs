@@ -30,7 +30,7 @@ public class Interaction : MonoBehaviour
     {
         Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
-        IInteractable interacted = null;
+        IInteractable interactableInSight = null;
         foreach (RaycastHit2D hit in hits)
         {
             if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
@@ -39,32 +39,33 @@ public class Interaction : MonoBehaviour
                 {
                     iconHolder.gameObject.SetActive(true);
                     iconHolder.sprite = interactable.InteractIcon;
-                    lastInteractable = interactable;
                 }
-
-                interacted = interactable;
+                
+                interactableInSight = interactable;
                 break;
             }
         }
 
-        if (lastInteractable != null && interacted != lastInteractable)
+        if (lastInteractable != null && interactableInSight != lastInteractable)
         {
             lastInteractable.OutOfInteractRange(playerBrain);
             lastInteractable = null;
         }
 
-        if (lastInteractable == null && interacted != null)
+        if (lastInteractable == null && interactableInSight != null)
         {
-            interacted.OnInteractRange(playerBrain);
+            interactableInSight.OnInteractRange(playerBrain);
         }
 
-        if (interacted == null)
+        if (interactableInSight == null)
         {
             if (iconHolder.gameObject.activeInHierarchy)
             {
                 iconHolder.gameObject.SetActive(false);
             }
         }
+
+        lastInteractable = interactableInSight;
     }
 
     private void OnInteractStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)

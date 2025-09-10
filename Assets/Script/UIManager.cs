@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         shopViewInstance = Instantiate(shopViewPrefab, canvas.transform).GetComponent<ShopView>();
         shopViewInstance.gameObject.SetActive(false);
 
-        craftedStatViewInstance = Instantiate(craftedStatViewInstance, canvas.transform).GetComponent<CraftedStatView>();
+        craftedStatViewInstance = Instantiate(craftedStatViewPrefab).GetComponent<CraftedStatView>();
         craftedStatViewInstance.gameObject.SetActive(false);
     }
 

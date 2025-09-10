@@ -1796,6 +1796,7 @@ MonoBehaviour:
   miniGameViewPrefab: {fileID: 5475771195858154003, guid: c3e0856b884f0fa43ae43f3556bff90a, type: 3}
   dialogueViewPrefab: {fileID: 2813235343791059201, guid: bfab68476daf1bf4086f8412dcc5fda3, type: 3}
   shopViewPrefab: {fileID: 2813235343791059201, guid: 719ed3db804525040aad3d200b4549c7, type: 3}
+  craftedStatViewPrefab: {fileID: 5475771195858154003, guid: 14b1f5bbf8d60c34aaf00be283c763f1, type: 3}
   canvas: {fileID: 1111131736}
 --- !u!1 &2057177059
 GameObject:
