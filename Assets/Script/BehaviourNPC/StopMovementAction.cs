@@ -13,7 +13,12 @@ public partial class StopMovementAction : Action
 
     protected override Status OnStart()
     {
-        Agent.Value.GetComponent<NavMeshAgent>().ResetPath();
+        NavMeshAgent navMeshAgent = Agent.Value.GetComponent<NavMeshAgent>();
+        if (navMeshAgent.hasPath)
+        {
+            Agent.Value.GetComponent<NavMeshAgent>().ResetPath();
+        }
+
         return Status.Success;
     }
 
@@ -24,6 +29,7 @@ public partial class StopMovementAction : Action
 
     protected override void OnEnd()
     {
+
     }
 }
 
