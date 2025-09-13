@@ -4,10 +4,13 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AdvancedButton : Selectable, IPointerClickHandler
+public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 {
     public UnityEvent OnLeftClick;
     public UnityEvent OnRightClick;
+
+    [SerializeField]
+    private ManagerRefs managerRefs;
 
     private Coroutine _resetRoutine;
 
@@ -62,5 +65,24 @@ public class AdvancedButton : Selectable, IPointerClickHandler
         }
 
         targetGraphic = imageComponent;
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        if (managerRefs.InputManager.Actions.UI.Validate.IsPressed())
+        {
+            OnLeftClick?.Invoke();
+        }
+        else if (managerRefs.InputManager.Actions.UI.Remove.IsPressed())
+        {
+            OnRightClick?.Invoke();
+        }
+
+        if (_resetRoutine != null)
+        {
+            StopCoroutine(OnFinishSubmit());
+        }
+
+        _resetRoutine = StartCoroutine(OnFinishSubmit());
     }
 }

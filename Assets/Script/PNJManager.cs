@@ -25,6 +25,9 @@ public class PNJManager : MonoBehaviour
 
     private float waitPNJCounter;
 
+    private List<PNJData> PNJDataPoolList;
+    private List<PNJData> PNJDataUsedList = new List<PNJData>();
+
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
 
     public bool HasEnoughtPNJ => PNJList.Count >= targetNumberPnj;
@@ -33,6 +36,7 @@ public class PNJManager : MonoBehaviour
     {
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
+        PNJDataPoolList = new List<PNJData>(basePool.PNJPoolList);
     }
 
     private void Update()
@@ -53,7 +57,17 @@ public class PNJManager : MonoBehaviour
     {
         PNJBrain PNJ = Instantiate(PnjPrefab).GetComponent<PNJBrain>();
         PNJ.transform.position = PnjSpawnOutside;
-        PNJ.Setup(basePool.PNJPoolList.GetRandomElement());
+
+        PNJData data = PNJDataPoolList.GetRandomElement();
+        PNJDataPoolList.Remove(data);
+        PNJDataUsedList.Add(data);
+
+        if (PNJDataPoolList.Count <= 0)
+        {
+            PNJDataPoolList.AddRange(PNJDataUsedList);
+        }
+
+        PNJ.Setup(data);
     }
 
     public void AddPnj (PNJBrain pnj)

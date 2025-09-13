@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CraftingView : UIView
@@ -22,10 +23,29 @@ public class CraftingView : UIView
 
     private List<Item> selectedItems = new List<Item>();
     private List<ItemUI> selectionSlotsUI = new List<ItemUI>();
+    private Canvas canvas;
 
     public bool CanAdd => selectedItems.Count < 3;
 
     public CraftingTable CurrentCraftingTable { get; set; }
+
+    private void Start()
+    {
+        canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
+
+        managerRefs.InputManager.Actions.UI.Cancel.performed += OnCancelPerformed;
+    }
+
+    private void OnDestroy()
+    {
+        managerRefs.InputManager.Actions.UI.Cancel.performed -= OnCancelPerformed;
+    }
+
+    private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
+    }
 
     public override void Toggle(bool isOn)
     {
@@ -39,6 +59,11 @@ public class CraftingView : UIView
                 itemScript.Setup(item.Key, this, item.Value);
                 itemScript.transform.SetParent(itemHolder, false);
                 selectionSlotsUI.Add(itemScript);
+            }
+
+            if (selectionSlotsUI.Count > 0)
+            {
+                EventSystem.current.SetSelectedGameObject(selectionSlotsUI[0].gameObject);
             }
         }
         else
@@ -75,9 +100,9 @@ public class CraftingView : UIView
 
     public void ValidateCrafting ()
     {
-        managerRefs.UIManager.ToggleMiniGameView(true, CurrentCraftingTable, transform.position);
         managerRefs.CraftingManager.ConsumeItems(selectedItems);
         managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
+        managerRefs.UIManager.ToggleMiniGameView(true, CurrentCraftingTable, transform.position);
     }
 
     public void OnItemClick (Item item, ItemUI itemUi)

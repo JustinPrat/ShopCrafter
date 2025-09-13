@@ -49,6 +49,9 @@ public class UIManager : MonoBehaviour
 
         craftedStatViewInstance = Instantiate(craftedStatViewPrefab).GetComponent<CraftedStatView>();
         craftedStatViewInstance.gameObject.SetActive(false);
+
+        managerRefs.InputManager.Actions.UI.Validate.Disable();
+        managerRefs.InputManager.Actions.UI.Remove.Disable();
     }
 
     public void ToggleCraftingView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
@@ -60,10 +63,14 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             managerRefs.InputManager.SetActionType(false, false, true);
+            managerRefs.InputManager.Actions.UI.Validate.Enable();
+            managerRefs.InputManager.Actions.UI.Remove.Enable();
         }
         else
         {
             managerRefs.InputManager.SetActionType(true, true, true);
+            managerRefs.InputManager.Actions.UI.Validate.Disable();
+            managerRefs.InputManager.Actions.UI.Remove.Disable();
         }
     }
 
@@ -104,10 +111,14 @@ public class UIManager : MonoBehaviour
         {
             shopViewInstance.Setup(sellingItems, pnjBehaviour);
             managerRefs.InputManager.Actions.Player.Disable();
+            managerRefs.InputManager.Actions.UI.Validate.Enable();
+            managerRefs.InputManager.Actions.UI.Remove.Enable();
         }
         else
         {
             managerRefs.InputManager.Actions.Player.Enable();
+            managerRefs.InputManager.Actions.UI.Validate.Disable();
+            managerRefs.InputManager.Actions.UI.Remove.Disable();
         }
     }
 
