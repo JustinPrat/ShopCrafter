@@ -19,13 +19,17 @@ public class ItemShopUI : MonoBehaviour
     private TextMeshProUGUI itemNumber;
 
     [SerializeField]
-    private Button buttonBuy;
+    private AdvancedButton buttonBuy;
+
+    [SerializeField]
+    private CanvasGroup buttonCanvasGroup;
 
     [SerializeField]
     private ManagerRefs managerRefs;
 
     public Action<SellingItem, ItemShopUI> OnItemBuy;
-
+    public AdvancedButton BuyButton => buttonBuy;
+    
     private SellingItem currentSellingItem;
 
     public void Setup (SellingItem sellingItem)
@@ -38,10 +42,10 @@ public class ItemShopUI : MonoBehaviour
 
         if (managerRefs.SellManager.CoinAmount < currentSellingItem.priceEach)
         {
-            buttonBuy.enabled = false;
+            buttonCanvasGroup.alpha = 0.5f;
         }
 
-        buttonBuy.onClick.AddListener(OnItemClick);
+        buttonBuy.OnLeftClick.AddListener(OnItemClick);
     }
 
     private void OnItemClick ()
@@ -56,12 +60,12 @@ public class ItemShopUI : MonoBehaviour
 
         if (currentSellingItem.amount <= 0)
         {
-            buttonBuy.enabled = false;
+            buttonCanvasGroup.alpha = 0.5f;
         }
     }
 
     public void UpdateCoinAmount ()
     {
-        buttonBuy.enabled = managerRefs.SellManager.CoinAmount >= currentSellingItem.priceEach && currentSellingItem.amount > 0;
+        buttonCanvasGroup.alpha = managerRefs.SellManager.CoinAmount >= currentSellingItem.priceEach && currentSellingItem.amount > 0 ? 1f : 0.5f;
     }
 }

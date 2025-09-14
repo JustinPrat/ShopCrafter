@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AnswerUIButton : MonoBehaviour
 {
-    [SerializeField] private Button button;
+    [SerializeField] private AdvancedButton button;
     [SerializeField] private TextMeshProUGUI textUI;
 
     private Answer currentAnswer;
@@ -16,8 +16,8 @@ public class AnswerUIButton : MonoBehaviour
     {
         textUI.text = answer.Line;
         currentAnswer = answer;
-        button.onClick.RemoveListener(OnClick);
-        button.onClick.AddListener(OnClick);
+        button.OnLeftClick.RemoveListener(OnClick);
+        button.OnLeftClick.AddListener(OnClick);
     }
 
     private void OnClick ()
@@ -27,6 +27,6 @@ public class AnswerUIButton : MonoBehaviour
 
     private void OnDestroy()
     {
-        button.onClick.RemoveAllListeners();
+        button.OnLeftClick.RemoveAllListeners();
     }
 }

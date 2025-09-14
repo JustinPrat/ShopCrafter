@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,70 +58,84 @@ public class UIManager : MonoBehaviour
 
     public void ToggleCraftingView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
     {
-        craftingViewInstance.CurrentCraftingTable = craftingTable;
-        craftingViewInstance.Toggle(isOn);
-        craftingViewInstance.transform.position = pos + 1f * Vector3.up;
+        ExecuteAfterOneFrame(() =>
+        {
+            craftingViewInstance.CurrentCraftingTable = craftingTable;
+            craftingViewInstance.Toggle(isOn);
+            craftingViewInstance.transform.position = pos + 1f * Vector3.up;
 
-        if (isOn)
-        {
-            managerRefs.InputManager.SetActionType(false, false, true);
-            managerRefs.InputManager.Actions.UI.Validate.Enable();
-            managerRefs.InputManager.Actions.UI.Remove.Enable();
-        }
-        else
-        {
-            managerRefs.InputManager.SetActionType(true, true, true);
-            managerRefs.InputManager.Actions.UI.Validate.Disable();
-            managerRefs.InputManager.Actions.UI.Remove.Disable();
-        }
+            if (isOn)
+            {
+                managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.UI.Remove.Enable();
+            }
+            else
+            {
+                managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Validate.Disable();
+                managerRefs.InputManager.Actions.UI.Remove.Disable();
+            }
+        });
     }
 
     public void ToggleMiniGameView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
     {
-        miniGameViewInstance.CurrentCraftingTable = craftingTable;
-        miniGameViewInstance.Toggle(isOn);
-        miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
+        ExecuteAfterOneFrame(() =>
+        {
+            miniGameViewInstance.CurrentCraftingTable = craftingTable;
+            miniGameViewInstance.Toggle(isOn);
+            miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
 
-        if (isOn)
-        {
-            managerRefs.InputManager.SetActionType(false, false, true);
-        }
-        else
-        {
-            managerRefs.InputManager.SetActionType(true, true, true);
-        }
+            if (isOn)
+            {
+                managerRefs.InputManager.SetActionType(false, false, true);
+            }
+            else
+            {
+                managerRefs.InputManager.SetActionType(true, true, true);
+            }
+        });
     }
 
     public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJBehaviour pnjBehaviour = null)
     {
-        dialogueViewInstance.Toggle(isOn);
-        if (isOn)
+        ExecuteAfterOneFrame(() =>
         {
-            dialogueViewInstance.Setup(firstData, pnjBehaviour);
-            managerRefs.InputManager.SetActionType(false, false, true);
-        }
-        else
-        {
-            managerRefs.InputManager.SetActionType(true, true, true);
-        }
+            dialogueViewInstance.Toggle(isOn);
+            if (isOn)
+            {
+                dialogueViewInstance.Setup(firstData, pnjBehaviour);
+                managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Validate.Enable();
+            }
+            else
+            {
+                managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Validate.Disable();
+            }
+        });
     }
 
     public void ToggleShopView (bool isOn, List<SellingItem> sellingItems = null, PNJBehaviour pnjBehaviour = null)
     {
-        shopViewInstance.Toggle(isOn);
-        if (isOn)
+        ExecuteAfterOneFrame(() =>
         {
-            shopViewInstance.Setup(sellingItems, pnjBehaviour);
-            managerRefs.InputManager.Actions.Player.Disable();
-            managerRefs.InputManager.Actions.UI.Validate.Enable();
-            managerRefs.InputManager.Actions.UI.Remove.Enable();
-        }
-        else
-        {
-            managerRefs.InputManager.Actions.Player.Enable();
-            managerRefs.InputManager.Actions.UI.Validate.Disable();
-            managerRefs.InputManager.Actions.UI.Remove.Disable();
-        }
+            shopViewInstance.Toggle(isOn);
+            if (isOn)
+            {
+                shopViewInstance.Setup(sellingItems, pnjBehaviour);
+                managerRefs.InputManager.Actions.Player.Disable();
+                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.UI.Remove.Enable();
+            }
+            else
+            {
+                managerRefs.InputManager.Actions.Player.Enable();
+                managerRefs.InputManager.Actions.UI.Validate.Disable();
+                managerRefs.InputManager.Actions.UI.Remove.Disable();
+            }
+        });
     }
 
     public void ToggleCraftedStatView (bool isOn, CraftedObjectData craftedObjectData = null, Vector3 pos = new Vector3())
@@ -130,5 +146,15 @@ public class UIManager : MonoBehaviour
         {
             craftedStatViewInstance.Setup(craftedObjectData, pos);
         }
+    }
+    public void ExecuteAfterOneFrame(System.Action actionToExecute)
+    {
+        StartCoroutine(ExecuteActionAfterOneFrameCoroutine(actionToExecute));
+    }
+
+    private IEnumerator ExecuteActionAfterOneFrameCoroutine(System.Action actionToExecute)
+    {
+        yield return new WaitForEndOfFrame();
+        actionToExecute?.Invoke();
     }
 }

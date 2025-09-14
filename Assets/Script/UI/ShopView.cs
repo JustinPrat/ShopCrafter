@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ShopView : UIView
@@ -22,6 +23,16 @@ public class ShopView : UIView
 
     private List<ItemShopUI> itemSellingInstantiated = new List<ItemShopUI>();
 
+    private void Awake()
+    {
+        managerRefs.InputManager.Actions.UI.Cancel.started += OnCancel;
+    }
+
+    private void OnDestroy()
+    {
+        managerRefs.InputManager.Actions.UI.Cancel.started -= OnCancel;
+    }
+
     public void Setup (List<SellingItem> sellingItems, PNJBehaviour pnjBehaviour)
     {
         for (int i = itemContainer.childCount -1; i >= 0; i--)
@@ -40,8 +51,18 @@ public class ShopView : UIView
             itemShopUI.OnItemBuy += pnjBehaviour.OnItemBuy;
         }
 
+        if (itemSellingInstantiated.Count > 0)
+        {
+            EventSystem.current.SetSelectedGameObject(itemSellingInstantiated[0].BuyButton.gameObject);
+        }
+
         portrait.sprite = pnjBehaviour.PNJData.Portrait;
         coinAmountText.text = managerRefs.SellManager.CoinAmount.ToString();
+    }
+
+    private void OnCancel(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        CloseShop();
     }
 
     private void OnItemBuy (SellingItem clickedItem, ItemShopUI itemShopUI)

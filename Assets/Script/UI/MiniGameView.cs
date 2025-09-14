@@ -103,6 +103,7 @@ public class MiniGameView : UIView
 
     private void EndGame ()
     {
+        tierCount = 0;
         CurrentCraftingTable.SpawnCraftedItem(craftedObjectRecipe, items, tierCount);
         managerRefs.UIManager.ToggleMiniGameView(false, CurrentCraftingTable);
     }

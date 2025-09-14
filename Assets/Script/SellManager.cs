@@ -9,6 +9,9 @@ public class SellManager : MonoBehaviour
     [SerializeField] 
     private ManagerRefs managerRefs;
 
+    [SerializeField]
+    private int baseMoney;
+
     public List<SellSlot> SellSlots = new List<SellSlot>();
     public List<SellSlot> SellingSlots = new List<SellSlot>();
 
@@ -20,6 +23,7 @@ public class SellManager : MonoBehaviour
     private void Awake()
     {
         managerRefs.SellManager = this;
+        coinAmount = baseMoney;
     }
 
     [Button]

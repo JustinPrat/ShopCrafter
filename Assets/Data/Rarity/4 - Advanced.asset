@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4 - Advanced
   m_EditorClassIdentifier: 
   ERarity: 3
-  RarityIcon: {fileID: 0}
-  RarityColor: {r: 0, g: 0, b: 0, a: 0}
+  RarityIcon: {fileID: 21300000, guid: c72606045a6389246ac9ef2301500a45, type: 3}
+  RarityColor: {r: 1, g: 0.65787435, b: 0, a: 1}
   RarityName: Advanced
   RarityDescription: 

@@ -55,7 +55,7 @@ public class CraftedObjectData
 
     public void FindRarity (List<Item> items, int boostNumber)
     {
-        ERarity minRarity = Enum.GetValues(typeof(ERarity)).Cast<ERarity>().Last();
+        ERarity minRarity = Enum.GetValues(typeof(ERarity)).Cast<ERarity>().First();
         foreach (Item item in items)
         {
             if (item.RarityInfos.ERarity < minRarity)

@@ -508,6 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  baseMoney: 30
   SellSlots:
   - {fileID: 1080099437}
   - {fileID: 1086043889}
@@ -818,6 +819,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 874815541}
     m_Modifications:
+    - target: {fileID: 2598970479186191324, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: c6bc95b2fe3700e46b3d5924e9e43515, type: 3}
     - target: {fileID: 7145707793421979735, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
       propertyPath: m_Name
       value: SellSlot
@@ -891,6 +896,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 874815541}
     m_Modifications:
+    - target: {fileID: 2598970479186191324, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: c6bc95b2fe3700e46b3d5924e9e43515, type: 3}
     - target: {fileID: 7145707793421979735, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
       propertyPath: m_Name
       value: SellSlot (1)
@@ -1160,6 +1169,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 874815541}
     m_Modifications:
+    - target: {fileID: 2598970479186191324, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: c6bc95b2fe3700e46b3d5924e9e43515, type: 3}
     - target: {fileID: 7145707793421979735, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
       propertyPath: m_Name
       value: SellSlot (3)
@@ -1444,6 +1457,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 874815541}
     m_Modifications:
+    - target: {fileID: 2598970479186191324, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: c6bc95b2fe3700e46b3d5924e9e43515, type: 3}
     - target: {fileID: 7145707793421979735, guid: b04200dd22d7a0c46b0b53a8ea2318ab, type: 3}
       propertyPath: m_Name
       value: SellSlot (2)
@@ -1731,22 +1748,8 @@ MonoBehaviour:
   __alchemySerializationData_CraftingManager:
     itemInventory:
       isCreated: 1
-      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": 3\n    },\n    {\n       
-        \"Key\": 1,\n        \"Value\": 2\n    },\n    {\n        \"Key\": 2,\n       
-        \"Value\": 1\n    },\n    {\n        \"Key\": 3,\n        \"Value\": 45\n   
-        },\n    {\n        \"Key\": 4,\n        \"Value\": 1\n    },\n    {\n       
-        \"Key\": 5,\n        \"Value\": 2\n    },\n    {\n        \"Key\": 6,\n       
-        \"Value\": 1\n    },\n    {\n        \"Key\": 7,\n        \"Value\": 5\n   
-        }\n]"
-    unityObjectReferences:
-    - {fileID: 11400000, guid: 5c8d64f49458e914b8764c3591cfaea4, type: 2}
-    - {fileID: 11400000, guid: 84c8079fffa397640a20844fffeb4c30, type: 2}
-    - {fileID: 11400000, guid: 4ea713ee766b7b3479af8a820ed81661, type: 2}
-    - {fileID: 11400000, guid: 94cd2ef01e48f9e45ac9162ce0738673, type: 2}
-    - {fileID: 11400000, guid: a23cc05a44ae5664eb417ab9f683bcaa, type: 2}
-    - {fileID: 11400000, guid: 98f9fe9c61bab56449d102a1e44c6c84, type: 2}
-    - {fileID: 11400000, guid: b7831ce8ca6af9648afed436d6e3b0dd, type: 2}
-    - {fileID: 11400000, guid: b538e007ab339a14a96e955f9a705853, type: 2}
+      data: '[]'
+    unityObjectReferences: []
 --- !u!1 &1906128761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,9 +1915,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2482462683523697598, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482462683523697598, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482462683523697598, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482462683523697598, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2732015029319344982, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4980631292201026227, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7899897430170006716, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
       propertyPath: m_LocalPosition.x

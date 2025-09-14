@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPEffects.Components;
 using TMPEffects.TMPEvents;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -35,6 +37,8 @@ public class DialogueView : UIView
     private int currentDialogueIndex;
     private List<AnswerUIButton> answerUIButtons = new List<AnswerUIButton>();
 
+    private bool hisAsking = false;
+
     public void Setup (DialogueData dialogueData, PNJBehaviour pnjBehaviour)
     {
         currentDialogue = dialogueData;
@@ -62,6 +66,9 @@ public class DialogueView : UIView
 
     private void OnNextDialogueStarted (InputAction.CallbackContext ctx)
     {
+        if (hisAsking)
+            return;
+
         NextLine();
     }
 
@@ -72,12 +79,22 @@ public class DialogueView : UIView
 
     private void StartDialogue ()
     {
+        hisAsking = false;
+
         currentDialogueIndex = 0;
         textAnimator.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
+
+        for (int i = answerUIButtons.Count - 1; i > 0; i--)
+        {
+            Destroy(answerUIButtons[i].gameObject);
+        }
+
+        answerUIButtons.Clear();
     }
 
     private void AskQuestion ()
     {
+        hisAsking = true;
         for (int i = 0; i < currentDialogue.Answers.Count; i++)
         {
             AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
@@ -86,6 +103,16 @@ public class DialogueView : UIView
 
             answerUIButtons.Add(answer);
         }
+
+        StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
+    }
+
+    private IEnumerator SelectButtonAfterFrame(GameObject gameObject)
+    {
+        yield return new WaitForEndOfFrame();
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(gameObject);
     }
 
     private void ChooseAnswer (Answer selectedAnswer)
@@ -107,11 +134,7 @@ public class DialogueView : UIView
 
         if (currentDialogueIndex > currentDialogue.Lines.Count - 1)
         {
-            if (currentDialogue.HasQuestion)
-            {
-                AskQuestion();
-            }
-            else if (currentDialogue.HasNextDialogue)
+            if (currentDialogue.HasNextDialogue)
             {
                 currentDialogue = currentDialogue.NextDialogue;
                 StartDialogue();
@@ -123,6 +146,14 @@ public class DialogueView : UIView
         }
         else
         {
+            if (currentDialogueIndex >= currentDialogue.Lines.Count - 1)
+            {
+                if (currentDialogue.HasQuestion)
+                {
+                    AskQuestion();
+                }
+            }
+
             textAnimator.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
         }
     }
