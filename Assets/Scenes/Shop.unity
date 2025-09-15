@@ -1160,7 +1160,11 @@ MonoBehaviour:
   pnjSpawnOutside: {fileID: 956923802}
   targetNumberPnj: 1
   waitBeforeSpawnPNJ: 5
-  basePool: {fileID: 11400000, guid: d544c488011dcf9409022b84c0b354af, type: 2}
+  pnjPoolList:
+  - minCraft: 0
+    pnjPool: {fileID: 11400000, guid: d544c488011dcf9409022b84c0b354af, type: 2}
+  - minCraft: 3
+    pnjPool: {fileID: 11400000, guid: db798086ae5ceaa468c4bd9949243e7e, type: 2}
 --- !u!1001 &1266116670
 PrefabInstance:
   m_ObjectHideFlags: 0

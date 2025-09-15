@@ -14,6 +14,9 @@ public class DialogueView : UIView
     [SerializeField]
     private TextMeshProUGUI textHolder;
 
+    [SerializeField] 
+    private TextMeshProUGUI textName;
+
     [SerializeField]
     private TMPWriter textWriter;
 
@@ -45,6 +48,7 @@ public class DialogueView : UIView
         currentPNJ = pnjBehaviour;
 
         portrait.sprite = currentPNJ.PNJData.Portrait;
+        textName.text = currentPNJ.PNJData.Name;
         StartDialogue();
 
         textWriter.OnTextEvent.AddListener(OnTextEvent);

@@ -100,9 +100,12 @@ public class CraftingView : UIView
 
     public void ValidateCrafting ()
     {
-        managerRefs.CraftingManager.ConsumeItems(selectedItems);
-        managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
-        managerRefs.UIManager.ToggleMiniGameView(true, CurrentCraftingTable, transform.position);
+        if (selectedItems.Count > 0)
+        {
+            managerRefs.CraftingManager.ConsumeItems(selectedItems);
+            managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
+            managerRefs.UIManager.ToggleMiniGameView(true, CurrentCraftingTable, transform.position);
+        }
     }
 
     public void OnItemClick (Item item, ItemUI itemUi)

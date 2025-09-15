@@ -24,6 +24,10 @@ public partial class CraftingManager : MonoBehaviour
     [SerializeField]
     private BasePrices basePrices;
 
+    private int numberItemCrafted;
+
+    public event Action<int> OnItemCraft;
+
     public Dictionary<Item, int> ItemInventory => itemInventory;
     public RarityHierarchy RarityHierarchy => rarityHierarchy;
     public CraftedObject CraftedObjectPrefab => craftedObjectPrefab;
@@ -76,5 +80,11 @@ public partial class CraftingManager : MonoBehaviour
     public CraftedObjectRecipe PoolCraftedItem(List<Item> items)
     {
         return currentCraftedObjectPool.FindCraftableRecipe(items);
+    }
+
+    public void OnItemCrafted ()
+    {
+        numberItemCrafted++;
+        OnItemCraft?.Invoke(numberItemCrafted);
     }
 }

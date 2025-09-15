@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,10 +20,10 @@ public class PNJManager : MonoBehaviour
     private float waitBeforeSpawnPNJ;
     
     [SerializeField]
-    private PNJPool basePool;
+    private List<PNJPoolElement> pnjPoolList;
 
     private List<PNJBrain> PNJList;
-
+    private int currentPoolIndex;
     private float waitPNJCounter;
 
     private List<PNJData> PNJDataPoolList;
@@ -32,11 +33,55 @@ public class PNJManager : MonoBehaviour
 
     public bool HasEnoughtPNJ => PNJList.Count >= targetNumberPnj;
 
+    [Serializable]
+    private struct PNJPoolElement
+    {
+        public int minCraft;
+        public PNJPool pnjPool;
+    }
+
+    private int PoolListCompare (PNJPoolElement a, PNJPoolElement b)
+    {
+        if (a.minCraft < b.minCraft)
+        {
+            return -1;
+        }
+        else if (a.minCraft == b.minCraft)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        pnjPoolList.Sort(PoolListCompare);
+    }
+#endif
+
     private void Awake()
     {
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
-        PNJDataPoolList = new List<PNJData>(basePool.PNJPoolList);
+        PNJDataPoolList = new List<PNJData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+    }
+
+    private void Start()
+    {
+        managerRefs.CraftingManager.OnItemCraft += OnItemCraft;
+    }
+
+    private void OnItemCraft(int number)
+    {
+        if (pnjPoolList[currentPoolIndex].minCraft < number && currentPoolIndex < pnjPoolList.Count -1)
+        {
+            currentPoolIndex += 1;
+            PNJDataPoolList = new List<PNJData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+        }
     }
 
     private void Update()
