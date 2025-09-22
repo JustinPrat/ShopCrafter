@@ -57,7 +57,7 @@ public class Interaction : MonoBehaviour
             interactableInSight.OnInteractRange(playerBrain);
         }
 
-        if (interactableInSight == null)
+        if (interactableInSight == null || !interactableInSight.CanInteract(playerBrain) || !managerRefs.InputManager.Actions.Player.Interact.enabled)
         {
             if (iconHolder.gameObject.activeInHierarchy)
             {

@@ -445,6 +445,7 @@ MonoBehaviour:
   tierList: {fileID: 11400000, guid: 960f516ccb57769468623337f7f8fb02, type: 2}
   targetPrefab: {fileID: 1242816745120479153, guid: 66c122b286bfc1d4199972421388ef9c, type: 3}
   debugInfos: {fileID: 8487141095842038036}
+  itemImage: {fileID: 877120159730752577}
   rangeSpawn: {x: 0.2, y: 0.8}
 --- !u!225 &587664530065935704
 CanvasGroup:

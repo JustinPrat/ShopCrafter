@@ -62,7 +62,10 @@ public class ShopView : UIView
 
     private void OnCancel(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        CloseShop();
+        if (gameObject.activeInHierarchy)
+        {
+            CloseShop();
+        }
     }
 
     private void OnItemBuy (SellingItem clickedItem, ItemShopUI itemShopUI)

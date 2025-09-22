@@ -26,7 +26,7 @@ public class SellSlot : MonoBehaviour, IInteractable
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        return playerBrain.HasItem;
+        return playerBrain.HasItem && !IsSelling;
     }
 
     public void DoInteract(PlayerBrain playerBrain)

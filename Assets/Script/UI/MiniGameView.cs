@@ -28,6 +28,9 @@ public class MiniGameView : UIView
     [SerializeField]
     private TextMeshProUGUI debugInfos;
 
+    [SerializeField]
+    private Image itemImage;
+
     [SerializeField, Blockquote("Entre 0 (gauche) et 1 (droite), définit la range pour la target")]
     private Vector2 rangeSpawn;
 
@@ -81,6 +84,8 @@ public class MiniGameView : UIView
         craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items);
         toCraftItemHolder.Setup(craftedObjectRecipe);
         toCraftItemHolder.ValidateButton.onClick.AddListener(OnItemClick);
+
+        itemImage.sprite = craftedObjectRecipe.CraftedSprite;
 
         SetupTarget();
         currentSpeed = tierList.Tiers[tierCount].TierSpeed;

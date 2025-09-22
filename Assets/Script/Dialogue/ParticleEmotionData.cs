@@ -14,6 +14,7 @@ public class ParticleEmotionData : EmotionData
 public class ParticleEmotionBehaviour : EmotionBehaviour
 {
     protected ParticleEmotionData emotionData;
+    protected ParticleSystem psInstance;
 
     public ParticleEmotionBehaviour(ParticleEmotionData emotionData) : base(emotionData)
     {
