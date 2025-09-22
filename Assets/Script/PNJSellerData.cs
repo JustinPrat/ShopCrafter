@@ -48,6 +48,24 @@ public class PNJSellerBehaviour : PNJRandomBehaviour
     public override void OnItemBuy(SellingItem clickedItem, ItemShopUI itemShopUI)
     {
         base.OnItemBuy(clickedItem, itemShopUI);
-        sellingItems.Remove(clickedItem);
+        for (int i = sellingItems.Count - 1; i >= 0; i--)
+        {
+            SellingItem item = sellingItems[i];
+
+            if (item.item == clickedItem.item)
+            {
+                item.amount -= 1;
+                if (item.amount <= 0)
+                {
+                    sellingItems.Remove(item);
+                }
+                else
+                {
+                    sellingItems[i] = item;
+                }
+
+                break;
+            }
+        }
     }
 }
