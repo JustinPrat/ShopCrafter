@@ -67,6 +67,14 @@ public class Book : MonoBehaviour {
     //current flip mode
     FlipMode mode;
 
+    public VerticalLayoutGroup LeftLayout;
+    public VerticalLayoutGroup LeftNextLayout;
+    public VerticalLayoutGroup RightLayout;
+    public VerticalLayoutGroup RightNextLayout;
+
+    public UnityEvent OnRightDrag;
+    public UnityEvent OnLeftDrag;
+
     void Start()
     {
         if (!canvas) canvas=GetComponentInParent<Canvas>();
@@ -276,6 +284,9 @@ public class Book : MonoBehaviour {
     }
     public void DragRightPageToPoint(Vector3 point)
     {
+        Debug.Log("Start dragging right page");
+        OnRightDrag?.Invoke();
+
         if (currentPage >= bookPages.Length) return;
         pageDragging = true;
         mode = FlipMode.RightToLeft;

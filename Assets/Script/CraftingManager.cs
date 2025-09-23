@@ -26,16 +26,18 @@ public partial class CraftingManager : MonoBehaviour
 
     private int numberItemCrafted;
 
-    public event Action<int> OnItemCraft;
+    private List<CraftedObjectRecipe> craftedRecipes = new List<CraftedObjectRecipe>();
 
+    public event Action<int> OnItemCraft;
     public Dictionary<Item, int> ItemInventory => itemInventory;
     public RarityHierarchy RarityHierarchy => rarityHierarchy;
     public CraftedObject CraftedObjectPrefab => craftedObjectPrefab;
     public BasePrices BasePrices => basePrices;
 
     public Action<List<Item>> OnItemsConsumed;
+    public List<CraftedObjectRecipe> CraftedRecipes => craftedRecipes;
+    public CraftedObjectPool CurrentCraftedObjectPool => currentCraftedObjectPool;
 
-    private List<CraftedObjectRecipe> craftedRecipes = new List<CraftedObjectRecipe>();
 
     private void Awake()
     {
