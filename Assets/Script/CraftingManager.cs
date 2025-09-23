@@ -35,6 +35,8 @@ public partial class CraftingManager : MonoBehaviour
 
     public Action<List<Item>> OnItemsConsumed;
 
+    private List<CraftedObjectRecipe> craftedRecipes = new List<CraftedObjectRecipe>();
+
     private void Awake()
     {
         managerRefs.CraftingManager = this;
@@ -79,7 +81,13 @@ public partial class CraftingManager : MonoBehaviour
 
     public CraftedObjectRecipe PoolCraftedItem(List<Item> items)
     {
-        return currentCraftedObjectPool.FindCraftableRecipe(items);
+        CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items);
+        if (!craftedRecipes.Contains(recipe))
+        {
+            craftedRecipes.Add(recipe);
+        }
+
+        return recipe;
     }
 
     public void OnItemCrafted ()
