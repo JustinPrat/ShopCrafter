@@ -2,9 +2,11 @@ using Alchemy.Inspector;
 using Alchemy.Serialization;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class SellManager : MonoBehaviour
+[AlchemySerialize]
+public partial class SellManager : MonoBehaviour
 {
     [SerializeField] 
     private ManagerRefs managerRefs;
@@ -12,10 +14,37 @@ public class SellManager : MonoBehaviour
     [SerializeField]
     private int baseMoney;
 
+    [SerializeField]
+    private int numberToTakeForPriceVariation;
+
+    [NonSerialized, AlchemySerializeField]
+    private Dictionary<ECraftedType, PriceVariation> priceVariations;
+
+    [SerializeField]
+    private float timeBeforePriceVariation;
+
     public List<SellSlot> SellSlots = new List<SellSlot>();
     public List<SellSlot> SellingSlots = new List<SellSlot>();
 
     private int coinAmount;
+    private Queue<ECraftedType> priceVariationLastTypes = new Queue<ECraftedType>();
+
+    private float nextTimePriceVariation;
+
+    private void OnValidate()
+    {
+        EditorUtility.SetDirty(this);
+    }
+
+    private class PriceVariation
+    {
+        public float minVariationPercent;
+        public float maxVariationPercent;
+        public float percentDecreasePerCraft;
+
+        public float currentPricePercent { get; set; }
+        public int currentCraftedCount { get; set; }
+    }
 
     [ShowInInspector]
     public int CoinAmount => coinAmount;
@@ -38,6 +67,12 @@ public class SellManager : MonoBehaviour
     {
         SellSlots.Remove(sellSlot);
         SellingSlots.Add(sellSlot);
+
+        if (priceVariationLastTypes.Count >= numberToTakeForPriceVariation)
+        {
+            priceVariationLastTypes.Dequeue();
+            priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedObjectData.CraftedObjectRecipe.CraftedType);
+        }
     }
 
     public void OnItemRemoved (SellSlot sellSlot)
@@ -65,6 +100,30 @@ public class SellManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void Update()
+    {
+        if (Time.time >= nextTimePriceVariation)
+        {
+            nextTimePriceVariation = Time.time + timeBeforePriceVariation;
+
+            foreach (ECraftedType variationType in priceVariationLastTypes)
+            {
+                priceVariations[variationType].currentCraftedCount += 1;
+            }
+
+            foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
+            {
+                priceVariation.Value.currentPricePercent = UnityEngine.Random.Range(priceVariation.Value.minVariationPercent, priceVariation.Value.maxVariationPercent);
+                priceVariation.Value.currentPricePercent -= priceVariation.Value.percentDecreasePerCraft * priceVariation.Value.currentCraftedCount;
+            }
+
+            foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
+            {
+                priceVariation.Value.currentCraftedCount = 0;
+            }
+        }
     }
 
     public SellSlot GetRandomSellSlot ()

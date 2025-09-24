@@ -11,6 +11,7 @@ public class CraftedObject : MonoBehaviour, IInteractable
 
     Sprite IInteractable.InteractIcon => icon;
     public int Price => craftedObjectData.GetPrice();
+    public CraftedObjectData CraftedObjectData => craftedObjectData;
 
     public CraftedObjectData CraftedData => craftedObjectData;
 
