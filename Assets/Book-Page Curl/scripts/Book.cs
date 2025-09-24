@@ -74,6 +74,8 @@ public class Book : MonoBehaviour {
 
     public UnityEvent OnRightDrag;
     public UnityEvent OnLeftDrag;
+    public UnityEvent OnFinishFlip;
+    public UnityEvent OnAbortFlip;
 
     void Start()
     {
@@ -284,7 +286,6 @@ public class Book : MonoBehaviour {
     }
     public void DragRightPageToPoint(Vector3 point)
     {
-        Debug.Log("Start dragging right page");
         OnRightDrag?.Invoke();
 
         if (currentPage >= bookPages.Length) return;
@@ -318,10 +319,12 @@ public class Book : MonoBehaviour {
     {
         if (interactable)
         DragRightPageToPoint(transformPoint(Input.mousePosition));
-        
     }
+
     public void DragLeftPageToPoint(Vector3 point)
     {
+        OnLeftDrag?.Invoke();
+
         if (currentPage <= 0) return;
         pageDragging = true;
         mode = FlipMode.LeftToRight;
@@ -405,6 +408,8 @@ public class Book : MonoBehaviour {
         ShadowLTR.gameObject.SetActive(false);
         if (OnFlip != null)
             OnFlip.Invoke();
+
+        OnFinishFlip?.Invoke();
     }
     public void TweenBack()
     {
@@ -420,6 +425,8 @@ public class Book : MonoBehaviour {
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
+
+                    OnAbortFlip?.Invoke();
                 }
                 ));
         }
@@ -436,6 +443,8 @@ public class Book : MonoBehaviour {
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
+
+                    OnAbortFlip?.Invoke();
                 }
                 ));
         }

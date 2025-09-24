@@ -24,6 +24,9 @@ public class UIManager : MonoBehaviour
     private GameObject craftedStatViewPrefab;
 
     [SerializeField]
+    private GameObject encyclopedieViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -31,6 +34,7 @@ public class UIManager : MonoBehaviour
     private DialogueView dialogueViewInstance;
     private ShopView shopViewInstance;
     private CraftedStatView craftedStatViewInstance;
+    private EncyclopedieView encyclopedieViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -52,8 +56,28 @@ public class UIManager : MonoBehaviour
         craftedStatViewInstance = Instantiate(craftedStatViewPrefab).GetComponent<CraftedStatView>();
         craftedStatViewInstance.gameObject.SetActive(false);
 
+        encyclopedieViewInstance = Instantiate(encyclopedieViewPrefab, canvas.transform).GetComponent<EncyclopedieView>();
+        encyclopedieViewInstance.gameObject.SetActive(false);
+
         managerRefs.InputManager.Actions.UI.Validate.Disable();
         managerRefs.InputManager.Actions.UI.Remove.Disable();
+    }
+
+    public void ToggleEncyclopedieView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            encyclopedieViewInstance.Toggle(isOn);
+
+            if (isOn)
+            {
+                managerRefs.InputManager.SetActionType(false, false, false);
+            }
+            else
+            {
+                managerRefs.InputManager.SetActionType(true, true, true);
+            }
+        });
     }
 
     public void ToggleCraftingView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())

@@ -111,11 +111,11 @@ PrefabInstance:
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: LeftLayout
       value: 
-      objectReference: {fileID: 7558931426092283064}
+      objectReference: {fileID: 4461804694647758584}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: RightLayout
       value: 
-      objectReference: {fileID: 4461804694647758584}
+      objectReference: {fileID: 7558931426092283064}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: LeftNextLayout
       value: 
