@@ -49,8 +49,7 @@ public class CraftedObjectData
 
     public int GetPrice()
     {
-        // eventualy add price market variation
-        return basePrice;
+        return (int) (basePrice * (managerRefs.SellManager.PriceVariations[craftedObjectRecipe.CraftedType].currentPricePercent / 100f));
     }
 
     public void FindRarity (List<Item> items, int boostNumber)

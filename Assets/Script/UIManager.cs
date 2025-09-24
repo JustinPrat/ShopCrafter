@@ -26,6 +26,9 @@ public class UIManager : MonoBehaviour
     private GameObject encyclopedieViewPrefab;
 
     [SerializeField]
+    private GameObject priceCheckViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -34,6 +37,7 @@ public class UIManager : MonoBehaviour
     private ShopView shopViewInstance;
     private CraftedStatView craftedStatViewInstance;
     private EncyclopedieView encyclopedieViewInstance;
+    private PriceCheckView priceCheckViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -57,6 +61,9 @@ public class UIManager : MonoBehaviour
 
         encyclopedieViewInstance = Instantiate(encyclopedieViewPrefab, canvas.transform).GetComponent<EncyclopedieView>();
         encyclopedieViewInstance.gameObject.SetActive(false);
+
+        priceCheckViewInstance = Instantiate(priceCheckViewPrefab).GetComponent<PriceCheckView>();
+        priceCheckViewInstance.gameObject.SetActive(false);
 
         managerRefs.InputManager.Actions.UI.Validate.Disable();
         managerRefs.InputManager.Actions.UI.Remove.Disable();
@@ -170,6 +177,17 @@ public class UIManager : MonoBehaviour
             craftedStatViewInstance.Setup(craftedObjectData, pos);
         }
     }
+
+    public void TogglePriceCheckView (bool isOn, Vector3 pos = new Vector3())
+    {
+        priceCheckViewInstance.Toggle(isOn);
+
+        if (isOn)
+        {
+            priceCheckViewInstance.Setup(pos);
+        }
+    }
+
     public void ExecuteAfterOneFrame(System.Action actionToExecute)
     {
         StartCoroutine(ExecuteActionAfterOneFrameCoroutine(actionToExecute));

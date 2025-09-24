@@ -34,7 +34,7 @@ public class MiniGameView : UIView
     [SerializeField, Blockquote("Entre 0 (gauche) et 1 (droite), définit la range pour la target")]
     private Vector2 rangeSpawn;
 
-    private List<Item> items;
+    private List<Item> items = new List<Item>();
     private CraftedObjectRecipe craftedObjectRecipe;
 
     private float barCount = 0f;
@@ -64,12 +64,11 @@ public class MiniGameView : UIView
     {
         base.Toggle(isOn);
 
-        tierCount = 0;
-        countingUp = true;
-        barCount = 0f;
-
         if (isOn)
         {
+            tierCount = 0;
+            countingUp = true;
+            barCount = 0f;
             managerRefs.InputManager.Actions.Player.NextDialogue.started += OnCraftHit;
         }
         else
@@ -80,7 +79,7 @@ public class MiniGameView : UIView
 
     public void Setup (List<Item> itemConsumed)
     {
-        items = itemConsumed;
+        items.AddRange(itemConsumed);
         craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items);
         toCraftItemHolder.Setup(craftedObjectRecipe);
         toCraftItemHolder.ValidateButton.onClick.AddListener(OnItemClick);
@@ -108,10 +107,10 @@ public class MiniGameView : UIView
 
     private void EndGame ()
     {
-        tierCount = 0;
         CurrentCraftingTable.SpawnCraftedItem(craftedObjectRecipe, items, tierCount);
         managerRefs.CraftingManager.OnItemCrafted();
         managerRefs.UIManager.ToggleMiniGameView(false, CurrentCraftingTable);
+        tierCount = 0;
     }
 
     private void OnItemClick ()

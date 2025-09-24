@@ -26,6 +26,8 @@ public partial class SellManager : MonoBehaviour
     public List<SellSlot> SellSlots = new List<SellSlot>();
     public List<SellSlot> SellingSlots = new List<SellSlot>();
 
+    public Dictionary<ECraftedType, PriceVariation> PriceVariations => priceVariations;
+
     private int coinAmount;
     private Queue<ECraftedType> priceVariationLastTypes = new Queue<ECraftedType>();
 
@@ -36,14 +38,20 @@ public partial class SellManager : MonoBehaviour
         EditorUtility.SetDirty(this);
     }
 
-    private class PriceVariation
+    public class PriceVariation
     {
         public float minVariationPercent;
         public float maxVariationPercent;
         public float percentDecreasePerCraft;
 
-        public float currentPricePercent { get; set; }
-        public int currentCraftedCount { get; set; }
+        [DisableInEditMode, DisableInPlayMode]
+        public float currentPricePercent;
+
+        [DisableInEditMode, DisableInPlayMode]
+        public float BaseRolledPricePercent;
+
+        [DisableInEditMode, DisableInPlayMode]
+        public int currentCraftedCount;
     }
 
     [ShowInInspector]
@@ -53,6 +61,7 @@ public partial class SellManager : MonoBehaviour
     {
         managerRefs.SellManager = this;
         coinAmount = baseMoney;
+        UpdatePrices(true);
     }
 
     [Button]
@@ -71,8 +80,10 @@ public partial class SellManager : MonoBehaviour
         if (priceVariationLastTypes.Count >= numberToTakeForPriceVariation)
         {
             priceVariationLastTypes.Dequeue();
-            priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedObjectData.CraftedObjectRecipe.CraftedType);
         }
+
+        priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedObjectData.CraftedObjectRecipe.CraftedType);
+        UpdatePrices(false);
     }
 
     public void OnItemRemoved (SellSlot sellSlot)
@@ -106,23 +117,32 @@ public partial class SellManager : MonoBehaviour
     {
         if (Time.time >= nextTimePriceVariation)
         {
-            nextTimePriceVariation = Time.time + timeBeforePriceVariation;
+            UpdatePrices(true);
+        }
+    }
 
-            foreach (ECraftedType variationType in priceVariationLastTypes)
+    private void UpdatePrices (bool needReroll)
+    {
+        nextTimePriceVariation = Time.time + timeBeforePriceVariation;
+
+        foreach (ECraftedType variationType in priceVariationLastTypes)
+        {
+            priceVariations[variationType].currentCraftedCount += 1;
+        }
+
+        foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
+        {
+            if (needReroll)
             {
-                priceVariations[variationType].currentCraftedCount += 1;
+                priceVariation.Value.BaseRolledPricePercent = UnityEngine.Random.Range(priceVariation.Value.minVariationPercent, priceVariation.Value.maxVariationPercent);
             }
 
-            foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
-            {
-                priceVariation.Value.currentPricePercent = UnityEngine.Random.Range(priceVariation.Value.minVariationPercent, priceVariation.Value.maxVariationPercent);
-                priceVariation.Value.currentPricePercent -= priceVariation.Value.percentDecreasePerCraft * priceVariation.Value.currentCraftedCount;
-            }
+            priceVariation.Value.currentPricePercent = priceVariation.Value.BaseRolledPricePercent - (priceVariation.Value.percentDecreasePerCraft * priceVariation.Value.currentCraftedCount);
+        }
 
-            foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
-            {
-                priceVariation.Value.currentCraftedCount = 0;
-            }
+        foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
+        {
+            priceVariation.Value.currentCraftedCount = 0;
         }
     }
 
