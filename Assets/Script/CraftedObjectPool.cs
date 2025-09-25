@@ -17,9 +17,9 @@ public class CraftedObjectPool : ScriptableObject
         foreach (CraftedObjectRecipe recipe in craftedObjectPool)
         {
             bool canCraft = true;
-            foreach (EItemType requiredType in recipe.RequiredItems)
+            foreach (ItemType requiredType in recipe.RequiredItems)
             {
-                if (!usedTypes.Contains(requiredType))
+                if (!usedTypes.Contains(requiredType.Type))
                 {
                     canCraft = false;
                     break;

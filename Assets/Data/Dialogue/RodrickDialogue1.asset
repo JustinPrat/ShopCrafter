@@ -21,7 +21,12 @@ MonoBehaviour:
     Emotion: {fileID: 0}
   - Line: Tu veux pas m'acheter des choses <wave>eheh</wave> <?shop>
     Emotion: {fileID: 0}
-  HasQuestion: 0
+  - Line: "<shake> Ou ptet que tu as un probl\xE8me ? </shake>"
+    Emotion: {fileID: 0}
+  HasQuestion: 1
   HasNextDialogue: 0
-  Answers: []
+  Answers:
+  - Line: Tu veux ma queue ?
+    NextDialogueData: {fileID: 0}
+    reward: {fileID: 11400000, guid: 33a87493d994d0b4d8cb9bb9576e8e5c, type: 2}
   NextDialogue: {fileID: 0}

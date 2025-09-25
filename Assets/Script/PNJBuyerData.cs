@@ -1,9 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PNJBuyerData", menuName = "ShopCrafter/PNJBuyerData")]
 public class PNJBuyerData : PNJRandomData
 {
-    public float BuyProbability;
+    public float BaseBuyProbability;
+    public List<ECraftedType> CraftedPrefTypes;
+
+    public float MinRollTimeBeforeTryBuy;
+    public float MaxRollTimeBeforeTryBuy;
+
+    public float TimeWaitingBeforeTryBuy;
+    public Sprite WaitingIcon;
+
 
     public override PNJBehaviour GetStats()
     {
@@ -16,6 +25,8 @@ public class PNJBuyerBehaviour : PNJRandomBehaviour
 {
     public SellSlot Slot;
     private PNJBuyerData currentData => (PNJBuyerData)data;
+    private float timerBeforeBuying;
+    private bool hasBought;
 
     public PNJBuyerBehaviour(PNJBuyerData data) : base(data)
     {
@@ -26,14 +37,27 @@ public class PNJBuyerBehaviour : PNJRandomBehaviour
     {
         base.OnSpawn(pnjBrain);
         pnjBrain.PNJBuying.Value.Event += OnPnjBuying;
+        pnjBrain.PNJArriveBuying.Value.Event += OnPnjArriveBuying;
 
-        if (pnjBrain.ManagerRefs.SellManager.IsSellingSlots)
+        timerBeforeBuying = Time.time + Random.Range(currentData.MinRollTimeBeforeTryBuy, currentData.MaxRollTimeBeforeTryBuy);
+        hasBought = false;
+    }
+
+    public override void OnUpdate(PNJBrain pnjBrain)
+    {
+        base.OnUpdate(pnjBrain);
+
+        if (Time.time >= timerBeforeBuying && !hasBought)
         {
-            Slot = pnjBrain.RandomChooseSellSlot();
-            pnjBrain.ChangeState(State.Buying);
-        }
+            hasBought = true;
 
-        Debug.Log("Je suis un acheteur nommé " + data.Name);
+            Slot = pnjBrain.RandomChooseSellSlot(currentData.CraftedPrefTypes);
+            if (Slot != null)
+            {
+                pnjBrain.SetBuyTime(currentData.TimeWaitingBeforeTryBuy);
+                pnjBrain.ChangeState(State.Buying);
+            }
+        }
     }
 
     public override void OnDespawn(PNJBrain pnjBrain)
@@ -42,10 +66,21 @@ public class PNJBuyerBehaviour : PNJRandomBehaviour
         pnjBrain.PNJBuying.Value.Event -= OnPnjBuying;
     }
 
+    private void OnPnjArriveBuying(GameObject Pnj)
+    {
+        PNJBrain PNJBrain = Pnj.GetComponent<PNJBrain>();
+        PNJBrain.ChangeIcon(currentData.WaitingIcon);
+    }
+
     private void OnPnjBuying(GameObject Pnj)
     {
-        if (Slot == null) return;
         PNJBrain PNJBrain = Pnj.GetComponent<PNJBrain>();
-        PNJBrain.ManagerRefs.SellManager.Buy(Slot);
+        PNJBrain.ChangeIcon(null);
+
+        if (Slot == null) return;
+        if (Random.value <= currentData.BaseBuyProbability)
+        {
+            PNJBrain.ManagerRefs.SellManager.Buy(Slot);
+        }
     }
 }

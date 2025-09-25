@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: RecipeRadio
   m_EditorClassIdentifier: 
-  RequiredItems: 000000000400000003000000
-  CraftedType: 0
+  RequiredItems:
+  - {fileID: 11400000, guid: fd2b6f9cf1a7a2b4d95d253bb0494485, type: 2}
+  - {fileID: 11400000, guid: 094419cb86b63c242808e1262897fc51, type: 2}
+  - {fileID: 11400000, guid: bf59494b589fc7b48b09c187ac31e4e4, type: 2}
+  CraftedType: 2
   CraftedName: Radio
   CraftedDescription: Listen to communication
   CraftedSprite: {fileID: 21300000, guid: 222f6c4dc4aebf246af6933408874781, type: 3}

@@ -170,6 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectHoldAnchor: {fileID: 3531761092125774024}
+  managerRefs: {fileID: 0}
+  rewardable: {fileID: 0}
 --- !u!50 &189320528897327458
 Rigidbody2D:
   serializedVersion: 5

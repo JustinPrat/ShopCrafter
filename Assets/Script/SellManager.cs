@@ -2,6 +2,8 @@ using Alchemy.Inspector;
 using Alchemy.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -127,7 +129,15 @@ public partial class SellManager : MonoBehaviour
 
         foreach (ECraftedType variationType in priceVariationLastTypes)
         {
-            priceVariations[variationType].currentCraftedCount += 1;
+            priceVariations[variationType].currentCraftedCount++;
+
+            //foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
+            //{
+            //    if (variationType.HasFlag(priceVariation.Key))
+            //    {
+            //        priceVariation.Value.currentCraftedCount++;
+            //    }
+            //}
         }
 
         foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
@@ -146,8 +156,16 @@ public partial class SellManager : MonoBehaviour
         }
     }
 
-    public SellSlot GetRandomSellSlot ()
+    public bool GetRandomSellSlot(List<ECraftedType> prefTypes, out SellSlot slot)
     {
-        return SellingSlots.GetRandomElement();
+        List<SellSlot> filteredSlots = SellingSlots
+            .Where(slot => slot.HeldObject != null &&
+                           slot.HeldObject.CraftedObjectData != null &&
+                           slot.HeldObject.CraftedObjectData.CraftedObjectRecipe != null &&
+                           prefTypes.Contains(slot.HeldObject.CraftedObjectData.CraftedObjectRecipe.CraftedType))
+            .ToList();
+
+        slot = filteredSlots.Count > 0 ? filteredSlots.GetRandomElement() : null;
+        return filteredSlots.Count > 0;
     }
 }

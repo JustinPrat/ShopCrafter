@@ -524,22 +524,18 @@ MonoBehaviour:
   __alchemySerializationData_SellManager:
     priceVariations:
       isCreated: 1
-      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": {\n            \"minVariationPercent\":
+      data: "[\n    {\n        \"Key\": 2,\n        \"Value\": {\n            \"minVariationPercent\":
         50,\n            \"maxVariationPercent\": 150,\n            \"percentDecreasePerCraft\":
         10,\n            \"currentPricePercent\": 0,\n            \"BaseRolledPricePercent\":
         0,\n            \"currentCraftedCount\": 0\n        }\n    },\n    {\n       
         \"Key\": 1,\n        \"Value\": {\n            \"minVariationPercent\": 50,\n           
         \"maxVariationPercent\": 150,\n            \"percentDecreasePerCraft\": 10,\n           
         \"currentPricePercent\": 0,\n            \"BaseRolledPricePercent\": 0,\n           
-        \"currentCraftedCount\": 0\n        }\n    },\n    {\n        \"Key\": 2,\n       
+        \"currentCraftedCount\": 0\n        }\n    },\n    {\n        \"Key\": 0,\n       
         \"Value\": {\n            \"minVariationPercent\": 50,\n            \"maxVariationPercent\":
         150,\n            \"percentDecreasePerCraft\": 10,\n            \"currentPricePercent\":
         0,\n            \"BaseRolledPricePercent\": 0,\n            \"currentCraftedCount\":
-        0\n        }\n    },\n    {\n        \"Key\": 3,\n        \"Value\": {\n           
-        \"minVariationPercent\": 50,\n            \"maxVariationPercent\": 150,\n           
-        \"percentDecreasePerCraft\": 10,\n            \"currentPricePercent\": 0,\n           
-        \"BaseRolledPricePercent\": 0,\n            \"currentCraftedCount\": 0\n       
-        }\n    }\n]"
+        0\n        }\n    }\n]"
     unityObjectReferences: []
 --- !u!1 &866262109
 GameObject:
@@ -2054,8 +2050,9 @@ MonoBehaviour:
   __alchemySerializationData_CraftingManager:
     itemInventory:
       isCreated: 1
-      data: '[]'
-    unityObjectReferences: []
+      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": 5\n    }\n]"
+    unityObjectReferences:
+    - {fileID: 11400000, guid: 9185898ddcea4b34b9f013557a354eea, type: 2}
 --- !u!1 &1906128761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2527,6 +2524,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6847489411027567951, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
+      propertyPath: managerRefs
+      value: 
+      objectReference: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
     - target: {fileID: 7899897430170006716, guid: aa13b8aacad4fa8439423624e0e79487, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.19

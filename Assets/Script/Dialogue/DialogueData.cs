@@ -15,6 +15,21 @@ public class DialogueData : ScriptableObject
 
     [ShowIf(nameof(HasNextDialogue))]
     public DialogueData NextDialogue;
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        for (int i = 0; i < Answers.Count; i++)
+        {
+            Answer answer = Answers[i];
+            if (answer.reward != null && answer.reward is not IRewardable)
+            {
+                answer.reward = null;
+                Answers[i] = answer;
+            }
+        }
+    }
+#endif
 }
 
 [Serializable]
@@ -29,4 +44,5 @@ public struct Answer
 {
     public string Line;
     public DialogueData NextDialogueData;
+    public ScriptableObject reward;
 }

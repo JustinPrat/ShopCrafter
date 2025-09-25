@@ -1,6 +1,8 @@
 using Alchemy.Inspector;
+using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PNJBrain : MonoBehaviour, IInteractable
 {
@@ -9,8 +11,11 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private ManagerRefs managerRefs;
     [SerializeField] private Sprite interactIcon;
 
+    [SerializeField] private SpriteRenderer stateIconDisplay;
+
     private PNJBehaviour PNJInfos;
     private BlackboardVariable<PnjEvent> pnjBuying;
+    private BlackboardVariable<PnjEvent> pnjArriveBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
 
     public Sprite InteractIcon => interactIcon;
@@ -19,13 +24,19 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public BehaviorGraphAgent Agent => agent;
 
     public BlackboardVariable<PnjEvent> PNJBuying => pnjBuying;
+    public BlackboardVariable<PnjEvent> PNJArriveBuying => pnjArriveBuying;
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
 
     [Button]
     public void TriggerNewBuyingPos ()
     {
-        agent.SetVariableValue<Vector3>("BuyingObjectPos", managerRefs.SellManager.GetRandomSellSlot().transform.position);
-        agent.SetVariableValue<State>("ActualState", State.Buying);
+        //agent.SetVariableValue<Vector3>("BuyingObjectPos", managerRefs.SellManager.GetRandomSellSlot().transform.position);
+        //agent.SetVariableValue<State>("ActualState", State.Buying);
+    }
+
+    public void ChangeIcon (Sprite icon)
+    {
+        stateIconDisplay.sprite = icon;
     }
 
     public void ChangeState (State state)
@@ -33,11 +44,18 @@ public class PNJBrain : MonoBehaviour, IInteractable
         agent.SetVariableValue<State>("ActualState", state);
     }
 
-    public SellSlot RandomChooseSellSlot ()
+    public SellSlot RandomChooseSellSlot (List<ECraftedType> prefTypes)
     {
-        SellSlot sellSlot = managerRefs.SellManager.GetRandomSellSlot();
-        agent.SetVariableValue<Vector3>("BuyingObjectPos", sellSlot.transform.position);
+        if (managerRefs.SellManager.GetRandomSellSlot(prefTypes, out SellSlot sellSlot))
+        {
+            agent.SetVariableValue<Vector3>("BuyingObjectPos", sellSlot.transform.position);
+        }
         return sellSlot;
+    }
+
+    public void SetBuyTime (float buyTime)
+    {
+        agent.SetVariableValue<float>("WaitBuy", buyTime);
     }
 
     public void Setup (PNJData datas)
@@ -48,10 +66,17 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (agent.BlackboardReference.GetVariable("PNJOutside", out pnjOutside))
             pnjOutside.Value.Event += OnPNJOutside;
 
+        agent.BlackboardReference.GetVariable("PNJArriveBuying", out pnjArriveBuying);
+
         PNJInfos = datas.GetStats();
         PNJInfos.OnSpawn(this);
         transform.name = PNJInfos.PNJData.name;
         managerRefs.PNJManager.AddPnj(this);
+    }
+
+    private void Update()
+    {
+        PNJInfos.OnUpdate(this);
     }
 
     private void OnDestroy()

@@ -72,7 +72,7 @@ public class EncyclopedieView : UIView
 
             PageUI craftItemUI = Instantiate(pageUIPrefab, parent);
             CraftedObjectRecipe recipe = managerRefs.CraftingManager.CurrentCraftedObjectPool.craftedObjectPool[i];
-            craftItemUI.Setup(recipe, managerRefs.CraftingManager.CraftedRecipes.Contains(recipe));
+            craftItemUI.Setup(recipe, managerRefs.CraftingManager.CraftedRecipes.Contains(recipe), managerRefs.CraftingManager.BlueprintRecipes.Contains(recipe));
             pageItemUI.Add(craftItemUI);
         }
     }

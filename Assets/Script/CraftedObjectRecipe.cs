@@ -6,20 +6,24 @@ using UnityEngine;
 
 public enum ECraftedType
 {
-    Utility,
     Weapon,
     Armor,
-    Consumable
+    Utility
 }
 
 [CreateAssetMenu(fileName = "CraftedObjectRecipe", menuName = "ShopCrafter/CraftedObjectRecipe")]
-public class CraftedObjectRecipe : ScriptableObject
+public class CraftedObjectRecipe : ScriptableObject, IRewardable
 {
-    public List<EItemType> RequiredItems;
+    public List<ItemType> RequiredItems;
     public ECraftedType CraftedType;
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
+
+    public void OnGetReward(ManagerRefs managerRefs)
+    {
+        managerRefs.CraftingManager.AddBlueprint(this);
+    }
 }
 
 [Serializable]

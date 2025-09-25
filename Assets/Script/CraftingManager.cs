@@ -27,6 +27,7 @@ public partial class CraftingManager : MonoBehaviour
     private int numberItemCrafted;
 
     private List<CraftedObjectRecipe> craftedRecipes = new List<CraftedObjectRecipe>();
+    private List<CraftedObjectRecipe> blueprintRecipes = new List<CraftedObjectRecipe>();
 
     public event Action<int> OnItemCraft;
     public Dictionary<Item, int> ItemInventory => itemInventory;
@@ -36,6 +37,7 @@ public partial class CraftingManager : MonoBehaviour
 
     public Action<List<Item>> OnItemsConsumed;
     public List<CraftedObjectRecipe> CraftedRecipes => craftedRecipes;
+    public List<CraftedObjectRecipe> BlueprintRecipes => blueprintRecipes;
     public CraftedObjectPool CurrentCraftedObjectPool => currentCraftedObjectPool;
 
 
@@ -79,6 +81,12 @@ public partial class CraftingManager : MonoBehaviour
         {
             itemInventory.Add(item, 1);
         }
+    }
+
+    public void AddBlueprint (CraftedObjectRecipe recipeBlueprint)
+    {
+        if (!blueprintRecipes.Contains(recipeBlueprint))
+            blueprintRecipes.Add(recipeBlueprint);
     }
 
     public CraftedObjectRecipe PoolCraftedItem(List<Item> items)

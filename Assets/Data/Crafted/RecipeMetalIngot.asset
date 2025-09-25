@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: RecipeMetalIngot
   m_EditorClassIdentifier: 
-  RequiredItems: 04000000
-  CraftedType: 3
+  RequiredItems:
+  - {fileID: 11400000, guid: 094419cb86b63c242808e1262897fc51, type: 2}
+  CraftedType: 2
   CraftedName: Metal Ingot
   CraftedDescription: Forge new things
   CraftedSprite: {fileID: 21300000, guid: 16f4d9ff502bd2a4aa7d34296c6c16f4, type: 3}

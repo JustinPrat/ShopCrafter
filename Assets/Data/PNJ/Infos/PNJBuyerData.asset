@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12dc8f74142c63d4c939061351d1c2af, type: 3}
+  m_Name: PNJBuyerData
+  m_EditorClassIdentifier: 
+  Name: Robrick
+  Description: 
+  ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  Portrait: {fileID: 21300000, guid: b421e18191d038e4691982e99ea0dc3c, type: 3}
+  ShopStayDuration: 60
+  PNJDialogueData: {fileID: 0}
+  BaseBuyProbability: 50
+  CraftedPrefTypes: 0100000002000000
+  MinRollTimeBeforeTryBuy: 20
+  MaxRollTimeBeforeTryBuy: 40
+  TimeWaitingBeforeTryBuy: 10
+  WaitingIcon: {fileID: 5369531339107709376, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}

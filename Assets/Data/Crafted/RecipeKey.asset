@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: RecipeKey
   m_EditorClassIdentifier: 
-  RequiredItems: 04000000
-  CraftedType: 0
+  RequiredItems:
+  - {fileID: 11400000, guid: 094419cb86b63c242808e1262897fc51, type: 2}
+  CraftedType: 2
   CraftedName: Key
   CraftedDescription: Open doors
   CraftedSprite: {fileID: 21300000, guid: 725773017595c4049aee192e351edf0b, type: 3}

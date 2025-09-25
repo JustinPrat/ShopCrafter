@@ -40,7 +40,7 @@ public class DialogueView : UIView
     private int currentDialogueIndex;
     private List<AnswerUIButton> answerUIButtons = new List<AnswerUIButton>();
 
-    private bool hisAsking = false;
+    private bool isAsking = false;
 
     public void Setup (DialogueData dialogueData, PNJBehaviour pnjBehaviour)
     {
@@ -70,7 +70,7 @@ public class DialogueView : UIView
 
     private void OnNextDialogueStarted (InputAction.CallbackContext ctx)
     {
-        if (hisAsking)
+        if (isAsking)
             return;
 
         NextLine();
@@ -83,7 +83,7 @@ public class DialogueView : UIView
 
     private void StartDialogue ()
     {
-        hisAsking = false;
+        isAsking = false;
 
         currentDialogueIndex = 0;
         textAnimator.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
@@ -98,7 +98,7 @@ public class DialogueView : UIView
 
     private void AskQuestion ()
     {
-        hisAsking = true;
+        isAsking = true;
         for (int i = 0; i < currentDialogue.Answers.Count; i++)
         {
             AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
@@ -129,7 +129,19 @@ public class DialogueView : UIView
         answerUIButtons.Clear();
 
         currentDialogue = selectedAnswer.NextDialogueData;
-        StartDialogue();
+        if (selectedAnswer.reward != null)
+        {
+            ((IRewardable)selectedAnswer.reward).OnGetReward(managerRefs);
+        }
+
+        if (currentDialogue != null)
+        {
+            StartDialogue();
+        }
+        else
+        {
+            StopDialogue();
+        }
     }
 
     public void NextLine ()

@@ -30,6 +30,8 @@ public class PNJBehaviour
 
     public virtual void OnInteract(PNJBrain pnjBrain) { }
 
+    public virtual void OnUpdate(PNJBrain pnjBrain) { }
+
     public virtual void OnSpawn(PNJBrain pnjBrain) 
     {
         managerRefs = pnjBrain.ManagerRefs;

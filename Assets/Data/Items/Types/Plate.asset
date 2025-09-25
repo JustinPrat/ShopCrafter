@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fda3a40248d1c7468cd5983f79ee2c7, type: 3}
-  m_Name: PNJPool
+  m_Script: {fileID: 11500000, guid: 9746be2df9781ec4fbc475361092535d, type: 3}
+  m_Name: Plate
   m_EditorClassIdentifier: 
-  PNJPoolList:
-  - {fileID: 11400000, guid: 2e1865acf4b7e014c93bfcde174beefa, type: 2}
+  Type: 4
+  Icon: {fileID: 21300000, guid: 11df37d9116759343b92cbed155af9a7, type: 3}
