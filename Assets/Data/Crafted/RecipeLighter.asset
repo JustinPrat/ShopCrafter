@@ -19,3 +19,4 @@ MonoBehaviour:
   CraftedName: Lighter
   CraftedDescription: Make fire
   CraftedSprite: {fileID: 21300000, guid: eb54d399c80a8b348b5935a5e8324f69, type: 3}
+  BarDataElement: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}

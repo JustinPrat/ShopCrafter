@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3731ab8666c8575429f8263fae4c32d3, type: 3}
+  m_Name: ElectricBarData
+  m_EditorClassIdentifier: 
+  timeBetweenMove: 1
+  particlePrefab: {fileID: 27879477517177722, guid: 3f80bf80e462f294b95038da792c9050, type: 3}

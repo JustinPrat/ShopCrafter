@@ -18,3 +18,4 @@ MonoBehaviour:
   CraftedName: Metal Ingot
   CraftedDescription: Forge new things
   CraftedSprite: {fileID: 21300000, guid: 16f4d9ff502bd2a4aa7d34296c6c16f4, type: 3}
+  BarDataElement: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}

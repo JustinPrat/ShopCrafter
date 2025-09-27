@@ -19,6 +19,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
+    public BarData BarDataElement;
 
     public void OnGetReward(ManagerRefs managerRefs)
     {

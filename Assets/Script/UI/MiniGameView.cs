@@ -46,6 +46,8 @@ public class MiniGameView : UIView
     private float currentSpeed = 0f;
     private GameObject currentTarget;
 
+    private BarBehaviour currentBarBehaviour;
+
     private bool CanUpgrade => tierCount < tierList.Tiers.Count;
     public CraftingTable CurrentCraftingTable { get; set; }
 
@@ -86,6 +88,12 @@ public class MiniGameView : UIView
 
         itemImage.sprite = craftedObjectRecipe.CraftedSprite;
 
+        if (craftedObjectRecipe.BarDataElement != null)
+        {
+            currentBarBehaviour = craftedObjectRecipe.BarDataElement.GetBehaviour();
+            currentBarBehaviour.OnStart(this, tierList);
+        }
+
         SetupTarget();
         currentSpeed = tierList.Tiers[tierCount].TierSpeed;
     }
@@ -105,8 +113,25 @@ public class MiniGameView : UIView
         currentTarget.transform.position = leftBorn;
     }
 
+    public void ChangeTargetPos ()
+    {
+        SetupTarget();
+    }
+
+    public void InstantiateParticles (GameObject particlePrefab)
+    {
+        GameObject ps = Instantiate(particlePrefab);
+        ps.transform.position = currentTarget.transform.position;
+    }
+
     private void EndGame ()
     {
+        if (currentBarBehaviour != null)
+        {
+            currentBarBehaviour.OnStop(this);
+            currentBarBehaviour = null;
+        }
+
         CurrentCraftingTable.SpawnCraftedItem(craftedObjectRecipe, items, tierCount);
         managerRefs.CraftingManager.OnItemCrafted();
         managerRefs.UIManager.ToggleMiniGameView(false, CurrentCraftingTable);
@@ -140,30 +165,10 @@ public class MiniGameView : UIView
 
     private void Update()
     {
-        if (!gameObject.activeInHierarchy)
+        if (!gameObject.activeInHierarchy || currentBarBehaviour == null)
             return;
 
-        if (countingUp)
-        {
-            barCount += Time.deltaTime * currentSpeed;
-
-            if (barCount >= 1f)
-            {
-                barCount = 1f;
-                countingUp = false;
-            }
-        }
-        else 
-        {
-            barCount -= Time.deltaTime * currentSpeed;
-
-            if (barCount <= 0f)
-            {
-                barCount = 0f;
-                countingUp = true;
-            }
-        }
-
+        barCount = currentBarBehaviour.OnUpdate(this, currentSpeed);
         progressBar.value = barCount;
 
         debugInfos.text = "actual pos : " + barCount + "\ntargetPos : " + targetPos + "\ntarget size : " + tierList.Tiers[tierCount].TierTargetSize;
