@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PNJManager : MonoBehaviour
@@ -14,6 +15,15 @@ public class PNJManager : MonoBehaviour
     private Transform pnjSpawnOutside;
 
     [SerializeField]
+    private float dayDuration;
+
+    [SerializeField] 
+    private int dayStartTime;
+
+    [SerializeField] 
+    private int dayEndTime;
+
+    [SerializeField]
     private int targetNumberPnj;
 
     [SerializeField]
@@ -22,12 +32,19 @@ public class PNJManager : MonoBehaviour
     [SerializeField]
     private List<PNJPoolElement> pnjPoolList;
 
+    [SerializeField]
+    private TextMeshProUGUI daytime;
+
     private List<PNJBrain> PNJList;
     private int currentPoolIndex;
     private float waitPNJCounter;
 
     private List<PNJData> PNJDataPoolList;
     private List<PNJData> PNJDataUsedList = new List<PNJData>();
+
+    private float currentDayTime;
+    private DateTime currentHourDayTime;
+    private int dayIndex;
 
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
 
@@ -68,6 +85,8 @@ public class PNJManager : MonoBehaviour
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
         PNJDataPoolList = new List<PNJData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+
+        StartDay();
     }
 
     private void Start()
@@ -96,6 +115,28 @@ public class PNJManager : MonoBehaviour
                 SpawnPNJ();
             }
         }
+       
+        currentDayTime += Time.deltaTime;
+        if (currentDayTime >= dayDuration)
+        {
+            EndDay();
+        }
+
+        currentHourDayTime = currentHourDayTime.AddSeconds((Time.deltaTime / dayDuration) * ((dayEndTime - dayStartTime) * 3600f));
+        daytime.text = "date : " + currentHourDayTime.Day + " - " + currentHourDayTime.Hour + "h" + currentHourDayTime.Minute;
+    }
+
+    private void StartDay ()
+    {
+        currentDayTime = 0;
+        dayIndex++;
+
+        currentHourDayTime = new DateTime(1, 1, dayIndex, dayStartTime, 0, 0);
+    }
+
+    private void EndDay ()
+    {
+        StartDay();
     }
 
     private void SpawnPNJ ()
