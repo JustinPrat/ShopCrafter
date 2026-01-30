@@ -128,14 +128,14 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJBehaviour pnjBehaviour = null)
+    public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJBrain pnjBrain = null)
     {
         ExecuteAfterOneFrame(() =>
         {
             dialogueViewInstance.Toggle(isOn);
             if (isOn)
             {
-                dialogueViewInstance.Setup(firstData, pnjBehaviour);
+                dialogueViewInstance.Setup(firstData, pnjBrain);
                 managerRefs.InputManager.SetActionType(false, false, true);
                 managerRefs.InputManager.Actions.UI.Validate.Enable();
             }

@@ -39,8 +39,8 @@ public class PNJManager : MonoBehaviour
     private int currentPoolIndex;
     private float waitPNJCounter;
 
-    private List<PNJData> PNJDataPoolList;
-    private List<PNJData> PNJDataUsedList = new List<PNJData>();
+    private List<PNJInfoData> PNJDataPoolList;
+    private List<PNJInfoData> PNJDataUsedList = new List<PNJInfoData>();
 
     private float currentDayTime;
     private DateTime currentHourDayTime;
@@ -84,7 +84,7 @@ public class PNJManager : MonoBehaviour
     {
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
-        PNJDataPoolList = new List<PNJData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+        PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
 
         StartDay();
     }
@@ -99,7 +99,7 @@ public class PNJManager : MonoBehaviour
         if (pnjPoolList[currentPoolIndex].minCraft < number && currentPoolIndex < pnjPoolList.Count -1)
         {
             currentPoolIndex += 1;
-            PNJDataPoolList = new List<PNJData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+            PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
         }
     }
 
@@ -144,16 +144,16 @@ public class PNJManager : MonoBehaviour
         PNJBrain PNJ = Instantiate(PnjPrefab).GetComponent<PNJBrain>();
         PNJ.transform.position = PnjSpawnOutside;
 
-        PNJData data = PNJDataPoolList.GetRandomElement();
-        PNJDataPoolList.Remove(data);
-        PNJDataUsedList.Add(data);
+        PNJInfoData PNJData = PNJDataPoolList.GetRandomElement();
+        PNJDataPoolList.Remove(PNJData);
+        PNJDataUsedList.Add(PNJData);
 
         if (PNJDataPoolList.Count <= 0)
         {
             PNJDataPoolList.AddRange(PNJDataUsedList);
         }
 
-        PNJ.Setup(data);
+        PNJ.Setup(PNJData);
     }
 
     public void AddPnj (PNJBrain pnj)

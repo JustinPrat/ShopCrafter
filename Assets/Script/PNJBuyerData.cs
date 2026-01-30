@@ -13,7 +13,6 @@ public class PNJBuyerData : PNJRandomData
     public float TimeWaitingBeforeTryBuy;
     public Sprite WaitingIcon;
 
-
     public override PNJBehaviour GetStats()
     {
         PNJBuyerBehaviour stats = new PNJBuyerBehaviour(this);

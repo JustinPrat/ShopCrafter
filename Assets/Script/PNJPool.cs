@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PNJPool", menuName = "ShopCrafter/PNJPool")]
 public class PNJPool : ScriptableObject
 {
-    public List<PNJData> PNJPoolList;
+    public List<PNJInfoData> PNJPoolList;
 }

@@ -37,6 +37,6 @@ public class PNJRandomBehaviour : PNJBehaviour
     public override void OnInteract(PNJBrain pnjBrain)
     {
         base.OnInteract(pnjBrain);
-        data.ManagerRefs.DialogueManager.StartDialogue(currentData.PNJDialogueData, this);
+        //data.ManagerRefs.DialogueManager.StartDialogue(currentData.PNJDialogueData, this);
     }
 }

@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fda3a40248d1c7468cd5983f79ee2c7, type: 3}
   m_Name: PNJPool 1
   m_EditorClassIdentifier: 
-  minCraft: 3
   PNJPoolList:
-  - {fileID: 11400000, guid: 87a66c0850b1aec4693e468fd01cf6ca, type: 2}
+  - {fileID: 11400000, guid: 3e917b1b9b50574468ad56c6bbdaa7d1, type: 2}

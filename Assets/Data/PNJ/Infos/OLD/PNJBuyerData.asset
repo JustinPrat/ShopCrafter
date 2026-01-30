@@ -17,7 +17,7 @@ MonoBehaviour:
   ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   Portrait: {fileID: 21300000, guid: b421e18191d038e4691982e99ea0dc3c, type: 3}
   ShopStayDuration: 60
-  PNJDialogueData: {fileID: 0}
+  PNJDialogueData: {fileID: 11400000, guid: 92c50ee68c55147489eeefcac9698af4, type: 2}
   BaseBuyProbability: 50
   CraftedPrefTypes: 0100000002000000
   MinRollTimeBeforeTryBuy: 20

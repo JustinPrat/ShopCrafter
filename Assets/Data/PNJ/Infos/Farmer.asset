@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b3ce03aa2da434daf612a4e9b0a852, type: 3}
+  m_Name: Farmer
+  m_EditorClassIdentifier: Assembly-CSharp::PNJInfoData
+  IdentityInfo: {fileID: 11400000, guid: ccbfb098027efb04aa47e235652a0cd7, type: 2}
+  PNJDialogueData: {fileID: 11400000, guid: 92c50ee68c55147489eeefcac9698af4, type: 2}
+  TraitDatas:
+  - {fileID: 11400000, guid: 103ec9e8a31138d48bd02e4f59acf538, type: 2}
+  - {fileID: 11400000, guid: 9e313ee22ee013c47b0498a4c6e4ea0e, type: 2}
+  ShopStayDuration: 60
+  ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}

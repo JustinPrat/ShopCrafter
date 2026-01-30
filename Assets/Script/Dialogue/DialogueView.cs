@@ -36,19 +36,19 @@ public class DialogueView : UIView
     private AnswerUIButton answerPrefab;
 
     private DialogueData currentDialogue;
-    private PNJBehaviour currentPNJ;
+    private PNJBrain currentPNJ;
     private int currentDialogueIndex;
     private List<AnswerUIButton> answerUIButtons = new List<AnswerUIButton>();
 
     private bool isAsking = false;
 
-    public void Setup (DialogueData dialogueData, PNJBehaviour pnjBehaviour)
+    public void Setup (DialogueData dialogueData, PNJBrain pnjBehaviour)
     {
         currentDialogue = dialogueData;
         currentPNJ = pnjBehaviour;
 
-        portrait.sprite = currentPNJ.PNJData.Portrait;
-        textName.text = currentPNJ.PNJData.Name;
+        portrait.sprite = currentPNJ.Data.Identity.Portrait;
+        textName.text = currentPNJ.Data.Identity.Name;
         StartDialogue();
 
         textWriter.OnTextEvent.AddListener(OnTextEvent);
