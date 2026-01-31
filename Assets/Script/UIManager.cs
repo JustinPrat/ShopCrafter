@@ -147,14 +147,14 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    public void ToggleShopView (bool isOn, List<SellingItem> sellingItems = null, PNJBehaviour pnjBehaviour = null)
+    public void ToggleShopView (bool isOn, List<SellingItem> sellingItems = null, SellerRuntime sellerTrait = null, PNJBrain pnjBrain = null)
     {
         ExecuteAfterOneFrame(() =>
         {
             shopViewInstance.Toggle(isOn);
             if (isOn)
             {
-                shopViewInstance.Setup(sellingItems, pnjBehaviour);
+                shopViewInstance.Setup(sellingItems, sellerTrait, pnjBrain);
                 managerRefs.InputManager.Actions.Player.Disable();
                 managerRefs.InputManager.Actions.UI.Validate.Enable();
                 managerRefs.InputManager.Actions.UI.Remove.Enable();

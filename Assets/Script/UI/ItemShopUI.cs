@@ -42,7 +42,7 @@ public class ItemShopUI : MonoBehaviour
 
         if (managerRefs.SellManager.CoinAmount < currentSellingItem.priceEach)
         {
-            buttonCanvasGroup.alpha = 0.5f;
+            DisableItemButton();
         }
 
         buttonBuy.OnLeftClick.AddListener(OnItemClick);
@@ -60,8 +60,14 @@ public class ItemShopUI : MonoBehaviour
 
         if (currentSellingItem.amount <= 0)
         {
-            buttonCanvasGroup.alpha = 0.5f;
+            DisableItemButton();
         }
+    }
+
+    private void DisableItemButton ()
+    {
+        buttonCanvasGroup.alpha = 0.5f;
+        buttonBuy.enabled = false;
     }
 
     public void UpdateCoinAmount ()

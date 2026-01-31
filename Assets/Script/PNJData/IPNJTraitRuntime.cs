@@ -8,9 +8,9 @@ public interface IPNJTraitRuntime
 
     void OnDespawn(PNJBrain pnjBrain);
 
-    public virtual void OnInteract(PNJBrain pnjBrain) { }
+    public void OnInteract(PNJBrain pnjBrain);
 
-    public virtual void OnTextEvent(TMPEventArgs args) { }
+    public void OnTextEvent(TMPEventArgs args);
 
-    public virtual void OnItemBuy(SellingItem clickedItem, ItemShopUI itemShopUI) { }
+    public void OnItemBuy(SellingItem clickedItem, ItemShopUI itemShopUI);
 }

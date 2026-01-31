@@ -33,7 +33,7 @@ public class ShopView : UIView
         managerRefs.InputManager.Actions.UI.Cancel.started -= OnCancel;
     }
 
-    public void Setup (List<SellingItem> sellingItems, PNJBehaviour pnjBehaviour)
+    public void Setup (List<SellingItem> sellingItems, SellerRuntime sellerTrait, PNJBrain pnjBrain)
     {
         for (int i = itemContainer.childCount -1; i >= 0; i--)
         {
@@ -48,7 +48,7 @@ public class ShopView : UIView
             itemSellingInstantiated.Add(itemShopUI);
 
             itemShopUI.OnItemBuy += OnItemBuy;
-            itemShopUI.OnItemBuy += pnjBehaviour.OnItemBuy;
+            itemShopUI.OnItemBuy += ((IPNJTraitRuntime)sellerTrait).OnItemBuy;
         }
 
         if (itemSellingInstantiated.Count > 0)
@@ -56,7 +56,7 @@ public class ShopView : UIView
             EventSystem.current.SetSelectedGameObject(itemSellingInstantiated[0].BuyButton.gameObject);
         }
 
-        portrait.sprite = pnjBehaviour.PNJData.Portrait;
+        portrait.sprite = pnjBrain.Data.Identity.Portrait;
         coinAmountText.text = managerRefs.SellManager.CoinAmount.ToString();
     }
 

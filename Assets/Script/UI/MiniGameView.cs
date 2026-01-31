@@ -31,6 +31,9 @@ public class MiniGameView : UIView
     [SerializeField]
     private Image itemImage;
 
+    [SerializeField]
+    private Transform targetHolder;
+
     [SerializeField, Blockquote("Entre 0 (gauche) et 1 (droite), définit la range pour la target")]
     private Vector2 rangeSpawn;
 
@@ -54,7 +57,7 @@ public class MiniGameView : UIView
     private void Awake()
     {
         managerRefs.CraftingManager.OnItemsConsumed += Setup;
-        currentTarget = Instantiate(targetPrefab, progressBar.transform);
+        currentTarget = Instantiate(targetPrefab, targetHolder);
     }
 
     private void OnCraftHit (InputAction.CallbackContext ctx)

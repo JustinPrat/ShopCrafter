@@ -41,7 +41,7 @@ public class PNJSellerBehaviour : PNJRandomBehaviour
 
         if (args.Tag.Name == "shop")
         {
-            managerRefs.UIManager.ToggleShopView(true, sellingItems, this);
+            //managerRefs.UIManager.ToggleShopView(true, sellingItems, this);
         }
     }
 

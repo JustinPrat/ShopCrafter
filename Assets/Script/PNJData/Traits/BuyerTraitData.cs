@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPEffects.TMPEvents;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ShopCrafter/Traits/Buyer Trait")]
@@ -79,4 +80,10 @@ public class BuyerRuntime : IPNJTraitRuntime
             brain.ManagerRefs.SellManager.Buy(targetSlot);
         }
     }
+
+    public void OnInteract(PNJBrain pnjBrain) { }
+
+    public void OnTextEvent(TMPEventArgs args) { }
+    
+    public void OnItemBuy(SellingItem clickedItem, ItemShopUI itemShopUI) { }
 }
