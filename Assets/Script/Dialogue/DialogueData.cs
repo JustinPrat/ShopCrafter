@@ -24,6 +24,7 @@ public class DialogueData : ScriptableObject
 
 
 #if UNITY_EDITOR
+    [Group("texttool")]
     public TMPAnimationDatabase TMPAnimDatabase;
 
     public enum TMPType
