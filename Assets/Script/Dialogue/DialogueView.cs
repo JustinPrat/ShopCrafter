@@ -84,9 +84,7 @@ public class DialogueView : UIView
     private void StartDialogue ()
     {
         isAsking = false;
-
         currentDialogueIndex = 0;
-        textAnimator.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
 
         for (int i = answerUIButtons.Count - 1; i > 0; i--)
         {
@@ -94,6 +92,8 @@ public class DialogueView : UIView
         }
 
         answerUIButtons.Clear();
+
+        NextLine(0);
     }
 
     private void AskQuestion ()
@@ -144,9 +144,9 @@ public class DialogueView : UIView
         }
     }
 
-    public void NextLine ()
+    public void NextLine (int incrementIndex = 1)
     {
-        currentDialogueIndex++;
+        currentDialogueIndex += incrementIndex;
 
         if (currentDialogueIndex > currentDialogue.Lines.Count - 1)
         {
