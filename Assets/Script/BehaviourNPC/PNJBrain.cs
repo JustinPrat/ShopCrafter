@@ -1,10 +1,7 @@
-using Alchemy.Inspector;
 using System.Collections.Generic;
 using TMPEffects.TMPEvents;
 using Unity.Behavior;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.GPUSort;
 
 public class PNJBrain : MonoBehaviour, IInteractable
 {

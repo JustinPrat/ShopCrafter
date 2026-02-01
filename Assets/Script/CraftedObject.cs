@@ -1,4 +1,4 @@
-using Alchemy.Inspector;
+using TriInspector;
 using UnityEngine;
 
 public class CraftedObject : MonoBehaviour, IInteractable

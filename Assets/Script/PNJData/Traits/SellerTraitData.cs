@@ -36,7 +36,7 @@ public class SellerRuntime : IPNJTraitRuntime
 
     public void OnTextEvent(TMPEventArgs args)
     {
-        if (args.Tag.Name == "shop")
+        if (args.Tag.Name == TMPEvents.Shop.ToString())
         {
             pnjBrain.ManagerRefs.UIManager.ToggleShopView(true, currentInventory, this, pnjBrain);
         }

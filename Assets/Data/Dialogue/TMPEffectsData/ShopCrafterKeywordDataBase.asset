@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ca1770c46204642b7fdc2d0e0b4009, type: 3}
+  m_Name: ShopCrafterKeywordDataBase
+  m_EditorClassIdentifier: TMPEffects::TMPEffects.Databases.TMPKeywordDatabase
+  floatKeywords:
+    _serializedList: []
+  intKeywords:
+    _serializedList: []
+  boolKeywords:
+    _serializedList: []
+  colorKeywords:
+    _serializedList: []
+  vector3Keywords:
+    _serializedList: []
+  anchorKeywords:
+    _serializedList: []
+  animationCurveKeywords:
+    _serializedList: []
+  offsetTypeKeywords:
+    _serializedList: []
+  unityObjectKeywords:
+    _serializedList: []
+  OffsetProviderDict:
+    _serializedList: []
