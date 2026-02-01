@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AcceptShop1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <sketchy>Regarde ce que j'ai a vendre</sketchy>
+  - Line: Regarde ce que j'ai a vendre<?Shop>
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0
@@ -26,6 +26,6 @@ MonoBehaviour:
     reward: {fileID: 0}
   NextDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 0
+  tmpType: 1
   TMPAnimationName: sketchy
   TMPEventName: 0

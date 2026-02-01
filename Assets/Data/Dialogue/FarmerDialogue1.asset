@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FarmerDialogue1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <shake>Tu veux m'acheter quelque chose ?</shake>
+  - Line: Tu veux m'acheter quelque chose ?
     Emotion: {fileID: 0}
   HasQuestion: 1
   HasNextDialogue: 0
@@ -25,3 +25,7 @@ MonoBehaviour:
     NextDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
     reward: {fileID: 0}
   NextDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
+  tmpType: 0
+  TMPAnimationName: shake
+  TMPEventName: 0

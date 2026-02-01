@@ -17,11 +17,9 @@ MonoBehaviour:
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0
-  Answers:
-  - Line: Oui
-    NextDialogueData: {fileID: 0}
-    reward: {fileID: 0}
-  - Line: Non
-    NextDialogueData: {fileID: 0}
-    reward: {fileID: 0}
+  Answers: []
   NextDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
+  tmpType: 0
+  TMPAnimationName: sketchy
+  TMPEventName: 0
