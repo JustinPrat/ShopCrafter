@@ -143,6 +143,7 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   interactIcon: {fileID: 7047303668414087818, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
   stateIconDisplay: {fileID: 3187432314344282061}
+  questIcon: {fileID: 2876555108532849410, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
 --- !u!114 &2742724138226711751
 MonoBehaviour:
   m_ObjectHideFlags: 0

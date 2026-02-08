@@ -121,6 +121,11 @@ public class PNJBrain : MonoBehaviour, IInteractable
                 break;
             }
         }
+
+        if (!TryGetRedeemQuest(out Quest data))
+        {
+            ChangeIcon(null);
+        }
     }
 
     private void Update()
@@ -171,7 +176,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
             trait.OnInteract(this);
         }
 
-        if (TryRedeemQuest(out Quest data) && data.info.FinishedDialogueData != null)
+        if (TryGetRedeemQuest(out Quest data) && data.info.FinishedDialogueData != null)
         {
             ManagerRefs.GameEventsManager.questEvents.FinishQuest(data.info.ID);
             ManagerRefs.DialogueManager.StartDialogue(data.info.FinishedDialogueData, this);
@@ -182,7 +187,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         }
     }
 
-    private bool TryRedeemQuest(out Quest data)
+    private bool TryGetRedeemQuest(out Quest data)
     {
         foreach (QuestInfoSO questInfo in givenQuests)
         {
