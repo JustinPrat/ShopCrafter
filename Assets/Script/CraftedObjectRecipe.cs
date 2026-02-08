@@ -12,6 +12,7 @@ public enum ECraftedType
 }
 
 [CreateAssetMenu(fileName = "CraftedObjectRecipe", menuName = "ShopCrafter/CraftedObjectRecipe")]
+[Serializable]
 public class CraftedObjectRecipe : ScriptableObject, IRewardable
 {
     public List<ItemType> RequiredItems;
@@ -21,7 +22,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable
     public Sprite CraftedSprite;
     public BarData BarDataElement;
 
-    public void OnGetReward(ManagerRefs managerRefs)
+    public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {
         managerRefs.CraftingManager.AddBlueprint(this);
     }

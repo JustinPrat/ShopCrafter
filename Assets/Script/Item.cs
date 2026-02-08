@@ -8,7 +8,7 @@ public class Item : ScriptableObject, IRewardable
     public Rarity RarityInfos;
     public Sprite ItemSprite;
 
-    public void OnGetReward(ManagerRefs managerRefs)
+    public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {
         managerRefs.CraftingManager.AddItem(this);
     }

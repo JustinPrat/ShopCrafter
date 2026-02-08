@@ -70,6 +70,10 @@ public partial class SellManager : MonoBehaviour
     private void Add100Coins ()
     {
         coinAmount += 100;
+        if (managerRefs.GameEventsManager != null)
+        {
+            managerRefs.GameEventsManager.OnMoneyGained?.Invoke(100);
+        }
     }
 
     public bool IsSellingSlots => SellingSlots.Count > 0;
@@ -100,6 +104,7 @@ public partial class SellManager : MonoBehaviour
         {
             OnItemSelling(sellSlot);
             coinAmount += sellSlot.HeldObject.Price;
+            managerRefs.GameEventsManager.OnMoneyGained?.Invoke(sellSlot.HeldObject.Price);
             Destroy(sellSlot.HeldObject.gameObject);
         }
     }

@@ -9,4 +9,6 @@ public class ManagerRefs : ScriptableObject
     public UIManager UIManager { get; set; }
     public DialogueManager DialogueManager { get; set; }
     public InputReceiver InputManager { get; set; }
+    public GameEventsManager GameEventsManager { get; set; }
+    public QuestManager QuestManager { get; set; }
 }

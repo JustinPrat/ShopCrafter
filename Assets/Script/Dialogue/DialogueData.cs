@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using TMPEffects.Databases.AnimationDatabase;
 using TMPEffects.TMPAnimations;
+using TNRD;
 using TriInspector;
 using UnityEngine;
 
@@ -129,7 +130,7 @@ public class DialogueData : ScriptableObject
 
             if (dictionnaire != null) 
             {
-                var keys = dictionnaire.Keys;
+                Dictionary<string, TMPAnimation>.KeyCollection keys = dictionnaire.Keys;
                 return new List<string>(keys).ToArray();
             }
         }
@@ -137,19 +138,6 @@ public class DialogueData : ScriptableObject
         return new string[0];
     }
 
-
-    private void OnValidate()
-    {
-        for (int i = 0; i < Answers.Count; i++)
-        {
-            Answer answer = Answers[i];
-            if (answer.reward != null && answer.reward is not IRewardable)
-            {
-                answer.reward = null;
-                Answers[i] = answer;
-            }
-        }
-    }
 #endif
 }
 
@@ -165,5 +153,5 @@ public struct Answer
 {
     public string Line;
     public DialogueData NextDialogueData;
-    public ScriptableObject reward;
+    public SerializableInterface<IRewardable> Reward;
 }

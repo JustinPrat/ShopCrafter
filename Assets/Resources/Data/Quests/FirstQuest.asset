@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294185b0eafd7954bb208b6f004d2616, type: 3}
+  m_Name: FirstQuest
+  m_EditorClassIdentifier: Assembly-CSharp::QuestInfoSO
+  <ID>k__BackingField: FirstQuest
+  DisplayName: Collect coins !
+  NeedFinishInteraction: 1
+  QuestSteps:
+  - {fileID: 11400000, guid: c8b446708665d3540ab49470050bbd31, type: 2}
+  Rewards:
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
+    rawReference:
+      rid: -2
+  FinishedDialogueData: {fileID: 11400000, guid: 053d127c64d44114ab58020ff074eb71, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
