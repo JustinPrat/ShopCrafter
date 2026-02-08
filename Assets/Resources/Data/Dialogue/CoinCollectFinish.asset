@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CoinCollectFinish
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: "Merci d'avoir r\xE9cup\xE9rer cet argent"
+  - Line: "<fade>Merci d'avoir r\xE9cup\xE9rer cet argent</fade>"
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   NextDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
-  TMPAnimationName: shake
+  TMPAnimationName: fade
   TMPEventName: 0
   references:
     version: 2

@@ -10,11 +10,11 @@ public partial class PausableWait : Action
     [SerializeReference] public BlackboardVariable<float> Duration;
     [SerializeReference] public BlackboardVariable<bool> IsPaused;
 
-    private float _timer;
+    private float timer;
 
     protected override Status OnStart()
     {
-        _timer = 0f;
+        timer = 0f;
         return Status.Running;
     }
 
@@ -25,9 +25,9 @@ public partial class PausableWait : Action
             return Status.Running;
         }
 
-        _timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        if (_timer >= Duration.Value)
+        if (timer >= Duration.Value)
         {
             return Status.Success;
         }

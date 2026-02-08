@@ -18,7 +18,6 @@ public partial class RoamingAroundAction : Action
     {
         navMeshAgent = Agent.Value.GetComponent<NavMeshAgent>();
         navMeshAgent.SetDestination(RandomNavSphere(Agent.Value.transform.position, Raduis.Value, -1));
-        Debug.Log("Start current random destination : " + navMeshAgent.destination);
         return Status.Running;
     }
 
@@ -34,7 +33,6 @@ public partial class RoamingAroundAction : Action
 
     protected override void OnEnd()
     {
-        Debug.Log("Arrived at random position : " + navMeshAgent.transform.position);
     }
 
     private Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)

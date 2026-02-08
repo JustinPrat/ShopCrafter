@@ -12,7 +12,7 @@ public partial class ChangeIconAction : Action
     [SerializeReference] public BlackboardVariable<PNJBrain> PNJ;
     protected override Status OnStart()
     {
-        //PNJ.Value.ChangeIcon(Icon.Value);
+        PNJ.Value.ChangeIcon(Icon.Value);
         return Status.Success;
     }
 
