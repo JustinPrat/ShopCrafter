@@ -20,28 +20,29 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
     public CraftedObject HeldObject => heldObject;
     public bool HasHeldItem => heldObject != null;
 
-    public bool CanTakeItem (PlayerBrain brain) => brain.HasItem && !HasHeldItem;
-    public bool CanGiveItem (PlayerBrain brain) => !brain.HasItem && HasHeldItem;
+    public bool CanTakeItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        return (playerBrain.HasItem && !HasHeldItem) || (!playerBrain.HasItem && HasHeldItem);
+        return (playerBrain.Inventory.HasItem && !HasHeldItem) || (!playerBrain.Inventory.HasItem && HasHeldItem);
     }
 
     public void DoInteract(PlayerBrain playerBrain)
     {
         if (CanTakeItem(playerBrain))
         {
-            heldObject = playerBrain.HeldObject;
+            heldObject = playerBrain.Inventory.HeldObject;
             heldObject.transform.SetParent(objectHoldAnchor, false);
-            playerBrain.DropItem();
+            playerBrain.Inventory.DropItem();
         }
-        else if (CanGiveItem(playerBrain))
+        else
         {
-            heldObject.transform.SetParent(playerBrain.ObjectHoldAnchor);
-            heldObject.transform.localPosition = Vector3.zero;
-            playerBrain.TryHoldItem(heldObject);
-            heldObject = null;
+            if (playerBrain.Inventory.TryTakeItem(heldObject))
+            {
+                heldObject.transform.SetParent(playerBrain.Inventory.ObjectHoldAnchor);
+                heldObject.transform.localPosition = Vector3.zero;
+                heldObject = null;
+            }
         }
     }
 

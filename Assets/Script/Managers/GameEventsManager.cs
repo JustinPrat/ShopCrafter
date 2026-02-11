@@ -9,6 +9,8 @@ public class GameEventsManager : MonoBehaviour
     #region Events
 
     public QuestEvents questEvents;
+    public PlayerEvents playerEvents;
+
     public Action<int> OnMoneyGained;
 
     #endregion
@@ -17,5 +19,6 @@ public class GameEventsManager : MonoBehaviour
     {
         managerRefs.GameEventsManager = this;
         questEvents = new QuestEvents();
+        playerEvents = new PlayerEvents();
     }
 }

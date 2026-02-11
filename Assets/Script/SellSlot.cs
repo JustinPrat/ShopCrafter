@@ -26,15 +26,15 @@ public class SellSlot : MonoBehaviour, IInteractable
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        return playerBrain.HasItem && !IsSelling;
+        return playerBrain.Inventory.HasItem && !IsSelling;
     }
 
     public void DoInteract(PlayerBrain playerBrain)
     {
-        heldObject = playerBrain.HeldObject;
+        heldObject = playerBrain.Inventory.HeldObject;
         heldObject.transform.SetParent(objectHoldAnchor, false);
         refs.SellManager.OnItemSelling(this);
-        playerBrain.DropItem();
+        playerBrain.Inventory.DropItem();
     }
 
     public void OutOfInteractRange(PlayerBrain playerBrain)

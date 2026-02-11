@@ -1,35 +1,32 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 public class PlayerBrain : MonoBehaviour
 {
-    [SerializeField] 
-    private Transform objectHoldAnchor;
+    //[SerializeField] 
+    //private Transform objectHoldAnchor;
 
     [SerializeField]
     private ManagerRefs managerRefs;
- 
-    public Transform ObjectHoldAnchor => objectHoldAnchor;
 
+    [SerializeField]
+    private Inventory inventory;
+
+    [SerializeField]
+    private Movement movement;
+
+    [SerializeField]
+    private Interaction interaction;
+
+    public Inventory Inventory => inventory;
+    public Movement Movement => movement;
+    public Interaction Interaction => interaction;
     public Vector2 LastPlayerMovement { get; set; }
-
-    public CraftedObject HeldObject { get; set; }
-
-    public bool HasItem => HeldObject != null;
-
     public ManagerRefs ManagerRefsProperty => managerRefs;
 
-    public void TryHoldItem (CraftedObject craftedObject)
+    private void Awake()
     {
-        if (!HasItem)
-        {
-            HeldObject = craftedObject;
-        }
-    }
-
-    public void DropItem ()
-    {
-        HeldObject = null;
     }
 }
