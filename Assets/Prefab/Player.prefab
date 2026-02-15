@@ -160,6 +160,7 @@ MonoBehaviour:
   objectHoldAnchor: {fileID: 3531761092125774024}
   inventorySpace: 5
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  itemPrefab: {fileID: 5086974238770950235, guid: 273f9d7f58a38aa43837c18d4a70be7e, type: 3}
 --- !u!114 &2121583507091329011
 MonoBehaviour:
   m_ObjectHideFlags: 0

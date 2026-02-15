@@ -316,7 +316,7 @@ MonoBehaviour:
   context:
     scaleAnimations: 1
     scaleUniformly: 1
-    useScaledTime: 1
+    useScaledTime: 0
     tmpAnimator: {fileID: 2742720293150204497}
   updateFrom: 0
   animateOnStart: 1
@@ -390,7 +390,7 @@ MonoBehaviour:
   maySkip: 1
   writeOnStart: 1
   writeOnNewText: 1
-  useScaledTime: 1
+  useScaledTime: 0
   delays:
     delay: 0.035
     whitespaceDelay: 0

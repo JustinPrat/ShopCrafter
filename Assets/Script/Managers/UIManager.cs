@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     private GameObject priceCheckViewPrefab;
 
     [SerializeField]
+    private GameObject inventoryViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -38,6 +41,7 @@ public class UIManager : MonoBehaviour
     private CraftedStatView craftedStatViewInstance;
     private EncyclopedieView encyclopedieViewInstance;
     private PriceCheckView priceCheckViewInstance;
+    private InventoryView inventoryViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -49,6 +53,9 @@ public class UIManager : MonoBehaviour
 
         miniGameViewInstance = Instantiate(miniGameViewPrefab).GetComponent<MiniGameView>();
         miniGameViewInstance.gameObject.SetActive(false);
+
+        inventoryViewInstance = Instantiate(inventoryViewPrefab, canvas.transform).GetComponent<InventoryView>();
+        inventoryViewInstance.gameObject.SetActive(false);
 
         dialogueViewInstance = Instantiate(dialogueViewPrefab, canvas.transform).GetComponent<DialogueView>();
         dialogueViewInstance.gameObject.SetActive(false);
@@ -67,6 +74,14 @@ public class UIManager : MonoBehaviour
 
         managerRefs.InputManager.Actions.UI.Validate.Disable();
         managerRefs.InputManager.Actions.UI.Remove.Disable();
+    }
+
+    public void ToggleInventoryUI (bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            inventoryViewInstance.Toggle(isOn);
+        });
     }
 
     public void ToggleEncyclopedieView(bool isOn)
@@ -135,12 +150,14 @@ public class UIManager : MonoBehaviour
             dialogueViewInstance.Toggle(isOn);
             if (isOn)
             {
+                Time.timeScale = 0f;
                 dialogueViewInstance.Setup(firstData, pnjBrain);
                 managerRefs.InputManager.SetActionType(false, false, true);
                 managerRefs.InputManager.Actions.UI.Validate.Enable();
             }
             else
             {
+                Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Validate.Disable();
             }

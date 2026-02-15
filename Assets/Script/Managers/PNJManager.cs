@@ -23,6 +23,9 @@ public class PNJManager : MonoBehaviour
     [SerializeField] 
     private int dayEndTime;
 
+    [SerializeField] 
+    private float nearDayEndTime;
+
     [SerializeField]
     private int targetNumberPnj;
 
@@ -45,6 +48,8 @@ public class PNJManager : MonoBehaviour
     private float currentDayTime;
     private DateTime currentHourDayTime;
     private int dayIndex;
+    private bool isTimePaused;
+    private bool isNearDayEndEventTriggered;
 
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
 
@@ -85,13 +90,14 @@ public class PNJManager : MonoBehaviour
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
         PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
-
-        StartDay();
     }
 
     private void Start()
     {
+        StartDay();
         managerRefs.CraftingManager.OnItemCraft += OnItemCraft;
+        managerRefs.GameEventsManager.dayEvents.OnPauseDay += PauseDayCounter;
+        managerRefs.GameEventsManager.dayEvents.OnResumeDay += ResumeDayCounter;
     }
 
     private void OnItemCraft(int number)
@@ -116,14 +122,22 @@ public class PNJManager : MonoBehaviour
             }
         }
        
-        currentDayTime += Time.deltaTime;
-        if (currentDayTime >= dayDuration)
+        if (!isTimePaused)
         {
-            EndDay();
-        }
+            currentDayTime += Time.deltaTime;
+            if (currentDayTime >= dayDuration)
+            {
+                EndDay();
+            }
 
-        currentHourDayTime = currentHourDayTime.AddSeconds((Time.deltaTime / dayDuration) * ((dayEndTime - dayStartTime) * 3600f));
-        daytime.text = "date : " + currentHourDayTime.Day + " - " + currentHourDayTime.Hour + "h" + currentHourDayTime.Minute;
+            if (currentDayTime >= nearDayEndTime && !isNearDayEndEventTriggered)
+            {
+                NearDayEnd();
+            }
+
+            currentHourDayTime = currentHourDayTime.AddSeconds((Time.deltaTime / dayDuration) * ((dayEndTime - dayStartTime) * 3600f));
+            daytime.text = "date : " + currentHourDayTime.Day + " - " + currentHourDayTime.Hour + "h" + currentHourDayTime.Minute;
+        }
     }
 
     private void StartDay ()
@@ -132,11 +146,19 @@ public class PNJManager : MonoBehaviour
         dayIndex++;
 
         currentHourDayTime = new DateTime(1, 1, dayIndex, dayStartTime, 0, 0);
+        managerRefs.GameEventsManager.dayEvents.StartDay();
     }
 
     private void EndDay ()
     {
+        managerRefs.GameEventsManager.dayEvents.EndDay();
         StartDay();
+    }
+
+    private void NearDayEnd()
+    {
+        isNearDayEndEventTriggered = true;
+        managerRefs.GameEventsManager.dayEvents.NearEndDay();
     }
 
     private void SpawnPNJ ()
@@ -164,5 +186,28 @@ public class PNJManager : MonoBehaviour
     public void RemovePnj (PNJBrain pnj)
     {
         PNJList.Remove(pnj);
+    }
+    private void PauseDayCounter()
+    {
+        isTimePaused = true;
+    }
+
+    private void ResumeDayCounter()
+    {
+        isTimePaused = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (managerRefs.CraftingManager != null)
+        {
+            managerRefs.CraftingManager.OnItemCraft -= OnItemCraft;
+        }
+
+        if (managerRefs.GameEventsManager != null)
+        {
+            managerRefs.GameEventsManager.dayEvents.OnPauseDay -= PauseDayCounter;
+            managerRefs.GameEventsManager.dayEvents.OnResumeDay -= ResumeDayCounter;
+        }
     }
 }

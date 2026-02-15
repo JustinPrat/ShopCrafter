@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,9 @@ public class Inventory : MonoBehaviour
 
     [SerializeField]
     private ManagerRefs managerRefs;
+
+    [SerializeField]
+    private GameObject itemPrefab;
 
     private Dictionary<int, CraftedObjectData> craftedInventory = new Dictionary<int, CraftedObjectData>();
     private int selectedInventoryIndex;
@@ -33,6 +37,15 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         managerRefs.InputManager.Actions.Player.Inventory.performed += OnSelectInventoryPerformed;
+        managerRefs.UIManager.ToggleInventoryUI(true);
+        StartCoroutine(InitUI());
+    }
+
+    IEnumerator InitUI()
+    {
+        yield return null;
+        managerRefs.GameEventsManager.playerEvents.UpdateInventory(craftedInventory);
+        managerRefs.GameEventsManager.playerEvents.SelectedInventoryIndexChange(selectedInventoryIndex);
     }
 
     private void OnDestroy()
@@ -42,12 +55,45 @@ public class Inventory : MonoBehaviour
 
     private void OnSelectInventoryPerformed(InputAction.CallbackContext context)
     {
-        // left right inventory selection
+        int direction = (int)context.ReadValue<float>();
+        if (selectedInventoryIndex + direction < inventorySpace && selectedInventoryIndex + direction >= 0)
+        {
+            selectedInventoryIndex += direction;
+            OnChangeIndex();
+            managerRefs.GameEventsManager.playerEvents.SelectedInventoryIndexChange(selectedInventoryIndex);
+        }
+    }
+
+    private void OnChangeIndex()
+    {
+        if (HeldObject != null)
+        {
+            Destroy(HeldObject.gameObject);
+            HeldObject = null;
+        }
+
+        if (craftedInventory[selectedInventoryIndex] != null)
+        {
+            GameObject newItem = Instantiate(itemPrefab, objectHoldAnchor.position, Quaternion.identity, objectHoldAnchor);
+            HeldObject = newItem.GetComponent<CraftedObject>(); 
+            HeldObject.Init(craftedInventory[selectedInventoryIndex]);
+        }
+    }
+
+    public void DropItem()
+    {
+        if (HeldObject != null)
+        {
+            RemoveItemData(HeldObject.CraftedData);
+        }
+        HeldObject = null;
+        managerRefs.GameEventsManager.playerEvents.UpdateInventory(craftedInventory);
     }
 
     public bool TryTakeItem(CraftedObject craftedObject)
     {
-        if (HasEmptySpace(out int index))
+        int index = selectedInventoryIndex;
+        if (craftedInventory[selectedInventoryIndex] == null || HasEmptySpace(out index))
         {
             craftedInventory[index] = craftedObject.CraftedData;
 
@@ -78,8 +124,15 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public void DropItem()
+    private void RemoveItemData (CraftedObjectData craftedObjectData)
     {
-        HeldObject = null;
+        foreach (KeyValuePair<int, CraftedObjectData> craftedIndexObject in craftedInventory)
+        {
+            if (craftedIndexObject.Value == craftedObjectData)
+            {
+                craftedInventory[craftedIndexObject.Key] = null; 
+                return;
+            }
+        }
     }
 }

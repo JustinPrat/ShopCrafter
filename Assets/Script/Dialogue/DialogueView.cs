@@ -129,7 +129,7 @@ public class DialogueView : UIView
         answerUIButtons.Clear();
 
         currentDialogue = selectedAnswer.NextDialogueData;
-        if (selectedAnswer.Reward != null)
+        if (selectedAnswer.Reward.Value != null)
         {
             selectedAnswer.Reward.Value.OnGetReward(managerRefs, currentPNJ.gameObject);
         }

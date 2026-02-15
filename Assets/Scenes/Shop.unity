@@ -1570,6 +1570,7 @@ MonoBehaviour:
   dayDuration: 20
   dayStartTime: 10
   dayEndTime: 20
+  nearDayEndTime: 18
   targetNumberPnj: 1
   waitBeforeSpawnPNJ: 5
   pnjPoolList:
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   craftedStatViewPrefab: {fileID: 5475771195858154003, guid: 14b1f5bbf8d60c34aaf00be283c763f1, type: 3}
   encyclopedieViewPrefab: {fileID: 2813235343791059201, guid: 379c3fb54cb40114f82fd9ebd5fc9e7b, type: 3}
   priceCheckViewPrefab: {fileID: 5475771195858154003, guid: 6a378493ed43ca5429a7908fa8fc6579, type: 3}
+  inventoryViewPrefab: {fileID: 5475771195858154003, guid: 0cd2dbdd89b6e9f499d348e182a73729, type: 3}
   canvas: {fileID: 1111131736}
 --- !u!1 &1935432036
 GameObject:

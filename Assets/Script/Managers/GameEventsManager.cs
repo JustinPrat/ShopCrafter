@@ -10,6 +10,7 @@ public class GameEventsManager : MonoBehaviour
 
     public QuestEvents questEvents;
     public PlayerEvents playerEvents;
+    public DayEvents dayEvents;
 
     public Action<int> OnMoneyGained;
 
@@ -20,5 +21,6 @@ public class GameEventsManager : MonoBehaviour
         managerRefs.GameEventsManager = this;
         questEvents = new QuestEvents();
         playerEvents = new PlayerEvents();
+        dayEvents = new DayEvents();
     }
 }

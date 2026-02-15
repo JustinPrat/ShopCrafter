@@ -49,6 +49,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         pnjBuying.Value.Event -= OnPNJBuying;
         pnjOutside.Value.Event -= OnPNJOutside;
         managerRefs.GameEventsManager.questEvents.onFinishQuest -= OnFinishQuest;
+        managerRefs.GameEventsManager.dayEvents.OnNearEndDay -= ForceDayEnd;
     }
 
     public void Setup(PNJInfoData datas)
@@ -76,6 +77,12 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
         managerRefs.GameEventsManager.questEvents.onFinishQuest += OnFinishQuest;
         managerRefs.GameEventsManager.questEvents.onQuestStateChange += OnQuestStateChange;
+        managerRefs.GameEventsManager.dayEvents.OnNearEndDay += ForceDayEnd;
+    }
+
+    private void ForceDayEnd() 
+    {
+        ChangeState(State.GoOut);
     }
 
     public void ChangeIcon (Sprite icon)
