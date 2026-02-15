@@ -111,7 +111,7 @@ public class PNJManager : MonoBehaviour
 
     private void Update()
     {
-        if (!HasEnoughtPNJ)
+        if (!HasEnoughtPNJ && !isNearDayEndEventTriggered)
         {
             waitPNJCounter += Time.deltaTime;
 
@@ -144,6 +144,7 @@ public class PNJManager : MonoBehaviour
     {
         currentDayTime = 0;
         dayIndex++;
+        isNearDayEndEventTriggered = false;
 
         currentHourDayTime = new DateTime(1, 1, dayIndex, dayStartTime, 0, 0);
         managerRefs.GameEventsManager.dayEvents.StartDay();
@@ -152,7 +153,8 @@ public class PNJManager : MonoBehaviour
     private void EndDay ()
     {
         managerRefs.GameEventsManager.dayEvents.EndDay();
-        StartDay();
+        managerRefs.UIManager.ToggleEndDayView(true);
+        //StartDay();
     }
 
     private void NearDayEnd()

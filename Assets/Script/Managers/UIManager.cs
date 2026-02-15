@@ -32,6 +32,9 @@ public class UIManager : MonoBehaviour
     private GameObject inventoryViewPrefab;
 
     [SerializeField]
+    private GameObject endDayViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -42,6 +45,7 @@ public class UIManager : MonoBehaviour
     private EncyclopedieView encyclopedieViewInstance;
     private PriceCheckView priceCheckViewInstance;
     private InventoryView inventoryViewInstance;
+    private EndDayView endDayViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -72,6 +76,9 @@ public class UIManager : MonoBehaviour
         priceCheckViewInstance = Instantiate(priceCheckViewPrefab).GetComponent<PriceCheckView>();
         priceCheckViewInstance.gameObject.SetActive(false);
 
+        endDayViewInstance = Instantiate(endDayViewPrefab, canvas.transform).GetComponent<EndDayView>();
+        endDayViewInstance.gameObject.SetActive(false);
+
         managerRefs.InputManager.Actions.UI.Validate.Disable();
         managerRefs.InputManager.Actions.UI.Remove.Disable();
     }
@@ -81,6 +88,27 @@ public class UIManager : MonoBehaviour
         ExecuteAfterOneFrame(() =>
         {
             inventoryViewInstance.Toggle(isOn);
+        });
+    }
+
+    public void ToggleEndDayView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            endDayViewInstance.Toggle(isOn);
+
+            if (isOn)
+            {
+                Time.timeScale = 0f;
+                managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Validate.Enable();
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Validate.Disable();
+            }
         });
     }
 

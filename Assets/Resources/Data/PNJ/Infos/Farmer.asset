@@ -16,5 +16,5 @@ MonoBehaviour:
   TraitDatas:
   - {fileID: 11400000, guid: 103ec9e8a31138d48bd02e4f59acf538, type: 2}
   - {fileID: 11400000, guid: 94ac4a892c86e12469ccf94dcb7ea91e, type: 2}
-  ShopStayDuration: 5
+  ShopStayDuration: 20
   ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
