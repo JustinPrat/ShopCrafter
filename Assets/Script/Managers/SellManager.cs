@@ -71,6 +71,11 @@ public partial class SellManager : MonoBehaviour
         managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
     }
 
+    private void OnDestroy()
+    {
+        managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
+    }
+
     private void OnStartDay()
     {
         UpdatePrices(true);
