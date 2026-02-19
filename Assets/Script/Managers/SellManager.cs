@@ -22,8 +22,8 @@ public partial class SellManager : MonoBehaviour
     [NonSerialized, AlchemySerializeField]
     private Dictionary<ECraftedType, PriceVariation> priceVariations;
 
-    [SerializeField]
-    private float timeBeforePriceVariation;
+    //[SerializeField]
+    //private float timeBeforePriceVariation;
 
     public List<SellSlot> SellSlots = new List<SellSlot>();
     public List<SellSlot> SellingSlots = new List<SellSlot>();
@@ -33,7 +33,7 @@ public partial class SellManager : MonoBehaviour
     private int coinAmount;
     private Queue<ECraftedType> priceVariationLastTypes = new Queue<ECraftedType>();
 
-    private float nextTimePriceVariation;
+    //private float nextTimePriceVariation;
 
     private void OnValidate()
     {
@@ -63,6 +63,16 @@ public partial class SellManager : MonoBehaviour
     {
         managerRefs.SellManager = this;
         coinAmount = baseMoney;
+        UpdatePrices(true);
+    }
+
+    private void Start()
+    {
+        managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
+    }
+
+    private void OnStartDay()
+    {
         UpdatePrices(true);
     }
 
@@ -120,17 +130,17 @@ public partial class SellManager : MonoBehaviour
         return false;
     }
 
-    private void Update()
-    {
-        if (Time.time >= nextTimePriceVariation)
-        {
-            UpdatePrices(true);
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Time.time >= nextTimePriceVariation)
+    //    {
+    //        UpdatePrices(true);
+    //    }
+    //}
 
     private void UpdatePrices (bool needReroll)
     {
-        nextTimePriceVariation = Time.time + timeBeforePriceVariation;
+        //nextTimePriceVariation = Time.time + timeBeforePriceVariation;
 
         foreach (ECraftedType variationType in priceVariationLastTypes)
         {

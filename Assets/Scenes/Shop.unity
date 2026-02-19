@@ -841,7 +841,6 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   baseMoney: 30
   numberToTakeForPriceVariation: 5
-  timeBeforePriceVariation: 30
   SellSlots:
   - {fileID: 1080099437}
   - {fileID: 1086043889}
