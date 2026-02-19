@@ -11,6 +11,7 @@ public class GameEventsManager : MonoBehaviour
     public QuestEvents questEvents;
     public PlayerEvents playerEvents;
     public DayEvents dayEvents;
+    public CraftEvents craftEvents;
 
     public Action<int> OnMoneyGained;
 
@@ -22,5 +23,6 @@ public class GameEventsManager : MonoBehaviour
         questEvents = new QuestEvents();
         playerEvents = new PlayerEvents();
         dayEvents = new DayEvents();
+        craftEvents = new CraftEvents();
     }
 }

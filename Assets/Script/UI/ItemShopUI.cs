@@ -48,7 +48,7 @@ public class ItemShopUI : MonoBehaviour
         buttonBuy.OnLeftClick.AddListener(OnItemClick);
     }
 
-    private void OnItemClick ()
+    private void OnItemClick (AdvancedButton button)
     {
         OnItemBuy?.Invoke(currentSellingItem, this);
     }

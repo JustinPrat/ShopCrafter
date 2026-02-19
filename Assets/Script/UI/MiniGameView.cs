@@ -39,6 +39,7 @@ public class MiniGameView : UIView
 
     private List<Item> items = new List<Item>();
     private CraftedObjectRecipe craftedObjectRecipe;
+    private bool isNew = false;
 
     private float barCount = 0f;
     private bool countingUp;
@@ -85,7 +86,7 @@ public class MiniGameView : UIView
     public void Setup (List<Item> itemConsumed)
     {
         items.AddRange(itemConsumed);
-        craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items);
+        craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items, out isNew);
         toCraftItemHolder.Setup(craftedObjectRecipe);
         toCraftItemHolder.ValidateButton.onClick.AddListener(OnItemClick);
 
@@ -135,8 +136,10 @@ public class MiniGameView : UIView
             currentBarBehaviour = null;
         }
 
-        CurrentCraftingTable.SpawnCraftedItem(craftedObjectRecipe, items, tierCount);
-        managerRefs.CraftingManager.OnItemCrafted();
+        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, items, tierCount, isNew);
+        CurrentCraftingTable.SpawnCraftedItem(craftedObject);
+        managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
+
         managerRefs.UIManager.ToggleMiniGameView(false, CurrentCraftingTable);
         tierCount = 0;
     }

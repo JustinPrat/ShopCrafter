@@ -56,6 +56,8 @@ public class InventoryView : UIView
                 InventorySlotUI inventorySlot = Instantiate(inventorySlotPrefab, inventoryParent).GetComponent<InventorySlotUI>();
                 inventorySlot.Setup(craftedInventory[i]);
                 inventorySlots.Add(inventorySlot);
+
+                inventorySlot.Button.OnLeftClick.AddListener(OnInventorySlotClick);
             }
         }
         else
@@ -64,6 +66,15 @@ public class InventoryView : UIView
             {
                 inventorySlots[i].Setup(craftedInventory[i]);
             }
+        }
+    }
+
+    private void OnInventorySlotClick(AdvancedButton button)
+    {
+        int index = inventorySlots.FindIndex(slot => slot == button.GetComponent<InventorySlotUI>());
+        if (index >= 0)
+        {
+            managerRefs.GameEventsManager.playerEvents.SelectedInventoryIndexClick(index);
         }
     }
 }

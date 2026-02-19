@@ -18,6 +18,11 @@ public class InventorySlotUI : MonoBehaviour
     [SerializeField]
     private Sprite emptyItem;
 
+    [SerializeField]
+    private AdvancedButton button;
+
+    public AdvancedButton Button => button;
+
     public void Setup (CraftedObjectData data)
     {
         if (data == null)

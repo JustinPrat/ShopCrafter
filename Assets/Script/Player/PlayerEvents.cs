@@ -17,4 +17,10 @@ public class PlayerEvents
     {
         OnSelectedInventoryIndexChange?.Invoke(index);
     }
+
+    public event Action<int> OnSelectedInventoryIndexClick;
+    public void SelectedInventoryIndexClick(int index)
+    {
+        OnSelectedInventoryIndexClick?.Invoke(index);
+    }
 }

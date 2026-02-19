@@ -40,13 +40,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
     {
     }
 
-    public void SpawnCraftedItem (CraftedObjectRecipe craftedObjectRecipe, List<Item> items, int boostNumber)
+    public void SpawnCraftedItem (CraftedObject craftedObject)
     {
-        CraftedObjectData craftedObjectData = new CraftedObjectData(craftedObjectRecipe, managerRefs, items, boostNumber);
-
-        CraftedObject craftedObject = Instantiate(managerRefs.CraftingManager.CraftedObjectPrefab);
-        craftedObject.Init(craftedObjectData);
-
         foreach (CraftedItemReceiver itemReceiver in receiveSlots)
         {
             if (!itemReceiver.HasHeldItem)

@@ -42,13 +42,17 @@ public class CraftedObjectData
     [ReadOnly, SerializeField]
     private int basePrice;
 
+    private bool isNew;
+
     public CraftedObjectRecipe CraftedObjectRecipe => craftedObjectRecipe;
     public Rarity Rarity => rarity;
+    public bool IsNew => isNew;
 
-    public CraftedObjectData (CraftedObjectRecipe craftedObjectRecipe, ManagerRefs managerRefs, List<Item> items, int boostNumber)
+    public CraftedObjectData (CraftedObjectRecipe craftedObjectRecipe, ManagerRefs managerRefs, List<Item> items, int boostNumber, bool isNew)
     {
         this.craftedObjectRecipe = craftedObjectRecipe;
         this.managerRefs = managerRefs;
+        this.isNew = isNew;
         FindRarity(items, boostNumber);
         SetPrice();
     }

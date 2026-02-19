@@ -12,4 +12,5 @@ public class ManagerRefs : ScriptableObject
     public InputReceiver InputManager { get; set; }
     public GameEventsManager GameEventsManager { get; set; }
     public QuestManager QuestManager { get; set; }
+    public GameMetaDataManager GameMetaDataManager { get; set; }
 }

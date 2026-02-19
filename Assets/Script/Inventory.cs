@@ -37,6 +37,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         managerRefs.InputManager.Actions.Player.Inventory.performed += OnSelectInventoryPerformed;
+        managerRefs.GameEventsManager.playerEvents.OnSelectedInventoryIndexClick += OnSelectedInventoryIndexClick;
         managerRefs.UIManager.ToggleInventoryUI(true);
         StartCoroutine(InitUI());
     }
@@ -51,17 +52,31 @@ public class Inventory : MonoBehaviour
     private void OnDestroy()
     {
         managerRefs.InputManager.Actions.Player.Inventory.performed -= OnSelectInventoryPerformed;
+        managerRefs.GameEventsManager.playerEvents.OnSelectedInventoryIndexClick -= OnSelectedInventoryIndexClick;
+    }
+
+    private void OnSelectedInventoryIndexClick(int index)
+    {
+        TrySelectInventorySlot(index);
     }
 
     private void OnSelectInventoryPerformed(InputAction.CallbackContext context)
     {
         int direction = (int)context.ReadValue<float>();
-        if (selectedInventoryIndex + direction < inventorySpace && selectedInventoryIndex + direction >= 0)
+        TrySelectInventorySlot(direction + selectedInventoryIndex);
+    }
+
+    private bool TrySelectInventorySlot(int newIndex)
+    {
+        if (newIndex < inventorySpace && newIndex >= 0)
         {
-            selectedInventoryIndex += direction;
+            selectedInventoryIndex = newIndex;
             OnChangeIndex();
             managerRefs.GameEventsManager.playerEvents.SelectedInventoryIndexChange(selectedInventoryIndex);
+            return true;
         }
+
+        return false;
     }
 
     private void OnChangeIndex()

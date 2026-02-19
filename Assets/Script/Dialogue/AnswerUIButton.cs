@@ -20,7 +20,7 @@ public class AnswerUIButton : MonoBehaviour
         button.OnLeftClick.AddListener(OnClick);
     }
 
-    private void OnClick ()
+    private void OnClick (AdvancedButton button)
     {
         OnAnswerClicked?.Invoke(currentAnswer);
     }

@@ -1,0 +1,806 @@
+fileFormatVersion: 2
+guid: 86a61c1e5259b5e41b29c6bae7737e2b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5067577317310329681
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_0
+  - first:
+      213: -9042927530820718548
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_1
+  - first:
+      213: -4991527824472737117
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_2
+  - first:
+      213: 7696894911692179166
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_3
+  - first:
+      213: -6460998835215608701
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_4
+  - first:
+      213: 819898562155977492
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_5
+  - first:
+      213: -8928384775824753226
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_6
+  - first:
+      213: -2732558350321672944
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_7
+  - first:
+      213: 2785818207598328210
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_8
+  - first:
+      213: -5041919367770348315
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_9
+  - first:
+      213: 2403948997541250978
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_10
+  - first:
+      213: 6613030490092120214
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_11
+  - first:
+      213: -7213890812418823270
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_12
+  - first:
+      213: -5069973991681670086
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_13
+  - first:
+      213: -4228210879575830201
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_14
+  - first:
+      213: -6919091125621531722
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_15
+  - first:
+      213: 9002679965510068442
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_16
+  - first:
+      213: 7885640424292135987
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_17
+  - first:
+      213: -6280431450522918742
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_18
+  - first:
+      213: 1717892479508977119
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_19
+  - first:
+      213: 1145064104938104267
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_20
+  - first:
+      213: 2995030659160921847
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_21
+  - first:
+      213: -4419557748025444819
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_22
+  - first:
+      213: -3953646559689754534
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_23
+  - first:
+      213: -6992606251946425685
+    second: vecteezy_sun-sun-ray-icon-png-transparent_9663724_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_0
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 2030
+        width: 596
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fac04e177495ca9b0800000000000000
+      internalID: -5067577317310329681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_1
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 2176
+        width: 295
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c20b4db7251118280800000000000000
+      internalID: -9042927530820718548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_2
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 2282
+        width: 371
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aaf2dfc3e78abab0800000000000000
+      internalID: -4991527824472737117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_3
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 2360
+        width: 134
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed68cec642dd0da60800000000000000
+      internalID: 7696894911692179166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_4
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 2391
+        width: 93
+        height: 662
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 384d2cc8acbe556a0800000000000000
+      internalID: -6460998835215608701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_5
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 2367
+        width: 119
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41b1925f56dd06b00800000000000000
+      internalID: 819898562155977492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_6
+      rect:
+        serializedVersion: 2
+        x: 2030
+        y: 2283
+        width: 372
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bdb5fad951081480800000000000000
+      internalID: -8928384775824753226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_7
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 2195
+        width: 285
+        height: 295
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01d9c0978a0041ad0800000000000000
+      internalID: -2732558350321672944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_8
+      rect:
+        serializedVersion: 2
+        x: 2282
+        y: 2032
+        width: 596
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 299b6b066e639a620800000000000000
+      internalID: 2785818207598328210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_9
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 1878
+        width: 379
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e4e2e95c01870ab0800000000000000
+      internalID: -5041919367770348315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_10
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 1206
+        width: 1088
+        height: 1088
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a74a9860ea8c5120800000000000000
+      internalID: 2403948997541250978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_11
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 1902
+        width: 375
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 698a4c2813436cb50800000000000000
+      internalID: 6613030490092120214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_12
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 1703
+        width: 662
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9b6255e68c13eb90800000000000000
+      internalID: -7213890812418823270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_13
+      rect:
+        serializedVersion: 2
+        x: 2391
+        y: 1704
+        width: 662
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3448553485d3a9b0800000000000000
+      internalID: -5069973991681670086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_14
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1464
+        width: 375
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 741d0776b906255c0800000000000000
+      internalID: -4228210879575830201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_15
+      rect:
+        serializedVersion: 2
+        x: 2367
+        y: 1503
+        width: 379
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb55c8b7437aff90800000000000000
+      internalID: -6919091125621531722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_16
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 1097
+        width: 596
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8e0cafab1ffec70800000000000000
+      internalID: 9002679965510068442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_17
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 1010
+        width: 285
+        height: 295
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334b46c9f2c6f6d60800000000000000
+      internalID: 7885640424292135987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_18
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 621
+        width: 372
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0e363fedc67d8a0800000000000000
+      internalID: -6280431450522918742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_19
+      rect:
+        serializedVersion: 2
+        x: 1503
+        y: 754
+        width: 119
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5927bbb1e27d710800000000000000
+      internalID: 1717892479508977119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_20
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 447
+        width: 93
+        height: 662
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc5e2e39cb514ef00800000000000000
+      internalID: 1145064104938104267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_21
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 765
+        width: 134
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f6d0b2248c709920800000000000000
+      internalID: 2995030659160921847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_22
+      rect:
+        serializedVersion: 2
+        x: 2032
+        y: 622
+        width: 371
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d263e9cd4a39aa2c0800000000000000
+      internalID: -4419557748025444819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_23
+      rect:
+        serializedVersion: 2
+        x: 2195
+        y: 1039
+        width: 295
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a583f3ab663d129c0800000000000000
+      internalID: -3953646559689754534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_sun-sun-ray-icon-png-transparent_9663724_24
+      rect:
+        serializedVersion: 2
+        x: 2283
+        y: 1098
+        width: 596
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba2ce8a89a545fe90800000000000000
+      internalID: -6992606251946425685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_0: -5067577317310329681
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_1: -9042927530820718548
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_10: 2403948997541250978
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_11: 6613030490092120214
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_12: -7213890812418823270
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_13: -5069973991681670086
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_14: -4228210879575830201
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_15: -6919091125621531722
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_16: 9002679965510068442
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_17: 7885640424292135987
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_18: -6280431450522918742
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_19: 1717892479508977119
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_2: -4991527824472737117
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_20: 1145064104938104267
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_21: 2995030659160921847
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_22: -4419557748025444819
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_23: -3953646559689754534
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_24: -6992606251946425685
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_3: 7696894911692179166
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_4: -6460998835215608701
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_5: 819898562155977492
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_6: -8928384775824753226
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_7: -2732558350321672944
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_8: 2785818207598328210
+      vecteezy_sun-sun-ray-icon-png-transparent_9663724_9: -5041919367770348315
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

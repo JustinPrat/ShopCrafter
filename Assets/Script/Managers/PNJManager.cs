@@ -50,6 +50,15 @@ public class PNJManager : MonoBehaviour
     private int dayIndex;
     private bool isTimePaused;
     private bool isNearDayEndEventTriggered;
+    private DayTime dayTime;
+
+    private enum DayTime
+    {
+        Morning,
+        Afternoon,
+        Evening,
+        Night
+    }
 
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
 
@@ -122,7 +131,7 @@ public class PNJManager : MonoBehaviour
             }
         }
        
-        if (!isTimePaused)
+        if (!isTimePaused && dayTime != DayTime.Night)
         {
             currentDayTime += Time.deltaTime;
             if (currentDayTime >= dayDuration)
@@ -140,8 +149,9 @@ public class PNJManager : MonoBehaviour
         }
     }
 
-    private void StartDay ()
+    public void StartDay ()
     {
+        dayTime = DayTime.Morning;
         currentDayTime = 0;
         dayIndex++;
         isNearDayEndEventTriggered = false;
@@ -152,13 +162,13 @@ public class PNJManager : MonoBehaviour
 
     private void EndDay ()
     {
+        dayTime = DayTime.Night;
         managerRefs.GameEventsManager.dayEvents.EndDay();
-        managerRefs.UIManager.ToggleEndDayView(true);
-        //StartDay();
     }
 
     private void NearDayEnd()
     {
+        dayTime = DayTime.Evening;
         isNearDayEndEventTriggered = true;
         managerRefs.GameEventsManager.dayEvents.NearEndDay();
     }

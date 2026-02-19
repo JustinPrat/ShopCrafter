@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 {
-    public UnityEvent OnLeftClick;
-    public UnityEvent OnRightClick;
+    public UnityEvent<AdvancedButton> OnLeftClick;
+    public UnityEvent<AdvancedButton> OnRightClick;
 
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -21,10 +21,10 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
         switch (eventData.button)
         {
             case PointerEventData.InputButton.Left:
-                OnLeftClick?.Invoke();
+                OnLeftClick?.Invoke(this);
                 break;
             case PointerEventData.InputButton.Right:
-                OnRightClick?.Invoke();
+                OnRightClick?.Invoke(this);
                 break;
             case PointerEventData.InputButton.Middle:
                 break;
@@ -71,11 +71,11 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
     {
         if (managerRefs.InputManager.Actions.UI.Validate.IsPressed())
         {
-            OnLeftClick?.Invoke();
+            OnLeftClick?.Invoke(this);
         }
         else if (managerRefs.InputManager.Actions.UI.Remove.IsPressed())
         {
-            OnRightClick?.Invoke();
+            OnRightClick?.Invoke(this);
         }
 
         if (_resetRoutine != null)

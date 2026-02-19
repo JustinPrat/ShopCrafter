@@ -88,7 +88,7 @@ public partial class SellManager : MonoBehaviour
             priceVariationLastTypes.Dequeue();
         }
 
-        priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedObjectData.CraftedObjectRecipe.CraftedType);
+        priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedData.CraftedObjectRecipe.CraftedType);
         UpdatePrices(false);
     }
 
@@ -165,9 +165,9 @@ public partial class SellManager : MonoBehaviour
     {
         List<SellSlot> filteredSlots = SellingSlots
             .Where(slot => slot.HeldObject != null &&
-                           slot.HeldObject.CraftedObjectData != null &&
-                           slot.HeldObject.CraftedObjectData.CraftedObjectRecipe != null &&
-                           prefTypes.Contains(slot.HeldObject.CraftedObjectData.CraftedObjectRecipe.CraftedType))
+                           slot.HeldObject.CraftedData != null &&
+                           slot.HeldObject.CraftedData.CraftedObjectRecipe != null &&
+                           prefTypes.Contains(slot.HeldObject.CraftedData.CraftedObjectRecipe.CraftedType))
             .ToList();
 
         slot = filteredSlots.Count > 0 ? filteredSlots.GetRandomElement() : null;

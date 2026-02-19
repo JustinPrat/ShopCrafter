@@ -89,20 +89,31 @@ public partial class CraftingManager : MonoBehaviour
             blueprintRecipes.Add(recipeBlueprint);
     }
 
-    public CraftedObjectRecipe PoolCraftedItem(List<Item> items)
+    public CraftedObjectRecipe PoolCraftedItem(List<Item> items, out bool isNew)
     {
         CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items);
         if (!craftedRecipes.Contains(recipe))
         {
+            isNew = true;
             craftedRecipes.Add(recipe);
+        }
+        else
+        {
+            isNew = false;
         }
 
         return recipe;
     }
 
-    public void OnItemCrafted ()
+    public CraftedObject CraftItem (CraftedObjectRecipe recipe, List<Item> items, int boostNumber, bool isNew)
     {
+        CraftedObjectData craftedObjectData = new CraftedObjectData(recipe, managerRefs, items, boostNumber, isNew);
+        CraftedObject craftedObject = Instantiate(managerRefs.CraftingManager.CraftedObjectPrefab);
+        craftedObject.Init(craftedObjectData);
+
         numberItemCrafted++;
         OnItemCraft?.Invoke(numberItemCrafted);
+
+        return craftedObject;
     }
 }
