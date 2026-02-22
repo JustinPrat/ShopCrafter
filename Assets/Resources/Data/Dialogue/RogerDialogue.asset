@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
+  m_Name: RogerDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  Lines:
+  - Line: Salut, je ne sais pas si tu es au courant
+    Emotion: {fileID: 0}
+  - Line: Mais tous le monde pense que j'ai voler des clients
+    Emotion: {fileID: 0}
+  - Line: Alors que j'ai rien fais, tu peux aller leurs dires ?
+    Emotion: {fileID: 0}
+  HasQuestion: 1
+  HasNextDialogue: 0
+  Answers:
+  - Line: Oui
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 11400000, guid: 5762f0e5768d7b14fb8ef0857389a4d1, type: 2}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 11400000, guid: 754d682d2f55eb14cbbc9cd4115a3746, type: 2}
+  - Line: Non
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+  NextDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 0}
+  tmpType: 0
+  TMPAnimationName: 
+  TMPEventName: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

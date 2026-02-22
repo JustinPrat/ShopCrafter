@@ -18,6 +18,7 @@ public class QuestInfoSO : ScriptableObject, IRewardable
     [Header("Rewards")]
     public List<SerializableInterface<IRewardable>> Rewards;
     public DialogueData FinishedDialogueData;
+    public DialogueData ReplaceDialogueData;
 
 #if UNITY_EDITOR
     private void OnValidate()

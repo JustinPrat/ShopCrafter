@@ -23,7 +23,6 @@ public class DialogueData : ScriptableObject
     [TriInspector.ShowIf(nameof(HasNextDialogue))]
     public DialogueData NextDialogue;
 
-
 #if UNITY_EDITOR
     [Group("texttool")]
     public TMPAnimationDatabase TMPAnimDatabase;
@@ -152,6 +151,7 @@ public struct LineData
 public struct Answer
 {
     public string Line;
-    public DialogueData NextDialogueData;
+    public DialogueData AnswerDialogueData;
     public SerializableInterface<IRewardable> Reward;
+    public DialogueData ReplaceMainDialogue;
 }

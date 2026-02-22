@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 294185b0eafd7954bb208b6f004d2616, type: 3}
-  m_Name: FirstQuest
+  m_Name: RogerQuest
   m_EditorClassIdentifier: Assembly-CSharp::QuestInfoSO
-  <ID>k__BackingField: FirstQuest
-  DisplayName: Collect coins !
+  <ID>k__BackingField: RogerQuest
+  DisplayName: Talk about Roger to 3 people
   NeedFinishInteraction: 1
   QuestSteps:
-  - {fileID: 11400000, guid: c8b446708665d3540ab49470050bbd31, type: 2}
+  - {fileID: 11400000, guid: 32e97d448e6c6a246a05ab355ef643b8, type: 2}
   Rewards:
   - mode: 0
     unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
     rawReference:
       rid: -2
-  FinishedDialogueData: {fileID: 11400000, guid: 053d127c64d44114ab58020ff074eb71, type: 2}
-  ReplaceDialogueData: {fileID: 0}
+  FinishedDialogueData: {fileID: 11400000, guid: 6b944de3418e74c4ca89bf34cc97ce74, type: 2}
+  ReplaceDialogueData: {fileID: 11400000, guid: 6b944de3418e74c4ca89bf34cc97ce74, type: 2}
   references:
     version: 2
     RefIds:

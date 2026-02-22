@@ -94,6 +94,8 @@ public class DialogueView : UIView
         answerUIButtons.Clear();
 
         NextLine(0);
+
+        managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
     }
 
     private void AskQuestion ()
@@ -103,6 +105,15 @@ public class DialogueView : UIView
         {
             AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
             answer.Setup(currentDialogue.Answers[i]);
+            answer.OnAnswerClicked += ChooseAnswer;
+
+            answerUIButtons.Add(answer);
+        }
+
+        foreach (KeyValuePair<DialogueData, Answer> specialDialogue in managerRefs.DialogueManager.SpecialDialogues)
+        {
+            AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
+            answer.Setup(specialDialogue.Value);
             answer.OnAnswerClicked += ChooseAnswer;
 
             answerUIButtons.Add(answer);
@@ -128,7 +139,12 @@ public class DialogueView : UIView
 
         answerUIButtons.Clear();
 
-        currentDialogue = selectedAnswer.NextDialogueData;
+        if (selectedAnswer.ReplaceMainDialogue != null)
+        {
+            currentPNJ.ChangeMainDialogue(selectedAnswer.ReplaceMainDialogue);
+        }
+
+        currentDialogue = selectedAnswer.AnswerDialogueData;
         if (selectedAnswer.Reward.Value != null)
         {
             selectedAnswer.Reward.Value.OnGetReward(managerRefs, currentPNJ.gameObject);

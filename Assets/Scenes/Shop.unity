@@ -2166,6 +2166,7 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   quests:
   - {fileID: 11400000, guid: 3f203a50dfc3fc040b13e8629c239c4f, type: 2}
+  - {fileID: 11400000, guid: 5762f0e5768d7b14fb8ef0857389a4d1, type: 2}
   __alchemySerializationData_QuestManager:
     questMap:
       isCreated: 1

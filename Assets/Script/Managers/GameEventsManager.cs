@@ -14,6 +14,7 @@ public class GameEventsManager : MonoBehaviour
     public CraftEvents craftEvents;
 
     public Action<int> OnMoneyGained;
+    public Action<PNJBrain, DialogueData> OnPNJTalked;
 
     #endregion
 

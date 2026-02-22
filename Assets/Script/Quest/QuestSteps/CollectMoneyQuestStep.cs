@@ -35,13 +35,18 @@ public class CollectMoneyQuestStepRuntime : QuestStepRuntime
 
     private void OnMoneyGained (int amount)
     {
-        managerRefs.GameEventsManager.OnMoneyGained -= OnMoneyGained;
         collectedMoney += amount;
 
         if (collectedMoney > data.MoneyAmount)
         {
             FinishQuestStep();
         }
+    }
+
+    protected override void FinishQuestStep()
+    {
+        managerRefs.GameEventsManager.OnMoneyGained -= OnMoneyGained;
+        base.FinishQuestStep();
     }
 
     protected override void SetQuestStepState(string state)

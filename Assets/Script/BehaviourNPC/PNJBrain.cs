@@ -20,6 +20,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     private BlackboardVariable<PnjEvent> pnjBuying;
     private BlackboardVariable<PnjEvent> pnjArriveBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
+    private DialogueData currentMainDialogue;
 
     public PNJRuntimeData Data => PNJRuntime;
     public Sprite InteractIcon => interactIcon;
@@ -72,6 +73,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         }
 
         transform.name = PNJRuntime.Identity.Name;
+        currentMainDialogue = PNJRuntime.Identity.Dialogue;
 
         Agent.SetVariableValue<float>("ShopDuration", PNJRuntime.ShopStayDuration);
         Agent.SetVariableValue<Vector3>("OutsidePos", managerRefs.PNJManager.PnjSpawnOutside);
@@ -86,9 +88,14 @@ public class PNJBrain : MonoBehaviour, IInteractable
         ChangeState(State.GoOut);
     }
 
-    public void ChangeIcon (Sprite icon)
+    public void ChangeIcon(Sprite icon)
     {
         stateIconDisplay.sprite = icon;
+    }
+
+    public void ChangeMainDialogue(DialogueData newDialogue)
+    {
+        currentMainDialogue = newDialogue;
     }
 
     #region Agent
@@ -208,10 +215,16 @@ public class PNJBrain : MonoBehaviour, IInteractable
         {
             ManagerRefs.GameEventsManager.questEvents.FinishQuest(data.info.ID);
             ManagerRefs.DialogueManager.StartDialogue(data.info.FinishedDialogueData, this);
+
+            if (data.info.ReplaceDialogueData != null)
+            {
+                ChangeMainDialogue(data.info.ReplaceDialogueData);
+            }
         }
         else
         {
-            ManagerRefs.DialogueManager.StartDialogue(PNJRuntime.Identity.Dialogue, this);
+            ManagerRefs.DialogueManager.StartDialogue(currentMainDialogue, this);
+            PNJRuntime.NeedTalk = false;
         }
     }
 

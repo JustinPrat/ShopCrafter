@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59733b20ad721c4194b456f4a69fa47, type: 3}
+  m_Name: TalkToPNJAboutRoger
+  m_EditorClassIdentifier: Assembly-CSharp::QuestStepTalkToPNJ
+  PNJAmount: 3
+  needSpecialDialogue: 1
+  specialDialogue:
+    Line: Talk about Roger
+    AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

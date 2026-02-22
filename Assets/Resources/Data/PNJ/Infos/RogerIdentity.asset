@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b774ce5a3d58de04c9fbd80924f8e0f7, type: 3}
+  m_Name: RogerIdentity
+  m_EditorClassIdentifier: Assembly-CSharp::PNJSingleIdentity
+  identity:
+    Name: Roger
+    Description: Gotta take care !
+    Portrait: {fileID: 21300000, guid: aa7cefef4ba1b7e4f8e29f3c578af50b, type: 3}
+    Dialogue: {fileID: 11400000, guid: 50a0248992fe2ad40ba1411fa58cc6fe, type: 2}
