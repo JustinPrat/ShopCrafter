@@ -5,11 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ShopCrafter/PNJInfo")]
 public class PNJInfoData : ScriptableObject
 {
+    public GameObject PnjPrefab;
     public IdentityData IdentityInfo;
     public List<PNJTraitData> TraitDatas;
 
     public float ShopStayDuration;
     public ManagerRefs ManagerRefs;
+    public bool NeedTalk;
 
     public PNJRuntimeData GetRuntimeData()
     {
@@ -22,6 +24,8 @@ public class PNJInfoData : ScriptableObject
 
         runtimeData.ShopStayDuration = ShopStayDuration;
         runtimeData.ManagerRefs = ManagerRefs;
+        runtimeData.PnjPrefab = PnjPrefab;
+        runtimeData.NeedTalk = NeedTalk;
         return runtimeData;
     }
 }
@@ -29,9 +33,11 @@ public class PNJInfoData : ScriptableObject
 [Serializable]
 public class PNJRuntimeData
 {
+    public GameObject PnjPrefab;
     public Identity Identity;
     public List<IPNJTraitRuntime> ActiveTraits = new List<IPNJTraitRuntime>();
 
     public float ShopStayDuration;
     public ManagerRefs ManagerRefs;
+    public bool NeedTalk;
 }

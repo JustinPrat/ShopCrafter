@@ -8,9 +8,6 @@ public class PNJManager : MonoBehaviour
     [SerializeField]
     private ManagerRefs managerRefs;
 
-    [SerializeField]
-    private GameObject PnjPrefab;
-
     [SerializeField] 
     private Transform pnjSpawnOutside;
 
@@ -39,6 +36,7 @@ public class PNJManager : MonoBehaviour
     private TextMeshProUGUI daytime;
 
     private List<PNJBrain> PNJList;
+    private List<PNJBrain> NeedRespawnPNJList = new List<PNJBrain>();
     private int currentPoolIndex;
     private float waitPNJCounter;
 
@@ -175,30 +173,51 @@ public class PNJManager : MonoBehaviour
 
     private void SpawnPNJ ()
     {
-        PNJBrain PNJ = Instantiate(PnjPrefab).GetComponent<PNJBrain>();
-        PNJ.transform.position = PnjSpawnOutside;
-
-        PNJInfoData PNJData = PNJDataPoolList.GetRandomElement();
-        PNJDataPoolList.Remove(PNJData);
-        PNJDataUsedList.Add(PNJData);
-
-        if (PNJDataPoolList.Count <= 0)
+        PNJBrain PNJ = null;
+        if (NeedRespawnPNJList.Count <= 0)
         {
-            PNJDataPoolList.AddRange(PNJDataUsedList);
+            PNJInfoData PNJData = PNJDataPoolList.GetRandomElement();
+            PNJDataPoolList.Remove(PNJData);
+            PNJDataUsedList.Add(PNJData);
+
+            PNJ = Instantiate(PNJData.PnjPrefab).GetComponent<PNJBrain>();
+            PNJ.Setup(PNJData);
+
+            if (PNJDataPoolList.Count <= 0)
+            {
+                PNJDataPoolList.AddRange(PNJDataUsedList);
+            }
         }
+        else
+        {
+            PNJ = NeedRespawnPNJList[0];
+            PNJ.gameObject.SetActive(true);
+            PNJ.ChangeState(State.RoamingAround);
+            NeedRespawnPNJList.Remove(PNJ);
+        }
+        
+        if (PNJ == null)
+            return;
 
-        PNJ.Setup(PNJData);
-    }
-
-    public void AddPnj (PNJBrain pnj)
-    {
-        PNJList.Add(pnj);
+        PNJList.Add(PNJ);
+        PNJ.transform.position = PnjSpawnOutside;
     }
 
     public void RemovePnj (PNJBrain pnj)
     {
         PNJList.Remove(pnj);
+
+        if (pnj.ShouldReturn && !NeedRespawnPNJList.Contains(pnj))
+        {
+            NeedRespawnPNJList.Add(pnj);
+            pnj.gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(pnj.gameObject);
+        }
     }
+
     private void PauseDayCounter()
     {
         isTimePaused = true;

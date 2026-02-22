@@ -28,6 +28,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public BlackboardVariable<PnjEvent> PNJBuying => pnjBuying;
     public BlackboardVariable<PnjEvent> PNJArriveBuying => pnjArriveBuying;
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
+    public bool HasQuest => givenQuests.Count > 0;
+    public bool ShouldReturn => PNJRuntime.NeedTalk || HasQuest;
 
     #endregion
 
@@ -70,7 +72,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
         }
 
         transform.name = PNJRuntime.Identity.Name;
-        managerRefs.PNJManager.AddPnj(this);
 
         Agent.SetVariableValue<float>("ShopDuration", PNJRuntime.ShopStayDuration);
         Agent.SetVariableValue<Vector3>("OutsidePos", managerRefs.PNJManager.PnjSpawnOutside);
@@ -137,7 +138,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     }
     private void OnQuestStateChange(Quest quest)
     {
-        if (quest.state == QuestState.CAN_FINISH)
+        if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)
         {
             ChangeIcon(questIcon);
         }
@@ -194,7 +195,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
     private void OnPNJOutside(GameObject caller)
     {
         managerRefs.PNJManager.RemovePnj(this);
-        Destroy(gameObject);
     }
 
     public void DoInteract(PlayerBrain playerBrain)

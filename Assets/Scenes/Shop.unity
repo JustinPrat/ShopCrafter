@@ -1754,7 +1754,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  PnjPrefab: {fileID: 6362052680927295878, guid: ebc30a7c49a78fd46bc78a2eb333d7c0, type: 3}
   pnjSpawnOutside: {fileID: 956923802}
   dayDuration: 20
   dayStartTime: 10
