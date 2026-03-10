@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32e97d448e6c6a246a05ab355ef643b8, type: 2}
   Rewards:
   - mode: 0
-    unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
+    unityReference: {fileID: 11400000, guid: 6ec213f4735094146b824beb3139cd51, type: 2}
     rawReference:
       rid: -2
   FinishedDialogueData: {fileID: 11400000, guid: 6b944de3418e74c4ca89bf34cc97ce74, type: 2}

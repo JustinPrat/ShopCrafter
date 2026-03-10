@@ -11,6 +11,11 @@ public class SellSlot : MonoBehaviour, IInteractable
     [SerializeField] 
     private ManagerRefs refs;
 
+    [SerializeField]
+    private Collider2D collider;
+    public Collider2D Collider => collider;
+    public GameObject GameObject => gameObject;
+
     private CraftedObject heldObject;
 
     public Sprite InteractIcon => icon;
@@ -18,6 +23,8 @@ public class SellSlot : MonoBehaviour, IInteractable
     public bool IsSelling => heldObject != null;
 
     public CraftedObject HeldObject => heldObject;
+    public bool IsLocked { get; set; }
+
 
     private void Start()
     {

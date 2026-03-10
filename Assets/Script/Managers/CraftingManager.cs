@@ -83,6 +83,11 @@ public partial class CraftingManager : MonoBehaviour
         }
     }
 
+    public bool HasItem (Item item)
+    {
+        return itemInventory.ContainsKey(item);
+    }
+
     public void AddBlueprint (CraftedObjectRecipe recipeBlueprint)
     {
         if (!blueprintRecipes.Contains(recipeBlueprint))

@@ -6,7 +6,8 @@ public enum EItemType
     Gear,
     Wheels,
     Battery,
-    Plate
+    Plate,
+    Ancient
 }
 
 [CreateAssetMenu(fileName = "ItemType", menuName = "ShopCrafter/ItemType")]

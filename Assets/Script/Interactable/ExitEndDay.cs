@@ -11,9 +11,15 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     [SerializeField]
     private GameObject outObject;
 
+    [SerializeField]
+    private Collider2D collider;
+
     private bool canInteract;
+    public Collider2D Collider => collider;
+    public GameObject GameObject => gameObject;
 
     public Sprite InteractIcon => interactIcon;
+    public bool IsLocked { get; set; }
 
     private void Start()
     {

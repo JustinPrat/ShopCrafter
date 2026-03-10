@@ -13,6 +13,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private Sprite interactIcon;
     [SerializeField] private SpriteRenderer stateIconDisplay;
     [SerializeField] private Sprite questIcon;
+    [SerializeField] private Collider2D collider;
 
     private PNJInfoData PNJBaseData;
     private PNJRuntimeData PNJRuntime;
@@ -31,6 +32,9 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
     public bool HasQuest => givenQuests.Count > 0;
     public bool ShouldReturn => PNJRuntime.NeedTalk || HasQuest;
+    public bool IsLocked { get; set; }
+    public Collider2D Collider => collider;
+    public GameObject GameObject => gameObject;
 
     #endregion
 

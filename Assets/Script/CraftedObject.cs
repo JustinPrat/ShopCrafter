@@ -9,9 +9,15 @@ public class CraftedObject : MonoBehaviour, IInteractable
     [ReadOnly, SerializeField]
     private CraftedObjectData craftedObjectData;
 
+    [SerializeField]
+    private Collider2D collider;
+
     Sprite IInteractable.InteractIcon => icon;
+    public bool IsLocked { get; set; }
     public int Price => craftedObjectData.GetPrice();
     public CraftedObjectData CraftedData => craftedObjectData;
+    public Collider2D Collider => collider;
+    public GameObject GameObject => gameObject;
 
     public void Init (CraftedObjectData data)
     {

@@ -35,7 +35,7 @@ public class Interaction : MonoBehaviour
         {
             if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
             {
-                if (interactable.CanInteract(playerBrain))
+                if (interactable.CanInteract(playerBrain) && !interactable.IsLocked)
                 {
                     iconHolder.gameObject.SetActive(true);
                     iconHolder.sprite = interactable.InteractIcon;
@@ -57,7 +57,7 @@ public class Interaction : MonoBehaviour
             interactableInSight.OnInteractRange(playerBrain);
         }
 
-        if (interactableInSight == null || !interactableInSight.CanInteract(playerBrain) || !managerRefs.InputManager.Actions.Player.Interact.enabled)
+        if (interactableInSight == null || !interactableInSight.CanInteract(playerBrain) || interactableInSight.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
         {
             if (iconHolder.gameObject.activeInHierarchy)
             {
@@ -76,7 +76,7 @@ public class Interaction : MonoBehaviour
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.CanInteract(playerBrain))
+            if (hit && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.CanInteract(playerBrain) && !interactable.IsLocked)
             {
                 Debug.Log("hit element : " + hit.transform.name);
                 interactable.DoInteract(playerBrain);

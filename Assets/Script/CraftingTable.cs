@@ -10,10 +10,18 @@ public class CraftingTable : MonoBehaviour, IInteractable
     private Sprite icon;
 
     [SerializeField]
+    private Collider2D collider;
+    public Collider2D Collider => collider;
+
+    [SerializeField]
     private List<CraftedItemReceiver> receiveSlots;
 
     public Sprite InteractIcon => icon;
     public List<CraftedItemReceiver> ReceiveSlots => receiveSlots;
+    public bool IsLocked { get; set; }
+
+    public GameObject GameObject => gameObject;
+
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
