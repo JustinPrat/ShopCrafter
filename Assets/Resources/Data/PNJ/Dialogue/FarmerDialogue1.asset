@@ -10,33 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
-  m_Name: FarmerDialogue2
+  m_Name: FarmerDialogue1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: "<sketchy>Tu veux bien gagner 20 pi\xE8ces ?</sketchy>"
+  - Line: <shake>Je n'ai pas tous mon temps,</shake>
+    Emotion: {fileID: 0}
+  - Line: Il faut que j'aille m'occuper de mes <color=#FFB500FF>champs</color>
+    Emotion: {fileID: 0}
+  - Line: Tu veux <color=#FFB500FF><grow>m'acheter</grow></color> quelque chose ?
     Emotion: {fileID: 0}
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
   - Line: Oui
-    NextDialogueData: {fileID: 0}
+    AnswerDialogueData: {fileID: 11400000, guid: 3333e4a80b369254ab1e4fe5c3df9ff2, type: 2}
     Reward:
       mode: 0
-      unityReference: {fileID: 11400000, guid: 3f203a50dfc3fc040b13e8629c239c4f, type: 2}
-      rawReference:
-        rid: -2
-  - Line: Non
-    NextDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
-    Reward:
-      mode: 1
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+  - Line: Non
+    AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
   NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 0
-  TMPAnimationName: sketchy
+  tmpType: 2
+  TMPAnimationName: shake
   TMPEventName: 0
+  TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
   references:
     version: 2
     RefIds:

@@ -31,7 +31,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public BlackboardVariable<PnjEvent> PNJArriveBuying => pnjArriveBuying;
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
     public bool HasQuest => givenQuests.Count > 0;
-    public bool ShouldReturn => PNJRuntime.NeedTalk || HasQuest;
+    public bool ShouldReturn => PNJRuntime.IsSpecial || HasQuest;
     public bool IsLocked { get; set; }
     public Collider2D Collider => collider;
     public GameObject GameObject => gameObject;
@@ -228,7 +228,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         else
         {
             ManagerRefs.DialogueManager.StartDialogue(currentMainDialogue, this);
-            PNJRuntime.NeedTalk = false;
+            PNJRuntime.IsSpecial = false;
         }
     }
 

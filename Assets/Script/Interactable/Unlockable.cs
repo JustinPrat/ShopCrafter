@@ -16,6 +16,9 @@ public class Unlockable : MonoBehaviour, IInteractable
     [SerializeField]
     private ManagerRefs refs;
 
+    [SerializeField]
+    private GameObject deactivateWhenUnlocked;
+
     private bool hasBeenUnlocked;
     private List<IInteractable> interactables;
 
@@ -51,6 +54,8 @@ public class Unlockable : MonoBehaviour, IInteractable
         refs.CraftingManager.ConsumeItem(requiredItem);
         SetInteractLock(false);
         collider.enabled = false;
+
+        deactivateWhenUnlocked.SetActive(false);
     }
 
     private void SetInteractLock(bool locking)

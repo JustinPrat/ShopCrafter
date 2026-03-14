@@ -35,6 +35,9 @@ public class PNJManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI daytime;
 
+    [SerializeField]
+    private int maxSpecialPerDay = 1;
+
     private List<PNJBrain> PNJList;
     private List<PNJBrain> NeedRespawnPNJList = new List<PNJBrain>();
     private int currentPoolIndex;
@@ -43,12 +46,17 @@ public class PNJManager : MonoBehaviour
     private List<PNJInfoData> PNJDataPoolList;
     private List<PNJInfoData> PNJDataUsedList = new List<PNJInfoData>();
 
+    private List<PNJInfoData> SpecialPNJDataPoolList;
+    private List<PNJInfoData> SpecialPNJDataUsedList = new List<PNJInfoData>();
+
     private float currentDayTime;
     private DateTime currentHourDayTime;
     private int dayIndex;
     private bool isTimePaused;
     private bool isNearDayEndEventTriggered;
     private DayTime dayTime;
+    private int numberSpecialSpawnedToday;
+    private float nearEndDayDuration => (nearDayEndTime / dayEndTime) * dayDuration;
 
     private enum DayTime
     {
@@ -97,6 +105,7 @@ public class PNJManager : MonoBehaviour
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
         PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+        SpecialPNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.SpecialPNJPool);
     }
 
     private void Start()
@@ -113,6 +122,7 @@ public class PNJManager : MonoBehaviour
         {
             currentPoolIndex += 1;
             PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.PNJPoolList);
+            SpecialPNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].pnjPool.SpecialPNJPool);
         }
     }
 
@@ -137,7 +147,7 @@ public class PNJManager : MonoBehaviour
                 EndDay();
             }
 
-            if (currentDayTime >= nearDayEndTime && !isNearDayEndEventTriggered)
+            if (currentDayTime >= nearEndDayDuration && !isNearDayEndEventTriggered)
             {
                 NearDayEnd();
             }
@@ -153,6 +163,7 @@ public class PNJManager : MonoBehaviour
         currentDayTime = 0;
         dayIndex++;
         isNearDayEndEventTriggered = false;
+        numberSpecialSpawnedToday = 0;
 
         currentHourDayTime = new DateTime(1, 1, dayIndex, dayStartTime, 0, 0);
         managerRefs.GameEventsManager.dayEvents.StartDay();
@@ -174,26 +185,42 @@ public class PNJManager : MonoBehaviour
     private void SpawnPNJ ()
     {
         PNJBrain PNJ = null;
-        if (NeedRespawnPNJList.Count <= 0)
+        if (NeedRespawnPNJList.Count > 0)
         {
-            PNJInfoData PNJData = PNJDataPoolList.GetRandomElement();
-            PNJDataPoolList.Remove(PNJData);
-            PNJDataUsedList.Add(PNJData);
+            PNJ = NeedRespawnPNJList[0];
+            if (PNJ.Data.IsSpecial)
+            {
+                numberSpecialSpawnedToday++;
+            }
+
+            PNJ.gameObject.SetActive(true);
+            PNJ.ChangeState(State.RoamingAround);
+            NeedRespawnPNJList.Remove(PNJ);
+        }
+        else
+        {
+            bool spawnSpecial = numberSpecialSpawnedToday < maxSpecialPerDay && SpecialPNJDataPoolList.Count > 0;
+
+            List<PNJInfoData> PNJList = PNJDataPoolList;
+            List<PNJInfoData> PNJUsedList = PNJDataUsedList;
+
+            if (spawnSpecial)
+            {
+                PNJList = SpecialPNJDataPoolList;
+                PNJUsedList = SpecialPNJDataUsedList;
+            }
+
+            PNJInfoData PNJData = PNJList.GetRandomElement();
+            PNJList.Remove(PNJData);
+            PNJUsedList.Add(PNJData);
 
             PNJ = Instantiate(PNJData.PnjPrefab).GetComponent<PNJBrain>();
             PNJ.Setup(PNJData);
 
-            if (PNJDataPoolList.Count <= 0)
+            if (PNJList.Count <= 0 && !spawnSpecial)
             {
-                PNJDataPoolList.AddRange(PNJDataUsedList);
+                PNJList.AddRange(PNJUsedList);
             }
-        }
-        else
-        {
-            PNJ = NeedRespawnPNJList[0];
-            PNJ.gameObject.SetActive(true);
-            PNJ.ChangeState(State.RoamingAround);
-            NeedRespawnPNJList.Remove(PNJ);
         }
         
         if (PNJ == null)

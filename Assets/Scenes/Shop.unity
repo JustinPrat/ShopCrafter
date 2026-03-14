@@ -1561,7 +1561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   pnjSpawnOutside: {fileID: 956923802}
-  dayDuration: 20
+  dayDuration: 300
   dayStartTime: 10
   dayEndTime: 20
   nearDayEndTime: 18
@@ -1570,9 +1570,8 @@ MonoBehaviour:
   pnjPoolList:
   - minCraft: 0
     pnjPool: {fileID: 11400000, guid: d544c488011dcf9409022b84c0b354af, type: 2}
-  - minCraft: 10
-    pnjPool: {fileID: 11400000, guid: db798086ae5ceaa468c4bd9949243e7e, type: 2}
   daytime: {fileID: 683983820}
+  maxSpecialPerDay: 1
 --- !u!1001 &1266116670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2679,6 +2678,14 @@ PrefabInstance:
     - target: {fileID: 1561590305536897341, guid: fa9ca251395aff4439b30c4830ad1550, type: 3}
       propertyPath: m_Name
       value: Unlockable
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197456194022571398, guid: fa9ca251395aff4439b30c4830ad1550, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287877879512778932, guid: fa9ca251395aff4439b30c4830ad1550, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -91,10 +91,13 @@ public class DialogueView : UIView
             Destroy(answerUIButtons[i].gameObject);
         }
 
+        if (currentDialogue.ReplaceMainDialogue != null)
+        {
+            currentPNJ.ChangeMainDialogue(currentDialogue.ReplaceMainDialogue);
+        }
+
         answerUIButtons.Clear();
-
         NextLine(0);
-
         managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
     }
 

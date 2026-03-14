@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59b3ce03aa2da434daf612a4e9b0a852, type: 3}
-  m_Name: RogerTheStealer
+  m_Name: Miner
   m_EditorClassIdentifier: Assembly-CSharp::PNJInfoData
   PnjPrefab: {fileID: 6362052680927295878, guid: ebc30a7c49a78fd46bc78a2eb333d7c0, type: 3}
-  IdentityInfo: {fileID: 11400000, guid: 7e985d96c8fd0b248802b02c09331fdc, type: 2}
-  TraitDatas: []
-  ShopStayDuration: 20
+  IdentityInfo: {fileID: 11400000, guid: 43fd547ca01e9d348be6fac0fa08a68c, type: 2}
+  TraitDatas:
+  - {fileID: 11400000, guid: 103ec9e8a31138d48bd02e4f59acf538, type: 2}
+  ShopStayDuration: 80
   ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  IsSpecial: 1
+  IsSpecial: 0

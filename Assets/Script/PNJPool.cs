@@ -5,4 +5,5 @@ using UnityEngine;
 public class PNJPool : ScriptableObject
 {
     public List<PNJInfoData> PNJPoolList;
+    public List<PNJInfoData> SpecialPNJPool;
 }

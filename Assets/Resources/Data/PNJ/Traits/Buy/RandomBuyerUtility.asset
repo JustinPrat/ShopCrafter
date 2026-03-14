@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bebf20200f74247a284aef4d4a6204, type: 3}
   m_Name: RandomBuyerUtility
   m_EditorClassIdentifier: Assembly-CSharp::BuyerGenerationData
-  BuyProbabilityMinMax: {x: 10, y: 20}
+  BuyProbabilityMinMax: {x: 50, y: 60}
   NumberCraftPref: 1
-  CraftedPrefTypes: 02000000
+  CraftedPrefTypes: 0000000001000000
   TimeBeforeTryBuyMinMax: {x: 20, y: 40}
-  TimeWaitingAtTryBuyMinMax: {x: 10, y: 15}
+  TimeWaitingAtTryBuyMinMax: {x: 5, y: 10}
   WaitingIcon: {fileID: 5369531339107709376, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
