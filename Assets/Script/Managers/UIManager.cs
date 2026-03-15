@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
     private GameObject endDayViewPrefab;
 
     [SerializeField]
+    private GameObject inventoryMaterialViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -46,6 +49,7 @@ public class UIManager : MonoBehaviour
     private PriceCheckView priceCheckViewInstance;
     private InventoryView inventoryViewInstance;
     private EndDayView endDayViewInstance;
+    private MaterialInventoryView materialInventoryViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -79,8 +83,26 @@ public class UIManager : MonoBehaviour
         endDayViewInstance = Instantiate(endDayViewPrefab, canvas.transform).GetComponent<EndDayView>();
         endDayViewInstance.gameObject.SetActive(false);
 
+        materialInventoryViewInstance = Instantiate(inventoryMaterialViewPrefab, canvas.transform).GetComponent<MaterialInventoryView>();
+        materialInventoryViewInstance.gameObject.SetActive(false);
+
         managerRefs.InputManager.Actions.UI.Validate.Disable();
         managerRefs.InputManager.Actions.UI.Remove.Disable();
+
+        managerRefs.InputManager.Actions.Player.MaterialInventory.performed += InventoryPerformed;
+    }
+
+    private void OnDestroy()
+    {
+        if (managerRefs.InputManager != null)
+        {
+            managerRefs.InputManager.Actions.Player.MaterialInventory.performed -= InventoryPerformed;
+        }
+    }
+
+    private void InventoryPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    {
+        ToggleMaterialInventoryView(!materialInventoryViewInstance.gameObject.activeInHierarchy);
     }
 
     public void ToggleInventoryUI (bool isOn)
@@ -88,6 +110,14 @@ public class UIManager : MonoBehaviour
         ExecuteAfterOneFrame(() =>
         {
             inventoryViewInstance.Toggle(isOn);
+        });
+    }
+
+    public void ToggleMaterialInventoryView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            materialInventoryViewInstance.Toggle(isOn);
         });
     }
 

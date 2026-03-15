@@ -20,12 +20,21 @@ public class BuyerGenerationData : PNJTraitData
 
         buyerData.BaseBuyProbability = UnityEngine.Random.Range(BuyProbabilityMinMax.x, BuyProbabilityMinMax.y);
         buyerData.CraftedPrefTypes = new List<ECraftedType>();
-        if (NumberCraftPref > CraftedPrefTypes.Count)
+
+        List<ECraftedType> CraftedPrefTypesTmp = new List<ECraftedType>(CraftedPrefTypes);
+
+        if (NumberCraftPref < CraftedPrefTypes.Count)
         {
             for (int i = 0; i < NumberCraftPref; i++)
             {
-                buyerData.CraftedPrefTypes.Add(CraftedPrefTypes.GetRandomElement());
+                ECraftedType type = CraftedPrefTypes.GetRandomElement();
+                buyerData.CraftedPrefTypes.Add(CraftedPrefTypesTmp.GetRandomElement());
+                CraftedPrefTypesTmp.Remove(type);
             }
+        }
+        else
+        {
+            buyerData.CraftedPrefTypes.AddRange(CraftedPrefTypes);
         }
 
         buyerData.TimeBeforeTryBuy = UnityEngine.Random.Range(TimeBeforeTryBuyMinMax.x, TimeBeforeTryBuyMinMax.y);

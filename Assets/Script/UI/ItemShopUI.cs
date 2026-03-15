@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public class ItemShopUI : MonoBehaviour
@@ -13,10 +12,10 @@ public class ItemShopUI : MonoBehaviour
     private Image itemImage;
 
     [SerializeField]
-    private TextMeshProUGUI itemPrice;
+    private TextMeshProUGUI itemNumber;
 
     [SerializeField]
-    private TextMeshProUGUI itemNumber;
+    private TextMeshProUGUI itemPrice;
 
     [SerializeField]
     private AdvancedButton buttonBuy;
