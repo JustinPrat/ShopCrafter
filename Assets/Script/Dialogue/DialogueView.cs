@@ -101,7 +101,7 @@ public class DialogueView : UIView
         managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
     }
 
-    private void AskQuestion ()
+    private void TryAskQuestion ()
     {
         isAsking = true;
         for (int i = 0; i < currentDialogue.Answers.Count; i++)
@@ -113,8 +113,9 @@ public class DialogueView : UIView
             answerUIButtons.Add(answer);
         }
 
-        foreach (KeyValuePair<DialogueData, Answer> specialDialogue in managerRefs.DialogueManager.SpecialDialogues)
+        if (managerRefs.DialogueManager.SpecialDialogues.Count > 0)
         {
+            KeyValuePair<DialogueData, Answer> specialDialogue = managerRefs.DialogueManager.SpecialDialogues.GetEnumerator().Current;
             AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
             answer.Setup(specialDialogue.Value);
             answer.OnAnswerClicked += ChooseAnswer;
@@ -122,7 +123,14 @@ public class DialogueView : UIView
             answerUIButtons.Add(answer);
         }
 
-        StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
+        if (answerUIButtons.Count > 0)
+        {
+            StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
+        }
+        else
+        {
+            isAsking = false;
+        }
     }
 
     private IEnumerator SelectButtonAfterFrame(GameObject gameObject)
@@ -141,6 +149,7 @@ public class DialogueView : UIView
         }
 
         answerUIButtons.Clear();
+        managerRefs.DialogueManager.SetSpecialDialogue(false, selectedAnswer);
 
         if (selectedAnswer.ReplaceMainDialogue != null)
         {
@@ -183,10 +192,7 @@ public class DialogueView : UIView
         {
             if (currentDialogueIndex >= currentDialogue.Lines.Count - 1)
             {
-                if (currentDialogue.HasQuestion)
-                {
-                    AskQuestion();
-                }
+                TryAskQuestion();
             }
 
             textAnimator.SetText(currentDialogue.Lines[currentDialogueIndex].Line);

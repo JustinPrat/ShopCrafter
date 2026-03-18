@@ -9,7 +9,6 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<DialogueData, Answer> specialDialogues = new Dictionary<DialogueData, Answer>();
 
     public Dictionary<DialogueData, Answer> SpecialDialogues => specialDialogues;
-
     private void Awake()
     {
         managerRefs.DialogueManager = this;
@@ -29,7 +28,7 @@ public class DialogueManager : MonoBehaviour
                 specialDialogues.Add(specialDialogue.AnswerDialogueData, specialDialogue);
             }
         }
-        else
+        else if (specialDialogues.ContainsKey(specialDialogue.AnswerDialogueData))
         {
             specialDialogues.Remove(specialDialogue.AnswerDialogueData);
         }
