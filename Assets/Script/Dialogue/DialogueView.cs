@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPEffects.Components;
 using TMPEffects.TMPEvents;
 using TMPro;
@@ -34,6 +35,9 @@ public class DialogueView : UIView
 
     [SerializeField]
     private AnswerUIButton answerPrefab;
+
+    [SerializeField]
+    private GameObject closeButton;
 
     private DialogueData currentDialogue;
     private PNJBrain currentPNJ;
@@ -85,8 +89,9 @@ public class DialogueView : UIView
     {
         isAsking = false;
         currentDialogueIndex = 0;
+        closeButton.SetActive(false);
 
-        for (int i = answerUIButtons.Count - 1; i > 0; i--)
+        for (int i = answerUIButtons.Count - 1; i >= 0; i--)
         {
             Destroy(answerUIButtons[i].gameObject);
         }
@@ -115,7 +120,8 @@ public class DialogueView : UIView
 
         if (managerRefs.DialogueManager.SpecialDialogues.Count > 0)
         {
-            KeyValuePair<DialogueData, Answer> specialDialogue = managerRefs.DialogueManager.SpecialDialogues.GetEnumerator().Current;
+            KeyValuePair<DialogueData, Answer> specialDialogue = managerRefs.DialogueManager.SpecialDialogues.First();
+
             AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
             answer.Setup(specialDialogue.Value);
             answer.OnAnswerClicked += ChooseAnswer;
@@ -126,6 +132,7 @@ public class DialogueView : UIView
         if (answerUIButtons.Count > 0)
         {
             StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
+            closeButton.SetActive(true);
         }
         else
         {
@@ -199,7 +206,7 @@ public class DialogueView : UIView
         }
     }
 
-    private void StopDialogue ()
+    public void StopDialogue ()
     {
         managerRefs.UIManager.ToggleDialogueView(false);
     }

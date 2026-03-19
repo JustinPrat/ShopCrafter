@@ -172,4 +172,5 @@ public struct Answer
     public DialogueData AnswerDialogueData;
     public SerializableInterface<IRewardable> Reward;
     public DialogueData ReplaceMainDialogue;
+    public SerializableInterface<ICost> Cost;
 }

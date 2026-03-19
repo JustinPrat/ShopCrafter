@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
                 specialDialogues.Add(specialDialogue.AnswerDialogueData, specialDialogue);
             }
         }
-        else if (specialDialogues.ContainsKey(specialDialogue.AnswerDialogueData))
+        else if (specialDialogue.AnswerDialogueData != null && specialDialogues.ContainsKey(specialDialogue.AnswerDialogueData))
         {
             specialDialogues.Remove(specialDialogue.AnswerDialogueData);
         }
