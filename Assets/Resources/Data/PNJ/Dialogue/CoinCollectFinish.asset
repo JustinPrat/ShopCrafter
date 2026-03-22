@@ -19,24 +19,39 @@ MonoBehaviour:
   HasNextDialogue: 0
   Answers:
   - Line: Oui
-    NextDialogueData: {fileID: 11400000, guid: 3333e4a80b369254ab1e4fe5c3df9ff2, type: 2}
+    AnswerDialogueData: {fileID: 0}
     Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
   - Line: Non
-    NextDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
+    AnswerDialogueData: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: fade
   TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  IconAsset: {fileID: 0}
   references:
     version: 2
     RefIds:

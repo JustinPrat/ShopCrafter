@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using TMPEffects.Databases.AnimationDatabase;
 using TMPEffects.TMPAnimations;
+using TMPro;
 using TNRD;
 using TriInspector;
 using Unity.VisualScripting;
@@ -32,7 +33,8 @@ public class DialogueData : ScriptableObject
     {
         Animation,
         Event,
-        Color
+        Color,
+        Icon
     }
 
     public enum Position
@@ -68,6 +70,10 @@ public class DialogueData : ScriptableObject
             {
                 elementNameFront = "<color=#" + TMPColor.ToHexString() + ">";
                 elementNameBack = "</color>";
+            }
+            else if (tmpType == TMPType.Icon)
+            {
+                elementNameFront = "<sprite name=\"" + TMPIconName + "\">";
             }
 
             switch (addedPosition)
@@ -127,9 +133,40 @@ public class DialogueData : ScriptableObject
     [Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsColor))]
     public Color TMPColor = Color.white;
 
+    [Dropdown(nameof(GetTMPIconNames)), Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsIcon)), OnValueChanged(nameof(UpdateIconPreview))]
+    public string TMPIconName;
+
+    [Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsIcon)), DisableInEditMode, PreviewObject]
+    public Sprite preview;
+
     private bool TMPTypeIsEvent () => tmpType == TMPType.Event;
     private bool TMPTypeIsColor () => tmpType == TMPType.Color;
     private bool TMPTypeIsAnimation() => tmpType == TMPType.Animation;
+    private bool TMPTypeIsIcon() => tmpType == TMPType.Icon;
+
+    private void UpdateIconPreview()
+    {
+        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/PNJ/Dialogue/TMPIconData/sprite_sheet");
+
+        int index = spriteAsset.GetSpriteIndexFromName(TMPIconName);
+        preview = spriteAsset.spriteGlyphTable[index].sprite;
+    }
+
+    private string[] GetTMPIconNames()
+    {
+        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/PNJ/Dialogue/TMPIconData/sprite_sheet");
+
+        if (spriteAsset == null)
+            return new string[0];
+
+        List<string> names = new List<string>();
+        foreach (TMP_SpriteCharacter sprite in spriteAsset.spriteCharacterTable)
+        {
+            names.Add(sprite.name);
+        }
+
+        return names.ToArray();
+    }
 
     private string[] GetTMPAnimNames ()
     {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RogerDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Salut, je ne sais pas si tu es au courant
+  - Line: Salut, je ne sais pas si tu es au courant<sprite name="sprite_sheet_1">
     Emotion: {fileID: 0}
   - Line: Mais tous le monde pense que j'ai voler des clients
     Emotion: {fileID: 0}
@@ -30,6 +30,11 @@ MonoBehaviour:
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 11400000, guid: 754d682d2f55eb14cbbc9cd4115a3746, type: 2}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   - Line: Non
     AnswerDialogueData: {fileID: 0}
     Reward:
@@ -38,11 +43,20 @@ MonoBehaviour:
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 0}
-  tmpType: 0
+  tmpType: 3
   TMPAnimationName: 
   TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  TMPIconName: sprite_sheet_1
+  preview: {fileID: -8198574232401945530, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
   references:
     version: 2
     RefIds:

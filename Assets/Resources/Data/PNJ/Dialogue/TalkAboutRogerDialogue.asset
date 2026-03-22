@@ -19,10 +19,13 @@ MonoBehaviour:
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 0}
-  TMPAnimDatabase: {fileID: 0}
-  tmpType: 0
+  ReplaceMainDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 11400000, guid: f0a33761ff6919d4a9979ee36980a29d, type: 2}
+  tmpType: 3
   TMPAnimationName: 
   TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  IconAsset: {fileID: 11400000, guid: 94740ff3997c1f449bb6e2ab127dd095, type: 2}
   references:
     version: 2
     RefIds: []
