@@ -2535,6 +2535,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6591924359042898828, guid: fa9ca251395aff4439b30c4830ad1550, type: 3}
+      propertyPath: requiredCost.unityReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ec213f4735094146b824beb3139cd51, type: 2}
     - target: {fileID: 8287877879512778932, guid: fa9ca251395aff4439b30c4830ad1550, type: 3}
       propertyPath: m_IsActive
       value: 1

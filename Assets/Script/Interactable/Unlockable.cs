@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using TNRD;
 using UnityEngine;
 
 public class Unlockable : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private Item requiredItem;
+    private SerializableInterface<ICost> requiredCost;
 
     [SerializeField]
     private Sprite interactIcon;
@@ -42,7 +43,7 @@ public class Unlockable : MonoBehaviour, IInteractable
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        return refs.CraftingManager.HasItem(requiredItem) && !hasBeenUnlocked;
+        return requiredCost != null && requiredCost.Value.CanPay(refs) && !hasBeenUnlocked;
     }
 
     public void DoInteract(PlayerBrain playerBrain)
@@ -51,7 +52,7 @@ public class Unlockable : MonoBehaviour, IInteractable
             return;
 
         hasBeenUnlocked = true;
-        refs.CraftingManager.ConsumeItem(requiredItem);
+        requiredCost.Value.ResolveCost(refs);
         SetInteractLock(false);
         collider.enabled = false;
 
