@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
+  m_Name: EndMetalSheetDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  Lines:
+  - Line: Merci pour les <color=#FFB500FF>metal sheets</color> <sprite name="sprite_sheet_99">
+    Emotion: {fileID: 0}
+  HasQuestion: 0
+  HasNextDialogue: 0
+  Answers: []
+  NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 0}
+  tmpType: 3
+  TMPAnimationName: 
+  TMPEventName: 0
+  TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
+  TMPIconName: sprite_sheet_99
+  preview: {fileID: 3721070152104077593, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  references:
+    version: 2
+    RefIds: []

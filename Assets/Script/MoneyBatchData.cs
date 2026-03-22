@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "ShopCrafter/MoneyBatch"), Serializable]
+[CreateAssetMenu(fileName = "MoneyBatch", menuName = "ShopCrafter/MoneyBatch"), Serializable]
 public class MoneyBatchData : ScriptableObject, ICost, IRewardable
 {
     public MoneyBatch MoneyBatch;

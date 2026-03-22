@@ -1410,11 +1410,11 @@ MonoBehaviour:
   dayStartTime: 10
   dayEndTime: 20
   nearDayEndTime: 18
-  targetNumberPnj: 3
+  targetNumberPnj: 1
   waitBeforeSpawnPNJ: 5
   pnjPoolList:
   - minCraft: 0
-    pnjPool: {fileID: 11400000, guid: d544c488011dcf9409022b84c0b354af, type: 2}
+    pnjPool: {fileID: 11400000, guid: 136c6f2557242a8469f3d4d99f4d04bd, type: 2}
   daytime: {fileID: 683983820}
   maxSpecialPerDay: 1
 --- !u!1001 &1266116670
@@ -2185,7 +2185,7 @@ MonoBehaviour:
   __alchemySerializationData_CraftingManager:
     itemInventory:
       isCreated: 1
-      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": 5\n    },\n    {\n       
+      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": 1\n    },\n    {\n       
         \"Key\": 1,\n        \"Value\": 2\n    },\n    {\n        \"Key\": 2,\n       
         \"Value\": 2\n    },\n    {\n        \"Key\": 3,\n        \"Value\": 3\n   
         }\n]"

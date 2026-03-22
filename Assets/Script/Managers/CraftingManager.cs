@@ -71,6 +71,14 @@ public partial class CraftingManager : MonoBehaviour
         }
     }
 
+    public void ConsumeItem(Item item, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            ConsumeItem(item);
+        }
+    }
+
     public void AddItem (Item item)
     {
         if (itemInventory.ContainsKey(item))
@@ -83,9 +91,22 @@ public partial class CraftingManager : MonoBehaviour
         }
     }
 
+    public void AddItem(Item item, int amount)
+    {
+        for (int i = 0;i < amount; i++)
+        {
+            AddItem(item);
+        }
+    }
+
     public bool HasItem (Item item)
     {
         return itemInventory.ContainsKey(item);
+    }
+
+    public bool HasItem(Item item, int amount)
+    {
+        return itemInventory.ContainsKey(item) && itemInventory[item] >= amount;
     }
 
     public void AddBlueprint (CraftedObjectRecipe recipeBlueprint)

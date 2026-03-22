@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RogerDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Salut, je ne sais pas si tu es au courant<sprite name="sprite_sheet_1">
+  - Line: Salut, je ne sais pas si tu es au courant
     Emotion: {fileID: 0}
   - Line: Mais tous le monde pense que j'ai voler des clients
     Emotion: {fileID: 0}
