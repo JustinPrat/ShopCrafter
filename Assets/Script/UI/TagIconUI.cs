@@ -1,5 +1,6 @@
 using Alchemy.Inspector;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,6 +44,9 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private bool blockOrdering;
 
     public Action OnDragReleased;
+    public Action OnDragStarted;
+
+    public TagValue TagValue => tagValue;
     public GameObject Anchor => anchor.gameObject;
     public int AnchorIndex => anchor.transform.GetSiblingIndex();
 
@@ -71,14 +75,26 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         tagValue = tagData;
         tagImage.color = Color.white;
         tagImage.sprite = tagData.Asset.Icon;
-        tagText.text = tagData.Amount.ToString();
+        tagText.text = tagData.Amount.Value.ToString();
         descTags.text = tagData.Asset.Description;
     }
 
     public int CountTag(int score)
     {
         animator.SetTrigger(CountTrigger);
-        return tagValue.Asset.ApplyTagAsset(score + tagValue.Amount);
+        return tagValue.Asset.ApplyTagAsset(score + tagValue.Amount.Value);
+    }
+
+    public void RemovePreSelectionTag(List<TagValue> tagValues, int tagIndex)
+    {
+        tagValue.Asset.PreSelectionRemoveTagAsset(tagValues, tagIndex);
+        Setup(tagValue);
+    }
+
+    public void ApplyPreSelectionTag(List<TagValue> tagValues, int tagIndex)
+    {
+        tagValue.Asset.PreSelectionApplyTagAsset(tagValues, tagIndex);
+        Setup(tagValue);
     }
 
     void Update()
@@ -112,6 +128,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         isDragging = true;
         lockedYPos = transform.position.y;
         transform.SetAsLastSibling();
+        OnDragStarted?.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData)

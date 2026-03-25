@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RequiredTags:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount: 10
+    Amount:
+      BaseValue: 12
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 5928cb528b29a434496c95bbe333bb38, type: 2}
   CraftedName: Radio

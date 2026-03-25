@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RequiredTags:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount: 1
+    Amount:
+      BaseValue: 3
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
   CraftedName: Key

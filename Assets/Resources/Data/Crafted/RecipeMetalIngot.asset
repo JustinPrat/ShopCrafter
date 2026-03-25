@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RequiredTags:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount: 6
+    Amount:
+      BaseValue: 8
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 3391d365a19380d4cae9dea6d01b21ea, type: 2}
   CraftedName: Metal Ingot

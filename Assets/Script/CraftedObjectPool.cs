@@ -25,7 +25,7 @@ public class CraftedObjectPool : ScriptableObject
                 bool hasRequiredTag = false;
                 foreach (TagValue tagValue in values)
                 {
-                    if (tagValue.Asset == requiredTag.Asset && tagValue.Amount >= requiredTag.Amount)
+                    if (tagValue.Asset == requiredTag.Asset && tagValue.Amount.BaseValue >= requiredTag.Amount.BaseValue)
                     {
                         //Match the tag
                         hasRequiredTag = true;

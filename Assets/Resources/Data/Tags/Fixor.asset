@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fixor
   m_EditorClassIdentifier: Assembly-CSharp::TagAsset
   Name: Fixor
-  Description: Multiply score by 2
+  Description: Multiply next tag value by 2
   Icon: {fileID: 21300000, guid: ae5952aa203f79f4b8d0b40c4b97d6ce, type: 3}
   Effects:
-  - {fileID: 11400000, guid: 1692bdaed8f94254e990982e8a980cc0, type: 2}
+  - {fileID: 11400000, guid: 764e40465068b3f4299f238bc01f6659, type: 2}

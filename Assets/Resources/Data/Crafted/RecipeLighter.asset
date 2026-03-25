@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RequiredTags:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount: 4
+    Amount:
+      BaseValue: 5
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 74cc34a58f8e6b74987cb6e2be2b9a65, type: 2}
   CraftedName: Lighter

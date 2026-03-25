@@ -19,17 +19,35 @@ public class TagAsset : ScriptableObject
 
         return score;
     }
+
+    public void PreSelectionApplyTagAsset(List<TagValue> tagValues, int index)
+    {
+        foreach (TagEffect effect in Effects)
+        {
+            effect.PreSelectionApply(tagValues, index);
+        }
+    }
+
+    public void PreSelectionRemoveTagAsset(List<TagValue> tagValues, int index)
+    {
+        foreach (TagEffect effect in Effects)
+        {
+            effect.PreSelectionRemove(tagValues, index);
+        }
+    }
 }
 
 [Serializable]
 public class TagValue
 {
     public TagAsset Asset;
-    public int Amount;
+    public ModifiableValue Amount;
 
     public TagValue(TagValue value)
     {
         Asset = value.Asset;
-        Amount = value.Amount;
+        Amount = new ModifiableValue();
+        Amount.BaseValue = value.Amount.BaseValue;
+        Amount.StatModifiers = value.Amount.StatModifiers;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class CardTagView : UIView
 {
@@ -51,6 +52,7 @@ public class CardTagView : UIView
             {
                 TagIconUI tagUI = tagsUI[i];
                 tagUI.OnDragReleased -= UpdateUIOrder;
+                tagUI.OnDragStarted -= OnDragTagStarted;
                 Destroy(tagUI.Anchor);
                 Destroy(tagUI.gameObject);
             }
@@ -74,6 +76,27 @@ public class CardTagView : UIView
             tagUI.Setup(tagValue);
             tagsUI.Add(tagUI);
             tagUI.OnDragReleased += UpdateUIOrder;
+            tagUI.OnDragStarted += OnDragTagStarted;
+        }
+
+        ApplyPreSelectionTags();
+    }
+
+    private void RemovePreSelectionTags()
+    {
+        for (int i = 0; i < tagsUI.Count; i++)
+        {
+            TagIconUI tagUI = tagsUI[i];
+            tagUI.RemovePreSelectionTag(tags, i);
+        }
+    }
+
+    private void ApplyPreSelectionTags()
+    {
+        for (int i = 0; i < tagsUI.Count; i++)
+        {
+            TagIconUI tagUI = tagsUI[i];
+            tagUI.ApplyPreSelectionTag(tags, i);
         }
     }
 
@@ -114,5 +137,18 @@ public class CardTagView : UIView
     private void UpdateUIOrder()
     {
         tagsUI.Sort();
+
+        tags.Clear();
+        foreach (TagIconUI tagUI in tagsUI)
+        {
+            tags.Add(tagUI.TagValue);
+        }
+
+        ApplyPreSelectionTags();
+    }
+
+    private void OnDragTagStarted()
+    {
+        RemovePreSelectionTags();
     }
 }

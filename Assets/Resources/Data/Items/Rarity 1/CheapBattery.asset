@@ -18,4 +18,5 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: fa5ca7669a313eb49a21074f307eedd1, type: 3}
   Tags:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount: 1
+    Amount:
+      BaseValue: 1

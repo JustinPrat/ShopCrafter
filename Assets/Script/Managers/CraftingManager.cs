@@ -142,7 +142,7 @@ public partial class CraftingManager : MonoBehaviour
                 {
                     if (tagTemp.Asset == tagValue.Asset)
                     {
-                        tagTemp.Amount += tagValue.Amount;
+                        tagTemp.Amount.BaseValue += tagValue.Amount.BaseValue;
                         hasTag = true;
                         break;
                     }
