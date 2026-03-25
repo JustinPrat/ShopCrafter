@@ -34,8 +34,6 @@ public partial class CraftingManager : MonoBehaviour
     public RarityHierarchy RarityHierarchy => rarityHierarchy;
     public CraftedObject CraftedObjectPrefab => craftedObjectPrefab;
     public BasePrices BasePrices => basePrices;
-
-    public Action<List<Item>> OnItemsConsumed;
     public List<CraftedObjectRecipe> CraftedRecipes => craftedRecipes;
     public List<CraftedObjectRecipe> BlueprintRecipes => blueprintRecipes;
     public CraftedObjectPool CurrentCraftedObjectPool => currentCraftedObjectPool;
@@ -52,8 +50,6 @@ public partial class CraftingManager : MonoBehaviour
         {
             ConsumeItem(item);
         }
-
-        OnItemsConsumed?.Invoke(items);
     }
 
     public void ConsumeItem (Item item)
@@ -115,9 +111,9 @@ public partial class CraftingManager : MonoBehaviour
             blueprintRecipes.Add(recipeBlueprint);
     }
 
-    public CraftedObjectRecipe PoolCraftedItem(List<Item> items, out bool isNew)
+    public CraftedObjectRecipe PoolCraftedItem(List<Item> items, out bool isNew, out List<TagValue> tags)
     {
-        CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items);
+        CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items, out tags);
         if (!craftedRecipes.Contains(recipe))
         {
             isNew = true;

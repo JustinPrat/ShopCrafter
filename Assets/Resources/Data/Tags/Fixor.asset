@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff0ca6323e35be46ae90a922a3f43f0, type: 3}
+  m_Name: Fixor
+  m_EditorClassIdentifier: Assembly-CSharp::TagAsset
+  Name: Fixor
+  Description: Multiply score by 2
+  Icon: {fileID: 21300000, guid: ae5952aa203f79f4b8d0b40c4b97d6ce, type: 3}
+  Effects:
+  - {fileID: 11400000, guid: 1692bdaed8f94254e990982e8a980cc0, type: 2}

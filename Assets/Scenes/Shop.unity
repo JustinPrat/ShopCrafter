@@ -2249,6 +2249,7 @@ MonoBehaviour:
   inventoryViewPrefab: {fileID: 5475771195858154003, guid: 0cd2dbdd89b6e9f499d348e182a73729, type: 3}
   endDayViewPrefab: {fileID: 5475771195858154003, guid: a5f2388e6d6f64b49b7bcfd1a8d7011d, type: 3}
   inventoryMaterialViewPrefab: {fileID: 2813235343791059201, guid: 3441fe8bab6f83341966b6ad31b4b1cc, type: 3}
+  cardTagViewPrefab: {fileID: 2813235343791059201, guid: 6983024d023997b409d01252abca387a, type: 3}
   canvas: {fileID: 1111131736}
 --- !u!1 &1935432036
 GameObject:

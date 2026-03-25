@@ -50,14 +50,14 @@ public class MiniGameView : UIView
     private float currentSpeed = 0f;
     private GameObject currentTarget;
 
-    private BarBehaviour currentBarBehaviour;
+    //private BarBehaviour currentBarBehaviour;
 
     private bool CanUpgrade => tierCount < tierList.Tiers.Count;
     public CraftingTable CurrentCraftingTable { get; set; }
 
     private void Awake()
     {
-        managerRefs.CraftingManager.OnItemsConsumed += Setup;
+        //managerRefs.CraftingManager.OnItemsConsumed += Setup;
         currentTarget = Instantiate(targetPrefab, targetHolder);
     }
 
@@ -86,17 +86,17 @@ public class MiniGameView : UIView
     public void Setup (List<Item> itemConsumed)
     {
         items.AddRange(itemConsumed);
-        craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items, out isNew);
+        //craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items, out isNew);
         toCraftItemHolder.Setup(craftedObjectRecipe);
         toCraftItemHolder.ValidateButton.onClick.AddListener(OnItemClick);
 
         itemImage.sprite = craftedObjectRecipe.CraftedSprite;
 
-        if (craftedObjectRecipe.BarDataElement != null)
-        {
-            currentBarBehaviour = craftedObjectRecipe.BarDataElement.GetBehaviour();
-            currentBarBehaviour.OnStart(this, tierList);
-        }
+        //if (craftedObjectRecipe.BarDataElement != null)
+        //{
+        //    currentBarBehaviour = craftedObjectRecipe.BarDataElement.GetBehaviour();
+        //    currentBarBehaviour.OnStart(this, tierList);
+        //}
 
         SetupTarget();
         currentSpeed = tierList.Tiers[tierCount].TierSpeed;
@@ -130,11 +130,11 @@ public class MiniGameView : UIView
 
     private void EndGame ()
     {
-        if (currentBarBehaviour != null)
-        {
-            currentBarBehaviour.OnStop(this);
-            currentBarBehaviour = null;
-        }
+        //if (currentBarBehaviour != null)
+        //{
+        //    currentBarBehaviour.OnStop(this);
+        //    currentBarBehaviour = null;
+        //}
 
         CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, items, tierCount, isNew);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
@@ -171,11 +171,11 @@ public class MiniGameView : UIView
 
     private void Update()
     {
-        if (!gameObject.activeInHierarchy || currentBarBehaviour == null)
-            return;
+        //if (!gameObject.activeInHierarchy || currentBarBehaviour == null)
+        //    return;
 
-        barCount = currentBarBehaviour.OnUpdate(this, currentSpeed);
-        progressBar.value = barCount;
+        //barCount = currentBarBehaviour.OnUpdate(this, currentSpeed);
+        //progressBar.value = barCount;
 
         debugInfos.text = "actual pos : " + barCount + "\ntargetPos : " + targetPos + "\ntarget size : " + tierList.Tiers[tierCount].TierTargetSize;
     }
