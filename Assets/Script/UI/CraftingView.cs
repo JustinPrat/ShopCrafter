@@ -102,7 +102,7 @@ public class CraftingView : UIView
         {
             managerRefs.CraftingManager.ConsumeItems(selectedItems);
             managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
-            managerRefs.UIManager.ToggleMiniGameView(true, CurrentCraftingTable, transform.position);
+            managerRefs.UIManager.ToggleCardTagView(true, CurrentCraftingTable, new List<Item>(selectedItems));
         }
     }
 

@@ -15,12 +15,13 @@ public enum ECraftedType
 [Serializable]
 public class CraftedObjectRecipe : ScriptableObject, IRewardable
 {
-    public List<ItemType> RequiredItems;
+    public List<TagValue> RequiredTags;
     public ECraftedType CraftedType;
+    public Rarity Rarity;
+
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
-    public BarData BarDataElement;
 
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {
@@ -64,15 +65,7 @@ public class CraftedObjectData
 
     public void FindRarity (List<Item> items, int boostNumber)
     {
-        ERarity minRarity = Enum.GetValues(typeof(ERarity)).Cast<ERarity>().First();
-        foreach (Item item in items)
-        {
-            if (item.RarityInfos.ERarity < minRarity)
-            {
-                minRarity = item.RarityInfos.ERarity;
-            }
-        }
-
+        ERarity minRarity = craftedObjectRecipe.Rarity.ERarity;
         RarityHierarchy hierarchy = managerRefs.CraftingManager.RarityHierarchy;
         rarity = hierarchy.RarityList[Mathf.Min(hierarchy.RarityList.Length -1, (int)minRarity + boostNumber)];
     }

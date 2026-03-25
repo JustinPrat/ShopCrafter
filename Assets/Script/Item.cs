@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item", menuName = "ShopCrafter/Item"), Serializable]
@@ -8,6 +9,7 @@ public class Item : ScriptableObject, IRewardable, ICost
     public EItemType Type;
     public Rarity RarityInfos;
     public Sprite ItemSprite;
+    public List<TagValue> Tags;
 
     public bool CanPay(ManagerRefs managerRefs)
     {

@@ -38,10 +38,14 @@ public class UIManager : MonoBehaviour
     private GameObject inventoryMaterialViewPrefab;
 
     [SerializeField]
+    private GameObject cardTagViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
     private MiniGameView miniGameViewInstance;
+    private CardTagView cardTagViewInstance;
     private DialogueView dialogueViewInstance;
     private ShopView shopViewInstance;
     private CraftedStatView craftedStatViewInstance;
@@ -61,6 +65,9 @@ public class UIManager : MonoBehaviour
 
         miniGameViewInstance = Instantiate(miniGameViewPrefab).GetComponent<MiniGameView>();
         miniGameViewInstance.gameObject.SetActive(false);
+
+        cardTagViewInstance = Instantiate(cardTagViewPrefab, canvas.transform).GetComponent<CardTagView>();
+        cardTagViewInstance.gameObject.SetActive(false);
 
         inventoryViewInstance = Instantiate(inventoryViewPrefab, canvas.transform).GetComponent<InventoryView>();
         inventoryViewInstance.gameObject.SetActive(false);
@@ -192,6 +199,25 @@ public class UIManager : MonoBehaviour
 
             if (isOn)
             {
+                managerRefs.InputManager.SetActionType(false, false, true);
+            }
+            else
+            {
+                managerRefs.InputManager.SetActionType(true, true, true);
+            }
+        });
+    }
+
+    public void ToggleCardTagView(bool isOn, CraftingTable craftingTable, List<Item> consumedItems = null)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            cardTagViewInstance.CurrentCraftingTable = craftingTable;
+            cardTagViewInstance.Toggle(isOn);
+
+            if (isOn)
+            {
+                cardTagViewInstance.Setup(consumedItems);
                 managerRefs.InputManager.SetActionType(false, false, true);
             }
             else

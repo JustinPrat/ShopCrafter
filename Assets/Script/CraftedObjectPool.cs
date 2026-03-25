@@ -8,28 +8,72 @@ public class CraftedObjectPool : ScriptableObject
 
     public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems)
     {
+        return FindCraftableRecipe(toUseItems, out List<TagValue> values);
+    }
+
+    public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems, out List<TagValue> values)
+    {
         List<EItemType> usedTypes = new List<EItemType>();
+        values = new List<TagValue>();
         foreach (Item item in toUseItems)
         {
             usedTypes.Add(item.Type);
+
+            foreach (TagValue tagValue in item.Tags)
+            {
+                bool hasTag = false;
+                foreach (TagValue tagTemp in values)
+                {
+                    if (tagTemp.Asset == tagValue.Asset)
+                    {
+                        tagTemp.Amount += tagValue.Amount;
+                        hasTag = true;
+                        break;
+                    }
+                }
+
+                if (!hasTag)
+                {
+                    values.Add(new TagValue(tagValue));
+                }
+            }
         }
 
+        ERarity highestRarity = ERarity.Common;
+        CraftedObjectRecipe targetRecipe = null;
         foreach (CraftedObjectRecipe recipe in craftedObjectPool)
         {
             bool canCraft = true;
-            foreach (ItemType requiredType in recipe.RequiredItems)
+            foreach (TagValue requiredTag in recipe.RequiredTags)
             {
-                if (!usedTypes.Contains(requiredType.Type))
+                bool hasRequiredTag = false;
+                foreach (TagValue tagValue in values)
                 {
-                    canCraft = false;
-                    break;
+                    if (tagValue.Asset == requiredTag.Asset && tagValue.Amount >= requiredTag.Amount)
+                    {
+                        //Match the tag
+                        hasRequiredTag = true;
+                        break;
+                    }
                 }
+
+                if (!hasRequiredTag)
+                    canCraft = false;
+                break;
             }
-            if (canCraft)
+
+            if (canCraft && (recipe == null || recipe.Rarity.ERarity > highestRarity))
             {
-                return recipe;
+                highestRarity = recipe.Rarity.ERarity;
+                targetRecipe = recipe;
             }
         }
+
+        if (targetRecipe != null)
+        {
+            return targetRecipe;
+        }
+
         return null;
     }
 }

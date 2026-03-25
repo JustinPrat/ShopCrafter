@@ -15,7 +15,12 @@ public class PageUI : MonoBehaviour
     private TextMeshProUGUI descText;
 
     [SerializeField]
-    private List<Image> craftMaterialImages;
+    private Transform tagMaterialHolder;
+
+    [SerializeField]
+    private GameObject tagMaterialPrefab;
+
+    private List<TagIconUI> tagIcons = new List<TagIconUI>();
 
     public void Setup (CraftedObjectRecipe recipe, bool isValidated, bool isBlueprint)
     {
@@ -41,10 +46,9 @@ public class PageUI : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < craftMaterialImages.Count; i++)
+                for (int i = 0; i < tagIcons.Count; i++)
                 {
-                    Image image = craftMaterialImages[i];
-                    image.color = Color.black;
+                    tagIcons[i].HideTag();
                 }
             }
         }
@@ -52,19 +56,27 @@ public class PageUI : MonoBehaviour
 
     private void SetupCraftMaterials (CraftedObjectRecipe recipe)
     {
-        for (int i = 0; i < craftMaterialImages.Count; i++)
+        ClearCraftMaterials();
+        AddCraftMaterials(recipe);
+    }
+
+    private void ClearCraftMaterials()
+    {
+        for (int i = tagIcons.Count - 1; i >= 0; i--)
         {
-            Image image = craftMaterialImages[i];
-            if (i < recipe.RequiredItems.Count)
-            {
-                image.sprite = recipe.RequiredItems[i].Icon;
-                image.color = Color.white;
-            }
-            else
-            {
-                image.sprite = null;
-                image.color = Color.black;
-            }
+            Destroy(tagIcons[i].gameObject);
+        }
+
+        tagIcons.Clear();
+    }
+
+    private void AddCraftMaterials(CraftedObjectRecipe recipe)
+    {
+        for (int i = 0; i < recipe.RequiredTags.Count; i++)
+        {
+            TagIconUI tagIcon = Instantiate(tagMaterialPrefab, tagMaterialHolder).GetComponent<TagIconUI>();
+            tagIcon.Setup(recipe.RequiredTags[i]);
+            tagIcons.Add(tagIcon);
         }
     }
 }
