@@ -48,14 +48,17 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Awake()
     {
-        anchor = Instantiate(anchorPrefab).GetComponent<TagPlaceholderUI>();
-        anchor.Setup(GetComponent<RectTransform>());
-        anchor.transform.SetParent(transform.parent, false);
-        anchor.transform.SetSiblingIndex(transform.GetSiblingIndex());
+        if (canBeMoved)
+        {
+            anchor = Instantiate(anchorPrefab).GetComponent<TagPlaceholderUI>();
+            anchor.Setup(GetComponent<RectTransform>());
+            anchor.transform.SetParent(transform.parent, false);
+            anchor.transform.SetSiblingIndex(transform.GetSiblingIndex());
 
-        parentRect = anchor.transform.parent as RectTransform;
-        transform.SetParent(transform.parent.parent);
-        layoutElement.ignoreLayout = true;
+            parentRect = anchor.transform.parent as RectTransform;
+            transform.SetParent(transform.parent.parent);
+            layoutElement.ignoreLayout = true;
+        }
     }
 
     public void BlockOrdering()

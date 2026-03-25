@@ -127,6 +127,37 @@ public partial class CraftingManager : MonoBehaviour
         return recipe;
     }
 
+    public static List<TagValue> CombineItemTags(List<Item> items)
+    {
+        List<EItemType> usedTypes = new List<EItemType>();
+        List<TagValue> values = new List<TagValue>();
+        foreach (Item item in items)
+        {
+            usedTypes.Add(item.Type);
+
+            foreach (TagValue tagValue in item.Tags)
+            {
+                bool hasTag = false;
+                foreach (TagValue tagTemp in values)
+                {
+                    if (tagTemp.Asset == tagValue.Asset)
+                    {
+                        tagTemp.Amount += tagValue.Amount;
+                        hasTag = true;
+                        break;
+                    }
+                }
+
+                if (!hasTag)
+                {
+                    values.Add(new TagValue(tagValue));
+                }
+            }
+        }
+
+        return values;
+    }
+
     public CraftedObject CraftItem (CraftedObjectRecipe recipe, List<Item> items, int boostNumber, bool isNew)
     {
         CraftedObjectData craftedObjectData = new CraftedObjectData(recipe, managerRefs, items, boostNumber, isNew);

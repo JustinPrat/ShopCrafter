@@ -10,6 +10,12 @@ public class CraftingView : UIView
     [SerializeField]
     private ItemUI itemUIPrefab;
 
+    [SerializeField] 
+    private Transform tagHolder;
+
+    [SerializeField]
+    private GameObject tagUIPrefab;
+
     [SerializeField]
     private List<ItemUI> itemsConfirmedUI;
 
@@ -21,6 +27,7 @@ public class CraftingView : UIView
 
     private List<Item> selectedItems = new List<Item>();
     private List<ItemUI> selectionSlotsUI = new List<ItemUI>();
+    private List<TagIconUI> tagIconUIs = new List<TagIconUI>();
     private Canvas canvas;
 
     public bool CanAdd => selectedItems.Count < 3;
@@ -94,6 +101,8 @@ public class CraftingView : UIView
                 itemsConfirmedUI[i].ItemImage.sprite = normalSprite;
             }
         }
+
+        UpdateTags();
     }
 
     public void ValidateCrafting ()
@@ -118,6 +127,27 @@ public class CraftingView : UIView
                 confirmedItemUI.Setup(item, this);
                 break;
             }
+        }
+
+        UpdateTags();
+    }
+
+    private void UpdateTags()
+    {
+        for (int i = tagIconUIs.Count - 1; i >= 0; i--)
+        {
+            TagIconUI tagIconUI = tagIconUIs[i];
+            Destroy(tagIconUI.gameObject);
+        }
+
+        tagIconUIs.Clear();
+
+        List<TagValue> values = CraftingManager.CombineItemTags(selectedItems);
+        for (int i = 0; i < values.Count; i++)
+        {
+            TagIconUI iconUI = Instantiate(tagUIPrefab, tagHolder).GetComponent<TagIconUI>();
+            iconUI.Setup(values[i]);
+            tagIconUIs.Add(iconUI);
         }
     }
 
@@ -147,6 +177,8 @@ public class CraftingView : UIView
                 itemsConfirmedUI[i].Setup(selectedItems[i], this);
             }
         }
+
+        UpdateTags();
     }
  
     public bool OnItemRemove (Item item)

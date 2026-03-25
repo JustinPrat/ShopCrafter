@@ -13,31 +13,7 @@ public class CraftedObjectPool : ScriptableObject
 
     public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems, out List<TagValue> values)
     {
-        List<EItemType> usedTypes = new List<EItemType>();
-        values = new List<TagValue>();
-        foreach (Item item in toUseItems)
-        {
-            usedTypes.Add(item.Type);
-
-            foreach (TagValue tagValue in item.Tags)
-            {
-                bool hasTag = false;
-                foreach (TagValue tagTemp in values)
-                {
-                    if (tagTemp.Asset == tagValue.Asset)
-                    {
-                        tagTemp.Amount += tagValue.Amount;
-                        hasTag = true;
-                        break;
-                    }
-                }
-
-                if (!hasTag)
-                {
-                    values.Add(new TagValue(tagValue));
-                }
-            }
-        }
+        values = CraftingManager.CombineItemTags(toUseItems);
 
         ERarity highestRarity = ERarity.Common;
         CraftedObjectRecipe targetRecipe = null;
