@@ -8,6 +8,9 @@ public class Rarity : ScriptableObject
     public Color RarityColor;
     public string RarityName;
     public string RarityDescription;
+
+    [SerializeReference]
+    public StatModifier MaxStatModifier;
 }
 
 public enum ERarity

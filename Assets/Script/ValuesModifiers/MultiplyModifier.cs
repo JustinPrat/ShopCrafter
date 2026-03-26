@@ -6,8 +6,9 @@ public class MultiplyModifier : StatModifier
     {
     }
 
-    public MultiplyModifier(float value) : base(value)
+    public override StatModifier Clone(StatModifier modifier)
     {
+        return new MultiplyModifier() { Value = modifier.Value };
     }
 
     public override float ModifyValue(float value)

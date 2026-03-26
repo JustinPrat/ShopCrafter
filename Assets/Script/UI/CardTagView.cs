@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class CardTagView : UIView
 {
+    private const string BonusTrigger = "Bonus";
+
     [SerializeField]
     private ManagerRefs managerRefs;
 
@@ -27,6 +30,17 @@ public class CardTagView : UIView
     [SerializeField]
     private GameObject validateButton;
 
+    [SerializeField]
+    private CraftedRecipeDayUI craftedRecipeDayUI;
+
+    [SerializeField]
+    private BonusTagGameUI bonusTagGameUI;
+
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private TextMeshProUGUI basePriceText;
 
     public CraftingTable CurrentCraftingTable { get; set; }
 
@@ -35,7 +49,12 @@ public class CardTagView : UIView
     private List<TagIconUI> tagsUI = new List<TagIconUI>();
 
     private CraftedObjectRecipe craftedObjectRecipe;
+    private CraftedObjectData craftedObjectData;
     private bool isNew = false;
+
+    private int score;
+    private int rarityBoost;
+    private StatModifier modifier;
 
     public override void Toggle(bool isOn)
     {
@@ -62,6 +81,8 @@ public class CardTagView : UIView
             tagsUI.Clear();
 
             scoreText.text = "";
+
+            bonusTagGameUI.gameObject.SetActive(false);
         }
     }
 
@@ -69,6 +90,10 @@ public class CardTagView : UIView
     {
         items.AddRange(itemConsumed);
         craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items, out isNew, out tags);
+        craftedObjectData = managerRefs.CraftingManager.GetCraftedData(craftedObjectRecipe, isNew);
+        craftedRecipeDayUI.Setup(craftedObjectRecipe, isNew);
+
+        basePriceText.text = craftedObjectData.GetPrice().ToString();
 
         foreach (TagValue tagValue in tags)
         {
@@ -115,7 +140,7 @@ public class CardTagView : UIView
     //UI Advanced button setup
     public void OnValidateClick()
     {
-        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, items, 0, isNew);
+        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, craftedObjectData, rarityBoost, modifier);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
         managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
@@ -123,12 +148,41 @@ public class CardTagView : UIView
 
     private IEnumerator CountScores()
     {
-        int score = 0;
+        score = 0;
+        rarityBoost = 0;
+        modifier = null;
+
         foreach (TagIconUI tagUI in tagsUI)
         {
             score = tagUI.CountTag(score);
             scoreText.text = score.ToString();
             yield return new WaitForSeconds(delayBetweenScoreCount);
+        }
+
+        if (score > craftedObjectRecipe.TargetScore)
+        {
+            rarityBoost++;
+        }
+        else
+        {
+            modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
+            modifier.Value *= (float)score / craftedObjectRecipe.TargetScore;
+        }
+
+        ModifiableValue priceModif = new ModifiableValue();
+        int basePrice = craftedObjectData.GetPrice();
+        priceModif.BaseValue = basePrice;
+        priceModif.AddModifier(modifier);
+
+        bonusTagGameUI.gameObject.SetActive(true);
+        animator.SetTrigger("Bonus");
+        if (rarityBoost > 0)
+        {
+            bonusTagGameUI.Setup(rarityBoost, true);
+        }
+        else
+        {
+            bonusTagGameUI.Setup(priceModif.Value, false);
         }
 
         validateButton.SetActive(true);

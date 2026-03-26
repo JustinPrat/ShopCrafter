@@ -9,10 +9,7 @@ public abstract class StatModifier
         Value = 0f;
     }
 
-    public StatModifier(float value)
-    {
-        Value = value;
-    }
+    public abstract StatModifier Clone(StatModifier modifier);
 
     public abstract float ModifyValue(float value);
 }

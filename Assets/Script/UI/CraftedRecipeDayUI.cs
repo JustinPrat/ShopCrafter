@@ -15,10 +15,15 @@ public class CraftedRecipeDayUI : MonoBehaviour
 
     public void Setup(CraftedObjectData craftedObjectData)
     {
-        recipeName.text = craftedObjectData.CraftedObjectRecipe.CraftedName;
-        recipeImage.sprite = craftedObjectData.CraftedObjectRecipe.CraftedSprite;
+        Setup(craftedObjectData.CraftedObjectRecipe, craftedObjectData.IsNew);
+    }
 
-        if (craftedObjectData.IsNew)
+    public void Setup(CraftedObjectRecipe craftedObjectRecipe, bool isNew)
+    {
+        recipeName.text = craftedObjectRecipe.CraftedName;
+        recipeImage.sprite = craftedObjectRecipe.CraftedSprite;
+
+        if (isNew)
         {
             newIndicator.SetActive(true);
         }

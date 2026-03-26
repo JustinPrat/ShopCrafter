@@ -17,3 +17,12 @@ MonoBehaviour:
   RarityColor: {r: 0, g: 0.8260422, b: 1, a: 1}
   RarityName: Refined
   RarityDescription: 
+  MaxStatModifier:
+    rid: 7665218423075111067
+  references:
+    version: 2
+    RefIds:
+    - rid: 7665218423075111067
+      type: {class: MultiplyModifier, ns: , asm: Assembly-CSharp}
+      data:
+        Value: 1.3

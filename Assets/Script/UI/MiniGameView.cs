@@ -136,9 +136,9 @@ public class MiniGameView : UIView
         //    currentBarBehaviour = null;
         //}
 
-        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, items, tierCount, isNew);
-        CurrentCraftingTable.SpawnCraftedItem(craftedObject);
-        managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
+        //CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, items, tierCount, isNew);
+        //CurrentCraftingTable.SpawnCraftedItem(craftedObject);
+        //managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
 
         managerRefs.UIManager.ToggleMiniGameView(false, CurrentCraftingTable);
         tierCount = 0;

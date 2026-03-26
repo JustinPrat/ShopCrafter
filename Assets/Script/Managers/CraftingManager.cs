@@ -158,9 +158,11 @@ public partial class CraftingManager : MonoBehaviour
         return values;
     }
 
-    public CraftedObject CraftItem (CraftedObjectRecipe recipe, List<Item> items, int boostNumber, bool isNew)
+    public CraftedObject CraftItem (CraftedObjectRecipe recipe, CraftedObjectData craftedObjectData, int boostNumber = 0, StatModifier modifier = null)
     {
-        CraftedObjectData craftedObjectData = new CraftedObjectData(recipe, managerRefs, items, boostNumber, isNew);
+        craftedObjectData.BoostRarity(boostNumber);
+        craftedObjectData.AddModifier(modifier);
+
         CraftedObject craftedObject = Instantiate(managerRefs.CraftingManager.CraftedObjectPrefab);
         craftedObject.Init(craftedObjectData);
 
@@ -168,5 +170,11 @@ public partial class CraftingManager : MonoBehaviour
         OnItemCraft?.Invoke(numberItemCrafted);
 
         return craftedObject;
+    }
+
+    public CraftedObjectData GetCraftedData(CraftedObjectRecipe recipe, bool isNew)
+    {
+        CraftedObjectData craftedObjectData = new CraftedObjectData(recipe, managerRefs, isNew);
+        return craftedObjectData;
     }
 }
