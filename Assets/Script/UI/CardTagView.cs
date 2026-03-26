@@ -140,7 +140,7 @@ public class CardTagView : UIView
     //UI Advanced button setup
     public void OnValidateClick()
     {
-        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectRecipe, craftedObjectData, rarityBoost, modifier);
+        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData, rarityBoost, modifier);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
         managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
@@ -166,7 +166,7 @@ public class CardTagView : UIView
         else
         {
             modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
-            modifier.Value *= (float)score / craftedObjectRecipe.TargetScore;
+            modifier.Value *= 1 + (modifier.Value-1) * (score / craftedObjectRecipe.TargetScore);
         }
 
         ModifiableValue priceModif = new ModifiableValue();
@@ -182,7 +182,7 @@ public class CardTagView : UIView
         }
         else
         {
-            bonusTagGameUI.Setup(priceModif.Value, false);
+            bonusTagGameUI.Setup((int)(priceModif.Value - priceModif.BaseValue), false);
         }
 
         validateButton.SetActive(true);

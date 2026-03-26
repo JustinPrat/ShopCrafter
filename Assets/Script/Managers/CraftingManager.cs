@@ -158,7 +158,7 @@ public partial class CraftingManager : MonoBehaviour
         return values;
     }
 
-    public CraftedObject CraftItem (CraftedObjectRecipe recipe, CraftedObjectData craftedObjectData, int boostNumber = 0, StatModifier modifier = null)
+    public CraftedObject CraftItem (CraftedObjectData craftedObjectData, int boostNumber = 0, StatModifier modifier = null)
     {
         craftedObjectData.BoostRarity(boostNumber);
         craftedObjectData.AddModifier(modifier);
