@@ -137,15 +137,6 @@ public class CardTagView : UIView
         StartCoroutine(CountScores());
     }
 
-    //UI Advanced button setup
-    public void OnValidateClick()
-    {
-        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData, rarityBoost, modifier);
-        CurrentCraftingTable.SpawnCraftedItem(craftedObject);
-        managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
-        managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
-    }
-
     private IEnumerator CountScores()
     {
         score = 0;
@@ -159,6 +150,23 @@ public class CardTagView : UIView
             yield return new WaitForSeconds(delayBetweenScoreCount);
         }
 
+        ScoreBonus();
+        DisplayBonus();
+
+        validateButton.SetActive(true);
+    }
+
+    //UI Advanced button setup
+    public void OnValidateClick()
+    {
+        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData, rarityBoost, modifier);
+        CurrentCraftingTable.SpawnCraftedItem(craftedObject);
+        managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
+        managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
+    }
+
+    private void ScoreBonus()
+    {
         if (score > craftedObjectRecipe.TargetScore)
         {
             rarityBoost++;
@@ -166,9 +174,12 @@ public class CardTagView : UIView
         else
         {
             modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
-            modifier.Value *= 1 + (modifier.Value-1) * (score / craftedObjectRecipe.TargetScore);
+            modifier.Value *= 1 + (modifier.Value - 1) * (score / craftedObjectRecipe.TargetScore);
         }
+    }
 
+    private void DisplayBonus()
+    {
         ModifiableValue priceModif = new ModifiableValue();
         int basePrice = craftedObjectData.GetPrice();
         priceModif.BaseValue = basePrice;
@@ -184,8 +195,6 @@ public class CardTagView : UIView
         {
             bonusTagGameUI.Setup((int)(priceModif.Value - priceModif.BaseValue), false);
         }
-
-        validateButton.SetActive(true);
     }
 
     private void UpdateUIOrder()

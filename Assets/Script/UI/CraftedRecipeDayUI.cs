@@ -27,5 +27,9 @@ public class CraftedRecipeDayUI : MonoBehaviour
         {
             newIndicator.SetActive(true);
         }
+        else
+        {
+            newIndicator.SetActive(false);
+        }
     }
 }
