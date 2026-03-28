@@ -12,6 +12,7 @@ public class GameEventsManager : MonoBehaviour
     public PlayerEvents playerEvents;
     public DayEvents dayEvents;
     public CraftEvents craftEvents;
+    public MilestoneEvents milestoneEvents;
 
     public Action<int> OnMoneyGained;
     public Action<int> OnMoneyUpdated;
@@ -27,5 +28,6 @@ public class GameEventsManager : MonoBehaviour
         playerEvents = new PlayerEvents();
         dayEvents = new DayEvents();
         craftEvents = new CraftEvents();
+        milestoneEvents = new MilestoneEvents();
     }
 }

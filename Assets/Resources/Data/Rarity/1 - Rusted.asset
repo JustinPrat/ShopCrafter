@@ -17,6 +17,7 @@ MonoBehaviour:
   RarityColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   RarityName: Rusted
   RarityDescription: 
+  ReputationGain: 5
   MaxStatModifier:
     rid: 7665218423075111055
   references:

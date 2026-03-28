@@ -17,6 +17,7 @@ MonoBehaviour:
   RarityColor: {r: 0.102565646, g: 1, b: 0, a: 1}
   RarityName: Salvaged
   RarityDescription: 
+  ReputationGain: 7
   MaxStatModifier:
     rid: 7665218423075111066
   references:

@@ -17,6 +17,7 @@ MonoBehaviour:
   RarityColor: {r: 0, g: 0.8260422, b: 1, a: 1}
   RarityName: Refined
   RarityDescription: 
+  ReputationGain: 10
   MaxStatModifier:
     rid: 7665218423075111067
   references:

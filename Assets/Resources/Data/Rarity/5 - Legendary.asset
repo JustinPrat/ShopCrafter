@@ -17,6 +17,7 @@ MonoBehaviour:
   RarityColor: {r: 1, g: 0.7964482, b: 0, a: 1}
   RarityName: Legendary
   RarityDescription: 
+  ReputationGain: 30
   MaxStatModifier:
     rid: 7665218423075111069
   references:

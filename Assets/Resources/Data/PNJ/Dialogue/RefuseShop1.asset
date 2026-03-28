@@ -19,7 +19,14 @@ MonoBehaviour:
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: sketchy
   TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  TMPIconName: 
+  preview: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

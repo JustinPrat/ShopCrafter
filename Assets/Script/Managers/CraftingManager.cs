@@ -168,6 +168,7 @@ public partial class CraftingManager : MonoBehaviour
 
         numberItemCrafted++;
         OnItemCraft?.Invoke(numberItemCrafted);
+        managerRefs.GameEventsManager.milestoneEvents.GainReputation(craftedObjectData.Rarity.ReputationGain);
 
         return craftedObject;
     }

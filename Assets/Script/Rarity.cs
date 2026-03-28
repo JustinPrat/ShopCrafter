@@ -8,6 +8,7 @@ public class Rarity : ScriptableObject
     public Color RarityColor;
     public string RarityName;
     public string RarityDescription;
+    public int ReputationGain;
 
     [SerializeReference]
     public StatModifier MaxStatModifier;
