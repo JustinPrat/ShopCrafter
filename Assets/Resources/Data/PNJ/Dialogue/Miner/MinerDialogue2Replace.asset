@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MinerDialogue2Replace
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <color=#FF1A00FF><shake>Tu vas pas me lacher la grappe ?</shake></color>
+  - Line: Merci pour cet achat !
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0
@@ -25,6 +25,8 @@ MonoBehaviour:
   TMPAnimationName: shake
   TMPEventName: 0
   TMPColor: {r: 1, g: 0.102061585, b: 0, a: 1}
+  TMPIconName: 
+  preview: {fileID: 0}
   references:
     version: 2
     RefIds: []

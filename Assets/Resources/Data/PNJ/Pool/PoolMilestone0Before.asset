@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: PoolMilestone0Before
   m_EditorClassIdentifier: 
   PNJPoolList:
-  - {fileID: 11400000, guid: 3e917b1b9b50574468ad56c6bbdaa7d1, type: 2}
   - {fileID: 11400000, guid: 22e389e1fe3fbf34cb521a046088ff0e, type: 2}
   SpecialPNJPool: []

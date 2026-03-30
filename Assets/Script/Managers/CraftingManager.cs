@@ -38,7 +38,6 @@ public partial class CraftingManager : MonoBehaviour
     public List<CraftedObjectRecipe> BlueprintRecipes => blueprintRecipes;
     public CraftedObjectPool CurrentCraftedObjectPool => currentCraftedObjectPool;
 
-
     private void Awake()
     {
         managerRefs.CraftingManager = this;

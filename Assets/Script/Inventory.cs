@@ -95,6 +95,22 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public bool HasItemInSelectedSlot(CraftedObjectRecipe recipe)
+    {
+        return craftedInventory[selectedInventoryIndex] != null && craftedInventory[selectedInventoryIndex].CraftedObjectRecipe == recipe;
+    }
+
+    public void ConsumeHeldItem()
+    {
+        if (HeldObject != null)
+        {
+            RemoveItemData(HeldObject.CraftedData);
+        }
+
+        Destroy(HeldObject.gameObject);
+        managerRefs.GameEventsManager.playerEvents.UpdateInventory(craftedInventory);
+    }
+
     public void DropItem()
     {
         if (HeldObject != null)

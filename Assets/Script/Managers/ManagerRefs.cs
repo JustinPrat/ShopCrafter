@@ -14,4 +14,5 @@ public class ManagerRefs : ScriptableObject
     public QuestManager QuestManager { get; set; }
     public GameMetaDataManager GameMetaDataManager { get; set; }
     public MilestoneManager MilestoneManager { get; set; }
+    public PlayerManager PlayerManager { get; set; }
 }

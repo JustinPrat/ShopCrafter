@@ -18,28 +18,28 @@ MonoBehaviour:
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Give Gun
+  - Line: Radio
     AnswerDialogueData: {fileID: 0}
     Reward:
-      mode: 1
-      unityReference: {fileID: 0}
+      mode: 0
+      unityReference: {fileID: 11400000, guid: da57414308f69c44a894d7a69602b93f, type: 2}
       rawReference:
         rid: -2
-    ReplaceMainDialogue: {fileID: 0}
+    ReplaceMainDialogue: {fileID: 11400000, guid: 6d37d6d420f0dd9429c7882310db954d, type: 2}
     Cost:
-      mode: 1
-      unityReference: {fileID: 0}
+      mode: 0
+      unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
       rawReference:
         rid: -2
   NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
   ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 2
+  tmpType: 3
   TMPAnimationName: shake
   TMPEventName: 0
-  TMPColor: {r: 1, g: 0.34588143, b: 0, a: 1}
-  TMPIconName: 
-  preview: {fileID: 0}
+  TMPColor: {r: 1, g: 0.6435207, b: 0, a: 1}
+  TMPIconName: sprite_sheet_9
+  preview: {fileID: -156822502178163421, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
   references:
     version: 2
     RefIds:

@@ -26,12 +26,12 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
 
     public bool CanPay(ManagerRefs managerRefs)
     {
-        
+        return managerRefs.PlayerManager.HasCraftedItem(this);
     }
 
     public void ResolveCost(ManagerRefs managerRefs)
     {
-        
+        managerRefs.PlayerManager.ConsumeCraftedItem();
     }
 
     public ICost.UIDisplayData GetDisplayData()
