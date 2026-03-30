@@ -198,6 +198,7 @@ public class DialogueData : ScriptableObject
 [Serializable]
 public struct LineData
 {
+    [TextArea]
     public string Line;
     public EmotionData Emotion;
 }
@@ -205,6 +206,7 @@ public struct LineData
 [Serializable]
 public struct Answer
 {
+    [TextArea]
     public string Line;
     public DialogueData AnswerDialogueData;
     public SerializableInterface<IRewardable> Reward;

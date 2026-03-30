@@ -1,11 +1,13 @@
 using Alchemy.Inspector;
 using System.Collections.Generic;
 using TMPEffects.TMPEvents;
+using TMPro;
 using Unity.Behavior;
 using UnityEngine;
 
 public class PNJBrain : MonoBehaviour, IInteractable
 {
+    private const string SpeechBool = "Speech";
     #region Variables
 
     [SerializeField] private BehaviorGraphAgent agent;
@@ -14,6 +16,9 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private SpriteRenderer stateIconDisplay;
     [SerializeField] private Sprite questIcon;
     [SerializeField] private Collider2D collider;
+    [SerializeField] private TextMeshProUGUI speechText;
+    [SerializeField] private float speechDuration;
+    [SerializeField] private Animator animator;
 
     private PNJInfoData PNJBaseData;
     private PNJRuntimeData PNJRuntime;
@@ -22,6 +27,9 @@ public class PNJBrain : MonoBehaviour, IInteractable
     private BlackboardVariable<PnjEvent> pnjArriveBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
     private DialogueData currentMainDialogue;
+    private bool isSpeechDisplayed;
+    private float speechTimerEnd;
+    private bool speechAlwaysDisplay;
 
     public PNJRuntimeData Data => PNJRuntime;
     public Sprite InteractIcon => interactIcon;
@@ -38,11 +46,24 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     #endregion
 
+#if UNITY_EDITOR
+    [Button]
+    private void DisplaySpeechTest(string speech)
+    {
+        DisplaySpeech(speech);
+    }
+#endif
+
     private void Update()
     {
         foreach (IPNJTraitRuntime traitRuntime in PNJRuntime.ActiveTraits)
         {
             traitRuntime.OnUpdate(this);
+        }
+        
+        if (isSpeechDisplayed && speechTimerEnd <= Time.time && !speechAlwaysDisplay)
+        {
+            StopSpeech();
         }
     }
 
@@ -85,6 +106,22 @@ public class PNJBrain : MonoBehaviour, IInteractable
         managerRefs.GameEventsManager.questEvents.onFinishQuest += OnFinishQuest;
         managerRefs.GameEventsManager.questEvents.onQuestStateChange += OnQuestStateChange;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay += ForceDayEnd;
+    }
+
+    public void DisplaySpeech(string text, bool alwaysDislay = false)
+    {
+        animator.SetBool(SpeechBool, true);
+        speechText.text = text;
+        isSpeechDisplayed = true;
+        speechTimerEnd = Time.time + speechDuration;
+        speechAlwaysDisplay = alwaysDislay;
+    }
+
+    public void StopSpeech()
+    {
+        animator.SetBool(SpeechBool, false);
+        speechText.text = "";
+        isSpeechDisplayed = false;
     }
 
     private void ForceDayEnd() 
@@ -152,6 +189,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)
         {
             ChangeIcon(questIcon);
+            DisplaySpeech("?", true);
         }
     }
 
@@ -171,6 +209,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (!TryGetRedeemQuest(out Quest data))
         {
             ChangeIcon(null);
+            StopSpeech();
         }
     }
     private bool TryGetRedeemQuest(out Quest data)
