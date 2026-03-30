@@ -109,13 +109,16 @@ public class DialogueView : UIView
     private void TryAskQuestion ()
     {
         isAsking = true;
-        for (int i = 0; i < currentDialogue.Answers.Count; i++)
+        if (currentDialogue.HasQuestion)
         {
-            AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
-            answer.Setup(currentDialogue.Answers[i]);
-            answer.OnAnswerClicked += ChooseAnswer;
+            for (int i = 0; i < currentDialogue.Answers.Count; i++)
+            {
+                AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
+                answer.Setup(currentDialogue.Answers[i]);
+                answer.OnAnswerClicked += ChooseAnswer;
 
-            answerUIButtons.Add(answer);
+                answerUIButtons.Add(answer);
+            }
         }
 
         if (managerRefs.DialogueManager.SpecialDialogues.Count > 0)

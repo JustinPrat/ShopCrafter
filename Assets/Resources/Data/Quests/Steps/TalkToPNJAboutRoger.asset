@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59733b20ad721c4194b456f4a69fa47, type: 3}
   m_Name: TalkToPNJAboutRoger
   m_EditorClassIdentifier: Assembly-CSharp::QuestStepTalkToPNJ
-  PNJAmount: 3
+  PNJAmount: 1
   needSpecialDialogue: 1
   specialDialogue:
     Line: Talk about Roger
@@ -24,8 +24,8 @@ MonoBehaviour:
         rid: -2
     ReplaceMainDialogue: {fileID: 0}
     Cost:
-      mode: 0
-      unityReference: {fileID: 11400000, guid: da57414308f69c44a894d7a69602b93f, type: 2}
+      mode: 1
+      unityReference: {fileID: 0}
       rawReference:
         rid: -2
   references:

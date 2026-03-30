@@ -26,6 +26,11 @@ MonoBehaviour:
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   - Line: Non
     AnswerDialogueData: {fileID: 0}
     Reward:
@@ -34,11 +39,20 @@ MonoBehaviour:
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 0}
   tmpType: 0
   TMPAnimationName: 
   TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  TMPIconName: 
+  preview: {fileID: 0}
   references:
     version: 2
     RefIds:
