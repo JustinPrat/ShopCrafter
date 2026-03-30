@@ -69,7 +69,7 @@ public class CraftedObjectData
 
     public void BoostRarity(int boostRarity)
     {
-        if (boostRarity <= 0)
+        if (boostRarity <= 0 || (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity > Enum.GetValues(typeof(ERarity)).Length - 1)
             return;
 
         boostedRarity += boostRarity;

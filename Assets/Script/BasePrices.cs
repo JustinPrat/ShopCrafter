@@ -10,7 +10,7 @@ public class BasePrices : ScriptableObject
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        int maxRarity = (int)Enum.GetValues(typeof(ERarity)).Cast<ERarity>().Last();
+        int maxRarity = (int)Enum.GetValues(typeof(ERarity)).Cast<ERarity>().Last() + 1;
         if (PricePerRarities.Length < maxRarity || PricePerRarities.Length > maxRarity)
         {
             Array.Resize(ref PricePerRarities, maxRarity);

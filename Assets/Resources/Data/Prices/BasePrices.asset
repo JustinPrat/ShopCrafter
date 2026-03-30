@@ -22,6 +22,6 @@ MonoBehaviour:
   - MinPrice: 50
     MaxPrice: 65
   - MinPrice: 80
-    MaxPrice: 95
+    MaxPrice: 90
   - MinPrice: 120
-    MaxPrice: 200
+    MaxPrice: 150

@@ -105,8 +105,15 @@ public class PNJManager : MonoBehaviour
     {
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
-        PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].beforeReputation.PNJPoolList);
-        SpecialPNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].beforeReputation.SpecialPNJPool);
+        UpdateDataPools(pnjPoolList[currentPoolIndex].beforeReputation.PNJPoolList, pnjPoolList[currentPoolIndex].beforeReputation.SpecialPNJPool);
+    }
+
+    private void UpdateDataPools(List<PNJInfoData> basicPnjPool, List<PNJInfoData> specialPnjPool)
+    {
+        PNJDataUsedList.Clear();
+        SpecialPNJDataUsedList.Clear();
+        PNJDataPoolList = new List<PNJInfoData>(basicPnjPool);
+        SpecialPNJDataPoolList = new List<PNJInfoData>(specialPnjPool);
     }
 
     private void Start()
@@ -120,8 +127,7 @@ public class PNJManager : MonoBehaviour
 
     private void OnMilestoneStateChanged(MilestoneState state)
     {
-        PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].afterReputation.PNJPoolList);
-        SpecialPNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].afterReputation.SpecialPNJPool);
+        UpdateDataPools(pnjPoolList[currentPoolIndex].afterReputation.PNJPoolList, pnjPoolList[currentPoolIndex].afterReputation.SpecialPNJPool);
     }
 
     private void OnMilestoneReached(int index)
@@ -130,8 +136,7 @@ public class PNJManager : MonoBehaviour
             return;
 
         currentPoolIndex += 1;
-        PNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].beforeReputation.PNJPoolList);
-        SpecialPNJDataPoolList = new List<PNJInfoData>(pnjPoolList[currentPoolIndex].beforeReputation.SpecialPNJPool);
+        UpdateDataPools(pnjPoolList[currentPoolIndex].beforeReputation.PNJPoolList, pnjPoolList[currentPoolIndex].beforeReputation.SpecialPNJPool);
     }
 
     private void Update()
