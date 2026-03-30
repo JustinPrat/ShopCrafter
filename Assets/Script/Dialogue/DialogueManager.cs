@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +7,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private ManagerRefs managerRefs;
 
-    private Dictionary<DialogueData, Answer> specialDialogues = new Dictionary<DialogueData, Answer>();
+    private List<SpecialDialogue> specialDialogues = new List<SpecialDialogue>();
 
-    public Dictionary<DialogueData, Answer> SpecialDialogues => specialDialogues;
+    public List<SpecialDialogue> SpecialDialogues => specialDialogues;
     private void Awake()
     {
         managerRefs.DialogueManager = this;
@@ -19,18 +20,55 @@ public class DialogueManager : MonoBehaviour
         managerRefs.UIManager.ToggleDialogueView(true, data, pnjBrain);
     }
 
-    public void SetSpecialDialogue(bool isAdded, Answer specialDialogue)
+    public void SetSpecialDialogue(bool isAdded, SpecialDialogue specialDialogue)
     {
         if (isAdded)
         {
-            if (!specialDialogues.ContainsKey(specialDialogue.AnswerDialogueData))
+            if (!specialDialogues.Contains(specialDialogue))
             {
-                specialDialogues.Add(specialDialogue.AnswerDialogueData, specialDialogue);
+                specialDialogues.Add(specialDialogue);
             }
         }
-        else if (specialDialogue.AnswerDialogueData != null && specialDialogues.ContainsKey(specialDialogue.AnswerDialogueData))
+        else if (specialDialogue != null && specialDialogues.Contains(specialDialogue))
         {
-            specialDialogues.Remove(specialDialogue.AnswerDialogueData);
+            specialDialogues.Remove(specialDialogue);
         }
     }
+
+    public Answer ConsumeSpecialDialogue(SpecialDialogue specialDialogue, GameObject consumer)
+    {
+        Answer answer = specialDialogue.Answers[0];
+        specialDialogue.Answers.RemoveAt(0);
+        specialDialogue.AskedPNJs.Add(consumer);
+
+        if (specialDialogue.Answers.Count <= 0)
+        {
+            SetSpecialDialogue(false, specialDialogue);
+        }
+
+        managerRefs.GameEventsManager.OnSpecialDialogueUsed?.Invoke(specialDialogue);
+        return answer;
+    }
+
+    public SpecialDialogue GetSpecialDialogue(GameObject consumer)
+    {
+        foreach (SpecialDialogue specialDialogue in specialDialogues)
+        {
+            if (specialDialogue.Owner != consumer)
+            {
+                return specialDialogue;
+            }
+        }
+
+        return null;
+    }
+}
+
+[Serializable]
+public class SpecialDialogue
+{
+    public List<Answer> Answers;
+    
+    public GameObject Owner { get; set; }
+    public List<GameObject> AskedPNJs { get; set; } = new List<GameObject>();
 }

@@ -41,6 +41,7 @@ public class DialogueView : UIView
 
     private DialogueData currentDialogue;
     private PNJBrain currentPNJ;
+    private SpecialDialogue currentSpecialDialogue;
     private int currentDialogueIndex;
     private List<AnswerUIButton> answerUIButtons = new List<AnswerUIButton>();
 
@@ -123,13 +124,16 @@ public class DialogueView : UIView
 
         if (managerRefs.DialogueManager.SpecialDialogues.Count > 0)
         {
-            KeyValuePair<DialogueData, Answer> specialDialogue = managerRefs.DialogueManager.SpecialDialogues.First();
+            SpecialDialogue specialDialogue = managerRefs.DialogueManager.GetSpecialDialogue(currentPNJ.gameObject);
+            if (specialDialogue != null)
+            {
+                currentSpecialDialogue = specialDialogue;
+                AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
+                answer.Setup(specialDialogue.Answers[0]);
+                answer.OnAnswerClicked += ChooseAnswer;
 
-            AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
-            answer.Setup(specialDialogue.Value);
-            answer.OnAnswerClicked += ChooseAnswer;
-
-            answerUIButtons.Add(answer);
+                answerUIButtons.Add(answer);
+            }
         }
 
         if (answerUIButtons.Count > 0)
@@ -159,7 +163,10 @@ public class DialogueView : UIView
         }
 
         answerUIButtons.Clear();
-        managerRefs.DialogueManager.SetSpecialDialogue(false, selectedAnswer);
+        if (currentSpecialDialogue != null && currentSpecialDialogue.Answers.Contains(selectedAnswer))
+        {
+            managerRefs.DialogueManager.ConsumeSpecialDialogue(currentSpecialDialogue, currentPNJ.gameObject);
+        }
 
         if (selectedAnswer.ReplaceMainDialogue != null)
         {

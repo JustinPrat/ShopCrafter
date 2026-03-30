@@ -12,22 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59733b20ad721c4194b456f4a69fa47, type: 3}
   m_Name: TalkToPNJAboutRoger
   m_EditorClassIdentifier: Assembly-CSharp::QuestStepTalkToPNJ
-  PNJAmount: 1
+  PNJAmount: 3
   needSpecialDialogue: 1
   specialDialogue:
-    Line: Talk about Roger
-    AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
-    ReplaceMainDialogue: {fileID: 0}
-    Cost:
-      mode: 1
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
+    Answers:
+    - Line: parler roger 1
+      AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
+      Reward:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
+      ReplaceMainDialogue: {fileID: 0}
+      Cost:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
+    - Line: parler roger 2
+      AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
+      Reward:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
+      ReplaceMainDialogue: {fileID: 0}
+      Cost:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
+    - Line: parler roger 3
+      AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
+      Reward:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
+      ReplaceMainDialogue: {fileID: 0}
+      Cost:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
   references:
     version: 2
     RefIds:

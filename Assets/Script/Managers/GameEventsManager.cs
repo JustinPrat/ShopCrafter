@@ -18,6 +18,7 @@ public class GameEventsManager : MonoBehaviour
     public Action<int> OnMoneyUpdated;
 
     public Action<PNJBrain, DialogueData> OnPNJTalked;
+    public Action<SpecialDialogue> OnSpecialDialogueUsed;
 
     #endregion
 

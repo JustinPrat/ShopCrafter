@@ -204,7 +204,7 @@ public struct LineData
 }
 
 [Serializable]
-public struct Answer
+public class Answer
 {
     [TextArea]
     public string Line;

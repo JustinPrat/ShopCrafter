@@ -1,6 +1,8 @@
 using Alchemy.Inspector;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 [CreateAssetMenu(menuName = "ShopCrafter/Quests/TalkToPNJ")]
 public class QuestStepTalkToPNJ : QuestStepData
@@ -12,7 +14,7 @@ public class QuestStepTalkToPNJ : QuestStepData
     private bool needSpecialDialogue;
 
     [SerializeField, ShowIf(nameof(needSpecialDialogue))]
-    private Answer specialDialogue;
+    private SpecialDialogue specialDialogue;
 
     public override QuestStepRuntime GetRuntimeLogic()
     {
@@ -24,7 +26,7 @@ public struct TalkToPNJData
 {
     public int PNJAmount;
     public bool NeedSpecialDialogue;
-    public Answer SpecialDialogue;
+    public SpecialDialogue SpecialDialogue;
 }
 
 public class QuestStepTalkToPNJRuntime : QuestStepRuntime
@@ -40,29 +42,35 @@ public class QuestStepTalkToPNJRuntime : QuestStepRuntime
     public override void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs)
     {
         base.InitializeQuestStep(questId, stepIndex, questStepState, managerRefs);
-        managerRefs.GameEventsManager.OnPNJTalked += OnPNJTalked;
 
         if (talkToData.NeedSpecialDialogue)
         {
-            managerRefs.DialogueManager.SetSpecialDialogue(true, talkToData.SpecialDialogue);
+            SpecialDialogue specialDialogue = talkToData.SpecialDialogue;
+            managerRefs.DialogueManager.SetSpecialDialogue(true, specialDialogue);
+            managerRefs.GameEventsManager.OnSpecialDialogueUsed += OnSpecialDialogueUsed;
+        }
+        else
+        {
+            managerRefs.GameEventsManager.OnPNJTalked += OnPNJTalked;
+        }
+    }
+
+    private void OnSpecialDialogueUsed(SpecialDialogue specialDialogue)
+    {
+        if (specialDialogue == talkToData.SpecialDialogue)
+        {
+            if (specialDialogue.Answers.Count <= 0)
+            {
+                FinishQuestStep();
+            }
         }
     }
 
     private void OnPNJTalked(PNJBrain brain, DialogueData data)
     {
-        if (talkToData.NeedSpecialDialogue && talkToData.SpecialDialogue.AnswerDialogueData != null)
+        if (!pnjTalkedTo.ContainsKey(brain))
         {
-            if (talkToData.SpecialDialogue.AnswerDialogueData == data && !pnjTalkedTo.ContainsKey(brain))
-            {
-                AddNewData(brain, data);
-            }
-        }
-        else
-        {
-            if (!pnjTalkedTo.ContainsKey(brain))
-            {
-                AddNewData(brain, data);
-            }
+            AddNewData(brain, data);
         }
 
         if (pnjTalkedTo.Keys.Count >= talkToData.PNJAmount)
@@ -79,7 +87,14 @@ public class QuestStepTalkToPNJRuntime : QuestStepRuntime
 
     protected override void FinishQuestStep()
     {
-        managerRefs.GameEventsManager.OnPNJTalked -= OnPNJTalked;
+        if (talkToData.NeedSpecialDialogue)
+        {
+            managerRefs.GameEventsManager.OnSpecialDialogueUsed -= OnSpecialDialogueUsed;
+        }
+        else
+        {
+            managerRefs.GameEventsManager.OnPNJTalked -= OnPNJTalked;
+        }
 
         if (talkToData.NeedSpecialDialogue)
         {
