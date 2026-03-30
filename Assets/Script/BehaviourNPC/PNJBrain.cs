@@ -184,6 +184,31 @@ public class PNJBrain : MonoBehaviour, IInteractable
             SetPauseShopLeaving(true);
         }
     }
+
+    public bool HasGivenQuest(string questID)
+    {
+        foreach (QuestInfoSO questInfo in givenQuests)
+        {
+            if (questInfo.ID == questID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public QuestInfoSO GetGivenQuest(string questID)
+    {
+        foreach (QuestInfoSO questInfo in givenQuests)
+        {
+            if (questInfo.ID == questID)
+            {
+                return questInfo;
+            }
+        }
+        return null;
+    }
+
     private void OnQuestStateChange(Quest quest)
     {
         if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)

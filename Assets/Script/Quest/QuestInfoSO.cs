@@ -30,15 +30,19 @@ public class QuestInfoSO : ScriptableObject, IRewardable
 
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {
-        managerRefs.GameEventsManager.questEvents.StartQuest(ID);
-
         if (giver != null)
         {
             PNJBrain pnj = giver.GetComponent<PNJBrain>();
+            managerRefs.GameEventsManager.questEvents.StartQuest(ID, pnj);
+
             if (pnj != null)
             {
                 pnj.GiveQuest(this);
             }
+        }
+        else
+        {
+            managerRefs.GameEventsManager.questEvents.StartQuest(ID, null);
         }
     }
 }

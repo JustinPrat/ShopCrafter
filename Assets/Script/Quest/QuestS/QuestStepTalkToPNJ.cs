@@ -1,8 +1,6 @@
 using Alchemy.Inspector;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 [CreateAssetMenu(menuName = "ShopCrafter/Quests/TalkToPNJ")]
 public class QuestStepTalkToPNJ : QuestStepData
@@ -39,13 +37,15 @@ public class QuestStepTalkToPNJRuntime : QuestStepRuntime
         this.talkToData = data;
     }
 
-    public override void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs)
+    public override void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs, PNJBrain owner)
     {
-        base.InitializeQuestStep(questId, stepIndex, questStepState, managerRefs);
+        base.InitializeQuestStep(questId, stepIndex, questStepState, managerRefs, owner);
 
         if (talkToData.NeedSpecialDialogue)
         {
             SpecialDialogue specialDialogue = talkToData.SpecialDialogue;
+            specialDialogue.Owner = owner.gameObject;
+
             managerRefs.DialogueManager.SetSpecialDialogue(true, specialDialogue);
             managerRefs.GameEventsManager.OnSpecialDialogueUsed += OnSpecialDialogueUsed;
         }

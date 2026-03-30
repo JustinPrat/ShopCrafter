@@ -27,9 +27,9 @@ public class CollectMoneyQuestStepRuntime : QuestStepRuntime
         this.data = data;
     }
 
-    public override void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs)
+    public override void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs, PNJBrain owner)
     {
-        base.InitializeQuestStep(questId, stepIndex, questStepState, managerRefs);
+        base.InitializeQuestStep(questId, stepIndex, questStepState, managerRefs, owner);
         managerRefs.GameEventsManager.OnMoneyGained += OnMoneyGained;
     }
 

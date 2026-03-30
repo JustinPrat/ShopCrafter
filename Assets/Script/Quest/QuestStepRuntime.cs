@@ -4,17 +4,19 @@ public abstract class QuestStepRuntime
     protected string questId;
     protected int stepIndex;
     protected ManagerRefs managerRefs;
+    protected PNJBrain owner;
 
-    public virtual void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs)
+    public virtual void InitializeQuestStep(string questId, int stepIndex, string questStepState, ManagerRefs managerRefs, PNJBrain owner)
     {
         this.questId = questId;
         this.stepIndex = stepIndex;
         this.managerRefs = managerRefs;
+        this.owner = owner;
+
         if (questStepState != null && questStepState != "")
         {
             SetQuestStepState(questStepState);
         }
-
     }
 
     protected virtual void FinishQuestStep()

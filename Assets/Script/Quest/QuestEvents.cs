@@ -2,12 +2,12 @@ using System;
 
 public class QuestEvents
 {
-    public event Action<string> onStartQuest;
-    public void StartQuest(string id)
+    public event Action<string, PNJBrain> onStartQuest;
+    public void StartQuest(string id, PNJBrain owner)
     {
         if (onStartQuest != null)
         {
-            onStartQuest(id);
+            onStartQuest(id, owner);
         }
     }
 

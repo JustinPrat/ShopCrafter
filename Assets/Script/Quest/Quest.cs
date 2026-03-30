@@ -8,12 +8,14 @@ using UnityEngine;
 public class Quest
 {
     public QuestInfoSO info;
-
     public QuestState state;
+
+    private PNJBrain currentOwner;
     private int currentQuestStepIndex;
     private QuestStepState[] questStepStates;
     private List<QuestStepRuntime> questStepRuntimes = new List<QuestStepRuntime>();
     private ManagerRefs managerRefs;
+
     public Quest(QuestInfoSO questInfo, ManagerRefs managerRefs)
     {
         this.info = questInfo;
@@ -56,13 +58,18 @@ public class Quest
         return (currentQuestStepIndex < info.QuestSteps.Length);
     }
 
-    public void InstantiateCurrentQuestStep(Transform parentTransform)
+    public void StartQuest(PNJBrain owner)
+    {
+        currentOwner = owner;
+    }
+
+    public void InstantiateCurrentQuestStep()
     {
         QuestStepData questStepData = GetCurrentQuestStepData();
         if (questStepData != null)
         {
             QuestStepRuntime questStep = questStepData.GetRuntimeLogic();
-            questStep.InitializeQuestStep(info.ID, currentQuestStepIndex, questStepStates[currentQuestStepIndex].state, managerRefs);
+            questStep.InitializeQuestStep(info.ID, currentQuestStepIndex, questStepStates[currentQuestStepIndex].state, managerRefs, currentOwner);
             questStepRuntimes.Add(questStep);
         }
     }

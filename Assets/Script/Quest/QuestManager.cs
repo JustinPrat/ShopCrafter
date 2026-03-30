@@ -33,7 +33,7 @@ public partial class QuestManager : MonoBehaviour
     [Button]
     private void StartQuestEditor(QuestInfoSO questInfoSO)
     {
-        StartQuest(questInfoSO.ID);
+        StartQuest(questInfoSO.ID, null);
     }
 
 #endif
@@ -64,7 +64,7 @@ public partial class QuestManager : MonoBehaviour
             // initialize any loaded quest steps
             if (quest.state == QuestState.IN_PROGRESS)
             {
-                quest.InstantiateCurrentQuestStep(this.transform);
+                quest.InstantiateCurrentQuestStep();
             }
             // broadcast the initial state of all quests on startup
             managerRefs.GameEventsManager.questEvents.QuestStateChange(quest);
@@ -78,10 +78,11 @@ public partial class QuestManager : MonoBehaviour
         managerRefs.GameEventsManager.questEvents.QuestStateChange(quest);
     }
 
-    private void StartQuest(string id) 
+    private void StartQuest(string id, PNJBrain owner) 
     {
         Quest quest = GetQuestById(id);
-        quest.InstantiateCurrentQuestStep(this.transform);
+        quest.StartQuest(owner);
+        quest.InstantiateCurrentQuestStep();
         ChangeQuestState(quest.info.ID, QuestState.IN_PROGRESS);
     }
 
@@ -92,7 +93,7 @@ public partial class QuestManager : MonoBehaviour
 
         if (quest.CurrentStepExists())
         {
-            quest.InstantiateCurrentQuestStep(this.transform);
+            quest.InstantiateCurrentQuestStep();
         }
         else
         {

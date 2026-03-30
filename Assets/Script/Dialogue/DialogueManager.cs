@@ -54,7 +54,7 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (SpecialDialogue specialDialogue in specialDialogues)
         {
-            if (specialDialogue.Owner != consumer)
+            if (specialDialogue.Owner != consumer && !specialDialogue.AskedPNJs.Contains(consumer))
             {
                 return specialDialogue;
             }
