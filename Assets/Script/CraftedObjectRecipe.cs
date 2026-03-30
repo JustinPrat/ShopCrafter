@@ -13,7 +13,7 @@ public enum ECraftedType
 
 [CreateAssetMenu(fileName = "CraftedObjectRecipe", menuName = "ShopCrafter/CraftedObjectRecipe")]
 [Serializable]
-public class CraftedObjectRecipe : ScriptableObject, IRewardable
+public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
 {
     public List<TagValue> RequiredTags;
     public ECraftedType CraftedType;
@@ -23,6 +23,26 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
+
+    public bool CanPay(ManagerRefs managerRefs)
+    {
+        
+    }
+
+    public void ResolveCost(ManagerRefs managerRefs)
+    {
+        
+    }
+
+    public ICost.UIDisplayData GetDisplayData()
+    {
+        return new ICost.UIDisplayData
+        {
+            DisplayName = CraftedName,
+            Amount = 1,
+            Icon = CraftedSprite
+        };
+    }
 
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {

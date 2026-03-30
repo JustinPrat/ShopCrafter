@@ -10,47 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
-  m_Name: FarmerDialogue1
+  m_Name: MinerDialogue2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <shake>Je n'ai pas tous ton temps</shake>, Il faut que j'aille m'occuper
-      de mes champs
-    Emotion: {fileID: 0}
-  - Line: Tu veux <color=#FFB500FF><grow>m'acheter</grow></color> quelque chose ?
+  - Line: J'aimerais bien gagner de l'argent pour acheter de l'alcool
     Emotion: {fileID: 0}
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui
-    AnswerDialogueData: {fileID: 11400000, guid: 3333e4a80b369254ab1e4fe5c3df9ff2, type: 2}
+  - Line: Blueprint Radio
+    AnswerDialogueData: {fileID: 0}
     Reward:
       mode: 0
-      unityReference: {fileID: 0}
+      unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
       rawReference:
         rid: -2
-    ReplaceMainDialogue: {fileID: 0}
+    ReplaceMainDialogue: {fileID: 11400000, guid: 6d37d6d420f0dd9429c7882310db954d, type: 2}
     Cost:
-      mode: 0
+      mode: 1
       unityReference: {fileID: 0}
       rawReference:
-        rid: -2
-  - Line: Non
-    AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
-    ReplaceMainDialogue: {fileID: 0}
-    Cost:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
-  NextDialogue: {fileID: 0}
+        rid: 7665218516911390824
+  NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
   ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 2
+  tmpType: 0
   TMPAnimationName: shake
   TMPEventName: 0
   TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
@@ -61,3 +45,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 7665218516911390824
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 25

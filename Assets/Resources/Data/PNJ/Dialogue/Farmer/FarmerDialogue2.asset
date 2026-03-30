@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
-  m_Name: FarmerDialogue1
+  m_Name: FarmerDialogue2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <shake>Je n'ai pas tous ton temps</shake>, Il faut que j'aille m'occuper
-      de mes champs
+  - Line: Mes produits sont garantit avec moins de <grow>80%</grow> de <color=#00FF29FF>radiation</color>
     Emotion: {fileID: 0}
-  - Line: Tu veux <color=#FFB500FF><grow>m'acheter</grow></color> quelque chose ?
+  - Line: Tu veux y jeter un oeil ?
     Emotion: {fileID: 0}
   HasQuestion: 1
   HasNextDialogue: 0
@@ -50,10 +49,10 @@ MonoBehaviour:
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 2
-  TMPAnimationName: shake
+  tmpType: 0
+  TMPAnimationName: grow
   TMPEventName: 0
-  TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
+  TMPColor: {r: 0, g: 1, b: 0.16408253, a: 1}
   TMPIconName: 
   preview: {fileID: 0}
   references:
