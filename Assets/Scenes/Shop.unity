@@ -1714,11 +1714,11 @@ PrefabInstance:
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjPoolList.Array.data[0].afterReputation
       value: 
-      objectReference: {fileID: 11400000, guid: 1cb852b13eb09c74ba555deef692bdce, type: 2}
+      objectReference: {fileID: 11400000, guid: c94159913705dc7438e2dbd5c32cb7b3, type: 2}
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjPoolList.Array.data[0].beforeReputation
       value: 
-      objectReference: {fileID: 11400000, guid: c94159913705dc7438e2dbd5c32cb7b3, type: 2}
+      objectReference: {fileID: 11400000, guid: 1cb852b13eb09c74ba555deef692bdce, type: 2}
     - target: {fileID: 7880455434556983063, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_Name
       value: MANAGERS

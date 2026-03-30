@@ -37,7 +37,10 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
             StopCoroutine(OnFinishSubmit());
         }
 
-        _resetRoutine = StartCoroutine(OnFinishSubmit());
+        if (gameObject.activeInHierarchy)
+        {
+            _resetRoutine = StartCoroutine(OnFinishSubmit());
+        }
     }
 
     private IEnumerator OnFinishSubmit ()
