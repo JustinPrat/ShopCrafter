@@ -10,6 +10,9 @@ public class EncyclopedieView : UIView
     private PageUI pageUIPrefab;
 
     [SerializeField]
+    private AutoFlip flip;
+
+    [SerializeField]
     private ManagerRefs managerRefs;
 
     private List<PageUI> pageItemUI = new List<PageUI>();
@@ -25,6 +28,7 @@ public class EncyclopedieView : UIView
             book.OnFinishFlip.AddListener(OnFlip);
             book.OnAbortFlip.AddListener(OnFlip);
             managerRefs.InputManager.Actions.Player.Back.started += EscapePressed;
+            managerRefs.InputManager.Actions.Player.Navigate.started += NavigateStarted;
 
             OnFlip();
         }
@@ -35,12 +39,27 @@ public class EncyclopedieView : UIView
             book.OnFinishFlip.RemoveListener(OnFlip);
             book.OnAbortFlip.RemoveListener(OnFlip);
             managerRefs.InputManager.Actions.Player.Back.started -= EscapePressed;
+            managerRefs.InputManager.Actions.Player.Navigate.started -= NavigateStarted;
         }
     }
 
     private void EscapePressed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         managerRefs.UIManager.ToggleEncyclopedieView(false);
+    }
+
+    private void NavigateStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        bool isInputRight = obj.ReadValue<Vector2>().x > 0 ? false : true;
+
+        if (isInputRight)
+        {
+            flip.FlipLeftPage();
+        }
+        else
+        {
+            flip.FlipRightPage();
+        }
     }
 
     private void OnFlip ()

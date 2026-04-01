@@ -154,6 +154,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Encyclopedia"",
+                    ""type"": ""Button"",
+                    ""id"": ""df2d12cc-8780-4266-895c-2e37108072b1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -605,6 +614,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""MaterialInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3c2f006-2ea2-46e5-afb2-9519c31b1011"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Encyclopedia"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92c14c4a-8ada-4f99-bbbb-710ea673b78c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Encyclopedia"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1250,6 +1281,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Navigate = m_Player.FindAction("Navigate", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_MaterialInventory = m_Player.FindAction("MaterialInventory", throwIfNotFound: true);
+        m_Player_Encyclopedia = m_Player.FindAction("Encyclopedia", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1352,6 +1384,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Navigate;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_MaterialInventory;
+    private readonly InputAction m_Player_Encyclopedia;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1391,6 +1424,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/MaterialInventory".
         /// </summary>
         public InputAction @MaterialInventory => m_Wrapper.m_Player_MaterialInventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Encyclopedia".
+        /// </summary>
+        public InputAction @Encyclopedia => m_Wrapper.m_Player_Encyclopedia;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1438,6 +1475,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MaterialInventory.started += instance.OnMaterialInventory;
             @MaterialInventory.performed += instance.OnMaterialInventory;
             @MaterialInventory.canceled += instance.OnMaterialInventory;
+            @Encyclopedia.started += instance.OnEncyclopedia;
+            @Encyclopedia.performed += instance.OnEncyclopedia;
+            @Encyclopedia.canceled += instance.OnEncyclopedia;
         }
 
         /// <summary>
@@ -1470,6 +1510,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MaterialInventory.started -= instance.OnMaterialInventory;
             @MaterialInventory.performed -= instance.OnMaterialInventory;
             @MaterialInventory.canceled -= instance.OnMaterialInventory;
+            @Encyclopedia.started -= instance.OnEncyclopedia;
+            @Encyclopedia.performed -= instance.OnEncyclopedia;
+            @Encyclopedia.canceled -= instance.OnEncyclopedia;
         }
 
         /// <summary>
@@ -1841,6 +1884,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMaterialInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Encyclopedia" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEncyclopedia(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

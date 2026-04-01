@@ -61,6 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   book: {fileID: 717906604704374309}
   pageUIPrefab: {fileID: 4169519477738263355, guid: 7f0f59bc973a068449090792b74d142d, type: 3}
+  flip: {fileID: 5895305282211658565}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
 --- !u!114 &4928602383719361649
 MonoBehaviour:
@@ -223,7 +224,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 180032, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5895305282211658565}
   m_SourcePrefab: {fileID: 100100000, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
 --- !u!224 &717906604694423157 stripped
 RectTransform:
@@ -235,12 +239,36 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
   m_PrefabInstance: {fileID: 717906604713947273}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 717906604714037193}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4446b7192d8bf914ebaf797b64fe8b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &717906604714037193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 180032, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+  m_PrefabInstance: {fileID: 717906604713947273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5895305282211658565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717906604714037193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef881b4c6ed71248b493dcd92c831a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoFlip
+  Mode: 1
+  PageFlipTime: 0.1
+  TimeBetweenPages: 0
+  DelayBeforeStarting: 0
+  AutoStartFlip: 0
+  ControledBook: {fileID: 717906604704374309}
+  AnimationFramesCount: 60
 --- !u!114 &891479658471389855 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 408042261806172694, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
