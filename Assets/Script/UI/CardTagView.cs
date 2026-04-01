@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.EventSystems;
 
 public class CardTagView : UIView
 {
@@ -104,6 +103,7 @@ public class CardTagView : UIView
             tagUI.OnDragStarted += OnDragTagStarted;
         }
 
+        EventSystem.current.SetSelectedGameObject(tagsUI[0].gameObject);
         ApplyPreSelectionTags();
     }
 
@@ -147,13 +147,14 @@ public class CardTagView : UIView
         {
             score = tagUI.CountTag(score);
             scoreText.text = score.ToString();
-            yield return new WaitForSeconds(delayBetweenScoreCount);
+            yield return new WaitForSecondsRealtime(delayBetweenScoreCount);
         }
 
         ScoreBonus();
         DisplayBonus();
 
         validateButton.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(validateButton);
     }
 
     //UI Advanced button setup
@@ -186,7 +187,7 @@ public class CardTagView : UIView
         priceModif.AddModifier(modifier);
 
         bonusTagGameUI.gameObject.SetActive(true);
-        animator.SetTrigger("Bonus");
+        animator.SetTrigger(BonusTrigger);
         if (rarityBoost > 0)
         {
             bonusTagGameUI.Setup(rarityBoost, true);

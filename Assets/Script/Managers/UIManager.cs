@@ -217,12 +217,17 @@ public class UIManager : MonoBehaviour
 
             if (isOn)
             {
+                Time.timeScale = 0f;
                 cardTagViewInstance.Setup(consumedItems);
                 managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.Player.Navigate.Enable();
             }
             else
             {
+                Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Validate.Disable();
             }
         });
     }

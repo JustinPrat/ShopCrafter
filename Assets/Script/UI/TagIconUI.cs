@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.TextCore.Text;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IComparable
 {
     private const string HoverBool = "Hover";
     private const string CountTrigger = "Count";
+
+    [SerializeField]
+    private ManagerRefs managerRefs;
 
     [SerializeField]
     private Image tagImage;
@@ -36,15 +39,25 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField, ShowIf(nameof(canBeMoved))]
     private float smoothSpeed = 15f;
 
+    [SerializeField, ShowIf(nameof(canBeMoved))]
+    private AdvancedButton button;
+
     private TagPlaceholderUI anchor;
     private RectTransform parentRect;
     private float lockedYPos;
-    private bool isDragging;
     private TagValue tagValue;
     private bool blockOrdering;
+    private DragType currentDragType;
 
     public Action OnDragReleased;
     public Action OnDragStarted;
+
+    public enum DragType
+    {
+        None,
+        Mouse,
+        Controller
+    }
 
     public TagValue TagValue => tagValue;
     public GameObject Anchor => anchor.gameObject;
@@ -62,7 +75,68 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             parentRect = anchor.transform.parent as RectTransform;
             transform.SetParent(transform.parent.parent);
             layoutElement.ignoreLayout = true;
+
+            button.OnLeftClick.AddListener(OnLeftClick);
+            button.OnLeftClickReleased.AddListener(OnLeftClickReleased);
+
+            button.OnSelected += OnSelect;
+            button.OnDeselected += OnDeSelect;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (canBeMoved)
+        {
+            button.OnLeftClick.RemoveListener(OnLeftClick);
+            button.OnLeftClickReleased.RemoveListener(OnLeftClickReleased);
+
+            button.OnSelected -= OnSelect;
+            button.OnDeselected -=  OnDeSelect;
+        }
+    }
+
+    private void OnSelect(AdvancedButton button)
+    {
+        animator.SetBool(HoverBool, true);
+
+        Debug.Log("Pointer Select");
+    }
+    private void OnDeSelect(AdvancedButton button)
+    {
+        animator.SetBool(HoverBool, false);
+
+        Debug.Log("Pointer Deselect");
+    }
+
+    private void OnLeftClick(AdvancedButton button)
+    {
+        OnBeginDrag(null);
+        currentDragType = DragType.Controller;
+        managerRefs.InputManager.Actions.Player.Navigate.started += SwapPlace;
+        Navigation noneNav = new Navigation() { mode = Navigation.Mode.None };
+        button.navigation = noneNav;
+    }
+
+    private void SwapPlace(InputAction.CallbackContext ctx)
+    {
+        Vector2 input = ctx.ReadValue<Vector2>();
+
+        int newSiblingIndex = anchor.transform.GetSiblingIndex();
+        int value = input.x > 0 ? 1 : -1;
+        if (newSiblingIndex + value >= 0 && newSiblingIndex + value < parentRect.childCount)
+        {
+            newSiblingIndex += value;
+        }
+
+        anchor.transform.SetSiblingIndex(newSiblingIndex);
+    }
+
+    private void OnLeftClickReleased(AdvancedButton button)
+    {
+        managerRefs.InputManager.Actions.Player.Navigate.started -= SwapPlace;
+        OnEndDrag(null);
+        button.navigation = Navigation.defaultNavigation;
     }
 
     public void BlockOrdering()
@@ -99,9 +173,9 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void Update()
     {
-        if (!isDragging && anchor != null)
+        if (currentDragType != DragType.Mouse && anchor != null)
         {
-            transform.position = Vector3.Lerp(transform.position, anchor.transform.position, Time.deltaTime * smoothSpeed);
+            transform.position = Vector3.Lerp(transform.position, anchor.transform.position, Time.unscaledDeltaTime * smoothSpeed);
         }
     }
 
@@ -113,11 +187,15 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         animator.SetBool(HoverBool, true);
+
+        Debug.Log("Pointer Enter");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         animator.SetBool(HoverBool, false);
+
+        Debug.Log("Pointer Exit");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -125,7 +203,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!canBeMoved || blockOrdering)
             return;
 
-        isDragging = true;
+        currentDragType = DragType.Mouse;
         lockedYPos = transform.position.y;
         transform.SetAsLastSibling();
         OnDragStarted?.Invoke();
@@ -165,8 +243,8 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (!canBeMoved || blockOrdering)
             return;
-        
-        isDragging = false;
+
+        currentDragType = DragType.None;
         OnDragReleased?.Invoke();
     }
 

@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 3960852143917344210}
   - component: {fileID: 6241706139924483032}
   - component: {fileID: 6961568750290960611}
+  - component: {fileID: 1185750341178362008}
   m_Layer: 5
   m_Name: TagGameUI
   m_TagString: Untagged
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f8e886b347f7249bb82c982ac2ce5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TagIconUI
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   tagImage: {fileID: 5634203200555993429}
   tagText: {fileID: 5575649346597434030}
   animator: {fileID: 3960852143917344210}
@@ -209,6 +211,7 @@ MonoBehaviour:
   canBeMoved: 1
   anchorPrefab: {fileID: 6255421869298481768, guid: 6d23060b0c938df468554f1f0fdd6cfd, type: 3}
   smoothSpeed: 15
+  button: {fileID: 1185750341178362008}
 --- !u!114 &5084348684736547214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +254,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 22ef48da401e31c4494a507242e9555d, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -293,6 +296,58 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1185750341178362008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6255421869298481768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4781bd3f86c91e144b56207c9095c028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdvancedButton
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 5084348684736547214}
+  OnLeftClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRightClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLeftClickReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  toggleDebug: 0
 --- !u!1 &6714341341520142828
 GameObject:
   m_ObjectHideFlags: 0

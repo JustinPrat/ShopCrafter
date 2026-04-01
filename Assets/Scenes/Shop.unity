@@ -119,52 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &296781029
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 296781030}
-  - component: {fileID: 296781031}
-  m_Layer: 0
-  m_Name: PlayerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &296781030
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296781029}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 748467427}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &296781031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296781029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23d456fc0961b5942865f9662d55a32c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
-  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  playerBrain: {fileID: 1515932036}
 --- !u!1 &314177760
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,11 +199,6 @@ MonoBehaviour:
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: a1a0365f4f8d5714bb9c55a096e2c062, type: 2}
---- !u!4 &748467427 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 884120617675045989, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-  m_PrefabInstance: {fileID: 8718185161081974399}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &781364188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1774,27 +1723,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 956923802}
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: targetNumberPnj
-      value: 3
+      propertyPath: pnjPoolList.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[0].afterReputation
+      propertyPath: pnjPoolList.Array.data[1].milestoneIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: pnjPoolList.Array.data[1].afterReputation
       value: 
       objectReference: {fileID: 11400000, guid: c94159913705dc7438e2dbd5c32cb7b3, type: 2}
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[0].beforeReputation
+      propertyPath: pnjPoolList.Array.data[1].beforeReputation
       value: 
       objectReference: {fileID: 11400000, guid: 1cb852b13eb09c74ba555deef692bdce, type: 2}
+    - target: {fileID: 7219743906420705271, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: playerBrain
+      value: 
+      objectReference: {fileID: 1515932036}
     - target: {fileID: 7880455434556983063, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_Name
       value: MANAGERS
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 884120617675045989, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      insertIndex: 10
-      addedObject: {fileID: 296781030}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
 --- !u!1001 &9082178792512337933
