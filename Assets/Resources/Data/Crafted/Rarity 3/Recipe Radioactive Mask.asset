@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
-  m_Name: RecipeMetalIngot
+  m_Name: Recipe Radioactive Mask
   m_EditorClassIdentifier: 
-  RequiredTags:
-  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount:
-      BaseValue: 8
-  CraftedType: 2
+  RequiredTags: []
+  CraftedType: 1
   Rarity: {fileID: 11400000, guid: 3391d365a19380d4cae9dea6d01b21ea, type: 2}
-  TargetScore: 50
-  CraftedName: Metal Ingot
-  CraftedDescription: Forge new things
-  CraftedSprite: {fileID: 21300000, guid: 16f4d9ff502bd2a4aa7d34296c6c16f4, type: 3}
+  TargetScore: 43
+  CraftedName: Radioactive Mask
+  CraftedDescription: Can filter the worst crap
+  CraftedSprite: {fileID: -7430669329385756642, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}

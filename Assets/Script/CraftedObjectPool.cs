@@ -1,10 +1,29 @@
+using Alchemy.Inspector;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CraftedObjectPool", menuName = "ShopCrafter/CraftedObjectPool")]
 public class CraftedObjectPool : ScriptableObject
 {
     public List<CraftedObjectRecipe> craftedObjectPool;
+
+
+#if UNITY_EDITOR
+    [Button]
+    private void UpdatePool()
+    {
+        craftedObjectPool.Clear();
+        int maxRarity = (int)Enum.GetValues(typeof(ERarity)).Cast<ERarity>().Last();
+        string basePath = "Data/Crafted/";
+        for (int i = 0; i <= maxRarity; i++)
+        {
+            craftedObjectPool.AddRange(Resources.LoadAll<CraftedObjectRecipe>(basePath + "Rarity " + i.ToString()));
+        }
+    }
+
+#endif
 
     public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems)
     {

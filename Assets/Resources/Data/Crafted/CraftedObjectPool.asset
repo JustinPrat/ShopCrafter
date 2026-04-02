@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c60ebf5faf35fa4e9f5a52f57135e50, type: 3}
   m_Name: CraftedObjectPool
   m_EditorClassIdentifier: 
-  craftedObjectPool:
-  - {fileID: 11400000, guid: 3fc94647a8641dd4280c0911aea3d7ad, type: 2}
-  - {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
-  - {fileID: 11400000, guid: 33a87493d994d0b4d8cb9bb9576e8e5c, type: 2}
-  - {fileID: 11400000, guid: 0febab80e02c151428dd5cd2265160d5, type: 2}
+  craftedObjectPool: []

@@ -1,7 +1,7 @@
+using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public enum ECraftedType
@@ -20,9 +20,20 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public Rarity Rarity;
     public int TargetScore;
 
+    [OnValueChanged(nameof(UpdateCraftedObjectData))]
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
+
+#if UNITY_EDITOR
+    private void UpdateCraftedObjectData()
+    {
+        EditorApplication.delayCall += () =>
+        {
+            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(this), "Recipe " + CraftedName);
+        };
+    }
+#endif
 
     public bool CanPay(ManagerRefs managerRefs)
     {

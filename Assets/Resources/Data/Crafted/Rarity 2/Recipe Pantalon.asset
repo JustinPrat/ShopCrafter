@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
-  m_Name: RecipeLighter
+  m_Name: Recipe Pantalon
   m_EditorClassIdentifier: 
-  RequiredTags:
-  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
-    Amount:
-      BaseValue: 5
-  CraftedType: 2
+  RequiredTags: []
+  CraftedType: 1
   Rarity: {fileID: 11400000, guid: 74cc34a58f8e6b74987cb6e2be2b9a65, type: 2}
-  CraftedName: Lighter
-  CraftedDescription: Make fire
-  CraftedSprite: {fileID: 21300000, guid: eb54d399c80a8b348b5935a5e8324f69, type: 3}
+  TargetScore: 28
+  CraftedName: Pantalon
+  CraftedDescription: Simple heavy duty pantalon
+  CraftedSprite: {fileID: 21300000, guid: d136bf49ec6c9dc4da00a430b0557e83, type: 3}

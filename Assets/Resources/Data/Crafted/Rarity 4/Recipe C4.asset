@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
+  m_Name: Recipe C4
+  m_EditorClassIdentifier: 
+  RequiredTags: []
+  CraftedType: 0
+  Rarity: {fileID: 11400000, guid: 5928cb528b29a434496c95bbe333bb38, type: 2}
+  TargetScore: 75
+  CraftedName: C4
+  CraftedDescription: Goes BOOM !
+  CraftedSprite: {fileID: 1346743301010303052, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}

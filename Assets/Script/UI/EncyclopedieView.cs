@@ -54,11 +54,11 @@ public class EncyclopedieView : UIView
 
         if (isInputRight)
         {
-            flip.FlipLeftPage();
+            flip.FlipRightPage();
         }
         else
         {
-            flip.FlipRightPage();
+            flip.FlipLeftPage();
         }
     }
 
