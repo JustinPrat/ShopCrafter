@@ -1,14 +1,28 @@
+using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TagAsset", menuName = "ShopCrafter/Tags/TagAsset")]
 public class TagAsset : ScriptableObject
 {
+    [OnValueChanged(nameof(UpdateTagAssetName))]
     public string Name;
+
     public string Description;
     public Sprite Icon;
     public List<TagEffect> Effects;
+
+#if UNITY_EDITOR
+    private void UpdateTagAssetName()
+    {
+        EditorApplication.delayCall += () =>
+        {
+            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(this), "Tag " + Name);
+        };
+    }
+#endif
 
     public int ApplyTagAsset(int score)
     {

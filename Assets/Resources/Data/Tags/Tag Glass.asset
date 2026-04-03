@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ff0ca6323e35be46ae90a922a3f43f0, type: 3}
-  m_Name: Metal
+  m_Name: Tag Glass
   m_EditorClassIdentifier: Assembly-CSharp::TagAsset
-  Name: Metal
-  Description: Multiply score by 2
-  Icon: {fileID: 4396868544863946106, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
-  Effects:
-  - {fileID: 11400000, guid: 1692bdaed8f94254e990982e8a980cc0, type: 2}
+  Name: Glass
+  Description: '-'
+  Icon: {fileID: 21300000, guid: 7e1f10087de613847997c3e946a14363, type: 3}
+  Effects: []

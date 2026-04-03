@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: Recipe Light Bulb
   m_EditorClassIdentifier: Assembly-CSharp::CraftedObjectRecipe
-  RequiredTags: []
+  RequiredTags:
+  - Asset: {fileID: 11400000, guid: cab62e5a6f360d24eb2b0c3d55245057, type: 2}
+    Amount:
+      BaseValue: 1
+  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
+    Amount:
+      BaseValue: 1
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
   TargetScore: 10

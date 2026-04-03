@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: Recipe Cocktail Molotov
   m_EditorClassIdentifier: 
-  RequiredTags: []
+  RequiredTags:
+  - Asset: {fileID: 0}
+    Amount:
+      BaseValue: 0
   CraftedType: 0
   Rarity: {fileID: 11400000, guid: 74cc34a58f8e6b74987cb6e2be2b9a65, type: 2}
   TargetScore: 25
