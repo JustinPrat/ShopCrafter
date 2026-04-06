@@ -112,11 +112,21 @@ public partial class CraftingManager : MonoBehaviour
 
     public CraftedObjectRecipe PoolCraftedItem(List<Item> items, out bool isNew, out List<TagValue> tags)
     {
+        CraftedObjectRecipe recipe = PreviewPoolCraftedItem(items, out isNew, out tags);
+        if (recipe != null && !craftedRecipes.Contains(recipe))
+        {
+            craftedRecipes.Add(recipe);
+        }
+
+        return recipe;
+    }
+
+    public CraftedObjectRecipe PreviewPoolCraftedItem(List<Item> items, out bool isNew, out List<TagValue> tags)
+    {
         CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items, out tags);
-        if (!craftedRecipes.Contains(recipe))
+        if (recipe != null && !craftedRecipes.Contains(recipe))
         {
             isNew = true;
-            craftedRecipes.Add(recipe);
         }
         else
         {

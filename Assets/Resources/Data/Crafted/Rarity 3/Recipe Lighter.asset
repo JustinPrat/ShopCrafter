@@ -16,6 +16,9 @@ MonoBehaviour:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
     Amount:
       BaseValue: 5
+  - Asset: {fileID: 11400000, guid: 9e040654e15ac164687f3c911654df76, type: 2}
+    Amount:
+      BaseValue: 2
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 3391d365a19380d4cae9dea6d01b21ea, type: 2}
   TargetScore: 36

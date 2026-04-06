@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: Recipe Drug Seringue
   m_EditorClassIdentifier: 
-  RequiredTags: []
+  RequiredTags:
+  - Asset: {fileID: 11400000, guid: 912934c4c75fecb4d9d1d36e6c83aebc, type: 2}
+    Amount:
+      BaseValue: 3
+  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
+    Amount:
+      BaseValue: 1
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 3391d365a19380d4cae9dea6d01b21ea, type: 2}
   TargetScore: 41

@@ -32,4 +32,14 @@ public class CraftedRecipeDayUI : MonoBehaviour
             newIndicator.SetActive(false);
         }
     }
+
+    public void FadeItem()
+    {
+        recipeImage.color = Color.black;
+    }
+
+    public void ShowItem()
+    {
+        recipeImage.color = Color.white;
+    }
 }

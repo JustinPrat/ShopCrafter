@@ -41,7 +41,9 @@ public class ItemUI : MonoBehaviour
     public void UpdateAmount (int toAdd)
     {
         itemAmount += toAdd;
-        amountText.text = itemAmount.ToString();
+
+        if (amountText != null)
+            amountText.text = itemAmount.ToString();
 
         if (itemAmount > 0)
         {

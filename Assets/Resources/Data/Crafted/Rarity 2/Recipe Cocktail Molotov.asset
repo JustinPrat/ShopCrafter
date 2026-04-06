@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Recipe Cocktail Molotov
   m_EditorClassIdentifier: 
   RequiredTags:
-  - Asset: {fileID: 0}
+  - Asset: {fileID: 11400000, guid: 912934c4c75fecb4d9d1d36e6c83aebc, type: 2}
     Amount:
-      BaseValue: 0
+      BaseValue: 5
+  - Asset: {fileID: 11400000, guid: 9e040654e15ac164687f3c911654df76, type: 2}
+    Amount:
+      BaseValue: 3
+  - Asset: {fileID: 11400000, guid: 2f4299a4e29db5e4cbeb1f383ff416d9, type: 2}
+    Amount:
+      BaseValue: 2
   CraftedType: 0
   Rarity: {fileID: 11400000, guid: 74cc34a58f8e6b74987cb6e2be2b9a65, type: 2}
   TargetScore: 25

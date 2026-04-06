@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: Recipe Military Armor
   m_EditorClassIdentifier: Assembly-CSharp::CraftedObjectRecipe
-  RequiredTags: []
+  RequiredTags:
+  - Asset: {fileID: 11400000, guid: 2f4299a4e29db5e4cbeb1f383ff416d9, type: 2}
+    Amount:
+      BaseValue: 30
   CraftedType: 1
   Rarity: {fileID: 11400000, guid: 389605b4daa6a66429ec5fd07732c6bd, type: 2}
   TargetScore: 134

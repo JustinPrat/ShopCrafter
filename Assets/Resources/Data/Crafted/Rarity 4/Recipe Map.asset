@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
   m_Name: Recipe Map
   m_EditorClassIdentifier: 
-  RequiredTags: []
+  RequiredTags:
+  - Asset: {fileID: 11400000, guid: a366667dab875104197ad209b41ec9c5, type: 2}
+    Amount:
+      BaseValue: 10
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 5928cb528b29a434496c95bbe333bb38, type: 2}
   TargetScore: 68

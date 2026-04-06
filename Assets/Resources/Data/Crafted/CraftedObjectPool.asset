@@ -12,4 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c60ebf5faf35fa4e9f5a52f57135e50, type: 3}
   m_Name: CraftedObjectPool
   m_EditorClassIdentifier: 
-  craftedObjectPool: []
+  craftedObjectPool:
+  - {fileID: 11400000, guid: 196db44cf6c219e4c90875e480b1b6a1, type: 2}
+  - {fileID: 11400000, guid: 9db4d59b005921a44ab345176656c968, type: 2}
+  - {fileID: 11400000, guid: 0f1f39df73192f34ba88fb8c4560a331, type: 2}
+  - {fileID: 11400000, guid: f0c0b6d2b859ca744a0e7b85842108bb, type: 2}
+  - {fileID: 11400000, guid: 0d3533b7479bca74cb9406fce64026f2, type: 2}
+  - {fileID: 11400000, guid: 1b07a04d3aa3382478788d6f5b0bfcb7, type: 2}
+  - {fileID: 11400000, guid: 8250a3c847e0f6c429502f90258e3b75, type: 2}
+  - {fileID: 11400000, guid: 3fc94647a8641dd4280c0911aea3d7ad, type: 2}
+  - {fileID: 11400000, guid: 1f4a635b582f3444cb391f3ca0a94650, type: 2}
+  - {fileID: 11400000, guid: 708e687600c29c54c826d364d454651d, type: 2}
+  - {fileID: 11400000, guid: 5109392d538a50742966c03163810085, type: 2}
+  - {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
+  - {fileID: 11400000, guid: ca98446478fba0342a53956109a96921, type: 2}
+  - {fileID: 11400000, guid: cf7c2696fb7802e45a82e4fed54fc829, type: 2}
+  - {fileID: 11400000, guid: ab15cad6cffa3a74bb160ebb0e953070, type: 2}

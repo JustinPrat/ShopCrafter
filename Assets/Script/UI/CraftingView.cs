@@ -1,3 +1,4 @@
+using Coffee.UIEffects;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,6 +25,15 @@ public class CraftingView : UIView
 
     [SerializeField]
     private Sprite normalSprite;
+
+    [SerializeField] 
+    private AdvancedButton validateButton;
+
+    [SerializeField]
+    private UIEffect validateButtonEffects;
+
+    [SerializeField]
+    private CraftedRecipeDayUI craftedRecipePreviewUI;
 
     private List<Item> selectedItems = new List<Item>();
     private List<ItemUI> selectionSlotsUI = new List<ItemUI>();
@@ -70,6 +80,8 @@ public class CraftingView : UIView
             {
                 EventSystem.current.SetSelectedGameObject(selectionSlotsUI[0].gameObject);
             }
+
+            UpdatePreviewCraft();
         }
         else
         {
@@ -103,6 +115,7 @@ public class CraftingView : UIView
         }
 
         UpdateTags();
+        UpdatePreviewCraft();
     }
 
     public void ValidateCrafting ()
@@ -130,6 +143,7 @@ public class CraftingView : UIView
         }
 
         UpdateTags();
+        UpdatePreviewCraft();
     }
 
     private void UpdateTags()
@@ -148,6 +162,36 @@ public class CraftingView : UIView
             TagIconUI iconUI = Instantiate(tagUIPrefab, tagHolder).GetComponent<TagIconUI>();
             iconUI.Setup(values[i]);
             tagIconUIs.Add(iconUI);
+        }
+    }
+
+    private void UpdatePreviewCraft()
+    {
+        bool isNew;
+        List<TagValue> tags;
+        CraftedObjectRecipe previewRecipe = managerRefs.CraftingManager.PreviewPoolCraftedItem(selectedItems, out isNew, out tags);
+
+        if (previewRecipe != null)
+        {
+            craftedRecipePreviewUI.gameObject.SetActive(true);
+            craftedRecipePreviewUI.Setup(previewRecipe, isNew);
+            if (isNew)
+            {
+                craftedRecipePreviewUI.FadeItem();
+            }
+            else
+            {
+                craftedRecipePreviewUI.ShowItem();
+            }
+
+            validateButton.interactable = true;
+            validateButtonEffects.enabled = true;
+        }
+        else
+        {
+            craftedRecipePreviewUI.gameObject.SetActive(false);
+            validateButton.interactable = false;
+            validateButtonEffects.enabled = false;
         }
     }
 
@@ -179,6 +223,7 @@ public class CraftingView : UIView
         }
 
         UpdateTags();
+        UpdatePreviewCraft();
     }
  
     public bool OnItemRemove (Item item)

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Recipe Light Bulb
   m_EditorClassIdentifier: Assembly-CSharp::CraftedObjectRecipe
   RequiredTags:
+  - Asset: {fileID: 11400000, guid: 912934c4c75fecb4d9d1d36e6c83aebc, type: 2}
+    Amount:
+      BaseValue: 3
   - Asset: {fileID: 11400000, guid: cab62e5a6f360d24eb2b0c3d55245057, type: 2}
     Amount:
       BaseValue: 1
