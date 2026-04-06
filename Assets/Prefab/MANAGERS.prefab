@@ -98,15 +98,8 @@ MonoBehaviour:
   __alchemySerializationData_CraftingManager:
     itemInventory:
       isCreated: 1
-      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": 1\n    },\n    {\n       
-        \"Key\": 1,\n        \"Value\": 2\n    },\n    {\n        \"Key\": 2,\n       
-        \"Value\": 2\n    },\n    {\n        \"Key\": 3,\n        \"Value\": 3\n   
-        }\n]"
-    unityObjectReferences:
-    - {fileID: 11400000, guid: 9185898ddcea4b34b9f013557a354eea, type: 2}
-    - {fileID: 11400000, guid: 78d804a921cceb14293c2f340d0d2512, type: 2}
-    - {fileID: 11400000, guid: 0d772092718443542b275c230aa7250e, type: 2}
-    - {fileID: 11400000, guid: 7978a8e9d118f1741b0ed3b339bbb999, type: 2}
+      data: '[]'
+    unityObjectReferences: []
 --- !u!1 &2319273031163360010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,10 +1114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   pnjSpawnOutside: {fileID: 0}
-  dayDuration: 300
+  dayDuration: 150
   dayStartTime: 10
   dayEndTime: 20
-  nearDayEndTime: 18
+  nearDayEndTime: 19
   targetNumberPnj: 3
   waitBeforeSpawnPNJ: 5
   pnjPoolList:

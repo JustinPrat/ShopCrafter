@@ -68,13 +68,17 @@ public class ItemUI : MonoBehaviour
 
     public void OnButtonLeftClick ()
     {
-        if (craftingView == null || !craftingView.CanAdd || itemAmount <= 0) { return; }
+        if (craftingView == null || !craftingView.CanAdd || itemAmount <= 0) 
+            return;
 
         craftingView.OnItemClick(item, this);
     }
 
     public void OnButtonRightClick()
     {
+        if (item == null) 
+            return;
+
         craftingView.OnItemRemove(item);
     }
 }
