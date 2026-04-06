@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SellerGenerationData
   randomSelling:
   - item: {fileID: 11400000, guid: 9185898ddcea4b34b9f013557a354eea, type: 2}
-    priceEach: {x: 3, y: 5}
+    priceEach: {x: 5, y: 7}
     amount: {x: 2, y: 4}
   - item: {fileID: 11400000, guid: 0d772092718443542b275c230aa7250e, type: 2}
     priceEach: {x: 3, y: 5}
-    amount: {x: 5, y: 10}
+    amount: {x: 2, y: 5}
+  - item: {fileID: 11400000, guid: 68bfe6b48ba806741989188c83405a05, type: 2}
+    priceEach: {x: 2, y: 3}
+    amount: {x: 1, y: 3}
+  - item: {fileID: 11400000, guid: 6c55e09e6dabcfb4994fbddd0e6fea56, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 5, y: 7}
   sellAmount: 2

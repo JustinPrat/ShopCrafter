@@ -128,12 +128,9 @@ public partial class CraftingManager : MonoBehaviour
 
     public static List<TagValue> CombineItemTags(List<Item> items)
     {
-        List<EItemType> usedTypes = new List<EItemType>();
         List<TagValue> values = new List<TagValue>();
         foreach (Item item in items)
         {
-            usedTypes.Add(item.Type);
-
             foreach (TagValue tagValue in item.Tags)
             {
                 bool hasTag = false;

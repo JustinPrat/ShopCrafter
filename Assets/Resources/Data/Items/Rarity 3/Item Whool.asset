@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d2dfa89c3f5c7148b6b9059a6dad615, type: 3}
-  m_Name: AncientCommunication
+  m_Name: Item Whool
   m_EditorClassIdentifier: 
-  Type: 5
-  RarityInfos: {fileID: 11400000, guid: a734a5109dbe08d43995de780cdb88af, type: 2}
-  ItemSprite: {fileID: 21300000, guid: edf8087694171984c970b254bb647cd8, type: 3}
+  ItemName: Whool
+  Type: 1
+  RarityInfos: {fileID: 11400000, guid: 3391d365a19380d4cae9dea6d01b21ea, type: 2}
+  ItemSprite: {fileID: 21300000, guid: 63e6e866efce95f4a9dae5f8f6f9cb9f, type: 3}
+  Tags:
+  - Asset: {fileID: 11400000, guid: 2f4299a4e29db5e4cbeb1f383ff416d9, type: 2}
+    Amount:
+      BaseValue: 4

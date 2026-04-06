@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d2dfa89c3f5c7148b6b9059a6dad615, type: 3}
-  m_Name: Gear
+  m_Name: Item Metal Sheets
   m_EditorClassIdentifier: 
-  ItemName: 
-  Type: 1
-  RarityInfos: {fileID: 11400000, guid: 3391d365a19380d4cae9dea6d01b21ea, type: 2}
-  ItemSprite: {fileID: 21300000, guid: ae5952aa203f79f4b8d0b40c4b97d6ce, type: 3}
+  ItemName: Metal Sheets
+  Type: 2
+  RarityInfos: {fileID: 11400000, guid: 74cc34a58f8e6b74987cb6e2be2b9a65, type: 2}
+  ItemSprite: {fileID: 21300000, guid: 11df37d9116759343b92cbed155af9a7, type: 3}
   Tags:
   - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
     Amount:
-      BaseValue: 5
+      BaseValue: 4

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2dfa89c3f5c7148b6b9059a6dad615, type: 3}
+  m_Name: Item Wood Log
+  m_EditorClassIdentifier: 
+  ItemName: Wood Log
+  Type: 1
+  RarityInfos: {fileID: 11400000, guid: 74cc34a58f8e6b74987cb6e2be2b9a65, type: 2}
+  ItemSprite: {fileID: -6586695053850273863, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  Tags:
+  - Asset: {fileID: 11400000, guid: a366667dab875104197ad209b41ec9c5, type: 2}
+    Amount:
+      BaseValue: 5

@@ -2,12 +2,9 @@ using UnityEngine;
 
 public enum EItemType
 {
-    Screw,
-    Gear,
-    Wheels,
-    Battery,
-    Plate,
-    Ancient
+    Mineral,
+    Organic,
+    Manifactured
 }
 
 [CreateAssetMenu(fileName = "ItemType", menuName = "ShopCrafter/ItemType")]

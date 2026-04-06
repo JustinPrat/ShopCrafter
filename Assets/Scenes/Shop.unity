@@ -1723,10 +1723,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 956923802}
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjPoolList.Array.data[1].milestoneIndex
       value: 1
       objectReference: {fileID: 0}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9746be2df9781ec4fbc475361092535d, type: 3}
-  m_Name: Battery
+  m_Name: Type Manifactured
   m_EditorClassIdentifier: 
-  Type: 3
-  Icon: {fileID: 21300000, guid: fa5ca7669a313eb49a21074f307eedd1, type: 3}
+  Type: 2
+  Icon: {fileID: 21300000, guid: 84ade9962272ce0409e810b504818b2c, type: 3}
