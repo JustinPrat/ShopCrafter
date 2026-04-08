@@ -9,13 +9,23 @@ public class PNJIdentityArchetype : IdentityData
     public List<Sprite> possiblePortraits;
     public List<DialogueData> possibleDialogues;
 
+    private List<DialogueData> availableDialogues;
+
     public override Identity GetIdentity()
     {
+        if (availableDialogues.Count == 0)
+        {
+            availableDialogues = new List<DialogueData>(possibleDialogues);
+        }
+
         Identity identity = new Identity();
         identity.Name = possibleNames.GetRandomElement();
         identity.Description = possibleDescriptions.GetRandomElement();
         identity.Portrait = possiblePortraits.GetRandomElement();
-        identity.Dialogue = possibleDialogues.GetRandomElement();
+
+        identity.Dialogue = availableDialogues.GetRandomElement();
+        availableDialogues.Remove(identity.Dialogue);
+
         return identity;
     }
 }

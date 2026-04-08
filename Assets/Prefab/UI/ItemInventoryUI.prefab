@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -307,4 +307,8 @@ MonoBehaviour:
   OnRightClick:
     m_PersistentCalls:
       m_Calls: []
+  OnLeftClickReleased:
+    m_PersistentCalls:
+      m_Calls: []
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  toggleDebug: 0

@@ -70,16 +70,27 @@ public class ShopView : UIView
 
     private void OnItemBuy (SellingItem clickedItem, ItemShopUI itemShopUI)
     {
+        bool needToUpdateFocus = false;
         if (managerRefs.SellManager.TryPayForItem(clickedItem.priceEach))
         {
             managerRefs.CraftingManager.AddItem(clickedItem.item);
             itemShopUI.RemoveItemBought();
             coinAmountText.text = managerRefs.SellManager.CoinAmount.ToString();
+
+            if (clickedItem.amount - 1 <= 0)
+            {
+                needToUpdateFocus = true;
+            }
         }
 
         foreach (ItemShopUI itemUI in itemSellingInstantiated)
         {
             itemUI.UpdateCoinAmount();
+
+            if (needToUpdateFocus && itemShopUI != itemUI && itemUI.BuyButton.enabled)
+            {
+                EventSystem.current.SetSelectedGameObject(itemUI.BuyButton.gameObject);
+            }
         }
     }
 
