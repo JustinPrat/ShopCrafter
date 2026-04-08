@@ -66,11 +66,18 @@ public class DialogueView : UIView
         if (isOn)
         {
             managerRefs.InputManager.Actions.Player.NextDialogue.started += OnNextDialogueStarted;
+            managerRefs.InputManager.Actions.UI.Cancel.performed += OnCancelPerformed;
         }
         else
         {
             managerRefs.InputManager.Actions.Player.NextDialogue.started -= OnNextDialogueStarted;
+            managerRefs.InputManager.Actions.UI.Cancel.performed -= OnCancelPerformed;
         }
+    }
+
+    private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        managerRefs.UIManager.ToggleDialogueView(false);
     }
 
     private void OnNextDialogueStarted (InputAction.CallbackContext ctx)

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EndDayView : UIView
 {
@@ -41,6 +42,7 @@ public class EndDayView : UIView
             }
 
             moneyDayText.text = managerRefs.GameMetaDataManager.MoneyToday.ToString();
+            EventSystem.current.SetSelectedGameObject(nextDayButton.gameObject);
         }
         else
         {

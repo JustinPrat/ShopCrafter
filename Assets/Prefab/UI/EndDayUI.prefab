@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6830188, g: 0.43927485, b: 0, a: 1}
+  m_Color: {r: 0.6830188, g: 0.43927485, b: 0, a: 0.74509805}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -955,7 +955,11 @@ MonoBehaviour:
   OnRightClick:
     m_PersistentCalls:
       m_Calls: []
-  managerRefs: {fileID: 0}
+  OnLeftClickReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  toggleDebug: 0
 --- !u!114 &274928299785038257
 MonoBehaviour:
   m_ObjectHideFlags: 0
