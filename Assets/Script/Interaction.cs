@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Interaction : MonoBehaviour
@@ -14,7 +15,8 @@ public class Interaction : MonoBehaviour
     [SerializeField]
     private SpriteRenderer iconHolder;
 
-    private IInteractable lastInteractable;
+    private IInteractable currentInteractable;
+    private List<IInteractable> interactablesInRange = new List<IInteractable>();
 
     private void Start()
     {
@@ -26,38 +28,54 @@ public class Interaction : MonoBehaviour
         managerRefs.InputManager.Actions.Player.Interact.started -= OnInteractStarted;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.TryGetComponent(out IInteractable interactable) && !interactablesInRange.Contains(interactable))
+        {
+            interactablesInRange.Add(interactable);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.TryGetComponent(out IInteractable interactable) && interactablesInRange.Contains(interactable))
+        {
+            interactablesInRange.Remove(interactable);
+        }
+    }
+
     private void Update()
     {
-        Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
-        IInteractable interactableInSight = null;
-        foreach (RaycastHit2D hit in hits)
+        Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, Time.deltaTime);
+
+        IInteractable newInteractable = null;
+        float highestDot = -1f;
+
+        foreach (IInteractable interactable in interactablesInRange)
         {
-            if (hit && hit.transform.TryGetComponent(out IInteractable interactable))
+            float dot = Vector2.Dot(playerBrain.LastPlayerMovement.normalized, (interactable.GameObject.transform.position - transform.position).normalized);
+            if (interactable.CanInteract(playerBrain) && !interactable.IsLocked && dot > highestDot)
             {
-                if (interactable.CanInteract(playerBrain) && !interactable.IsLocked)
-                {
-                    iconHolder.gameObject.SetActive(true);
-                    iconHolder.sprite = interactable.InteractIcon;
-                }
-                
-                interactableInSight = interactable;
-                break;
+                newInteractable = interactable;
+                highestDot = dot;
             }
         }
 
-        if (lastInteractable != null && interactableInSight != lastInteractable)
+        if (currentInteractable != null && newInteractable != currentInteractable)
         {
-            lastInteractable.OutOfInteractRange(playerBrain);
-            lastInteractable = null;
+            currentInteractable.OutOfInteractRange(playerBrain);
+            currentInteractable = null;
         }
 
-        if (lastInteractable == null && interactableInSight != null)
+        if (currentInteractable == null && newInteractable != null)
         {
-            interactableInSight.OnInteractRange(playerBrain);
+            newInteractable.OnInteractRange(playerBrain);
+
+            iconHolder.gameObject.SetActive(true);
+            iconHolder.sprite = newInteractable.InteractIcon;
         }
 
-        if (interactableInSight == null || !interactableInSight.CanInteract(playerBrain) || interactableInSight.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
+        if (newInteractable == null || !newInteractable.CanInteract(playerBrain) || newInteractable.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
         {
             if (iconHolder.gameObject.activeInHierarchy)
             {
@@ -65,22 +83,14 @@ public class Interaction : MonoBehaviour
             }
         }
 
-        lastInteractable = interactableInSight;
+        currentInteractable = newInteractable;
     }
 
     private void OnInteractStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         Debug.Log("Interact");
-        Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.yellow, 1f);
+        Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.blue, 1f);
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, playerBrain.LastPlayerMovement, controllerData.InteractionRange, controllerData.InteractionLayer);
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.CanInteract(playerBrain) && !interactable.IsLocked)
-            {
-                Debug.Log("hit element : " + hit.transform.name);
-                interactable.DoInteract(playerBrain);
-            }
-        }
+        currentInteractable?.DoInteract(playerBrain);
     }
 }

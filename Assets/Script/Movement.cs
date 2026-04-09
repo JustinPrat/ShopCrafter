@@ -13,8 +13,12 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private PlayerBrain playerBrain;
 
+    [SerializeField]
+    float controlSnappiness = 15.0f;
+
     private Vector2 lastInput;
     private Rigidbody2D rigidBody;
+
 
     private void Start()
     {
