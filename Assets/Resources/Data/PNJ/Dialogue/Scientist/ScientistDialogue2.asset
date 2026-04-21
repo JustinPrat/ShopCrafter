@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
+  m_Name: ScientistDialogue2
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  Lines:
+  - Line: Tu veux ne veut pas me trouver 3 cobailles ?
+    Emotion: {fileID: 0}
+  HasQuestion: 1
+  HasNextDialogue: 0
+  Answers:
+  - Line: Oui
+    AnswerDialogueData: {fileID: 11400000, guid: e29798635e764014bb547d5591c81dc0, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 11400000, guid: d3a1d81902f71c34e844180443ffa959, type: 2}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 11400000, guid: e29798635e764014bb547d5591c81dc0, type: 2}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: Non
+    AnswerDialogueData: {fileID: 11400000, guid: df42b1bf3d9919c44917c936e593f48b, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
+  ReplaceMainDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
+  tmpType: 3
+  TMPAnimationName: shake
+  TMPEventName: 0
+  TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
+  TMPIconName: sprite_sheet_7
+  preview: {fileID: -7430669329385756642, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

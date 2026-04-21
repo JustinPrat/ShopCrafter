@@ -15,4 +15,5 @@ MonoBehaviour:
   PNJPoolList:
   - {fileID: 11400000, guid: 22e389e1fe3fbf34cb521a046088ff0e, type: 2}
   - {fileID: 11400000, guid: 3e917b1b9b50574468ad56c6bbdaa7d1, type: 2}
+  - {fileID: 11400000, guid: b3a8d3d5ccc24eb4686a134cf728b8f1, type: 2}
   SpecialPNJPool: []

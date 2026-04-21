@@ -2580,10 +2580,6 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: dayDuration
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409945118775906688, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjSpawnOutside
       value: 
       objectReference: {fileID: 956923802}

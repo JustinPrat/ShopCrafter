@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
+  m_Name: ScientistDialogue1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  Lines:
+  - Line: "J'ai besoin de mat\xE9riel pour mes experiences"
+    Emotion: {fileID: 0}
+  HasQuestion: 1
+  HasNextDialogue: 0
+  Answers:
+  - Line: '1 Cheap Battery '
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 13174609967054946
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 13174609967054942
+  - Line: 2 Whool
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 13174609967054945
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 13174609967054943
+  - Line: 4 Branches
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 13174609967054947
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 13174609967054948
+  NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
+  ReplaceMainDialogue: {fileID: 0}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
+  tmpType: 3
+  TMPAnimationName: shake
+  TMPEventName: 0
+  TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
+  TMPIconName: sprite_sheet_7
+  preview: {fileID: -7430669329385756642, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 13174609967054942
+      type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 1
+        Item: {fileID: 11400000, guid: 7fd7ea6273deeff469f374d13ca7f01d, type: 2}
+    - rid: 13174609967054943
+      type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 2
+        Item: {fileID: 11400000, guid: 1e3b19392abe8794284ee2b52929bfbd, type: 2}
+    - rid: 13174609967054945
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 20
+    - rid: 13174609967054946
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 13
+    - rid: 13174609967054947
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 7
+    - rid: 13174609967054948
+      type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 4
+        Item: {fileID: 11400000, guid: 6c55e09e6dabcfb4994fbddd0e6fea56, type: 2}

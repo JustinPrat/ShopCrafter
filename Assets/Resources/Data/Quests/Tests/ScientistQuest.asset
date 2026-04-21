@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294185b0eafd7954bb208b6f004d2616, type: 3}
+  m_Name: ScientistQuest
+  m_EditorClassIdentifier: Assembly-CSharp::QuestInfoSO
+  <ID>k__BackingField: ScientistQuest
+  DisplayName: Ask 3 person to be rats
+  NeedFinishInteraction: 1
+  QuestSteps:
+  - {fileID: 11400000, guid: 43b7c51ec5173224ca2897d6dd8f03f5, type: 2}
+  Rewards:
+  - mode: 1
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: 13174609967054950
+  FinishedDialogueData: {fileID: 11400000, guid: 061b6332785933b4fa0d1c8a4134647b, type: 2}
+  ReplaceDialogueData: {fileID: 11400000, guid: 061b6332785933b4fa0d1c8a4134647b, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 13174609967054950
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 40
