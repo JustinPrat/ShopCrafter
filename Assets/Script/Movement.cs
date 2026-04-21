@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
         lastInput = ctx.ReadValue<Vector2>();
-        playerBrain.LastPlayerMovement = lastInput;
+        playerBrain.SetLastPlayerMovement(lastInput);
     }
 
     private void OnGUI()
