@@ -750,7 +750,7 @@ MonoBehaviour:
           m_Value0: 17125047142317824382
           m_Value1: 3700229254734031630
         Name: WaitRoaming
-        m_Value: 3
+        m_Value: 5
 --- !u!195 &5940720520110901808
 NavMeshAgent:
   m_ObjectHideFlags: 0
