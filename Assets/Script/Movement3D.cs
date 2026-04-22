@@ -38,6 +38,7 @@ public class Movement3D : MonoBehaviour
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
         lastInput = Vector2.zero;
+        playerBrain.StopMovementPlayer();
     }
 
     private void OnMovePerformed(InputAction.CallbackContext ctx)

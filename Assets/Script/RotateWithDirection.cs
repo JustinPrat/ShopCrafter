@@ -19,7 +19,14 @@ public class RotateWithDirection : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        animator.SetBool("DirectionSide", Mathf.Abs(direction.x) > 0);
-        animator.SetBool("DirectionUp", direction.y > 0);
+        animator.SetFloat("DirectionX", direction.x);
+        animator.SetFloat("DirectionY", direction.y);
+
+        animator.SetBool("Walking", true);
+    }
+
+    public void StopMovement()
+    {
+        animator.SetBool("Walking", false);
     }
 }

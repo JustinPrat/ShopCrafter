@@ -30,6 +30,11 @@ public class PlayerBrain : MonoBehaviour
     public void SetLastPlayerMovement(Vector2 movement)
     {
         lastPlayerMovement = movement;
-        rotateWithDirection.UpdateWithRotation(movement);   
+        rotateWithDirection.UpdateWithRotation(movement);
+    }
+
+    public void StopMovementPlayer()
+    {
+        rotateWithDirection.StopMovement();
     }
 }
