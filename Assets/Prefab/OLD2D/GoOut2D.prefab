@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4308241545006589073}
   - component: {fileID: 4015934041836575419}
   m_Layer: 0
-  m_Name: GoOut
+  m_Name: GoOut2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

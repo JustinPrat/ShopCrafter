@@ -15,7 +15,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private Sprite interactIcon;
     [SerializeField] private SpriteRenderer stateIconDisplay;
     [SerializeField] private Sprite questIcon;
-    [SerializeField] private Collider2D collider;
+    [SerializeField] private Collider collider;
     [SerializeField] private TextMeshProUGUI speechText;
     [SerializeField] private float speechDuration;
     [SerializeField] private Animator animator;
@@ -41,7 +41,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public bool HasQuest => givenQuests.Count > 0;
     public bool ShouldReturn => PNJRuntime.IsSpecial || HasQuest;
     public bool IsLocked { get; set; }
-    public Collider2D Collider => collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     #endregion

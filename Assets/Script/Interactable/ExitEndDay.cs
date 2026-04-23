@@ -12,10 +12,10 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     private GameObject outObject;
 
     [SerializeField]
-    private Collider2D collider;
+    private Collider collider;
 
     private bool canInteract;
-    public Collider2D Collider => collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     public Sprite InteractIcon => interactIcon;

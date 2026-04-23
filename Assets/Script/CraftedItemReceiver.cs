@@ -15,7 +15,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
     private Transform UIStatAnchor;
 
     [SerializeField]
-    private Collider2D collider;
+    private Collider collider;
 
     private CraftedObject heldObject;
 
@@ -23,7 +23,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
     public CraftedObject HeldObject => heldObject;
     public bool HasHeldItem => heldObject != null;
     public bool IsLocked { get; set; }
-    public Collider2D Collider => collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     public bool CanTakeItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;

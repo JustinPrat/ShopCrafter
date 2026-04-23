@@ -12,7 +12,7 @@ public class Unlockable : MonoBehaviour, IInteractable
     private Sprite interactIcon;
 
     [SerializeField]
-    private Collider2D collider;
+    private Collider collider;
 
     [SerializeField]
     private ManagerRefs refs;
@@ -25,7 +25,7 @@ public class Unlockable : MonoBehaviour, IInteractable
 
     public Sprite InteractIcon => interactIcon;
 
-    public Collider2D Collider => collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     public bool IsLocked { get; set; } = false;

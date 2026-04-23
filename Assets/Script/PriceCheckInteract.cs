@@ -10,11 +10,11 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
     private Sprite icon;
 
     [SerializeField]
-    private Collider2D collider;
+    private Collider collider;
 
     public Sprite InteractIcon => icon;
     public bool IsLocked { get; set; }
-    public Collider2D Collider => collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     public bool CanInteract(PlayerBrain playerBrain)

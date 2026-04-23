@@ -46,11 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23cefea29ae76fa4abf755467fd41036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unlockable
-  requiredItem: {fileID: 11400000, guid: 6ec213f4735094146b824beb3139cd51, type: 2}
+  requiredCost:
+    mode: 0
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: -2
   interactIcon: {fileID: 21300000, guid: edf8087694171984c970b254bb647cd8, type: 3}
   collider: {fileID: 3090163273358029207}
   refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   deactivateWhenUnlocked: {fileID: 8287877879512778932}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!61 &3090163273358029207
 BoxCollider2D:
   m_ObjectHideFlags: 0

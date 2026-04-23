@@ -10,8 +10,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
     private Sprite icon;
 
     [SerializeField]
-    private Collider2D collider;
-    public Collider2D Collider => collider;
+    private Collider collider;
+    public Collider Collider => collider;
 
     [SerializeField]
     private List<CraftedItemReceiver> receiveSlots;

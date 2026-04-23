@@ -5,7 +5,7 @@ public interface IInteractable
     public bool IsLocked { get; set; }
     public Sprite InteractIcon { get;  }
     public GameObject GameObject { get; }
-    public Collider2D Collider { get; }
+    public Collider Collider { get; }
 
     public void DoInteract(PlayerBrain playerBrain);
 

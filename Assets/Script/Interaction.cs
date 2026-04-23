@@ -28,7 +28,7 @@ public class Interaction : MonoBehaviour
         managerRefs.InputManager.Actions.Player.Interact.started -= OnInteractStarted;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.TryGetComponent(out IInteractable interactable) && !interactablesInRange.Contains(interactable))
         {
@@ -36,7 +36,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
         if (collision.transform.TryGetComponent(out IInteractable interactable) && interactablesInRange.Contains(interactable))
         {

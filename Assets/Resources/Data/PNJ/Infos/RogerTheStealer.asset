@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b3ce03aa2da434daf612a4e9b0a852, type: 3}
   m_Name: RogerTheStealer
   m_EditorClassIdentifier: Assembly-CSharp::PNJInfoData
-  PnjPrefab: {fileID: 6362052680927295878, guid: ebc30a7c49a78fd46bc78a2eb333d7c0, type: 3}
+  PnjPrefab: {fileID: 6362052680927295878, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
   IdentityInfo: {fileID: 11400000, guid: 7e985d96c8fd0b248802b02c09331fdc, type: 2}
   TraitDatas: []
   ShopStayDuration: 20

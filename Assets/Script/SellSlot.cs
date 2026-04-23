@@ -12,8 +12,8 @@ public class SellSlot : MonoBehaviour, IInteractable
     private ManagerRefs refs;
 
     [SerializeField]
-    private Collider2D collider;
-    public Collider2D Collider => collider;
+    private Collider collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     private CraftedObject heldObject;

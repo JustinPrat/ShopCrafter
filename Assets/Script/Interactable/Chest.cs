@@ -4,14 +4,14 @@ using UnityEngine;
 public class Chest : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private Collider2D collider;
+    private Collider collider;
 
     [SerializeField] 
     private Sprite icon;
     public Sprite InteractIcon => icon;
 
     public bool IsLocked { get; set; }
-    public Collider2D Collider => collider;
+    public Collider Collider => collider;
     public GameObject GameObject => gameObject;
 
     private List<CraftedObjectData> craftedInventory = new List<CraftedObjectData>();
