@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 5843829833474692562}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0.376, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,8 +131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7826762491290370416}
   - component: {fileID: 2598970479186191324}
-  - component: {fileID: 180078386653634170}
   - component: {fileID: 797958540356178465}
+  - component: {fileID: 6939433924430090534}
   m_Layer: 0
   m_Name: SellSlot
   m_TagString: Untagged
@@ -173,22 +173,6 @@ MonoBehaviour:
   objectHoldAnchor: {fileID: 8397408711625929970}
   refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   collider: {fileID: 797958540356178465}
---- !u!114 &180078386653634170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7145707793421979735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!65 &797958540356178465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -210,3 +194,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.31, z: 0.48}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6939433924430090534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145707793421979735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

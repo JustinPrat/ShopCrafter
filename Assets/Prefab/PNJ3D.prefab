@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 4533252409302672336}
   - component: {fileID: 8000688825542656880}
   - component: {fileID: 4907533389955583480}
+  - component: {fileID: 1417764174446845092}
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -128,7 +129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 65.8}
+  m_AnchoredPosition: {x: 0, y: 133.7}
   m_SizeDelta: {x: 16.75, y: 22.35}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &4533252409302672336
@@ -183,6 +184,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1417764174446845092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171266412754111361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fa9333f5f88ae409f09d2b9ad25f72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIBillboarding
 --- !u!1 &2526664086174247820
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +712,7 @@ MonoBehaviour:
   interactIcon: {fileID: 7047303668414087818, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
   stateIconDisplay: {fileID: 3187432314344282061}
   questIcon: {fileID: 2876555108532849410, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
-  collider: {fileID: 0}
+  collider: {fileID: 9055680474981931885}
   speechText: {fileID: 963642279947159868}
   speechDuration: 5
   animator: {fileID: 5964627389116721240}

@@ -100,8 +100,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8854542543677692414}
   - component: {fileID: 8472336049654631962}
-  - component: {fileID: 112740121333453053}
   - component: {fileID: 8004390244090909545}
+  - component: {fileID: 4276016274147360290}
   m_Layer: 0
   m_Name: CraftingTable
   m_TagString: Untagged
@@ -145,22 +145,6 @@ MonoBehaviour:
   receiveSlots:
   - {fileID: 6456885958529011949}
   - {fileID: 3547498067192691449}
---- !u!114 &112740121333453053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5200564092630354569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!65 &8004390244090909545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -182,6 +166,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.96, y: 0.31, z: 0.48}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4276016274147360290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200564092630354569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &1079278989899056484
 PrefabInstance:
   m_ObjectHideFlags: 0

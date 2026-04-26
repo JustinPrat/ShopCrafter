@@ -12,6 +12,9 @@ public class CraftedObject : MonoBehaviour, IInteractable
     [SerializeField]
     private Collider collider;
 
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
     Sprite IInteractable.InteractIcon => icon;
     public bool IsLocked { get; set; }
     public int Price => craftedObjectData.GetPrice();
@@ -22,6 +25,7 @@ public class CraftedObject : MonoBehaviour, IInteractable
     public void Init (CraftedObjectData data)
     {
         craftedObjectData = data;
+        spriteRenderer.sprite = data.CraftedObjectRecipe.CraftedSprite;
     }
 
     public bool CanInteract(PlayerBrain playerBrain)

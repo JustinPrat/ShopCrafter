@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 2801999303497044481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0.453, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,8 +131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4072460760885440451}
   - component: {fileID: 6296358921513571721}
-  - component: {fileID: 5032913943716187963}
   - component: {fileID: 9213122669199193492}
+  - component: {fileID: 9033678604674603682}
   m_Layer: 0
   m_Name: ReceiveSlot
   m_TagString: Untagged
@@ -175,22 +175,6 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   UIStatAnchor: {fileID: 4213821917704663822}
   collider: {fileID: 9213122669199193492}
---- !u!114 &5032913943716187963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5392325896115124755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!65 &9213122669199193492
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212,6 +196,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.31, z: 0.48}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9033678604674603682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5392325896115124755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &7795440510966564129
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 7795440510966564129}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.045, z: 0}
+  m_LocalPosition: {x: 0, y: 1.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
