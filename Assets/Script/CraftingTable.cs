@@ -11,6 +11,10 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     [SerializeField]
     private Collider collider;
+
+    [SerializeField]
+    private Transform UICraftAnchor;
+
     public Collider Collider => collider;
 
     [SerializeField]
@@ -37,7 +41,7 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     public void DoInteract(PlayerBrain playerBrain)
     {
-        managerRefs.UIManager.ToggleCraftingView(true, this, transform.position);
+        managerRefs.UIManager.ToggleCraftingView(true, this, UICraftAnchor == null ? transform.position : UICraftAnchor.position);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)

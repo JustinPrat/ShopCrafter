@@ -178,7 +178,7 @@ public class UIManager : MonoBehaviour
         {
             craftingViewInstance.CurrentCraftingTable = craftingTable;
             craftingViewInstance.Toggle(isOn);
-            craftingViewInstance.transform.position = pos + 1f * Vector3.up;
+            craftingViewInstance.transform.position = pos;
 
             if (isOn)
             {

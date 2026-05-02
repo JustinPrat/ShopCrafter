@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.63}
+  m_AnchoredPosition: {x: 0, y: 1.86}
   m_SizeDelta: {x: 4.1, y: 0.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5460503846870784422
@@ -231,7 +231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.6}
+  m_AnchoredPosition: {x: 0, y: 2.8299804}
   m_SizeDelta: {x: 2.3, y: 0.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &211109133625918360
@@ -479,7 +479,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.96}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7810537680299298134
@@ -710,7 +710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.4800072}
+  m_AnchoredPosition: {x: 0, y: 3.7099876}
   m_SizeDelta: {x: 0, y: 0.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8810885902885153901
@@ -829,7 +829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.52, y: 1.6000073}
+  m_AnchoredPosition: {x: 1.52, y: 2.8299878}
   m_SizeDelta: {x: 0.53, y: 0.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9171942799717105284
@@ -1413,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7488903953092365376, guid: 19c37a5c44720da45ac2e036ff69d70b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.847
+      value: 0.38298047
       objectReference: {fileID: 0}
     - target: {fileID: 7488903953092365376, guid: 19c37a5c44720da45ac2e036ff69d70b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
