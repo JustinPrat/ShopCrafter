@@ -68,6 +68,14 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_MASKING EDGE_PLAIN GRADATION_COLOR2 SAMPLING_PIXELATION
         passType: 0
+      - keywords: DETAIL_MASKING EDGE_SHINY GRADATION_COLOR2
+        passType: 0
+      - keywords: DETAIL_MASKING EDGE_SHINY GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: DETAIL_MASKING EDGE_SHINY GRADATION_COLOR2 SAMPLING_EDGE_LUMINANCE
+        passType: 0
+      - keywords: DETAIL_MASKING GRADATION_COLOR2
+        passType: 0
       - keywords: DETAIL_MASKING GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
         passType: 0
       - keywords: DETAIL_MASKING TRANSITION_PATTERN

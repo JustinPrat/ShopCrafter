@@ -1,0 +1,61 @@
+using DG.Tweening;
+using TMPEffects.Components;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DialogueBubbleUI : MonoBehaviour
+{
+    [SerializeField]
+    private TMPAnimator textAnimator;
+
+    [SerializeField]
+    private TMPWriter textWriter;
+
+    [SerializeField]
+    private RectTransform mainRectTransform;
+
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
+    private float bubbleHeight;
+
+    public TMPWriter TextWriter => textWriter;
+    public float BubbleHeight => bubbleHeight;
+    public RectTransform MainRectTransform => mainRectTransform;
+
+    public void SetText(string newText)
+    {
+        textAnimator.SetText(newText);
+        UpdateBubbleHeight();
+    }
+
+    public void UpdateBubbleHeight()
+    {
+        bubbleHeight = mainRectTransform.rect.height;
+    }
+
+    public void SetTransparency(float alpha)
+    {
+        canvasGroup.alpha = alpha;
+    }
+
+    public void SetTransparency(float alpha, float duration)
+    {
+        canvasGroup.DOFade(alpha, duration).SetUpdate(true);
+    }
+
+    private void Awake()
+    {
+        if (mainRectTransform == null)
+        {
+            mainRectTransform = GetComponent<RectTransform>();
+        }
+
+        if (canvasGroup == null)
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        UpdateBubbleHeight();
+    }
+}

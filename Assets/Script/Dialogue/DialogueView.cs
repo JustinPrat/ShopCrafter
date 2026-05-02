@@ -1,8 +1,6 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using TMPEffects.Components;
 using TMPEffects.TMPEvents;
 using TMPro;
 using UnityEngine;
@@ -13,16 +11,19 @@ using UnityEngine.UI;
 public class DialogueView : UIView
 {
     [SerializeField]
-    private TextMeshProUGUI textHolder;
+    private Transform dialogueBubblesAnchor;
 
     [SerializeField] 
     private TextMeshProUGUI textName;
 
     [SerializeField]
-    private TMPWriter textWriter;
+    private float bubbleSpacing;
+
+    [SerializeField] 
+    private float delayBetweenSkip;
 
     [SerializeField]
-    private TMPAnimator textAnimator;
+    private GameObject dialogueBubbleUIPrefab;
 
     [SerializeField]
     private Image portrait;
@@ -39,13 +40,18 @@ public class DialogueView : UIView
     [SerializeField]
     private GameObject closeButton;
 
+    [SerializeField]
+    private List<float> transparencySteps;
+
     private DialogueData currentDialogue;
     private PNJBrain currentPNJ;
     private SpecialDialogue currentSpecialDialogue;
     private int currentDialogueIndex;
     private List<AnswerUIButton> answerUIButtons = new List<AnswerUIButton>();
+    private List<DialogueBubbleUI> dialogueBubbles = new List<DialogueBubbleUI>();
 
     private bool isAsking = false;
+    private float currentDelaySkip;
 
     public void Setup (DialogueData dialogueData, PNJBrain pnjBehaviour)
     {
@@ -56,7 +62,57 @@ public class DialogueView : UIView
         textName.text = currentPNJ.Data.Identity.Name;
         StartDialogue();
 
-        textWriter.OnTextEvent.AddListener(OnTextEvent);
+        //textWriter.OnTextEvent.AddListener(OnTextEvent);
+    }
+
+    private void Update()
+    {
+        if (currentDelaySkip > 0f)
+        {
+            currentDelaySkip -= Time.unscaledDeltaTime;
+        }
+    }
+
+    private DialogueBubbleUI CreateBubble()
+    {
+        DialogueBubbleUI bubble = Instantiate(dialogueBubbleUIPrefab, dialogueBubblesAnchor).GetComponent<DialogueBubbleUI>();
+        dialogueBubbles.Add(bubble);
+        bubble.TextWriter.OnTextEvent.AddListener(OnTextEvent);
+        bubble.SetTransparency(0f);
+
+        return bubble;
+    }
+
+    private IEnumerator UpdateBubbleStep()
+    {
+        yield return new WaitForEndOfFrame();
+
+        DialogueBubbleUI lastBubble = dialogueBubbles[dialogueBubbles.Count - 1];
+        lastBubble.UpdateBubbleHeight();
+
+        Vector2 basePos = lastBubble.MainRectTransform.anchoredPosition;
+        lastBubble.SetTransparency(1f, 0.5f);
+        lastBubble.MainRectTransform.anchoredPosition = new Vector2(lastBubble.MainRectTransform.anchoredPosition.x, lastBubble.MainRectTransform.anchoredPosition.y - lastBubble.BubbleHeight - bubbleSpacing);
+        lastBubble.MainRectTransform.DOAnchorPos(basePos, 0.5f).SetUpdate(true);
+
+        for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
+        {
+            DialogueBubbleUI dialogueBubble = dialogueBubbles[i];
+            int currentStep = dialogueBubbles.Count - 1 - i;
+
+            if (dialogueBubbles.Count - 1 == i)
+                continue;
+
+            if (currentStep > transparencySteps.Count - 1)
+            {
+                Destroy(dialogueBubble.gameObject);
+            }
+            else
+            {
+                dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], 0.5f);
+                dialogueBubble.MainRectTransform.DOAnchorPosY(dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, 0.5f).SetUpdate(true);
+            }
+        }
     }
 
     public override void Toggle(bool isOn)
@@ -82,9 +138,10 @@ public class DialogueView : UIView
 
     private void OnNextDialogueStarted (InputAction.CallbackContext ctx)
     {
-        if (isAsking)
+        if (isAsking || currentDelaySkip > 0f)
             return;
 
+        currentDelaySkip = delayBetweenSkip;
         NextLine();
     }
 
@@ -219,12 +276,26 @@ public class DialogueView : UIView
                 TryAskQuestion();
             }
 
-            textAnimator.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
+
+            DialogueBubbleUI bubble = CreateBubble();
+            bubble.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
+            StartCoroutine(UpdateBubbleStep());
         }
     }
 
     public void StopDialogue ()
     {
         managerRefs.UIManager.ToggleDialogueView(false);
+
+        for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
+        {
+            DialogueBubbleUI dialogueBubble = dialogueBubbles[i];
+            if (dialogueBubble != null)
+            {
+                Destroy(dialogueBubble.gameObject);
+            }
+        }
+
+        dialogueBubbles.Clear();
     }
 }
