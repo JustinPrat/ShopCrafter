@@ -16,9 +16,6 @@ public class ShopView : UIView
     private ItemShopUI itemUIPrefab;
 
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private TextMeshProUGUI coinAmountText;
 
     private List<ItemShopUI> itemSellingInstantiated = new List<ItemShopUI>();

@@ -8,9 +8,6 @@ using UnityEngine.UI;
 public class MiniGameView : UIView
 {
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private ParticleSystem stepParticle;
 
     [SerializeField]

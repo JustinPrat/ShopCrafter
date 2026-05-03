@@ -5,9 +5,6 @@ using UnityEngine.EventSystems;
 public class EndDayView : UIView
 {
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private GameObject recipeDayPrefab;
 
     [SerializeField]

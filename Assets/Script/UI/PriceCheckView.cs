@@ -9,9 +9,6 @@ public class PriceCheckView : UIView
     [SerializeField]
     private PriceTypeUI priceTypeUIPrefab;
 
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
     public void Setup (Vector3 pos)
     {
         transform.position = pos;

@@ -21,9 +21,6 @@ public class CraftingView : UIView
     private List<ItemUI> itemsConfirmedUI;
 
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private Sprite normalSprite;
 
     [SerializeField] 

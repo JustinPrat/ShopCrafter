@@ -119,6 +119,7 @@ public class DialogueView : UIView
             {
                 dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], 0.5f);
                 dialogueBubble.MainRectTransform.DOAnchorPosY(dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, 0.5f).SetUpdate(true);
+                dialogueBubble.MainRectTransform.DOScale(Vector3.one * 0.7f, 0.5f).SetUpdate(true);
             }
         }
     }
@@ -170,6 +171,7 @@ public class DialogueView : UIView
 
     private void StartDialogue ()
     {
+        answerParent.gameObject.SetActive(false);
         isAsking = false;
         currentDialogueIndex = 0;
 
@@ -186,7 +188,6 @@ public class DialogueView : UIView
         answerUIButtons.Clear();
         NextLine(0);
         managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
-        answerParent.gameObject.SetActive(false);
     }
 
     private void TryAskQuestion ()

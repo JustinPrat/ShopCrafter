@@ -9,9 +9,6 @@ public class CardTagView : UIView
     private const string BonusTrigger = "Bonus";
 
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private Transform tagUIHolder;
 
     [SerializeField]

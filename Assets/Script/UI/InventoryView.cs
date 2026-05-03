@@ -4,9 +4,6 @@ using UnityEngine;
 public class InventoryView : UIView
 {
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private GameObject inventorySlotPrefab;
 
     [SerializeField]

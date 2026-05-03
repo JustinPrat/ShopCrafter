@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPEffects.Components;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DialogueBubbleUI : MonoBehaviour
 {

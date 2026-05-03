@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class MaterialInventoryView : UIView
 {
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private Transform scrollMaterials;
 
     [SerializeField]

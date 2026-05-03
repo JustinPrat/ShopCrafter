@@ -12,9 +12,6 @@ public class EncyclopedieView : UIView
     [SerializeField]
     private AutoFlip flip;
 
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
     private List<PageUI> pageItemUI = new List<PageUI>();
 
     public override void Toggle(bool isOn)
