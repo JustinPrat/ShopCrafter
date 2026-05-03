@@ -18,11 +18,10 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
     [SerializeField]
     private ManagerRefs managerRefs;
 
-    private Coroutine _resetRoutine;
-
     [SerializeField]
     private bool toggleDebug;
 
+    private Coroutine _resetRoutine;
     private bool buttonPressed = false;
 
     public void OnPointerClick(PointerEventData eventData)

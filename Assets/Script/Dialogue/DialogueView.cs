@@ -29,16 +29,10 @@ public class DialogueView : UIView
     private Image portrait;
 
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
     private RectTransform answerParent;
 
     [SerializeField]
     private AnswerUIButton answerPrefab;
-
-    [SerializeField]
-    private GameObject closeButton;
 
     [SerializeField]
     private List<float> transparencySteps;
@@ -63,6 +57,20 @@ public class DialogueView : UIView
         StartDialogue();
 
         //textWriter.OnTextEvent.AddListener(OnTextEvent);
+    }
+
+    protected override void OnInputDeviceChanged()
+    {
+        base.OnInputDeviceChanged();
+
+        if (managerRefs.InputManager.IsGamepad && answerUIButtons.Count > 0)
+        {
+            StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void Update()
@@ -133,16 +141,26 @@ public class DialogueView : UIView
 
     private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        managerRefs.UIManager.ToggleDialogueView(false);
+        NextInputPressed();
+
+        if (isAsking)
+        {
+            StopDialogue();
+        }
     }
 
     private void OnNextDialogueStarted (InputAction.CallbackContext ctx)
     {
-        if (isAsking || currentDelaySkip > 0f)
-            return;
+        NextInputPressed();
+    }
 
-        currentDelaySkip = delayBetweenSkip;
-        NextLine();
+    private void NextInputPressed()
+    {
+        if (!isAsking && currentDelaySkip <= 0f)
+        {
+            currentDelaySkip = delayBetweenSkip;
+            NextLine();
+        }
     }
 
     private void OnTextEvent(TMPEventArgs args) 
@@ -154,7 +172,6 @@ public class DialogueView : UIView
     {
         isAsking = false;
         currentDialogueIndex = 0;
-        closeButton.SetActive(false);
 
         for (int i = answerUIButtons.Count - 1; i >= 0; i--)
         {
@@ -169,6 +186,7 @@ public class DialogueView : UIView
         answerUIButtons.Clear();
         NextLine(0);
         managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
+        answerParent.gameObject.SetActive(false);
     }
 
     private void TryAskQuestion ()
@@ -202,8 +220,12 @@ public class DialogueView : UIView
 
         if (answerUIButtons.Count > 0)
         {
-            StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
-            closeButton.SetActive(true);
+            if (managerRefs.InputManager.IsGamepad)
+            {
+                StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
+            }
+
+            answerParent.gameObject.SetActive(true);
         }
         else
         {

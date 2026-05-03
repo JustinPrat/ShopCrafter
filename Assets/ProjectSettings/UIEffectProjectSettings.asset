@@ -66,6 +66,16 @@ ShaderVariantCollection:
         passType: 0
       - keywords: COLOR_FILTER SAMPLING_BLUR_MEDIUM TRANSITION_PATTERN
         passType: 0
+      - keywords: COLOR_FILTER TARGET_HUE
+        passType: 0
+      - keywords: COLOR_FILTER TARGET_LUMINANCE
+        passType: 0
+      - keywords: COLOR_FILTER TRANSITION_MELT
+        passType: 0
+      - keywords: DETAIL_ADDITIVE
+        passType: 0
+      - keywords: DETAIL_MASKING
+        passType: 0
       - keywords: DETAIL_MASKING EDGE_PLAIN GRADATION_COLOR2 SAMPLING_PIXELATION
         passType: 0
       - keywords: DETAIL_MASKING EDGE_SHINY GRADATION_COLOR2
@@ -80,9 +90,17 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_MASKING TRANSITION_PATTERN
         passType: 0
+      - keywords: DETAIL_MULTIPLY
+        passType: 0
       - keywords: DETAIL_MULTIPLY EDGE_PLAIN GRADATION_COLOR2 SAMPLING_PIXELATION
         passType: 0
+      - keywords: DETAIL_MULTIPLY EDGE_SHINY SAMPLING_EDGE_ALPHA
+        passType: 0
       - keywords: DETAIL_MULTIPLY SAMPLING_BLUR_FAST
+        passType: 0
+      - keywords: DETAIL_MULTIPLY_ADDITIVE
+        passType: 0
+      - keywords: DETAIL_REPLACE
         passType: 0
       - keywords: DETAIL_REPLACE EDGE_PLAIN
         passType: 0
@@ -93,6 +111,8 @@ ShaderVariantCollection:
       - keywords: DETAIL_REPLACE EDGE_PLAIN GRADATION_COLOR2 TRANSITION_PATTERN
         passType: 0
       - keywords: DETAIL_REPLACE TRANSITION_PATTERN
+        passType: 0
+      - keywords: DETAIL_SUBTRACTIVE
         passType: 0
       - keywords: EDGE_PLAIN
         passType: 0
@@ -186,6 +206,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: GRADATION_COLOR2 TRANSITION_PATTERN
         passType: 0
+      - keywords: GRADATION_COLOR4
+        passType: 0
       - keywords: GRADATION_GRADIENT
         passType: 0
       - keywords: SAMPLING_BLUR_DETAIL
@@ -208,6 +230,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: SAMPLING_EDGE_ALPHA TRANSITION_PATTERN
         passType: 0
+      - keywords: SAMPLING_EDGE_ALPHA TRANSITION_SHINY
+        passType: 0
       - keywords: SAMPLING_EDGE_LUMINANCE
         passType: 0
       - keywords: SAMPLING_EDGE_LUMINANCE TARGET_LUMINANCE
@@ -223,6 +247,16 @@ ShaderVariantCollection:
       - keywords: SAMPLING_RGB_SHIFT TRANSITION_PATTERN
         passType: 0
       - keywords: TARGET_LUMINANCE
+        passType: 0
+      - keywords: TONE_GRAYSCALE
+        passType: 0
+      - keywords: TONE_NEGATIVE
+        passType: 0
+      - keywords: TONE_POSTERIZE
+        passType: 0
+      - keywords: TONE_RETRO
+        passType: 0
+      - keywords: TONE_SEPIA
         passType: 0
       - keywords: TRANSITION_BLAZE
         passType: 0

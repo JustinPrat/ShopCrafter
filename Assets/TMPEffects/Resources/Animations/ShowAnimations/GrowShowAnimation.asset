@@ -37,4 +37,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  startScale: {x: 1.5, y: 1.5, z: 1.5}
+  startScale: {x: 1.3, y: 1.3, z: 1.3}

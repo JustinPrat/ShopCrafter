@@ -821,6 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  playerInput: {fileID: 0}
 --- !u!1 &6855811921498665114
 GameObject:
   m_ObjectHideFlags: 0
