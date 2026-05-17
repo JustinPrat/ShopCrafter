@@ -23,7 +23,7 @@ public class PriceCheckView : UIView
             foreach (KeyValuePair<ECraftedType, SellManager.PriceVariation> priceVariation in managerRefs.SellManager.PriceVariations)
             {
                 PriceTypeUI priceTypeUI = Instantiate(priceTypeUIPrefab, verticalLayoutTransform);
-                priceTypeUI.Setup(priceVariation.Key.ToString(), priceVariation.Value.currentPricePercent.ToString("F1") + "%");
+                priceTypeUI.Setup(priceVariation.Key.ToString(), priceVariation.Value.currentPricePercent.ToString("F1") + "%", priceVariation.Value.currentPricePercent >= 100);
             }
         }
         else

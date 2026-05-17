@@ -59,10 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169af1a119c53214b8baad779d7d2499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   book: {fileID: 717906604704374309}
   pageUIPrefab: {fileID: 4169519477738263355, guid: 7f0f59bc973a068449090792b74d142d, type: 3}
   flip: {fileID: 5895305282211658565}
-  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
 --- !u!114 &4928602383719361649
 MonoBehaviour:
   m_ObjectHideFlags: 0
