@@ -146,8 +146,8 @@ GameObject:
   - component: {fileID: 5318052585288824987}
   - component: {fileID: 1574749602657488791}
   - component: {fileID: 9028083251470391157}
-  - component: {fileID: 8243984534678315228}
   - component: {fileID: 3193883478845869638}
+  - component: {fileID: 6363941274385078759}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -251,18 +251,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8243984534678315228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4316847722643200757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba6719688cd17e4eba10727650b247b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Billboard
 --- !u!114 &3193883478845869638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +265,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RotateWithDirection
   animator: {fileID: 9028083251470391157}
   spriteRenderer: {fileID: 1574749602657488791}
+--- !u!114 &6363941274385078759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316847722643200757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb317ed6a8be72d4b8abdc56fc24c5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ViewPointBillboard
+  spriteTiltAngleX: 10
 --- !u!1 &7164239007729506761
 GameObject:
   m_ObjectHideFlags: 0

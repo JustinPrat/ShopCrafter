@@ -840,7 +840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1084718877374895233}
   - component: {fileID: 5801126888105753439}
-  - component: {fileID: 6430947028613680139}
+  - component: {fileID: 3181467264625974797}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -923,7 +923,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &6430947028613680139
+--- !u!114 &3181467264625974797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -932,6 +932,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547600056336448238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba6719688cd17e4eba10727650b247b, type: 3}
+  m_Script: {fileID: 11500000, guid: bb317ed6a8be72d4b8abdc56fc24c5fa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Billboard
+  m_EditorClassIdentifier: Assembly-CSharp::ViewPointBillboard
+  spriteTiltAngleX: -10
