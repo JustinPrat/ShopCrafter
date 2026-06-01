@@ -19,13 +19,42 @@ MonoBehaviour:
   HasNextDialogue: 0
   Answers:
   - Line: Oui
-    NextDialogueData: {fileID: 0}
-    reward: {fileID: 0}
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   - Line: Non
-    NextDialogueData: {fileID: 0}
-    reward: {fileID: 0}
+    AnswerDialogueData: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 1
+  tmpType: 0
   TMPAnimationName: sketchy
   TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  TMPIconName: sprite_sheet_21
+  preview: {fileID: 7153851571046563884, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

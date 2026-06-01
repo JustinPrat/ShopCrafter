@@ -12,11 +12,11 @@ public class QuestStepTalkToPNJ : QuestStepData
     private bool needSpecialDialogue;
 
     [SerializeField, ShowIf(nameof(needSpecialDialogue))]
-    private SpecialDialogue specialDialogue;
+    private SpecialDialogueData specialDialogueData;
 
     public override QuestStepRuntime GetRuntimeLogic()
     {
-        return new QuestStepTalkToPNJRuntime(new TalkToPNJData { PNJAmount = PNJAmount, NeedSpecialDialogue = needSpecialDialogue, SpecialDialogue = specialDialogue });
+        return new QuestStepTalkToPNJRuntime(new TalkToPNJData { PNJAmount = PNJAmount, NeedSpecialDialogue = needSpecialDialogue, SpecialDialogue = new SpecialDialogue(specialDialogueData) });
     }
 }
 

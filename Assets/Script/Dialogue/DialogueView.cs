@@ -142,11 +142,13 @@ public class DialogueView : UIView
 
     private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        NextInputPressed();
-
         if (isAsking)
         {
             StopDialogue();
+        }
+        else
+        {
+            NextInputPressed();
         }
     }
 

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestStepTalkToPNJ
   PNJAmount: 3
   needSpecialDialogue: 1
-  specialDialogue:
+  specialDialogueData:
     Answers:
-    - Line: Ask about scientist request
+    - Line: Want to join lab ?
       AnswerDialogueData: {fileID: 11400000, guid: c750af348e69f0147bffde1ba8ec3751, type: 2}
       Reward:
         mode: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
         unityReference: {fileID: 0}
         rawReference:
           rid: -2
-    - Line: Try to force scientist request
+    - Line: Want to join lab ?
       AnswerDialogueData: {fileID: 11400000, guid: 46bd21b9ac11d74428f5ad76db23868a, type: 2}
       Reward:
         mode: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
         unityReference: {fileID: 0}
         rawReference:
           rid: -2
-    - Line: Pay to be scientist rat
+    - Line: Want to join lab ?
       AnswerDialogueData: {fileID: 11400000, guid: bab117c7dce50124186bbebec3a66ad9, type: 2}
       Reward:
         mode: 0
@@ -54,13 +54,13 @@ MonoBehaviour:
         mode: 1
         unityReference: {fileID: 0}
         rawReference:
-          rid: 13174609967054949
+          rid: 350563928688033918
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 13174609967054949
+    - rid: 350563928688033918
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
-        Amount: 3
+        Amount: 5

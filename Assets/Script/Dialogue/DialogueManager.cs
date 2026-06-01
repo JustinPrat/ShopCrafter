@@ -65,10 +65,20 @@ public class DialogueManager : MonoBehaviour
 }
 
 [Serializable]
-public class SpecialDialogue
+public struct SpecialDialogueData
 {
     public List<Answer> Answers;
-    
+}
+
+[Serializable]
+public class SpecialDialogue
+{
+    public List<Answer> Answers { get; set; }
     public GameObject Owner { get; set; }
     public List<GameObject> AskedPNJs { get; set; } = new List<GameObject>();
+
+    public SpecialDialogue(SpecialDialogueData data)
+    {
+        this.Answers = new List<Answer>(data.Answers);
+    }
 }
