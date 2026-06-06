@@ -4,6 +4,7 @@ using TMPEffects.TMPEvents;
 using TMPro;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PNJBrain : MonoBehaviour, IInteractable
 {
@@ -14,6 +15,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     #region Variables
 
     [SerializeField] private BehaviorGraphAgent agent;
+    [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private ManagerRefs managerRefs;
     [SerializeField] private Sprite interactIcon;
     [SerializeField] private SpriteRenderer stateIconDisplay;
@@ -38,6 +40,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public Sprite InteractIcon => interactIcon;
     public ManagerRefs ManagerRefs => managerRefs;
     public BehaviorGraphAgent Agent => agent;
+    public NavMeshAgent NavMeshAgent => navMeshAgent;
     public BlackboardVariable<PnjEvent> PNJBuying => pnjBuying;
     public BlackboardVariable<PnjEvent> PNJArriveBuying => pnjArriveBuying;
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;

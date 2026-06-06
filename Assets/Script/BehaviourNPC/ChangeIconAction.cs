@@ -3,6 +3,8 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using NavMeshPlus.Extensions;
+using UnityEngine.AI;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "ChangeIcon", story: "Change [icon] of [PNJ]", category: "Action", id: "6c4d63222aa23fc5761e789899c40dae")]

@@ -709,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2742724138226711751}
+  navMeshAgent: {fileID: 5940720520110901808}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   interactIcon: {fileID: 7047303668414087818, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
   stateIconDisplay: {fileID: 3187432314344282061}

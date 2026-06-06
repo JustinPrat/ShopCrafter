@@ -244,7 +244,7 @@ public class PNJManager : MonoBehaviour
             return;
 
         PNJList.Add(PNJ);
-        PNJ.transform.position = PnjSpawnOutside;
+        PNJ.NavMeshAgent.Warp(PnjSpawnOutside);
     }
 
     public void RemovePnj (PNJBrain pnj)
