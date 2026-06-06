@@ -1014,7 +1014,7 @@ Transform:
   m_GameObject: {fileID: 519145229}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3469463, y: 7.2467e-41, z: 1.95896e-40, w: 0.93788505}
-  m_LocalPosition: {x: 0.14, y: 9.105, z: -8.63}
+  m_LocalPosition: {x: 0, y: 7, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1213,6 +1213,10 @@ PrefabInstance:
     - target: {fileID: 5200564092630354569, guid: c18ede7e0e104e740ba4b16e7e81d4ff, type: 3}
       propertyPath: m_Name
       value: CraftingTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456885958529011949, guid: c18ede7e0e104e740ba4b16e7e81d4ff, type: 3}
+      propertyPath: interactText
+      value: TAKE
       objectReference: {fileID: 0}
     - target: {fileID: 8854542543677692414, guid: c18ede7e0e104e740ba4b16e7e81d4ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3812,7 +3816,7 @@ Transform:
   m_GameObject: {fileID: 1896768551}
   serializedVersion: 2
   m_LocalRotation: {x: 0.34694633, y: 1.6791e-40, z: -6.2114e-41, w: 0.937885}
-  m_LocalPosition: {x: 0.14, y: 9.105, z: -8.63}
+  m_LocalPosition: {x: 0, y: 7, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

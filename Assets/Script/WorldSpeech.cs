@@ -5,9 +5,11 @@ using UnityEngine;
 public class WorldSpeech : MonoBehaviour
 {
     private const string SpeechBool = "Speech";
+    private const string SpeechSpeed = "SpeechSpeed";
 
     [SerializeField] private TextMeshProUGUI speechText;
     [SerializeField] private float speechDuration;
+    [SerializeField] private float speechSpeed = 1f;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject activatedSpeechObject;
 
@@ -22,6 +24,11 @@ public class WorldSpeech : MonoBehaviour
         DisplaySpeech(speech);
     }
 #endif
+
+    private void Start()
+    {
+        animator.SetFloat(SpeechSpeed, speechSpeed);
+    }
 
     private void Update()
     {

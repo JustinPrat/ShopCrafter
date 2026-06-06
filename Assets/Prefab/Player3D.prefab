@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WorldSpeech
   speechText: {fileID: 6994712746335889453}
   speechDuration: 4
+  speechSpeed: 3
   animator: {fileID: 6042841180232244167}
   activatedSpeechObject: {fileID: 6308017434544524368}
 --- !u!95 &6042841180232244167
@@ -158,7 +159,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c0cab3a43a3adf448ac6c9ce0799301b, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -515,7 +516,7 @@ Transform:
   m_GameObject: {fileID: 6353742946642346162}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.14, y: 2.105, z: -1.63}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

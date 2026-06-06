@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7713e89e205b9044f94801c82ff03c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 4485894328597024147, guid: 77d7b651070727f4ca9d9ea020cb75dc, type: 3}
+  interactText: TAKE
   objectHoldAnchor: {fileID: 6379495844388478998}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   UIStatAnchor: {fileID: 4213821917704663822}

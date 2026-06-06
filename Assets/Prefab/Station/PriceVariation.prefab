@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  icon: {fileID: 21300000, guid: a2c8369f09721924e9e93f0cfee82174, type: 3}
+  interactText: PRICEVARIATION
   collider: {fileID: 4228842159189514245}
 --- !u!65 &4228842159189514245
 BoxCollider:

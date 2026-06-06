@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e14c3993f12034ca232109d619e73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: a2c8369f09721924e9e93f0cfee82174, type: 3}
+  interactText: SELL
   objectHoldAnchor: {fileID: 8397408711625929970}
   refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   collider: {fileID: 797958540356178465}

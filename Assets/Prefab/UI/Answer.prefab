@@ -943,7 +943,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8954840041557206797}
   - component: {fileID: 6948621595306442756}
-  - component: {fileID: 6145000780671062511}
   - component: {fileID: 2768746413606857145}
   m_Layer: 0
   m_Name: AnswerBubble
@@ -999,18 +998,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!225 &6145000780671062511
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4707819806635736514}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!114 &2768746413606857145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1541,7 +1528,6 @@ GameObject:
   - component: {fileID: 4653354121488925636}
   - component: {fileID: 1570283786079138013}
   - component: {fileID: 4719463855087366167}
-  - component: {fileID: 3283387372605637582}
   m_Layer: 5
   m_Name: Cost
   m_TagString: Untagged
@@ -1608,15 +1594,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &3283387372605637582
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8445422488394554681}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
