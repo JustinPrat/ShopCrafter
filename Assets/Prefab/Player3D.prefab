@@ -366,6 +366,7 @@ MonoBehaviour:
   controllerData: {fileID: 11400000, guid: 13a286a525f508840bec9d5df10292d8, type: 2}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   playerBrain: {fileID: 5738838758871610964}
+  physicCollider: {fileID: 7590092417748130091}
 --- !u!114 &8956349347893017377
 MonoBehaviour:
   m_ObjectHideFlags: 0
