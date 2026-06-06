@@ -229,6 +229,7 @@ public class DialogueView : UIView
             }
 
             answerParent.gameObject.SetActive(true);
+            SetupNavigation();
         }
         else
         {
@@ -242,6 +243,23 @@ public class DialogueView : UIView
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(gameObject);
+    }
+
+    private void SetupNavigation()
+    {
+        for (int i = 0; i < answerUIButtons.Count; i++)
+        {
+            Navigation customNav = new Navigation();
+            customNav.mode = Navigation.Mode.Explicit;
+
+            if (i > 0)
+                customNav.selectOnUp = answerUIButtons[i - 1].Selectable;
+
+            if (i < answerUIButtons.Count - 1)
+                customNav.selectOnDown = answerUIButtons[i + 1].Selectable;
+
+            answerUIButtons[i].Selectable.navigation = customNav;
+        }
     }
 
     private void ChooseAnswer (Answer selectedAnswer)

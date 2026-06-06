@@ -19,6 +19,7 @@ public class AnswerUIButton : MonoBehaviour
     private bool hasCost;
 
     public Action<Answer> OnAnswerClicked;
+    public Selectable Selectable => button;
 
     private void Awake()
     {
