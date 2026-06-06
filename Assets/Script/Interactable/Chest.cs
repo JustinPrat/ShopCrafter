@@ -6,13 +6,13 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField]
     private Collider collider;
 
-    [SerializeField] 
-    private Sprite icon;
-    public Sprite InteractIcon => icon;
+    [SerializeField]
+    private string interactText;
 
     public bool IsLocked { get; set; }
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public string InteractText => interactText;
 
     private List<CraftedObjectData> craftedInventory = new List<CraftedObjectData>();
 

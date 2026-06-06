@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 public class PNJBrain : MonoBehaviour, IInteractable
 {
-    private const string SpeechBool = "Speech";
+
     private const string OutsidePosVariable = "OutsidePos";
     private const string ShopPosVariable = "ShopPos";
     private const string ShopDurationVariable = "ShopDuration";
@@ -17,13 +17,11 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private BehaviorGraphAgent agent;
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private ManagerRefs managerRefs;
-    [SerializeField] private Sprite interactIcon;
+    [SerializeField] private string interactText;
     [SerializeField] private SpriteRenderer stateIconDisplay;
     [SerializeField] private Sprite questIcon;
     [SerializeField] private Collider collider;
-    [SerializeField] private TextMeshProUGUI speechText;
-    [SerializeField] private float speechDuration;
-    [SerializeField] private Animator animator;
+    [SerializeField] private WorldSpeech worldSpeech;
 
     private PNJInfoData PNJBaseData;
     private PNJRuntimeData PNJRuntime;
@@ -32,12 +30,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     private BlackboardVariable<PnjEvent> pnjArriveBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
     private DialogueData currentMainDialogue;
-    private bool isSpeechDisplayed;
-    private float speechTimerEnd;
-    private bool speechAlwaysDisplay;
 
     public PNJRuntimeData Data => PNJRuntime;
-    public Sprite InteractIcon => interactIcon;
     public ManagerRefs ManagerRefs => managerRefs;
     public BehaviorGraphAgent Agent => agent;
     public NavMeshAgent NavMeshAgent => navMeshAgent;
@@ -49,27 +43,16 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public bool IsLocked { get; set; }
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public WorldSpeech WorldSpeech => worldSpeech;
+    public string InteractText => interactText;
 
     #endregion
-
-#if UNITY_EDITOR
-    [Button]
-    private void DisplaySpeechTest(string speech)
-    {
-        DisplaySpeech(speech);
-    }
-#endif
 
     private void Update()
     {
         foreach (IPNJTraitRuntime traitRuntime in PNJRuntime.ActiveTraits)
         {
             traitRuntime.OnUpdate(this);
-        }
-        
-        if (isSpeechDisplayed && speechTimerEnd <= Time.time && !speechAlwaysDisplay)
-        {
-            StopSpeech();
         }
     }
 
@@ -113,22 +96,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
         managerRefs.GameEventsManager.questEvents.onFinishQuest += OnFinishQuest;
         managerRefs.GameEventsManager.questEvents.onQuestStateChange += OnQuestStateChange;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay += ForceDayEnd;
-    }
-
-    public void DisplaySpeech(string text, bool alwaysDislay = false)
-    {
-        animator.SetBool(SpeechBool, true);
-        speechText.text = text;
-        isSpeechDisplayed = true;
-        speechTimerEnd = Time.time + speechDuration;
-        speechAlwaysDisplay = alwaysDislay;
-    }
-
-    public void StopSpeech()
-    {
-        animator.SetBool(SpeechBool, false);
-        speechText.text = "";
-        isSpeechDisplayed = false;
     }
 
     private void ForceDayEnd() 
@@ -221,7 +188,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)
         {
             ChangeIcon(questIcon);
-            DisplaySpeech("?", true);
+            worldSpeech.DisplaySpeech("?", true);
         }
     }
 
@@ -241,7 +208,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (!TryGetRedeemQuest(out Quest data))
         {
             ChangeIcon(null);
-            StopSpeech();
+            worldSpeech.StopSpeech();
         }
     }
     private bool TryGetRedeemQuest(out Quest data)

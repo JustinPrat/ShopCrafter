@@ -6,7 +6,7 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     private ManagerRefs managerRefs;
 
     [SerializeField]
-    private Sprite interactIcon;
+    private string interactText;
 
     [SerializeField]
     private GameObject outObject;
@@ -17,9 +17,9 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     private bool canInteract;
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
-
-    public Sprite InteractIcon => interactIcon;
+    public string InteractText => interactText;
     public bool IsLocked { get; set; }
+
 
     private void Start()
     {

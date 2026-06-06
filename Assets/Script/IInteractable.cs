@@ -3,7 +3,9 @@ using UnityEngine;
 public interface IInteractable
 {
     public bool IsLocked { get; set; }
-    public Sprite InteractIcon { get;  }
+    //public Sprite InteractIcon { get;  }
+
+    public string InteractText { get; }
     public GameObject GameObject { get; }
     public Collider Collider { get; }
 

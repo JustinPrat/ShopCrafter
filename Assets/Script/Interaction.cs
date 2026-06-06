@@ -13,7 +13,7 @@ public class Interaction : MonoBehaviour
     private PlayerBrain playerBrain;
 
     [SerializeField]
-    private SpriteRenderer iconHolder;
+    private WorldSpeech worldSpeech;
 
     private IInteractable currentInteractable;
     private List<IInteractable> interactablesInRange = new List<IInteractable>();
@@ -72,16 +72,12 @@ public class Interaction : MonoBehaviour
         {
             newInteractable.OnInteractRange(playerBrain);
 
-            iconHolder.gameObject.SetActive(true);
-            iconHolder.sprite = newInteractable.InteractIcon;
+            worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
         }
 
         if (newInteractable == null || !newInteractable.CanInteract(playerBrain) || newInteractable.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
         {
-            if (iconHolder.gameObject.activeInHierarchy)
-            {
-                iconHolder.gameObject.SetActive(false);
-            }
+            worldSpeech.StopSpeech();
         }
 
         currentInteractable = newInteractable;

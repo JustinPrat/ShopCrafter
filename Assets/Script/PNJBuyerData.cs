@@ -69,7 +69,7 @@ public class PNJBuyerBehaviour : PNJRandomBehaviour
     {
         PNJBrain PNJBrain = Pnj.GetComponent<PNJBrain>();
         PNJBrain.ChangeIcon(currentData.WaitingIcon);
-        PNJBrain.DisplaySpeech("<wave>...</wave>");
+        PNJBrain.WorldSpeech.DisplaySpeech("<wave>...</wave>");
     }
 
     private void OnPnjBuying(GameObject Pnj)

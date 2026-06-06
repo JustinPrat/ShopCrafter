@@ -3,7 +3,7 @@ using UnityEngine;
 public class CraftedItemReceiver : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private Sprite icon;
+    private string interactText;
 
     [SerializeField]
     private Transform objectHoldAnchor;
@@ -19,12 +19,12 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
 
     private CraftedObject heldObject;
 
-    public Sprite InteractIcon => icon;
     public CraftedObject HeldObject => heldObject;
     public bool HasHeldItem => heldObject != null;
     public bool IsLocked { get; set; }
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public string InteractText => interactText;
 
     public bool CanTakeItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
 

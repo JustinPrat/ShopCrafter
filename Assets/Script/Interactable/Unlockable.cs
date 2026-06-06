@@ -9,10 +9,10 @@ public class Unlockable : MonoBehaviour, IInteractable
     private SerializableInterface<ICost> requiredCost;
 
     [SerializeField]
-    private Sprite interactIcon;
+    private Collider collider;
 
     [SerializeField]
-    private Collider collider;
+    private string interactText;
 
     [SerializeField]
     private ManagerRefs refs;
@@ -23,12 +23,12 @@ public class Unlockable : MonoBehaviour, IInteractable
     private bool hasBeenUnlocked;
     private List<IInteractable> interactables;
 
-    public Sprite InteractIcon => interactIcon;
-
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public string InteractText => interactText;
 
     public bool IsLocked { get; set; } = false;
+
 
     private void Start()
     {

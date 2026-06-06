@@ -7,15 +7,15 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
     private ManagerRefs managerRefs;
 
     [SerializeField]
-    private Sprite icon;
+    private string interactText;
 
     [SerializeField]
     private Collider collider;
 
-    public Sprite InteractIcon => icon;
     public bool IsLocked { get; set; }
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public string InteractText => interactText;
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

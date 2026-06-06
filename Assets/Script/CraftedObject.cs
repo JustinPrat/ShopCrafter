@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CraftedObject : MonoBehaviour, IInteractable
 {
-    [SerializeField] 
-    private Sprite icon;
+    [SerializeField]
+    private string interactText;
 
     [ReadOnly, SerializeField]
     private CraftedObjectData craftedObjectData;
@@ -15,12 +15,12 @@ public class CraftedObject : MonoBehaviour, IInteractable
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
-    Sprite IInteractable.InteractIcon => icon;
     public bool IsLocked { get; set; }
     public int Price => craftedObjectData.GetPrice();
     public CraftedObjectData CraftedData => craftedObjectData;
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public string InteractText => interactText;
 
     public void Init (CraftedObjectData data)
     {

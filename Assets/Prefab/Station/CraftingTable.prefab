@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  icon: {fileID: 21300000, guid: ff48d83f5537bef40bb39f1ccae4e3e6, type: 3}
+  interactText: CRAFT
   collider: {fileID: 8004390244090909545}
   UICraftAnchor: {fileID: 1794102430751810920}
   receiveSlots:

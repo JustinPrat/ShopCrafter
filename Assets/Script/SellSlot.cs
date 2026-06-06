@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SellSlot : MonoBehaviour, IInteractable
 {
-    [SerializeField] 
-    private Sprite icon;
+    [SerializeField]
+    private string interactText;
 
     [SerializeField]
     private Transform objectHoldAnchor;
@@ -18,8 +18,7 @@ public class SellSlot : MonoBehaviour, IInteractable
 
     private CraftedObject heldObject;
 
-    public Sprite InteractIcon => icon;
-
+    public string InteractText => interactText;
     public bool IsSelling => heldObject != null;
 
     public CraftedObject HeldObject => heldObject;

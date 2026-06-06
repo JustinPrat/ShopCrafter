@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class BoxElement : MonoBehaviour, IInteractable
 {
-    [SerializeField] private float squishScale;
-    [SerializeField] private Sprite icon;
-    [SerializeField] private Collider collider;
+    [SerializeField] 
+    private float squishScale;
 
-    public Sprite InteractIcon => icon;
+    [SerializeField]
+    private string interactText;
+
+    [SerializeField] 
+    private Collider collider;
+
     public bool IsLocked { get; set; }
     public Collider Collider => collider;
     public GameObject GameObject => gameObject;
+    public string InteractText => interactText;
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

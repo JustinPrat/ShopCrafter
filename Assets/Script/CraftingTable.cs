@@ -6,8 +6,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
     [SerializeField]
     private ManagerRefs managerRefs;
 
-    [SerializeField] 
-    private Sprite icon;
+    [SerializeField]
+    private string interactText;
 
     [SerializeField]
     private Collider collider;
@@ -20,12 +20,10 @@ public class CraftingTable : MonoBehaviour, IInteractable
     [SerializeField]
     private List<CraftedItemReceiver> receiveSlots;
 
-    public Sprite InteractIcon => icon;
     public List<CraftedItemReceiver> ReceiveSlots => receiveSlots;
-    public bool IsLocked { get; set; }
-
     public GameObject GameObject => gameObject;
-
+    public string InteractText => interactText;
+    public bool IsLocked { get; set; }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
