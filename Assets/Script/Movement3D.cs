@@ -34,6 +34,8 @@ public class Movement3D : MonoBehaviour
     private void Update()
     {
         Vector2 move = lastInput * controllerData.WalkSpeed;
+        Debug.DrawRay(transform.position + Vector3.up, Vector3.down * 5f, Color.red, Time.deltaTime);
+
         if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 5f, controllerData.GroundLayer))
         {
             rigidBody.position = new Vector3(rigidBody.position.x, hit.point.y + physicCollider.bounds.size.y / 2, rigidBody.position.z);
