@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  interactText: CRAFT
+  interactText: <sprite name="sprite_sheet_99">
   collider: {fileID: 8004390244090909545}
   UICraftAnchor: {fileID: 1794102430751810920}
   receiveSlots:
