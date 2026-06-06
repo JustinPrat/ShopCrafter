@@ -8,6 +8,9 @@ using UnityEngine;
 public class PNJBrain : MonoBehaviour, IInteractable
 {
     private const string SpeechBool = "Speech";
+    private const string OutsidePosVariable = "OutsidePos";
+    private const string ShopPosVariable = "ShopPos";
+    private const string ShopDurationVariable = "ShopDuration";
     #region Variables
 
     [SerializeField] private BehaviorGraphAgent agent;
@@ -100,8 +103,9 @@ public class PNJBrain : MonoBehaviour, IInteractable
         transform.name = PNJRuntime.Identity.Name;
         currentMainDialogue = PNJRuntime.Identity.Dialogue;
 
-        Agent.SetVariableValue<float>("ShopDuration", PNJRuntime.ShopStayDuration);
-        Agent.SetVariableValue<Vector3>("OutsidePos", managerRefs.PNJManager.PnjSpawnOutside);
+        Agent.SetVariableValue<Vector3>(OutsidePosVariable, managerRefs.PNJManager.PnjSpawnOutside);
+        Agent.SetVariableValue<Vector3>(ShopPosVariable, managerRefs.PNJManager.PnjShopStop);
+        Agent.SetVariableValue<float>(ShopDurationVariable, PNJRuntime.ShopStayDuration);
 
         managerRefs.GameEventsManager.questEvents.onFinishQuest += OnFinishQuest;
         managerRefs.GameEventsManager.questEvents.onQuestStateChange += OnQuestStateChange;

@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2125649023180526412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5948019992604968826}
+  - component: {fileID: 8522466985333295153}
+  - component: {fileID: 1038716410361171414}
+  m_Layer: 0
+  m_Name: SpriteHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5948019992604968826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125649023180526412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.453, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5318052585288824987}
+  m_Father: {fileID: 5818644761714831591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8522466985333295153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125649023180526412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7149543b52dfce8438c53848fda3a51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotateWithDirection
+  animator: {fileID: 9028083251470391157}
+  spriteRenderer: {fileID: 1574749602657488791}
+--- !u!114 &1038716410361171414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125649023180526412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb317ed6a8be72d4b8abdc56fc24c5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ViewPointBillboard
+  spriteTiltAngleX: 10
 --- !u!1 &3592466329215311767
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,8 +207,6 @@ GameObject:
   - component: {fileID: 5318052585288824987}
   - component: {fileID: 1574749602657488791}
   - component: {fileID: 9028083251470391157}
-  - component: {fileID: 3193883478845869638}
-  - component: {fileID: 6363941274385078759}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -163,12 +222,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4316847722643200757}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.21, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.524, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5818644761714831591}
+  m_Father: {fileID: 5948019992604968826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1574749602657488791
 SpriteRenderer:
@@ -179,7 +238,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4316847722643200757}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -196,7 +255,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a3328f7a2588fd479bcbce86c3cea29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,33 +310,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3193883478845869638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4316847722643200757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7149543b52dfce8438c53848fda3a51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RotateWithDirection
-  animator: {fileID: 9028083251470391157}
-  spriteRenderer: {fileID: 1574749602657488791}
---- !u!114 &6363941274385078759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4316847722643200757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb317ed6a8be72d4b8abdc56fc24c5fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ViewPointBillboard
-  spriteTiltAngleX: 10
 --- !u!1 &7164239007729506761
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +346,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5318052585288824987}
+  - {fileID: 5948019992604968826}
   - {fileID: 9000227852169984375}
   - {fileID: 4229228387951073903}
   m_Father: {fileID: 0}
@@ -381,7 +413,7 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   inventory: {fileID: 8956349347893017377}
   interaction: {fileID: 4752191271081842532}
-  rotateWithDirection: {fileID: 3193883478845869638}
+  rotateWithDirection: {fileID: 8522466985333295153}
 --- !u!54 &3585539978881113606
 Rigidbody:
   m_ObjectHideFlags: 0

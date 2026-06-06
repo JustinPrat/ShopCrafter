@@ -1116,6 +1116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   pnjSpawnOutside: {fileID: 0}
+  pnjShopStop: {fileID: 0}
   dayDuration: 100
   dayStartTime: 10
   dayEndTime: 20

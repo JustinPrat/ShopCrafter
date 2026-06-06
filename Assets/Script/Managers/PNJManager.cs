@@ -12,6 +12,9 @@ public class PNJManager : MonoBehaviour
     private Transform pnjSpawnOutside;
 
     [SerializeField]
+    private Transform pnjShopStop;
+
+    [SerializeField]
     private float dayDuration;
 
     [SerializeField] 
@@ -67,6 +70,7 @@ public class PNJManager : MonoBehaviour
     }
 
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
+    public Vector3 PnjShopStop => pnjShopStop.position;
 
     public bool HasEnoughtPNJ => PNJList.Count >= targetNumberPnj;
 
