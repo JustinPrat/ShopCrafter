@@ -1,8 +1,8 @@
-using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using PrimeTween;
 
 public class ValidateInputArrow : MonoBehaviour
 {
@@ -77,8 +77,9 @@ public class ValidateInputArrow : MonoBehaviour
         if (hold)
         {
             slider.gameObject.SetActive(true);
-            transform.DOScale(Vector3.one * 0.8f, 0.2f).SetEase(Ease.InBack).SetUpdate(true);
-            slider.DOValue(1, holdDuration).SetEase(Ease.InOutSine).SetUpdate(true).OnComplete(() =>
+
+            Tween.Scale(transform, 0.8f, 0.2f, ease: Ease.InBack, useUnscaledTime: true);
+            Tween.UISliderValue(slider, slider.value, 1, holdDuration, ease: Ease.InOutSine, useUnscaledTime: true).OnComplete(() =>
             {
                 slider.value = 0;
                 OnPressValidation();
@@ -92,7 +93,7 @@ public class ValidateInputArrow : MonoBehaviour
 
     private void OnPressValidation()
     {
-        transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).SetUpdate(true).OnComplete(() =>
+        Tween.Scale(transform, 1f, 0.2f, ease: Ease.OutBack, useUnscaledTime: true).OnComplete(() =>
         {
             transform.localScale = Vector3.one;
             StartMoveArrow();
@@ -110,7 +111,7 @@ public class ValidateInputArrow : MonoBehaviour
             return;
 
         transform.localPosition = Vector3.zero;
-        transform.DOLocalMoveY(moveDistance, moveDuration).SetEase(moveCurve).SetUpdate(true).SetLoops(-1, LoopType.Yoyo);
+        Tween.LocalPositionY(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
 
         if (hold)
         {

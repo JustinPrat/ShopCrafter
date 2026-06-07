@@ -1,4 +1,4 @@
-using DG.Tweening;
+using PrimeTween;
 using TMPEffects.Components;
 using UnityEngine;
 
@@ -48,7 +48,7 @@ public class DialogueBubbleUI : MonoBehaviour
 
     public void SetTransparency(float alpha, float duration)
     {
-        canvasGroup.DOFade(alpha, duration).SetUpdate(true);
+        Tween.Custom(canvasGroup.alpha, alpha, duration, onValueChange: newVal => canvasGroup.alpha = newVal, useUnscaledTime: true);
     }
 
     private void Awake()

@@ -1,10 +1,13 @@
-using DG.Tweening;
+using PrimeTween;
 using UnityEngine;
 
 public class BoxElement : MonoBehaviour, IInteractable
 {
     [SerializeField] 
     private float squishScale;
+
+    [SerializeField]
+    private float squishDuration = 0.3f;
 
     [SerializeField]
     private string interactText;
@@ -25,7 +28,7 @@ public class BoxElement : MonoBehaviour, IInteractable
     public void DoInteract(PlayerBrain playerBrain)
     {
         transform.localScale = Vector3.one;
-        transform.DOPunchScale(Vector3.one * squishScale, 0.3f);
+        Tween.PunchScale(transform, Vector3.one * squishScale, squishDuration);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)

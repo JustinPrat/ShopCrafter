@@ -1,3 +1,4 @@
+using PrimeTween;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,7 +6,14 @@ using UnityEngine.UI;
 
 public class RewardView : UIView
 {
-    private const string OutTrigger = "Out";
+    [SerializeField] 
+    private TweenSettings<float> inPositionSettings;
+
+    [SerializeField]
+    private TweenSettings<float> outPositionSettings;
+
+    [SerializeField]
+    private CanvasGroup canvasGroup;
 
     [SerializeField] 
     private Image rewardIconImage;
@@ -15,12 +23,6 @@ public class RewardView : UIView
 
     [SerializeField]
     private Image highlightImage;
-
-    [SerializeField]
-    private float outAnimDuration = 0.5f;
-
-    [SerializeField]
-    private Animator animator;
 
     public void Setup(IRewardable rewardable)
     {
@@ -51,11 +53,13 @@ public class RewardView : UIView
         if (isOn)
         {
             gameObject.SetActive(true);
+            Tween.LocalPositionY(transform, inPositionSettings);
+            Tween.Custom(0, 1, inPositionSettings.settings.duration, onValueChange: newVal => canvasGroup.alpha = newVal, useUnscaledTime: true);
         }
         else
         {
-            animator.SetTrigger(OutTrigger);
-            StartCoroutine(WaitForDuration(Deactivate, outAnimDuration));
+            Tween.LocalPositionY(transform, outPositionSettings).OnComplete(() => Deactivate());
+            Tween.Custom(canvasGroup.alpha, 0, outPositionSettings.settings.duration, onValueChange: newVal => canvasGroup.alpha = newVal, useUnscaledTime: true);
         }
     }
 

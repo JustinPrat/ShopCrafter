@@ -1,4 +1,4 @@
-using DG.Tweening;
+using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using TMPEffects.TMPEvents;
@@ -18,6 +18,12 @@ public class DialogueView : UIView
 
     [SerializeField]
     private float bubbleSpacing;
+
+    [SerializeField]
+    private float bubbleMoveDuration = 0.5f;
+
+    [SerializeField]
+    private float bubbleReducedScale = 0.7f;
 
     [SerializeField] 
     private float delayBetweenSkip;
@@ -55,8 +61,6 @@ public class DialogueView : UIView
         portrait.sprite = currentPNJ.Data.Identity.Portrait;
         textName.text = currentPNJ.Data.Identity.Name;
         StartDialogue();
-
-        //textWriter.OnTextEvent.AddListener(OnTextEvent);
     }
 
     protected override void OnInputDeviceChanged()
@@ -99,9 +103,9 @@ public class DialogueView : UIView
         lastBubble.UpdateBubbleHeight();
 
         Vector2 basePos = lastBubble.MainRectTransform.anchoredPosition;
-        lastBubble.SetTransparency(1f, 0.5f);
+        lastBubble.SetTransparency(1f, bubbleMoveDuration);
         lastBubble.MainRectTransform.anchoredPosition = new Vector2(lastBubble.MainRectTransform.anchoredPosition.x, lastBubble.MainRectTransform.anchoredPosition.y - lastBubble.BubbleHeight - bubbleSpacing);
-        lastBubble.MainRectTransform.DOAnchorPos(basePos, 0.5f).SetUpdate(true);
+        Tween.UIAnchoredPosition(lastBubble.MainRectTransform, basePos, bubbleMoveDuration, useUnscaledTime: true);
 
         for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
         {
@@ -118,9 +122,9 @@ public class DialogueView : UIView
             else
             {
                 dialogueBubble.SetClickVisual(false);
-                dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], 0.5f);
-                dialogueBubble.MainRectTransform.DOAnchorPosY(dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, 0.5f).SetUpdate(true);
-                dialogueBubble.MainRectTransform.DOScale(Vector3.one * 0.7f, 0.5f).SetUpdate(true);
+                dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], bubbleMoveDuration);
+                Tween.UIAnchoredPositionY(dialogueBubble.MainRectTransform, dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, bubbleMoveDuration, useUnscaledTime: true);
+                Tween.Scale(dialogueBubble.MainRectTransform, Vector3.one * bubbleReducedScale, bubbleMoveDuration, useUnscaledTime: true);
             }
         }
     }

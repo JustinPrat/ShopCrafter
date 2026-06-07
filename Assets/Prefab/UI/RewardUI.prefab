@@ -814,7 +814,6 @@ GameObject:
   - component: {fileID: 5742452551669428460}
   - component: {fileID: 3622813781165345728}
   - component: {fileID: 4038915344141569823}
-  - component: {fileID: 2965027918199046006}
   - component: {fileID: 4843206764447669716}
   m_Layer: 5
   m_Name: RewardUI
@@ -868,33 +867,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardView
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  inPositionSettings:
+    startFromCurrent: 0
+    startValue: -1000
+    endValue: 0
+    settings:
+      duration: 0.5
+      ease: 4
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 1
+      _useFixedUpdate: 0
+      _updateType: 0
+  outPositionSettings:
+    startFromCurrent: 0
+    startValue: 0
+    endValue: -1000
+    settings:
+      duration: 0.2
+      ease: 4
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: 1
+      cycleMode: 0
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 1
+      _useFixedUpdate: 0
+      _updateType: 0
+  canvasGroup: {fileID: 4843206764447669716}
   rewardIconImage: {fileID: 1027057285997105910}
   rewardName: {fileID: 8964128799295595755}
   highlightImage: {fileID: 1029307871097692283}
-  outAnimDuration: 0.2
-  animator: {fileID: 2965027918199046006}
---- !u!95 &2965027918199046006
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2813235343791059201}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0b5850ca55107f6459687003a7c28704, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!225 &4843206764447669716
 CanvasGroup:
   m_ObjectHideFlags: 0
