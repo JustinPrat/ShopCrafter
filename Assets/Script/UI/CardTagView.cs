@@ -161,6 +161,11 @@ public class CardTagView : UIView
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
         managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
+
+        if (isNew)
+        {
+            managerRefs.UIManager.ToggleRewardView(true, craftedObjectRecipe);
+        }
     }
 
     private void ScoreBonus()

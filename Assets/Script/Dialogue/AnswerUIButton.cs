@@ -43,7 +43,7 @@ public class AnswerUIButton : MonoBehaviour
         costUI.SetActive(hasCost);
         if (hasCost)
         {
-            ICost.UIDisplayData data = answer.Cost.Value.GetDisplayData();
+            ICost.UIDisplayData data = answer.Cost.Value.GetCostDisplayData();
             costAmountText.text = data.Amount.ToString();
             costSpriteImage.sprite = data.Icon;
         }

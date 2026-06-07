@@ -21,9 +21,14 @@ public class MoneyBatchData : ScriptableObject, ICost, IRewardable
         MoneyBatch.OnGetReward(managerRefs, giver);
     }
 
-    public ICost.UIDisplayData GetDisplayData()
+    public ICost.UIDisplayData GetCostDisplayData()
     {
-        return MoneyBatch.GetDisplayData();
+        return MoneyBatch.GetCostDisplayData();
+    }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return MoneyBatch.GetRewardDisplayData();
     }
 }
 
@@ -37,13 +42,22 @@ public class MoneyBatch : ICost, IRewardable
         return managerRefs.SellManager.CoinAmount >= Amount;
     }
 
-    public ICost.UIDisplayData GetDisplayData()
+    public ICost.UIDisplayData GetCostDisplayData()
     {
         return new ICost.UIDisplayData()
         {
             Amount = Amount,
             DisplayName = "Coins",
-            Icon = Resources.Load<Sprite>("CoinIcon")
+            Icon = ResourcesConstants.CoinIcon
+        };
+    }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return new IRewardable.UIDisplayData()
+        {
+            DisplayName = Amount + " Coins",
+            Icon = ResourcesConstants.CoinIcon
         };
     }
 

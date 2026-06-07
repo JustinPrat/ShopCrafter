@@ -53,8 +53,10 @@ public class CraftedObjectPool : ScriptableObject
                 }
 
                 if (!hasRequiredTag)
+                {
                     canCraft = false;
-                break;
+                    break;
+                }
             }
 
             if (canCraft && (recipe == null || recipe.Rarity.ERarity > highestRarity))

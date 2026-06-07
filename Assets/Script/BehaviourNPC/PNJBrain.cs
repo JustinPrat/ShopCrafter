@@ -41,7 +41,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public bool HasQuest => givenQuests.Count > 0;
     public bool ShouldReturn => PNJRuntime.IsSpecial || HasQuest;
     public bool IsLocked { get; set; }
-    public Collider Collider => collider;
+    public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public WorldSpeech WorldSpeech => worldSpeech;
     public string InteractText => interactText;

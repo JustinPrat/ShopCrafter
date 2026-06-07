@@ -10,7 +10,7 @@ public class Chest : MonoBehaviour, IInteractable
     private string interactText;
 
     public bool IsLocked { get; set; }
-    public Collider Collider => collider;
+    public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
 

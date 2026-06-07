@@ -7,7 +7,7 @@ public interface IInteractable
 
     public string InteractText { get; }
     public GameObject GameObject { get; }
-    public Collider Collider { get; }
+    public Collider PhysicCollider { get; }
 
     public void DoInteract(PlayerBrain playerBrain);
 

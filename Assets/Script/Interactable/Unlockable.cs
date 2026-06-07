@@ -23,7 +23,7 @@ public class Unlockable : MonoBehaviour, IInteractable
     private bool hasBeenUnlocked;
     private List<IInteractable> interactables;
 
-    public Collider Collider => collider;
+    public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
 
@@ -65,8 +65,8 @@ public class Unlockable : MonoBehaviour, IInteractable
         {
             interactable.IsLocked = locking;
             
-            if (interactable.Collider != null)
-                interactable.Collider.enabled = !locking;
+            if (interactable.PhysicCollider != null)
+                interactable.PhysicCollider.enabled = !locking;
         }
     }
 

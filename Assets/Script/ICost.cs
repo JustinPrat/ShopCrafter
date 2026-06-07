@@ -9,7 +9,7 @@ public interface ICost
         public Sprite Icon;
     }
 
-    UIDisplayData GetDisplayData();
+    UIDisplayData GetCostDisplayData();
     public bool CanPay(ManagerRefs managerRefs);
     public void ResolveCost(ManagerRefs managerRefs);
 }

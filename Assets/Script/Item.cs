@@ -39,13 +39,23 @@ public class Item : ScriptableObject, IRewardable, ICost
         managerRefs.CraftingManager.AddItem(this);
     }
 
-    public ICost.UIDisplayData GetDisplayData()
+    public ICost.UIDisplayData GetCostDisplayData()
     {
         return new ICost.UIDisplayData()
         {
             Amount = 1,
             DisplayName = "Item",
             Icon = ItemSprite
+        };
+    }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return new IRewardable.UIDisplayData()
+        {
+            DisplayName = ItemName,
+            Icon = ItemSprite,
+            HighlightColor = RarityInfos.RarityColor
         };
     }
 }

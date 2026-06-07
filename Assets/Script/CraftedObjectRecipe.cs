@@ -45,7 +45,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
         managerRefs.PlayerManager.ConsumeCraftedItem();
     }
 
-    public ICost.UIDisplayData GetDisplayData()
+    public ICost.UIDisplayData GetCostDisplayData()
     {
         return new ICost.UIDisplayData
         {
@@ -58,6 +58,16 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {
         managerRefs.CraftingManager.AddBlueprint(this);
+    }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return new IRewardable.UIDisplayData
+        {
+            DisplayName = CraftedName + " Recipe",
+            Icon = CraftedSprite,
+            HighlightColor = Rarity.RarityColor
+        };
     }
 }
 

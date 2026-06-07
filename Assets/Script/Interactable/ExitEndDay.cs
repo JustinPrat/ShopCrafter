@@ -15,7 +15,7 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     private Collider collider;
 
     private bool canInteract;
-    public Collider Collider => collider;
+    public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
     public bool IsLocked { get; set; }

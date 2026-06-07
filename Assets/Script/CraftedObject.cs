@@ -18,7 +18,7 @@ public class CraftedObject : MonoBehaviour, IInteractable
     public bool IsLocked { get; set; }
     public int Price => craftedObjectData.GetPrice();
     public CraftedObjectData CraftedData => craftedObjectData;
-    public Collider Collider => collider;
+    public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
 

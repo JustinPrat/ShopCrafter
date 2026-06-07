@@ -3,63 +3,73 @@ using UnityEngine;
 public class CraftedItemReceiver : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private string interactText;
+    protected bool canTakeBackItem = true;
 
     [SerializeField]
-    private Transform objectHoldAnchor;
+    protected string interactText;
 
     [SerializeField]
-    private ManagerRefs managerRefs;
+    protected Transform objectHoldAnchor;
 
     [SerializeField]
-    private Transform UIStatAnchor;
+    protected ManagerRefs managerRefs;
 
     [SerializeField]
-    private Collider collider;
+    protected Transform UIStatAnchor;
 
-    private CraftedObject heldObject;
+    [SerializeField]
+    protected Collider physicCollider;
+
+    protected CraftedObject heldObject;
 
     public CraftedObject HeldObject => heldObject;
     public bool HasHeldItem => heldObject != null;
-    public bool IsLocked { get; set; }
-    public Collider Collider => collider;
+    public Collider PhysicCollider => physicCollider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
 
-    public bool CanTakeItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
+    public bool IsLocked { get; set; }
 
-    public bool CanInteract(PlayerBrain playerBrain)
+    public bool CanTakePlayerItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
+
+    public virtual bool CanInteract(PlayerBrain playerBrain)
     {
-        return (playerBrain.Inventory.HasItem && !HasHeldItem) || (!playerBrain.Inventory.HasItem && HasHeldItem);
+        return (playerBrain.Inventory.HasItem && !HasHeldItem) || (!playerBrain.Inventory.HasItem && HasHeldItem && canTakeBackItem);
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public virtual void DoInteract(PlayerBrain playerBrain)
     {
-        if (CanTakeItem(playerBrain))
+        if (CanTakePlayerItem(playerBrain))
         {
             heldObject = playerBrain.Inventory.HeldObject;
             heldObject.transform.SetParent(objectHoldAnchor, false);
             playerBrain.Inventory.DropItem();
+            OnItemReceived();
         }
-        else
+        else if (HasHeldItem)
         {
             if (playerBrain.Inventory.TryTakeItem(heldObject))
             {
                 heldObject.transform.SetParent(playerBrain.Inventory.ObjectHoldAnchor);
                 heldObject.transform.localPosition = Vector3.zero;
                 heldObject = null;
+
+                OnItemTaken();
             }
         }
     }
 
-    public void SetItem (CraftedObject craftedObject)
+    protected virtual void OnItemReceived() { }
+    protected virtual void OnItemTaken() { }
+
+    public virtual void SetItem (CraftedObject craftedObject)
     {
         heldObject = craftedObject;
         heldObject.transform.SetParent(objectHoldAnchor, false);
         heldObject.transform.localPosition = Vector3.zero;
     }
 
-    public void OnInteractRange(PlayerBrain playerBrain)
+    public virtual void OnInteractRange(PlayerBrain playerBrain)
     {
         if (HasHeldItem)
         {
@@ -67,7 +77,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         }
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public virtual void OutOfInteractRange(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleCraftedStatView(false);
     }

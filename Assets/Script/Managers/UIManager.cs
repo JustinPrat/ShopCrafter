@@ -41,6 +41,9 @@ public class UIManager : MonoBehaviour
     private GameObject cardTagViewPrefab;
 
     [SerializeField]
+    private GameObject rewardViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -54,6 +57,7 @@ public class UIManager : MonoBehaviour
     private InventoryView inventoryViewInstance;
     private EndDayView endDayViewInstance;
     private MaterialInventoryView materialInventoryViewInstance;
+    private RewardView rewardViewInstance;
 
     public DialogueView DialogueView => dialogueViewInstance;
 
@@ -92,6 +96,9 @@ public class UIManager : MonoBehaviour
 
         materialInventoryViewInstance = Instantiate(inventoryMaterialViewPrefab, canvas.transform).GetComponent<MaterialInventoryView>();
         materialInventoryViewInstance.gameObject.SetActive(false);
+
+        rewardViewInstance = Instantiate(rewardViewPrefab, canvas.transform).GetComponent<RewardView>();
+        rewardViewInstance.gameObject.SetActive(false);
 
         managerRefs.InputManager.Actions.UI.Validate.Disable();
         managerRefs.InputManager.Actions.UI.Remove.Disable();
@@ -134,6 +141,26 @@ public class UIManager : MonoBehaviour
         });
     }
 
+    public void ToggleRewardView(bool isOn, IRewardable rewardable = null)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            rewardViewInstance.Toggle(isOn);
+
+            if (isOn)
+            {
+                rewardViewInstance.Setup(rewardable);
+                Time.timeScale = 0f;
+                managerRefs.InputManager.SetActionType(false, false, true);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                managerRefs.InputManager.SetActionType(true, true, true);
+            }
+        });
+    }
+    
     public void ToggleEndDayView(bool isOn)
     {
         ExecuteAfterOneFrame(() =>

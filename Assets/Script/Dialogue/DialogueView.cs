@@ -117,6 +117,7 @@ public class DialogueView : UIView
             }
             else
             {
+                dialogueBubble.SetClickVisual(false);
                 dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], 0.5f);
                 dialogueBubble.MainRectTransform.DOAnchorPosY(dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, 0.5f).SetUpdate(true);
                 dialogueBubble.MainRectTransform.DOScale(Vector3.one * 0.7f, 0.5f).SetUpdate(true);
@@ -322,6 +323,12 @@ public class DialogueView : UIView
 
             DialogueBubbleUI bubble = CreateBubble();
             bubble.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
+
+            if (!isAsking)
+                bubble.SetClickVisual(true);
+            else 
+                bubble.SetClickVisual(false);
+
             StartCoroutine(UpdateBubbleStep());
         }
     }

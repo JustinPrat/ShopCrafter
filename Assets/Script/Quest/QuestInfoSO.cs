@@ -45,4 +45,13 @@ public class QuestInfoSO : ScriptableObject, IRewardable
             managerRefs.GameEventsManager.questEvents.StartQuest(ID, null);
         }
     }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return new IRewardable.UIDisplayData
+        {
+            DisplayName = DisplayName,
+            Icon = ResourcesConstants.QuestIcon
+        };
+    }
 }

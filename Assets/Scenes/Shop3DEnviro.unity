@@ -3948,6 +3948,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: MANAGERS
       objectReference: {fileID: 0}
+    - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: __alchemySerializationData_CraftingManager.itemInventory.data
+      value: "[\n    {\n        \"Key\": 0,\n        \"Value\": 10\n    },\n    {\n       
+        \"Key\": 1,\n        \"Value\": 10\n    },\n    {\n        \"Key\": 2,\n       
+        \"Value\": 10\n    },\n    {\n        \"Key\": 3,\n        \"Value\": 10\n   
+        }\n]"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: __alchemySerializationData_CraftingManager.unityObjectReferences.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 659f60dee8ca0c74f99bb86f3f52ef8f, type: 2}
+    - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d772092718443542b275c230aa7250e, type: 2}
+    - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 68bfe6b48ba806741989188c83405a05, type: 2}
+    - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1e3b19392abe8794284ee2b52929bfbd, type: 2}
     - target: {fileID: 5794145097326252712, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: 'SellSlots.Array.data[0]'
       value: 
@@ -4000,6 +4027,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097120102720291135, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: playerBrain
+      value: 
+      objectReference: {fileID: 8969781893455649893}
     - target: {fileID: 9033879614006047432, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_Camera
       value: 
@@ -4014,6 +4045,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6670342744302803209, guid: 2d61c07b8dc13be4c89fe05b9fcd02fc, type: 3}
   m_PrefabInstance: {fileID: 4129867044008753150}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8969781893455649893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3495039221512116469, guid: 2d61c07b8dc13be4c89fe05b9fcd02fc, type: 3}
+  m_PrefabInstance: {fileID: 4129867044008753150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00911d4f388dba3458059b0701d61d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

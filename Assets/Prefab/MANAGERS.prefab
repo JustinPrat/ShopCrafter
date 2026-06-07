@@ -612,9 +612,8 @@ MonoBehaviour:
   __alchemySerializationData_CraftingManager:
     itemInventory:
       isCreated: 1
-      data: "[\n    {\n        \"Key\": 0,\n        \"Value\": 5\n    }\n]"
-    unityObjectReferences:
-    - {fileID: 11400000, guid: 9185898ddcea4b34b9f013557a354eea, type: 2}
+      data: '[]'
+    unityObjectReferences: []
 --- !u!1 &2324556219606482125
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +715,7 @@ MonoBehaviour:
   endDayViewPrefab: {fileID: 5475771195858154003, guid: a5f2388e6d6f64b49b7bcfd1a8d7011d, type: 3}
   inventoryMaterialViewPrefab: {fileID: 2813235343791059201, guid: 3441fe8bab6f83341966b6ad31b4b1cc, type: 3}
   cardTagViewPrefab: {fileID: 2813235343791059201, guid: 6983024d023997b409d01252abca387a, type: 3}
+  rewardViewPrefab: {fileID: 2813235343791059201, guid: 06237f87cb6694e4fb75aee1ab402cce, type: 3}
   canvas: {fileID: 8311497530633858144}
 --- !u!1 &2503316448329570634
 GameObject:

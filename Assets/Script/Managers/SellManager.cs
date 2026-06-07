@@ -127,7 +127,7 @@ public partial class SellManager : MonoBehaviour
 
     public void Buy (SellSlot sellSlot)
     {
-        if (sellSlot.IsSelling)
+        if (sellSlot.HasHeldItem)
         {
             OnItemSelling(sellSlot);
             GainMoney(sellSlot.HeldObject.Price);

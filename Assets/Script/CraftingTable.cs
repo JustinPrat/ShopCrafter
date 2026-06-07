@@ -15,7 +15,7 @@ public class CraftingTable : MonoBehaviour, IInteractable
     [SerializeField]
     private Transform UICraftAnchor;
 
-    public Collider Collider => collider;
+    public Collider PhysicCollider => collider;
 
     [SerializeField]
     private List<CraftedItemReceiver> receiveSlots;

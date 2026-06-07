@@ -16,6 +16,9 @@ public class DialogueBubbleUI : MonoBehaviour
     [SerializeField]
     private CanvasGroup canvasGroup;
 
+    [SerializeField]
+    private GameObject clickToSkip;
+
     private float bubbleHeight;
 
     public TMPWriter TextWriter => textWriter;
@@ -26,6 +29,11 @@ public class DialogueBubbleUI : MonoBehaviour
     {
         textAnimator.SetText(newText);
         UpdateBubbleHeight();
+    }
+
+    public void SetClickVisual(bool isActive)
+    {
+        clickToSkip.SetActive(isActive);
     }
 
     public void UpdateBubbleHeight()
@@ -56,5 +64,7 @@ public class DialogueBubbleUI : MonoBehaviour
         }
 
         UpdateBubbleHeight();
+
+        clickToSkip.SetActive(false);
     }
 }
