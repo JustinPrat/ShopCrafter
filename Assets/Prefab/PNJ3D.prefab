@@ -496,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WorldSpeech
   speechText: {fileID: 963642279947159868}
   speechDuration: 2
+  speechSpeed: 1
   animator: {fileID: 2076358275519400800}
   activatedSpeechObject: {fileID: 1171266412754111361}
 --- !u!95 &2076358275519400800
@@ -804,7 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 246828197533223718, guid: 6b854f7bb0141cf4b8077568bbe257e1, type: 2}
+  m_Graph: {fileID: 246828197533223718, guid: dce6b237ea2eaad40a5ce1463b2dfe7c, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 3472448268713066502
   - rid: 3472448269364232571
