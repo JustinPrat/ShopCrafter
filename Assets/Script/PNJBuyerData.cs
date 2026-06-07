@@ -68,14 +68,12 @@ public class PNJBuyerBehaviour : PNJRandomBehaviour
     private void OnPnjArriveBuying(GameObject Pnj)
     {
         PNJBrain PNJBrain = Pnj.GetComponent<PNJBrain>();
-        PNJBrain.ChangeIcon(currentData.WaitingIcon);
         PNJBrain.WorldSpeech.DisplaySpeech("<wave>...</wave>");
     }
 
     private void OnPnjBuying(GameObject Pnj)
     {
         PNJBrain PNJBrain = Pnj.GetComponent<PNJBrain>();
-        PNJBrain.ChangeIcon(null);
 
         if (Slot == null) return;
         if (Random.value <= currentData.BaseBuyProbability)

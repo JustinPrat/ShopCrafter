@@ -18,7 +18,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private ManagerRefs managerRefs;
     [SerializeField] private string interactText;
-    [SerializeField] private SpriteRenderer stateIconDisplay;
     [SerializeField] private Sprite questIcon;
     [SerializeField] private Collider collider;
     [SerializeField] private WorldSpeech worldSpeech;
@@ -103,11 +102,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
         ChangeState(State.GoOut);
     }
 
-    public void ChangeIcon(Sprite icon)
-    {
-        stateIconDisplay.sprite = icon;
-    }
-
     public void ChangeMainDialogue(DialogueData newDialogue)
     {
         currentMainDialogue = newDialogue;
@@ -187,7 +181,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
     {
         if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)
         {
-            ChangeIcon(questIcon);
             worldSpeech.DisplaySpeech("?", true);
         }
     }
@@ -207,7 +200,6 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
         if (!TryGetRedeemQuest(out Quest data))
         {
-            ChangeIcon(null);
             worldSpeech.StopSpeech();
         }
     }
