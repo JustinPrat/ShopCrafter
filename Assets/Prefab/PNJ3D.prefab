@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8000688825542656880}
   - component: {fileID: 4907533389955583480}
   - component: {fileID: 1417764174446845092}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 963642279947159868}
   - component: {fileID: 8120884644240104960}
   - component: {fileID: 3506595866339497180}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 7635421879835829810}
   - component: {fileID: 2199096443231282290}
   - component: {fileID: 2076358275519400800}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: WorldSpeech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 5174419552564611214}
   - component: {fileID: 6589407718040440310}
   - component: {fileID: 6387087686217261175}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 6359066826491014995}
   - component: {fileID: 295326232473658292}
   - component: {fileID: 7110452654138495160}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: SpeechBubble (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 5964627389116721240}
   - component: {fileID: 9055680474981931885}
   - component: {fileID: 8722717175505876440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PNJ3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,6 @@ MonoBehaviour:
   navMeshAgent: {fileID: 5940720520110901808}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   interactText: TALK
-  stateIconDisplay: {fileID: 0}
   questIcon: {fileID: 2876555108532849410, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
   collider: {fileID: 9055680474981931885}
   worldSpeech: {fileID: 2199096443231282290}
@@ -847,7 +846,7 @@ GameObject:
   - component: {fileID: 1084718877374895233}
   - component: {fileID: 5801126888105753439}
   - component: {fileID: 3181467264625974797}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

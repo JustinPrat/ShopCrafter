@@ -55,7 +55,6 @@ public class PNJManager : MonoBehaviour
     private float currentDayTime;
     private DateTime currentHourDayTime;
     private int dayIndex;
-    private bool isTimePaused;
     private bool isNearDayEndEventTriggered;
     private DayTime dayTime;
     private int numberSpecialSpawnedToday;
@@ -123,8 +122,8 @@ public class PNJManager : MonoBehaviour
     private void Start()
     {
         StartDay();
-        managerRefs.GameEventsManager.dayEvents.OnPauseDay += PauseDayCounter;
-        managerRefs.GameEventsManager.dayEvents.OnResumeDay += ResumeDayCounter;
+        //managerRefs.GameEventsManager.dayEvents.OnPauseDay += PauseDayCounter;
+        //managerRefs.GameEventsManager.dayEvents.OnResumeDay += ResumeDayCounter;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached += OnMilestoneReached;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneStateChanged += OnMilestoneStateChanged;
     }
@@ -156,7 +155,7 @@ public class PNJManager : MonoBehaviour
             }
         }
        
-        if (!isTimePaused && dayTime != DayTime.Night)
+        if (dayTime != DayTime.Night)
         {
             currentDayTime += Time.deltaTime;
             if (currentDayTime >= dayDuration)
@@ -262,22 +261,22 @@ public class PNJManager : MonoBehaviour
         }
     }
 
-    private void PauseDayCounter()
-    {
-        isTimePaused = true;
-    }
+    //private void PauseDayCounter()
+    //{
+    //    isTimePaused = true;
+    //}
 
-    private void ResumeDayCounter()
-    {
-        isTimePaused = false;
-    }
+    //private void ResumeDayCounter()
+    //{
+    //    isTimePaused = false;
+    //}
 
     private void OnDestroy()
     {
         if (managerRefs.GameEventsManager != null)
         {
-            managerRefs.GameEventsManager.dayEvents.OnPauseDay -= PauseDayCounter;
-            managerRefs.GameEventsManager.dayEvents.OnResumeDay -= ResumeDayCounter;
+            //managerRefs.GameEventsManager.dayEvents.OnPauseDay -= PauseDayCounter;
+            //managerRefs.GameEventsManager.dayEvents.OnResumeDay -= ResumeDayCounter;
             managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached -= OnMilestoneReached;
             managerRefs.GameEventsManager.milestoneEvents.OnMilestoneStateChanged -= OnMilestoneStateChanged;
         }
