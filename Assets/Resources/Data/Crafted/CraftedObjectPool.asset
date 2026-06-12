@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: CraftedObjectPool
   m_EditorClassIdentifier: 
   craftedObjectPool:
+  - {fileID: 11400000, guid: 3c0bb8e8868a62649a46dfcd80d290ae, type: 2}
+  - {fileID: 11400000, guid: 11cc920b3dfb64e428ca284cc73019f2, type: 2}
+  - {fileID: 11400000, guid: 4276ccc4100bf574ca234e605393e0e4, type: 2}
   - {fileID: 11400000, guid: 196db44cf6c219e4c90875e480b1b6a1, type: 2}
   - {fileID: 11400000, guid: 9db4d59b005921a44ab345176656c968, type: 2}
   - {fileID: 11400000, guid: 0f1f39df73192f34ba88fb8c4560a331, type: 2}
+  - {fileID: 11400000, guid: 4eb046a9110f0e34f99e766a3ccbdf3e, type: 2}
+  - {fileID: 11400000, guid: 2a9b98c7dec37cf4eb0bd155a58e88de, type: 2}
+  - {fileID: 11400000, guid: 99780a94c362b9b4989bea20e406d2d4, type: 2}
+  - {fileID: 11400000, guid: ee916a055a641304482f994bb516169f, type: 2}
   - {fileID: 11400000, guid: f0c0b6d2b859ca744a0e7b85842108bb, type: 2}
   - {fileID: 11400000, guid: 0d3533b7479bca74cb9406fce64026f2, type: 2}
   - {fileID: 11400000, guid: 1b07a04d3aa3382478788d6f5b0bfcb7, type: 2}

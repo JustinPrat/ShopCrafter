@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
+  m_Name: Recipe Pellet
+  m_EditorClassIdentifier: Assembly-CSharp::CraftedObjectRecipe
+  RequiredTags:
+  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
+    Amount:
+      BaseValue: 1
+  - Asset: {fileID: 11400000, guid: f51f488fc3fced54097264a62679383b, type: 2}
+    Amount:
+      BaseValue: 2
+  CraftedType: 0
+  Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
+  TargetScore: 8
+  CraftedName: Pellet
+  CraftedDescription: '-'
+  CraftedSprite: {fileID: 21300000, guid: a01f1b9c1a1130d4e994b78872efea43, type: 3}

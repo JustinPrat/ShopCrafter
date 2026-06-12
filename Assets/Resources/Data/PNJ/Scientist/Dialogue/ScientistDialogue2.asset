@@ -19,20 +19,20 @@ MonoBehaviour:
   HasNextDialogue: 0
   Answers:
   - Line: Oui
-    AnswerDialogueData: {fileID: 11400000, guid: e29798635e764014bb547d5591c81dc0, type: 2}
+    AnswerDialogueData: {fileID: 11400000, guid: 976b7a0b56d99ed41a598ea364e0be26, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 11400000, guid: d3a1d81902f71c34e844180443ffa959, type: 2}
       rawReference:
         rid: -2
-    ReplaceMainDialogue: {fileID: 11400000, guid: e29798635e764014bb547d5591c81dc0, type: 2}
+    ReplaceMainDialogue: {fileID: 11400000, guid: 976b7a0b56d99ed41a598ea364e0be26, type: 2}
     Cost:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
   - Line: Non
-    AnswerDialogueData: {fileID: 11400000, guid: df42b1bf3d9919c44917c936e593f48b, type: 2}
+    AnswerDialogueData: {fileID: 11400000, guid: 0c65fcc457055b74cb29af152fe7ea66, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 0}

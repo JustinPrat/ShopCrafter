@@ -16,7 +16,7 @@ MonoBehaviour:
   - Asset: {fileID: 11400000, guid: 2f4299a4e29db5e4cbeb1f383ff416d9, type: 2}
     Amount:
       BaseValue: 5
-  CraftedType: 2
+  CraftedType: 1
   Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
   TargetScore: 8
   CraftedName: Jean

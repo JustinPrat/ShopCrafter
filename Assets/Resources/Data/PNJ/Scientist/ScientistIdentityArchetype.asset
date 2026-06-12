@@ -22,5 +22,5 @@ MonoBehaviour:
   possiblePortraits:
   - {fileID: 21300000, guid: 004e36b257afbd242bab268050b53377, type: 3}
   possibleDialogues:
-  - {fileID: 11400000, guid: 1b1d2a3c5617603479949f1bcca2fb57, type: 2}
-  - {fileID: 11400000, guid: 9a62889b734195c49ab755024da50092, type: 2}
+  - {fileID: 11400000, guid: a475a7bac5974a844b1396ee2d0b1d6d, type: 2}
+  - {fileID: 11400000, guid: 302de3a74cee63742969c60b5034b411, type: 2}

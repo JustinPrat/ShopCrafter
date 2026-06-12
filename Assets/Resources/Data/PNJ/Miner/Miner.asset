@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Miner
   m_EditorClassIdentifier: Assembly-CSharp::PNJInfoData
   PnjPrefab: {fileID: 6362052680927295878, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
-  IdentityInfo: {fileID: 11400000, guid: 43fd547ca01e9d348be6fac0fa08a68c, type: 2}
+  IdentityInfo: {fileID: 11400000, guid: 67adf8a2075e2bb4bba1299aeb2c38c6, type: 2}
   TraitDatas:
   - {fileID: 11400000, guid: 103ec9e8a31138d48bd02e4f59acf538, type: 2}
   ShopStayDuration: 40

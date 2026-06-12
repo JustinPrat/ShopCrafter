@@ -1,3 +1,5 @@
+using PrimeTween;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +13,12 @@ public class EncyclopedieView : UIView
 
     [SerializeField]
     private AutoFlip flip;
+
+    [SerializeField]
+    private float delayBetweenPageFlip = 0.5f;
+
+    [SerializeField]
+    private float bookYOffsetAppear = -1200;
 
     private List<PageUI> pageItemUI = new List<PageUI>();
 
@@ -28,6 +36,7 @@ public class EncyclopedieView : UIView
             managerRefs.InputManager.Actions.Player.Navigate.started += NavigateStarted;
 
             OnFlip();
+            AppearAnim();
         }
         else
         {
@@ -37,6 +46,40 @@ public class EncyclopedieView : UIView
             book.OnAbortFlip.RemoveListener(OnFlip);
             managerRefs.InputManager.Actions.Player.Back.started -= EscapePressed;
             managerRefs.InputManager.Actions.Player.Navigate.started -= NavigateStarted;
+
+            ClearBook();
+        }
+    }
+
+    private void AppearAnim()
+    {
+        book.transform.localPosition = new Vector3(book.transform.localPosition.x, bookYOffsetAppear, book.transform.localPosition.z);
+        book.currentPage = book.TotalPageCount;
+
+        Sequence animSequence = Sequence.Create(cycles: 1)
+            .Chain(Tween.LocalPositionY(book.transform, 0, 1f, ease: Ease.InOutSine))
+            .InsertCallback(0.5f, () => StartCoroutine(GoToPage(1)));
+    }
+
+    private IEnumerator GoToPage(int pageIndex)
+    {
+        while (true)
+        {
+            if (pageIndex == book.currentPage || pageIndex == book.currentPage - 1)
+            {
+                break;
+            }
+
+            if (pageIndex > book.currentPage)
+            {
+                flip.FlipRightPage();
+            }
+            if (pageIndex < book.currentPage - 1)
+            {
+                flip.FlipLeftPage();
+            }
+
+            yield return new WaitForSeconds(delayBetweenPageFlip);
         }
     }
 
@@ -123,10 +166,17 @@ public class EncyclopedieView : UIView
             UpdatePage(farLeftIndex, farLeft);
         }
 
-        UpdatePage(farLeftIndex + 1, left);
-        UpdatePage(farLeftIndex + 2, right);
+        if (farLeftIndex + 1 >= 0)
+        {
+            UpdatePage(farLeftIndex + 1, left);
+        }
 
-        if (farLeftIndex + 3 >= book.bookPages.Length)
+        if (farLeftIndex + 2 >= 0)
+        {
+            UpdatePage(farLeftIndex + 2, right);
+        }
+
+        if (farLeftIndex + 3 <= book.bookPages.Length - 1)
         {
             UpdatePage(farLeftIndex + 3, farRight);
         }

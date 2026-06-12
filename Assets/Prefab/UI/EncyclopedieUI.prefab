@@ -63,6 +63,7 @@ MonoBehaviour:
   book: {fileID: 717906604704374309}
   pageUIPrefab: {fileID: 4169519477738263355, guid: 7f0f59bc973a068449090792b74d142d, type: 3}
   flip: {fileID: 5895305282211658565}
+  delayBetweenPageFlip: 0.2
 --- !u!114 &4928602383719361649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,9 +126,17 @@ PrefabInstance:
       propertyPath: RightNextLayout
       value: 
       objectReference: {fileID: 7433226477347623693}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: bookPages.Array.size
-      value: 5
+    - target: {fileID: 11430880, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430880, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f631e7199cfacc6458ba62e581bcd819, type: 3}
+    - target: {fileID: 11430880, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Pivot.x
@@ -195,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1281
       objectReference: {fileID: 0}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -213,14 +222,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3581680826840272775, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581680826840272775, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f631e7199cfacc6458ba62e581bcd819, type: 3}
+    - target: {fileID: 3581680826840272775, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7257995087742368489, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7257995087748425159, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257995087748425159, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f631e7199cfacc6458ba62e581bcd819, type: 3}
+    - target: {fileID: 7257995087748425159, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7743671413891351154, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7743671413891351154, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b1bac3987b1ad064a80f72496ee46425, type: 3}
+      objectReference: {fileID: 21300000, guid: f631e7199cfacc6458ba62e581bcd819, type: 3}
+    - target: {fileID: 7743671413891351154, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -263,12 +304,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoFlip
   Mode: 1
-  PageFlipTime: 0.1
+  PageFlipTime: 0.2
   TimeBetweenPages: 0
   DelayBeforeStarting: 0
   AutoStartFlip: 0
   ControledBook: {fileID: 717906604704374309}
-  AnimationFramesCount: 60
+  AnimationFramesCount: 15
 --- !u!114 &891479658471389855 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 408042261806172694, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}

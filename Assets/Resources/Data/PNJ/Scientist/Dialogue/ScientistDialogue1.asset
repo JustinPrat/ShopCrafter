@@ -57,7 +57,7 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: 13174609967054948
-  NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
+  NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 3

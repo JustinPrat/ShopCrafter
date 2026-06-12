@@ -2,6 +2,7 @@ using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CraftedObjectPool", menuName = "ShopCrafter/CraftedObjectPool")]
@@ -21,6 +22,8 @@ public class CraftedObjectPool : ScriptableObject
         {
             craftedObjectPool.AddRange(Resources.LoadAll<CraftedObjectRecipe>(basePath + "Rarity " + i.ToString()));
         }
+
+        EditorUtility.SetDirty(this);
     }
 
 #endif
@@ -59,7 +62,7 @@ public class CraftedObjectPool : ScriptableObject
                 }
             }
 
-            if (canCraft && (recipe == null || recipe.Rarity.ERarity > highestRarity))
+            if (canCraft && (targetRecipe == null || recipe.Rarity.ERarity > highestRarity))
             {
                 highestRarity = recipe.Rarity.ERarity;
                 targetRecipe = recipe;

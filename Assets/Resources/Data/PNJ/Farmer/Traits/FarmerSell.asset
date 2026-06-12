@@ -19,10 +19,28 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 0d772092718443542b275c230aa7250e, type: 2}
     priceEach: {x: 3, y: 5}
     amount: {x: 2, y: 5}
-  - item: {fileID: 11400000, guid: 68bfe6b48ba806741989188c83405a05, type: 2}
-    priceEach: {x: 2, y: 3}
-    amount: {x: 1, y: 3}
   - item: {fileID: 11400000, guid: 6c55e09e6dabcfb4994fbddd0e6fea56, type: 2}
     priceEach: {x: 1, y: 2}
     amount: {x: 5, y: 7}
-  sellAmount: 2
+  - item: {fileID: 11400000, guid: b3209a526714b2d479e268252a588fd8, type: 2}
+    priceEach: {x: 2, y: 3}
+    amount: {x: 2, y: 3}
+  - item: {fileID: 11400000, guid: a8b5f572e2723914b81f632eef6c4dca, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 3, y: 5}
+  - item: {fileID: 11400000, guid: 81ebee4bc1724ec419e330b21596c0ab, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 3, y: 5}
+  - item: {fileID: 11400000, guid: ab8a4ac866c28c949b77d4d762280d93, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 3, y: 5}
+  - item: {fileID: 11400000, guid: 0d772092718443542b275c230aa7250e, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 3, y: 5}
+  - item: {fileID: 11400000, guid: 3066fc2f978c27c489a389fb98fc2556, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 3, y: 5}
+  - item: {fileID: 11400000, guid: d16658e9a16a615479e013aff747db06, type: 2}
+    priceEach: {x: 1, y: 2}
+    amount: {x: 3, y: 5}
+  sellAmount: 5

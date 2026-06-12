@@ -19,12 +19,14 @@ MonoBehaviour:
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
-  ReplaceMainDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
+  ReplaceMainDialogue: {fileID: 11400000, guid: 6c60be758a795ff4cab8dfbc58431cb3, type: 2}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: shake
   TMPEventName: 0
   TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
+  TMPIconName: 
+  preview: {fileID: 0}
   references:
     version: 2
     RefIds: []

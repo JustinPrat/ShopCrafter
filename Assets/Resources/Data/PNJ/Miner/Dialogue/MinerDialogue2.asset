@@ -25,7 +25,7 @@ MonoBehaviour:
       unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
       rawReference:
         rid: -2
-    ReplaceMainDialogue: {fileID: 11400000, guid: 6d37d6d420f0dd9429c7882310db954d, type: 2}
+    ReplaceMainDialogue: {fileID: 11400000, guid: 691a55d4a30d66642961158349dd483b, type: 2}
     Cost:
       mode: 1
       unityReference: {fileID: 0}

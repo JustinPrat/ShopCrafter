@@ -17,6 +17,6 @@ MonoBehaviour:
   RarityInfos: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
   ItemSprite: {fileID: 21300000, guid: 8c0c6f3d200af4842b173d0ec8680916, type: 3}
   Tags:
-  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
+  - Asset: {fileID: 11400000, guid: fa7bde099dc17694cb3555f61ea9c47f, type: 2}
     Amount:
       BaseValue: 2

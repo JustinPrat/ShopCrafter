@@ -21,7 +21,7 @@ public class Book : MonoBehaviour {
     public bool interactable=true;
     public bool enableShadowEffect=true;
     //represent the index of the sprite shown in the right page
-    public int currentPage = 0;
+    public int currentPage = 1;
     public int TotalPageCount
     {
         get { return bookPages.Length; }
@@ -286,13 +286,12 @@ public class Book : MonoBehaviour {
     }
     public void DragRightPageToPoint(Vector3 point)
     {
-        OnRightDrag?.Invoke();
+        if (currentPage >= bookPages.Length - 1) return;
 
-        if (currentPage >= bookPages.Length) return;
+        OnRightDrag?.Invoke();
         pageDragging = true;
         mode = FlipMode.RightToLeft;
         f = point;
-
 
         NextPageClip.rectTransform.pivot = new Vector2(0, 0.12f);
         ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
@@ -318,14 +317,14 @@ public class Book : MonoBehaviour {
     public void OnMouseDragRightPage()
     {
         if (interactable)
-        DragRightPageToPoint(transformPoint(Input.mousePosition));
+            DragRightPageToPoint(transformPoint(Input.mousePosition));
     }
 
     public void DragLeftPageToPoint(Vector3 point)
     {
-        OnLeftDrag?.Invoke();
+        if (currentPage <= 1) return;
 
-        if (currentPage <= 0) return;
+        OnLeftDrag?.Invoke();
         pageDragging = true;
         mode = FlipMode.LeftToRight;
         f = point;
