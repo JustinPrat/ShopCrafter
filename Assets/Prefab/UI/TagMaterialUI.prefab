@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f8e886b347f7249bb82c982ac2ce5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TagIconUI
-  managerRefs: {fileID: 0}
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   tagImage: {fileID: 5634203200555993429}
   tagText: {fileID: 5575649346597434030}
   animator: {fileID: 3960852143917344210}

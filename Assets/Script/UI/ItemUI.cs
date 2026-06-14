@@ -14,6 +14,9 @@ public class ItemUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI amountText;
 
+    [SerializeField]
+    private TextMeshProUGUI itemNameText;
+
     private Item item;
     private CraftingView craftingView;
 
@@ -33,9 +36,15 @@ public class ItemUI : MonoBehaviour
             amountText.text = itemAmount.ToString();
         }
 
+        if (itemNameText != null)
+        {
+            itemNameText.text = item.ItemName;
+        }
+
         this.item = item;
         this.craftingView = craftingView;
         this.itemAmount = itemAmount;
+        this.itemNameText.text = item.ItemName;
     }
 
     public void UpdateAmount (int toAdd)
@@ -63,6 +72,11 @@ public class ItemUI : MonoBehaviour
         if (amountText != null)
         {
             amountText.text = "";
+        }
+
+        if (itemNameText != null)
+        {
+            itemNameText.text = "";
         }
     }
 
