@@ -6,6 +6,8 @@
     "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
     "com.cqf.urpvolumetricfog": "https://github.com/CristianQiu/Unity-URP-Volumetric-Light.git",
     "com.h8man.2d.navmeshplus": "https://github.com/h8man/NavMeshPlus.git",
+    "com.justinprat07.gamevaluesevents": "https://github.com/JustinPrat/GameValuesEvents.git",
+    "com.justinprat07.sequencer": "https://github.com/JustinPrat/Unity-Sequencer.git",
     "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.luca3317.tmpeffects": "https://github.com/Luca3317/TMPEffects.git?path=/Package",
     "com.unity.ai.navigation": "2.0.13",

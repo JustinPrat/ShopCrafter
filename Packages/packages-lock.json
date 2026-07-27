@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.localization": "1.0.0"
       },
-      "hash": "a3e16eba86f985a55ca029bd3531dacfade01243"
+      "hash": "3b206f6b26c9724a5bd3f76dabcc27df7aad91b9"
     },
     "com.coffee.ui-effect": {
       "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src",
@@ -48,6 +48,25 @@
       "source": "git",
       "dependencies": {},
       "hash": "3fdf1984803c4518eafea98fcb416c8a3aa09f26"
+    },
+    "com.justinprat07.gamevaluesevents": {
+      "version": "https://github.com/JustinPrat/GameValuesEvents.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.6.0",
+        "com.codewriter.triinspector": "1.15.1"
+      },
+      "hash": "af9955b8ad22a087e3f2b6bf3108139d605c987e"
+    },
+    "com.justinprat07.sequencer": {
+      "version": "https://github.com/JustinPrat/Unity-Sequencer.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.6.0"
+      },
+      "hash": "2a749a202ff86cc78b99dd82972738340637275b"
     },
     "com.kyrylokuzyk.primetween": {
       "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",

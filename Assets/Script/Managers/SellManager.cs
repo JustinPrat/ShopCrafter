@@ -88,6 +88,7 @@ public partial class SellManager : MonoBehaviour
         if (managerRefs.GameEventsManager != null)
         {
             managerRefs.GameEventsManager.OnMoneyGained?.Invoke(100);
+            managerRefs.GameEventsManager.OnMoneyUpdated?.Invoke(coinAmount);
         }
     }
 
@@ -102,6 +103,7 @@ public partial class SellManager : MonoBehaviour
         if (managerRefs.GameEventsManager != null)
         {
             managerRefs.GameEventsManager.OnMoneyGained?.Invoke(amount);
+            managerRefs.GameEventsManager.OnMoneyUpdated?.Invoke(coinAmount);
         }
     }
 
@@ -140,6 +142,7 @@ public partial class SellManager : MonoBehaviour
         if (coinAmount >= amount)
         {
             coinAmount -= amount;
+            managerRefs.GameEventsManager.OnMoneyUpdated?.Invoke(coinAmount);
             return true;
         }
 
