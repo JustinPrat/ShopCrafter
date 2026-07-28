@@ -1,0 +1,19 @@
+{
+  "name": "com.justinprat07.sequencer",
+  "displayName": "Sequencer",
+  "version": "0.1.1",
+  "unity": "2022.0",
+  "unityRelease": "0f1",
+  "description": "A lightweight and extensible action sequencing system for Unity. \nThis tool allows you to chain behaviors together using ScriptableObjects, enabling complex sequences with minimal coding.",
+  "author": {
+    "name": "Justin Prat",
+    "url": "https://github.com/JustinPrat"
+  },
+  "changelogUrl": "https://example.com/changelog.html",
+  "documentationUrl": "https://github.com/JustinPrat/Unity-Sequencer",
+  "licensesUrl": "https://example.com/licensing.html",
+  "_fingerprint": "3f5180da1af213fc22cf7148c7095f71fccc1e1c",
+  "dependencies": {
+    "com.codewriter.triinspector": "1.15.0"
+  }
+}

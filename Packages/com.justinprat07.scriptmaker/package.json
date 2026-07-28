@@ -1,0 +1,16 @@
+{
+  "name": "com.justinprat07.scriptmaker",
+  "displayName": "ScriptMaker",
+  "version": "0.1.1",
+  "unity": "2022.0",
+  "unityRelease": "0f1",
+  "description": "Create script template and generate them with a button click",
+  "author": {
+    "name": "Justin Prat",
+    "url": "https://github.com/JustinPrat",
+    "email": "example@email.com"
+  },
+  "changelogUrl": "https://example.com/changelog.html",
+  "documentationUrl": "https://github.com/JustinPrat/Unity-ScriptMaker",
+  "licensesUrl": "https://example.com/licensing.html"
+}

@@ -59,14 +59,19 @@
       },
       "hash": "af9955b8ad22a087e3f2b6bf3108139d605c987e"
     },
-    "com.justinprat07.sequencer": {
-      "version": "https://github.com/JustinPrat/Unity-Sequencer.git",
+    "com.justinprat07.scriptmaker": {
+      "version": "file:com.justinprat07.scriptmaker",
       "depth": 0,
-      "source": "git",
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.justinprat07.sequencer": {
+      "version": "file:com.justinprat07.sequencer",
+      "depth": 0,
+      "source": "embedded",
       "dependencies": {
-        "com.unity.test-framework": "1.6.0"
-      },
-      "hash": "2a749a202ff86cc78b99dd82972738340637275b"
+        "com.codewriter.triinspector": "1.15.0"
+      }
     },
     "com.kyrylokuzyk.primetween": {
       "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",

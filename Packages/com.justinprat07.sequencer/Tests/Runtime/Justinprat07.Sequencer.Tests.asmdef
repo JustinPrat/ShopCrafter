@@ -1,0 +1,11 @@
+{
+    "name": "Justinprat07.Sequencer.Tests",
+    "references": [
+        "Justinprat07.Sequencer"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

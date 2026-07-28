@@ -1,0 +1,14 @@
+{
+    "name": "Justinprat07.Scriptmaker.Editor.Tests",
+    "references": [
+        "Justinprat07.Scriptmaker.Editor",
+        "Justinprat07.Scriptmaker"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
