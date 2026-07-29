@@ -2,9 +2,13 @@
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="PrimeTween.Demo.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Sequencer.csproj" />
   <Project Path="Scriptmaker.Editor.csproj" />
   <Project Path="Justinprat07.Scriptmaker.Editor.Tests.csproj" />
+  <Project Path="Justinprat07.Sequencer.Tests.csproj" />
   <Project Path="PrimeTween.Debug.csproj" />
+  <Project Path="Sequencer.Editor.csproj" />
+  <Project Path="Justinprat07.Sequencer.Editor.Tests.csproj" />
   <Project Path="PrimeTween.Installer.csproj" />
   <Project Path="Justinprat07.Scriptmaker.Tests.csproj" />
 </Solution>

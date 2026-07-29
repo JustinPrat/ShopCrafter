@@ -20,12 +20,12 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.938, g: 0.8412222, b: 0.77794445, a: 1}
-  m_AmbientEquatorColor: {r: 0.698, g: 0.62610304, b: 0.5332361, a: 1}
-  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.5102261, g: 0.55736655, b: 0.5934151, a: 1}
+  m_AmbientEquatorColor: {r: 0.55736655, g: 0.46585858, b: 0.33275613, a: 1}
+  m_AmbientGroundColor: {r: 0.25511304, g: 0.20519961, b: 0.1552862, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.2901961, g: 0.33333334, b: 0.40784314, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -344,8 +344,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 0.91529065, b: 0.8207547, a: 1}
-  m_Intensity: 1.33
+  m_Color: {r: 1, g: 0.95686275, b: 0.8784314, a: 1}
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -407,13 +407,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203844586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21826416, y: 0.41848713, z: -0.10434055, w: 0.8754098}
+  m_LocalRotation: {x: 0.30857366, y: 0.4052881, z: -0.14751276, w: 0.8477995}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 28, y: 51.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 51.1, z: 0}
 --- !u!1 &276660736
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!215 &412562488
 ReflectionProbe:
   m_ObjectHideFlags: 0
@@ -1692,7 +1692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!215 &833196309
 ReflectionProbe:
   m_ObjectHideFlags: 0
