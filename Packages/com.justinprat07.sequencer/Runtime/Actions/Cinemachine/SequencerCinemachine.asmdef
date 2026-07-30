@@ -1,8 +1,9 @@
 {
-    "name": "Sequencer",
+    "name": "SequencerCinemachine",
     "rootNamespace": "",
     "references": [
-        "GUID:324caed91501a9c47a04ebfd87b68794"
+        "GUID:b9abcb92563081a4a858b0f6ea7d953e",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -10,7 +11,9 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "Cinemachine"
+    ],
     "versionDefines": [
         {
             "name": "com.unity.cinemachine",

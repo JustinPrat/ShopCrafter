@@ -206,14 +206,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
   actions:
-  - type: 0
+  - ChangeTarget: 1
+    Target: {fileID: 2008186177}
+    type: 0
+    ActionData: {fileID: 11400000, guid: fb3b8541406648b4eb1d27d8ff98e0c2, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 1
+    Target: {fileID: 2008186177}
+    type: 0
+    ActionData: {fileID: 11400000, guid: 5185375690aa9104bb1eb5c273393990, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 0
+    Target: {fileID: 0}
+    type: 0
     ActionData: {fileID: 11400000, guid: c1858bd147d95804d98f19778cd1160e, type: 2}
     IsExecuting: 1
-  - type: 0
+  - ChangeTarget: 0
+    Target: {fileID: 0}
+    type: 0
     ActionData: {fileID: 11400000, guid: c1858bd147d95804d98f19778cd1160e, type: 2}
     IsExecuting: 0
-  - type: 0
+  - ChangeTarget: 0
+    Target: {fileID: 0}
+    type: 0
     ActionData: {fileID: 11400000, guid: c1858bd147d95804d98f19778cd1160e, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 0
+    Target: {fileID: 0}
+    type: 0
+    ActionData: {fileID: 11400000, guid: 9ad56377e15eab546bfa5b1673b69fe2, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 1
+    Target: {fileID: 2008186177}
+    type: 0
+    ActionData: {fileID: 11400000, guid: 2b5ed6ad5e602254c9db50af511825e2, type: 2}
     IsExecuting: 0
 --- !u!4 &22025548
 Transform:
@@ -5007,6 +5033,80 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 0327d9359e9ba134c81617897c3a3871, type: 3}
+--- !u!1001 &2008186176
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5065563877730110660, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: awakeData
+      value: 
+      objectReference: {fileID: 11400000, guid: 80365f2a0cf60264fbfe0967c4ba7799, type: 2}
+    - target: {fileID: 5065563877730110660, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: startData
+      value: 
+      objectReference: {fileID: 11400000, guid: 80365f2a0cf60264fbfe0967c4ba7799, type: 2}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.0708773
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000066813527
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.528337
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795337147701754071, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362052680927295878, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_Name
+      value: PNJ3D
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362052680927295878, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+--- !u!1 &2008186177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6362052680927295878, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
+  m_PrefabInstance: {fileID: 2008186176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2028338681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5577,3 +5677,4 @@ SceneRoots:
   - {fileID: 1030659721}
   - {fileID: 1525779476}
   - {fileID: 1445411206}
+  - {fileID: 2008186176}

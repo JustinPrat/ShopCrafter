@@ -11,4 +11,5 @@
   <Project Path="Justinprat07.Sequencer.Editor.Tests.csproj" />
   <Project Path="PrimeTween.Installer.csproj" />
   <Project Path="Justinprat07.Scriptmaker.Tests.csproj" />
+  <Project Path="SequencerCinemachine.csproj" />
 </Solution>

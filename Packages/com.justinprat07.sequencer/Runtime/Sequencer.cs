@@ -17,7 +17,7 @@ namespace Sequencer
         {
             foreach (Action action in actions)
             {
-                action.Behavior = action.ActionData.CreateBehavior(gameObject);
+                action.Behavior = action.ActionData.CreateBehavior(action.ChangeTarget && action.Target != null ? action.Target : gameObject);
                 action.Behavior.Setup();
             }
         }
@@ -55,6 +55,11 @@ namespace Sequencer
         [Serializable]
         public class Action
         {
+            public bool ChangeTarget;
+
+            [ShowIf(nameof(ChangeTarget))]
+            public GameObject Target;
+
             public ActionType type;
             [InlineEditor]
             public SequenceActionData ActionData;

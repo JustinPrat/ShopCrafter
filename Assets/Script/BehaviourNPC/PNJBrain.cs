@@ -21,6 +21,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private Sprite questIcon;
     [SerializeField] private Collider collider;
     [SerializeField] private WorldSpeech worldSpeech;
+    [SerializeField] private PNJInfoData startData;
 
     private PNJInfoData PNJBaseData;
     private PNJRuntimeData PNJRuntime;
@@ -47,6 +48,14 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     #endregion
 
+    private void Start()
+    {
+        if (startData != null)
+        {
+            Setup(startData);
+        }
+    }
+
     private void Update()
     {
         foreach (IPNJTraitRuntime traitRuntime in PNJRuntime.ActiveTraits)
@@ -68,6 +77,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay -= ForceDayEnd;
     }
 
+    [Button]
     public void Setup(PNJInfoData datas)
     {
         if (agent.BlackboardReference.GetVariable("PNJBuying", out pnjBuying))
