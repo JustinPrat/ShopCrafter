@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class SellSlot : CraftedItemReceiver
 {
+    [SerializeField]
+    private Sequencer.Sequencer sequencer;
+
     private void Start()
     {
         managerRefs.SellManager.OnItemRemoved(this);
@@ -11,5 +14,10 @@ public class SellSlot : CraftedItemReceiver
     {
         base.OnItemReceived();
         managerRefs.SellManager.OnItemSelling(this);
+
+        if (sequencer != null)
+        {
+            sequencer.StartSequence();
+        }
     }
 }

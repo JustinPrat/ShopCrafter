@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 2598970479186191324}
   - component: {fileID: 797958540356178465}
   - component: {fileID: 6939433924430090534}
+  - component: {fileID: 7608358091598398058}
   m_Layer: 0
   m_Name: SellSlot
   m_TagString: Untagged
@@ -207,6 +208,7 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   UIStatAnchor: {fileID: 4918698281812511290}
   physicCollider: {fileID: 797958540356178465}
+  sequencer: {fileID: 7608358091598398058}
 --- !u!65 &797958540356178465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -248,3 +250,36 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &7608358091598398058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145707793421979735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - ChangeTarget: 1
+    Target: {fileID: 5843829833474692562}
+    type: 0
+    ActionData: {fileID: 11400000, guid: 2ee0907b0aeef564a810d3588f0a62bb, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 1
+    Target: {fileID: 5843829833474692562}
+    type: 1
+    ActionData: {fileID: 11400000, guid: 18cca001b6143c745b0581db64dc5eb5, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 1
+    Target: {fileID: 5843829833474692562}
+    type: 0
+    ActionData: {fileID: 11400000, guid: 426a9dd61a9289b439cbf1e689bf67c0, type: 2}
+    IsExecuting: 0
+  - ChangeTarget: 1
+    Target: {fileID: 5843829833474692562}
+    type: 1
+    ActionData: {fileID: 11400000, guid: 456415baa209cab4391e5197d1fe3dd9, type: 2}
+    IsExecuting: 0

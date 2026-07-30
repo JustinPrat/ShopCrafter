@@ -37,18 +37,25 @@ namespace Sequencer
                 {
                     action.IsExecuting = true;
 
-                    for (int j = i + 1; j < actions.Count; j++)
-                    {
-                        if (action.type == Action.ActionType.After)
-                            break;
-
-                        if (action.type == Action.ActionType.Join)
-                            StartCoroutine(action.Behavior.Execute());
-                    }
+                    PlayRelatedJoin(i);
 
                     yield return StartCoroutine(action.Behavior.Execute());
                     action.IsExecuting = false;
                 }
+            }
+        }
+
+        private void PlayRelatedJoin(int i)
+        {
+            for (int j = i + 1; j < actions.Count; j++)
+            {
+                Action action = actions[j];
+
+                if (action.type == Action.ActionType.After)
+                    break;
+
+                if (action.type == Action.ActionType.Join)
+                    StartCoroutine(action.Behavior.Execute());
             }
         }
 

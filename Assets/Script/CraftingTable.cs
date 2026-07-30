@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CraftingTable : MonoBehaviour, IInteractable
@@ -19,6 +20,12 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     [SerializeField]
     private List<CraftedItemReceiver> receiveSlots;
+
+    [SerializeField]
+    private Sequencer.Sequencer sequencer;
+
+    [SerializeField]
+    private CinemachineCamera cinemachineFocusCamera;
 
     public List<CraftedItemReceiver> ReceiveSlots => receiveSlots;
     public GameObject GameObject => gameObject;
@@ -57,8 +64,20 @@ public class CraftingTable : MonoBehaviour, IInteractable
             if (!itemReceiver.HasHeldItem)
             {
                 itemReceiver.SetItem(craftedObject);
+
+                if (cinemachineFocusCamera != null)
+                {
+                    CameraTarget cameraTarget = new CameraTarget() { TrackingTarget = itemReceiver.transform };
+                    cinemachineFocusCamera.Target = cameraTarget;
+                }
+
                 break;
             }
+        }
+
+        if (sequencer != null)
+        {
+            sequencer.StartSequence();
         }
     }
 }
