@@ -7,6 +7,7 @@ namespace Sequencer.Actions
     public class MovePositionActionData : SequenceActionData
     {
         public Vector3 MoveOffset;
+        public AnimationCurve MoveCurve = AnimationCurve.Linear(0, 0, 1, 1);
         public float Duration;
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
@@ -33,7 +34,7 @@ namespace Sequencer.Actions
                 while (timer < data.Duration)
                 {
                     timer += Time.deltaTime;
-                    owner.transform.position = Vector3.LerpUnclamped(basePos, basePos + data.MoveOffset, timer / data.Duration);
+                    owner.transform.position = Vector3.LerpUnclamped(basePos, basePos + data.MoveOffset, data.MoveCurve.Evaluate(timer / data.Duration));
                     yield return null;
                 }
 

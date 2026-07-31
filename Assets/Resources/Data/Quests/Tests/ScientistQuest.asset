@@ -22,8 +22,8 @@ MonoBehaviour:
     unityReference: {fileID: 0}
     rawReference:
       rid: 13174609967054950
-  FinishedDialogueData: {fileID: 11400000, guid: 061b6332785933b4fa0d1c8a4134647b, type: 2}
-  ReplaceDialogueData: {fileID: 11400000, guid: 061b6332785933b4fa0d1c8a4134647b, type: 2}
+  FinishedDialogueData: {fileID: 11400000, guid: bc8f040a37708034893322a7fe41a8b9, type: 2}
+  ReplaceDialogueData: {fileID: 11400000, guid: bc8f040a37708034893322a7fe41a8b9, type: 2}
   references:
     version: 2
     RefIds:

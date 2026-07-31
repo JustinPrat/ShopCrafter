@@ -13,6 +13,9 @@ namespace Sequencer
         [SerializeField]
         private List<Action> actions;
 
+        [SerializeField]
+        private bool playOnStart = false;
+
         private void Awake()
         {
             foreach (Action action in actions)
@@ -22,13 +25,21 @@ namespace Sequencer
             }
         }
 
+        private void Start()
+        {
+            if (playOnStart)
+            {
+                StartSequence();
+            }
+        }
+
         [Button, HideInEditMode]
         public void StartSequence()
         {
             StartCoroutine(ExecuteSequence());
         }
 
-        private IEnumerator ExecuteSequence()
+        public IEnumerator ExecuteSequence()
         {
             for (int i = 0; i < actions.Count; i++)
             {

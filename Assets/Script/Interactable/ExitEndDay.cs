@@ -27,6 +27,11 @@ public class ExitEndDay : MonoBehaviour, IInteractable
         managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
     }
 
+    private void Awake()
+    {
+        outObject.SetActive(false);
+    }
+
     private void OnDestroy()
     {
         if (managerRefs.GameEventsManager != null)
@@ -40,12 +45,14 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     {
         canInteract = false;
         outObject.SetActive(false);
+        collider.enabled = false; 
     }
 
     private void OnEndDay()
     {
         canInteract = true;
         outObject.SetActive(true);
+        collider.enabled = true;
     }
 
     public bool CanInteract(PlayerBrain playerBrain)

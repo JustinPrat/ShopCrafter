@@ -17,7 +17,7 @@ MonoBehaviour:
   specialDialogueData:
     Answers:
     - Line: Want to join lab ?
-      AnswerDialogueData: {fileID: 11400000, guid: c750af348e69f0147bffde1ba8ec3751, type: 2}
+      AnswerDialogueData: {fileID: 11400000, guid: 8c23c6715f0a8b743b34239b91d945cc, type: 2}
       Reward:
         mode: 0
         unityReference: {fileID: 0}
@@ -30,7 +30,7 @@ MonoBehaviour:
         rawReference:
           rid: -2
     - Line: Want to join lab ?
-      AnswerDialogueData: {fileID: 11400000, guid: 46bd21b9ac11d74428f5ad76db23868a, type: 2}
+      AnswerDialogueData: {fileID: 11400000, guid: 8577f4fae4a773d4194c0394a75e7e55, type: 2}
       Reward:
         mode: 0
         unityReference: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
         rawReference:
           rid: -2
     - Line: Want to join lab ?
-      AnswerDialogueData: {fileID: 11400000, guid: bab117c7dce50124186bbebec3a66ad9, type: 2}
+      AnswerDialogueData: {fileID: 11400000, guid: 98502bd9ae1d4374eb704b0a7abf55c2, type: 2}
       Reward:
         mode: 0
         unityReference: {fileID: 0}
