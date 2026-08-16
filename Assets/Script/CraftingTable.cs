@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -31,6 +32,12 @@ public class CraftingTable : MonoBehaviour, IInteractable
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
     public bool IsLocked { get; set; }
+    public Action<IInteractable> OnDestroyEvent { get; set; }
+
+    private void OnDestroy()
+    {
+        OnDestroyEvent?.Invoke(this);
+    }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

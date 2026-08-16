@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (DialogueData data, PNJBrain pnjBrain)
     {
-        managerRefs.UIManager.ToggleDialogueView(true, data, pnjBrain);
+        managerRefs.UIManager.ToggleDialoguePNJView(true, data, pnjBrain);
     }
 
     public void SetSpecialDialogue(bool isAdded, SpecialDialogue specialDialogue)

@@ -1,3 +1,4 @@
+using System;
 using TriInspector;
 using UnityEngine;
 
@@ -21,6 +22,13 @@ public class CraftedObject : MonoBehaviour, IInteractable
     public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
+
+    public Action<IInteractable> OnDestroyEvent { get; set; }
+
+    private void OnDestroy()
+    {
+        OnDestroyEvent?.Invoke(this);
+    }
 
     public void Init (CraftedObjectData data)
     {

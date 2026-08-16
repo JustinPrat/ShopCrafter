@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,18 +7,23 @@ namespace Sequencer.Actions
     public abstract class SequenceActionData : ScriptableObject
     {
         public abstract SequenceActionBehavior CreateBehavior(GameObject owner);
+    }
 
-        public abstract class SequenceActionBehavior
+    [Serializable]
+    public abstract class SequenceActionBehavior
+    {
+        protected GameObject owner;
+
+        public abstract IEnumerator Execute();
+        public abstract void Stop();
+    }
+
+    [Serializable]
+    public abstract class SequenceRefActionData : SequenceActionBehavior
+    {
+        public void CreateBehavior(GameObject owner)
         {
-            protected GameObject owner;
-
-            public SequenceActionBehavior(GameObject owner)
-            {
-                this.owner = owner;
-            }
-
-            public abstract void Setup();
-            public abstract IEnumerator Execute();
+            this.owner = owner;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TNRD;
@@ -9,7 +10,7 @@ public class Unlockable : MonoBehaviour, IInteractable
     private SerializableInterface<ICost> requiredCost;
 
     [SerializeField]
-    private Collider collider;
+    private Collider physicCollider;
 
     [SerializeField]
     private string interactText;
@@ -18,17 +19,16 @@ public class Unlockable : MonoBehaviour, IInteractable
     private ManagerRefs refs;
 
     [SerializeField]
-    private GameObject deactivateWhenUnlocked;
+    private Sequencer.Sequencer sequenceOnUnlocked;
 
     private bool hasBeenUnlocked;
     private List<IInteractable> interactables;
 
-    public Collider PhysicCollider => collider;
+    public Collider PhysicCollider => physicCollider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
-
     public bool IsLocked { get; set; } = false;
-
+    public Action<IInteractable> OnDestroyEvent { get; set; }
 
     private void Start()
     {
@@ -39,6 +39,11 @@ public class Unlockable : MonoBehaviour, IInteractable
         }
 
         SetInteractLock(true);
+    }
+
+    private void OnDestroy()
+    {
+        OnDestroyEvent?.Invoke(this);
     }
 
     public bool CanInteract(PlayerBrain playerBrain)
@@ -54,9 +59,10 @@ public class Unlockable : MonoBehaviour, IInteractable
         hasBeenUnlocked = true;
         requiredCost.Value.ResolveCost(refs);
         SetInteractLock(false);
-        collider.enabled = false;
+        physicCollider.enabled = false;
 
-        deactivateWhenUnlocked.SetActive(false);
+        if (sequenceOnUnlocked != null)
+            sequenceOnUnlocked.StartSequence();
     }
 
     private void SetInteractLock(bool locking)

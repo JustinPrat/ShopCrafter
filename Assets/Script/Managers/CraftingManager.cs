@@ -136,6 +136,11 @@ public partial class CraftingManager : MonoBehaviour
         return recipe;
     }
 
+    public bool IsNew(CraftedObjectRecipe recipe)
+    {
+        return !craftedRecipes.Contains(recipe);
+    }
+
     public static List<TagValue> CombineItemTags(List<Item> items)
     {
         List<TagValue> values = new List<TagValue>();

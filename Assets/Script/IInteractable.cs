@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IInteractable
@@ -8,6 +9,7 @@ public interface IInteractable
     public string InteractText { get; }
     public GameObject GameObject { get; }
     public Collider PhysicCollider { get; }
+    public Action<IInteractable> OnDestroyEvent { get; set; }
 
     public void DoInteract(PlayerBrain playerBrain);
 

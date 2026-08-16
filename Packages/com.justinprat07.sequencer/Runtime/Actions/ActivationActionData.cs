@@ -10,25 +10,29 @@ namespace Sequencer.Actions
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new ActivationActionBehavior(owner, this);
+            ActivationActionBehavior activationActionBehavior = new ActivationActionBehavior();
+            activationActionBehavior.Setup(owner, this);
+            return activationActionBehavior;
         }
 
         public class ActivationActionBehavior : SequenceActionBehavior
         {
-            private ActivationActionData data;
-            public ActivationActionBehavior(GameObject owner, ActivationActionData data) : base(owner)
+            private ActivationActionData data;
+
+            public void Setup(GameObject owner, ActivationActionData data)
             {
                 this.data = data;
-            }
-
-            public override void Setup()
-            {
+                this.owner = owner;
             }
 
             public override IEnumerator Execute()
             {
                 owner.SetActive(data.IsActive);
                 yield return null;
+            }
+
+            public override void Stop()
+            {
             }
         }
     }

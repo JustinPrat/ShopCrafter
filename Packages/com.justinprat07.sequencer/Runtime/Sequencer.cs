@@ -4,13 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TriInspector;
 using UnityEngine;
-using static Sequencer.Actions.SequenceActionData;
 
 namespace Sequencer
 {
     public class Sequencer : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeReference]
         private List<Action> actions;
 
         [SerializeField]
@@ -20,8 +19,7 @@ namespace Sequencer
         {
             foreach (Action action in actions)
             {
-                action.Behavior = action.ActionData.CreateBehavior(action.ChangeTarget && action.Target != null ? action.Target : gameObject);
-                action.Behavior.Setup();
+                action.Behavior = action.Setup(action.ChangeTarget && action.Target != null ? action.Target : gameObject);
             }
         }
 
@@ -37,6 +35,22 @@ namespace Sequencer
         public void StartSequence()
         {
             StartCoroutine(ExecuteSequence());
+        }
+
+        public void StopSequence()
+        {
+            bool hasReachedCurrent = false;
+            for (int i = 0; i < actions.Count; i++)
+            {
+                Action action = actions[i];
+                if (action.IsExecuting || hasReachedCurrent) 
+                {
+                    hasReachedCurrent = true;
+                    action.Behavior.Stop();
+                }
+            }
+            
+            StopAllCoroutines();
         }
 
         public IEnumerator ExecuteSequence()
@@ -71,7 +85,7 @@ namespace Sequencer
         }
 
         [Serializable]
-        public class Action
+        public abstract class Action
         {
             public bool ChangeTarget;
 
@@ -79,8 +93,6 @@ namespace Sequencer
             public GameObject Target;
 
             public ActionType type;
-            [InlineEditor]
-            public SequenceActionData ActionData;
 
             [HideInInspector]
             public SequenceActionBehavior Behavior;
@@ -92,6 +104,33 @@ namespace Sequencer
             {
                 After,
                 Join
+            }
+
+            public abstract SequenceActionBehavior Setup(GameObject owner);
+        }
+
+        [Serializable]
+        public class ActionScriptable : Action
+        {
+            [InlineEditor]
+            public SequenceActionData ActionData;
+
+            public override SequenceActionBehavior Setup(GameObject owner)
+            {
+                return ActionData.CreateBehavior(owner);
+            }
+        }
+
+        [Serializable]
+        public class ActionReference : Action
+        {
+            [SerializeReference]
+            public SequenceRefActionData ActionData;
+
+            public override SequenceActionBehavior Setup(GameObject owner)
+            {
+                ActionData.CreateBehavior(owner);
+                return ActionData;
             }
         }
     }

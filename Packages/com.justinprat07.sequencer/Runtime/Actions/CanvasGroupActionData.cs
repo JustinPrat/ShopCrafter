@@ -14,19 +14,19 @@ namespace Sequencer.Actions
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new CanvasGroupActionBehavior(owner, this);
+            CanvasGroupActionBehavior canvasGroupActionBehavior = new CanvasGroupActionBehavior();
+            canvasGroupActionBehavior.Setup(this, owner);
+            return canvasGroupActionBehavior;
         }
 
         public class CanvasGroupActionBehavior : SequenceActionBehavior
         {
-            private CanvasGroupActionData data;            private CanvasGroup canvasGroup;            private float timer;            private float baseValue;
-            public CanvasGroupActionBehavior(GameObject owner, CanvasGroupActionData data) : base(owner)
+            private CanvasGroupActionData data;            private CanvasGroup canvasGroup;            private float timer;            private float baseValue;
+
+            public void Setup(CanvasGroupActionData data, GameObject owner)
             {
                 this.data = data;
-            }
-
-            public override void Setup()
-            {
+                this.owner = owner;
                 canvasGroup = owner.GetComponent<CanvasGroup>();
             }
 
@@ -40,6 +40,13 @@ namespace Sequencer.Actions
                     canvasGroup.alpha = Mathf.Lerp(baseValue, data.TargetValue , data.Curve.Evaluate(timer/data.Duration));
                     yield return null;
                 }
+
+                canvasGroup.alpha = data.TargetValue;
+            }
+
+            public override void Stop()
+            {
+                canvasGroup.alpha = data.TargetValue;
             }
         }
     }

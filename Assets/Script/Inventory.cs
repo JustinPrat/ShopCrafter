@@ -23,7 +23,6 @@ public class Inventory : MonoBehaviour
 
     public CraftedObject HeldObject { get; set; }
     public bool HasItem => HeldObject != null;
-    public bool HasEnoughInventorySpace => craftedInventory.Count < inventorySpace;
     public Transform ObjectHoldAnchor => objectHoldAnchor;
 
     private void Awake()
@@ -140,7 +139,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    private bool HasEmptySpace(out int index)
+    public bool HasEmptySpace(out int index)
     {
         for (int i = 0; i < inventorySpace; i++)
         {
@@ -152,6 +151,19 @@ public class Inventory : MonoBehaviour
         }
 
         index = 0;
+        return false;
+    }
+
+    public bool HasEmptySpace()
+    {
+        for (int i = 0; i < inventorySpace; i++)
+        {
+            if (craftedInventory[i] == null)
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 

@@ -39,6 +39,15 @@ public class DayEvents
         }
     }
 
+    public event Action OnAfternoon;
+    public void StartAfternoon()
+    {
+        if (OnAfternoon != null)
+        {
+            OnAfternoon.Invoke();
+        }
+    }
+
     public event Action OnNearEndDay;
     public void NearEndDay()
     {

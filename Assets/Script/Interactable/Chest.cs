@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,14 @@ public class Chest : MonoBehaviour, IInteractable
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
 
+    public Action<IInteractable> OnDestroyEvent { get; set; }
+
     private List<CraftedObjectData> craftedInventory = new List<CraftedObjectData>();
+
+    private void OnDestroy()
+    {
+        OnDestroyEvent?.Invoke(this);
+    }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

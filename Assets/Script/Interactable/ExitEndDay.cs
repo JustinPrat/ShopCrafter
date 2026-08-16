@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ExitEndDay : MonoBehaviour, IInteractable
@@ -19,7 +20,7 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
     public bool IsLocked { get; set; }
-
+    public Action<IInteractable> OnDestroyEvent { get; set; }
 
     private void Start()
     {
@@ -39,6 +40,8 @@ public class ExitEndDay : MonoBehaviour, IInteractable
             managerRefs.GameEventsManager.dayEvents.OnEndDay -= OnEndDay;
             managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
         }
+
+        OnDestroyEvent?.Invoke(this);
     }
 
     private void OnStartDay()

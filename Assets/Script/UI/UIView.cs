@@ -8,8 +8,12 @@ public class UIView : MonoBehaviour
     [SerializeField]
     protected ManagerRefs managerRefs;
 
+    protected bool activeState;
+    public bool ActiveState => activeState;
+
     public virtual void Toggle (bool isOn)
     {
+        activeState = isOn;
         SetVisualActivationView(isOn);
 
         if (isOn)

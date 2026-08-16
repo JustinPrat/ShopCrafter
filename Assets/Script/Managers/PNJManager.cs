@@ -60,7 +60,7 @@ public class PNJManager : MonoBehaviour
     private int numberSpecialSpawnedToday;
     private float nearEndDayDuration => (nearDayEndTime / dayEndTime) * dayDuration;
 
-    private enum DayTime
+    public enum DayTime
     {
         Morning,
         Afternoon,
@@ -70,6 +70,7 @@ public class PNJManager : MonoBehaviour
 
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
     public Vector3 PnjShopStop => pnjShopStop.position;
+    public DayTime CurrentDayTime => dayTime;
 
     public bool HasEnoughtPNJ => PNJList.Count >= targetNumberPnj;
 
@@ -144,7 +145,8 @@ public class PNJManager : MonoBehaviour
 
     private void Update()
     {
-        if (!HasEnoughtPNJ && !isNearDayEndEventTriggered)
+        bool hasPNJToSpawn = PNJDataPoolList.Count > 0 || NeedRespawnPNJList.Count > 0 || SpecialPNJDataPoolList.Count > 0;
+        if (dayTime == DayTime.Afternoon && !HasEnoughtPNJ && hasPNJToSpawn)
         {
             waitPNJCounter += Time.deltaTime;
 
@@ -155,7 +157,7 @@ public class PNJManager : MonoBehaviour
             }
         }
        
-        if (dayTime != DayTime.Night)
+        if (dayTime != DayTime.Night && dayTime != DayTime.Morning)
         {
             currentDayTime += Time.deltaTime;
             if (currentDayTime >= dayDuration)
@@ -183,6 +185,12 @@ public class PNJManager : MonoBehaviour
 
         currentHourDayTime = new DateTime(1, 1, dayIndex, dayStartTime, 0, 0);
         managerRefs.GameEventsManager.dayEvents.StartDay();
+    }
+
+    public void StartAfternoon()
+    {
+        dayTime = DayTime.Afternoon;
+        managerRefs.GameEventsManager.dayEvents.StartAfternoon();
     }
 
     private void EndDay ()

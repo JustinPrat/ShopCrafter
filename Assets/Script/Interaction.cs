@@ -33,6 +33,7 @@ public class Interaction : MonoBehaviour
         if (collision.transform.TryGetComponent(out IInteractable interactable) && !interactablesInRange.Contains(interactable))
         {
             interactablesInRange.Add(interactable);
+            interactable.OnDestroyEvent += RemoveDestroyedInteractable;
         }
     }
 
@@ -40,8 +41,15 @@ public class Interaction : MonoBehaviour
     {
         if (collision.transform.TryGetComponent(out IInteractable interactable) && interactablesInRange.Contains(interactable))
         {
+            interactable.OnDestroyEvent -= RemoveDestroyedInteractable;
             interactablesInRange.Remove(interactable);
         }
+    }
+
+    private void RemoveDestroyedInteractable(IInteractable interactable)
+    {
+        interactable.OnDestroyEvent -= RemoveDestroyedInteractable;
+        interactablesInRange.Remove(interactable);
     }
 
     private void Update()

@@ -1,4 +1,5 @@
 using Alchemy.Inspector;
+using System;
 using System.Collections.Generic;
 using TMPEffects.TMPEvents;
 using TMPro;
@@ -45,6 +46,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public GameObject GameObject => gameObject;
     public WorldSpeech WorldSpeech => worldSpeech;
     public string InteractText => interactText;
+    public Action<IInteractable> OnDestroyEvent { get; set; }
 
     #endregion
 
@@ -75,6 +77,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
         pnjOutside.Value.Event -= OnPNJOutside;
         managerRefs.GameEventsManager.questEvents.onFinishQuest -= OnFinishQuest;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay -= ForceDayEnd;
+
+        OnDestroyEvent?.Invoke(this);
     }
 
     [Button]

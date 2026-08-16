@@ -12,19 +12,19 @@ namespace SequencerCinemachine
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new CinemachineChangePriorityBehavior(owner, this);
+            CinemachineChangePriorityBehavior cinemachineChangePriorityBehavior = new CinemachineChangePriorityBehavior();
+            cinemachineChangePriorityBehavior.Setup(this, owner);
+            return cinemachineChangePriorityBehavior;
         }
 
         public class CinemachineChangePriorityBehavior : SequenceActionBehavior
         {
-            private CinemachineChangePriorityData data;            private CinemachineCamera cinemachineCam;
-            public CinemachineChangePriorityBehavior(GameObject owner, CinemachineChangePriorityData data) : base(owner)
+            private CinemachineChangePriorityData data;            private CinemachineCamera cinemachineCam;
+
+            public void Setup(CinemachineChangePriorityData data, GameObject owner)
             {
                 this.data = data;
-            }
-
-            public override void Setup()
-            {
+                this.owner = owner;
                 cinemachineCam = owner.GetComponent<CinemachineCamera>();
             }
 
@@ -32,6 +32,10 @@ namespace SequencerCinemachine
             {
                 cinemachineCam.Priority = data.Priority;
                 yield return null;
+            }
+
+            public override void Stop()
+            {
             }
         }
     }

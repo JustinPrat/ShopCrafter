@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de49608f3a6821641bcaec2204445b0f, type: 3}
+  m_Name: LeverDialogueAction
+  m_EditorClassIdentifier: Assembly-CSharp::Sequencer.Actions.DialogueDataActionData
+  ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  DialogueData: {fileID: 11400000, guid: 7f58beac8eaa3224582fd14f293c5a85, type: 2}
+  IdentityData: {fileID: 11400000, guid: 9517e3bc80988c44685196e7aed69b87, type: 2}

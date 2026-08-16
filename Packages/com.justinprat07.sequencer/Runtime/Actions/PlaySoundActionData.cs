@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static Sequencer.Actions.ActivationActionData;
 
 namespace Sequencer.Actions
 {
@@ -10,19 +11,19 @@ namespace Sequencer.Actions
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new PlaySoundActionBehavior(owner, this);
+            PlaySoundActionBehavior playSoundActionBehavior = new PlaySoundActionBehavior();
+            playSoundActionBehavior.Setup(this, owner);
+            return playSoundActionBehavior;
         }
 
         public class PlaySoundActionBehavior : SequenceActionBehavior
         {
-            private PlaySoundActionData data;
-            public PlaySoundActionBehavior(GameObject owner, PlaySoundActionData data) : base(owner)
+            private PlaySoundActionData data;
+
+            public void Setup(PlaySoundActionData data, GameObject owner)
             {
                 this.data = data;
-            }
-
-            public override void Setup()
-            {
+                this.owner = owner;
             }
 
             public override IEnumerator Execute()
@@ -34,6 +35,10 @@ namespace Sequencer.Actions
 
                 Destroy(gameObject, data.AudioClip.length);
                 yield return null;
+            }
+
+            public override void Stop()
+            {
             }
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static Sequencer.Actions.ActivationActionData;
 
 namespace Sequencer.Actions
 {
@@ -12,21 +13,21 @@ namespace Sequencer.Actions
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new ScaleActionBehavior(owner, this);
+            ScaleActionBehavior scaleActionBehavior = new ScaleActionBehavior();
+            scaleActionBehavior.Setup(owner, this);
+            return scaleActionBehavior;
         }
 
         public class ScaleActionBehavior : SequenceActionBehavior
         {
             private ScaleActionData data;
             private float timer;
-            private Vector3 baseScale;
-            public ScaleActionBehavior(GameObject owner, ScaleActionData data) : base(owner)
-            {
-                this.data = data;
-            }
+            private Vector3 baseScale;
 
-            public override void Setup()
+            public void Setup(GameObject owner, ScaleActionData data)
             {
+                this.owner = owner;
+                this.data = data;
             }
 
             public override IEnumerator Execute()
@@ -41,6 +42,11 @@ namespace Sequencer.Actions
                     yield return null;
                 }
 
+                owner.transform.localScale = data.ScaleTarget;
+            }
+
+            public override void Stop()
+            {
                 owner.transform.localScale = data.ScaleTarget;
             }
         }

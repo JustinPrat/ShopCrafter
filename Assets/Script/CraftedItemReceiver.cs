@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CraftedItemReceiver : MonoBehaviour, IInteractable
@@ -29,8 +30,14 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
     public string InteractText => interactText;
 
     public bool IsLocked { get; set; }
+    public Action<IInteractable> OnDestroyEvent { get; set; }
 
     public bool CanTakePlayerItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
+
+    private void OnDestroy()
+    {
+        OnDestroyEvent?.Invoke(this);
+    }
 
     public virtual bool CanInteract(PlayerBrain playerBrain)
     {

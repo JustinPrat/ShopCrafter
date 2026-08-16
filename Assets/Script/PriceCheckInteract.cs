@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,13 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
     public Collider PhysicCollider => collider;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
+
+    public Action<IInteractable> OnDestroyEvent { get; set; }
+
+    private void OnDestroy()
+    {
+        OnDestroyEvent?.Invoke(this);
+    }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {

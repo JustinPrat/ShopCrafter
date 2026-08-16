@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b774ce5a3d58de04c9fbd80924f8e0f7, type: 3}
+  m_Name: LeverIdentity
+  m_EditorClassIdentifier: Assembly-CSharp::PNJSingleIdentity
+  identity:
+    Name: ...
+    Description: .......
+    Portrait: {fileID: 21300000, guid: 383bd7e0f13ac4e438357c4122de4eb5, type: 3}
+    Dialogue: {fileID: 11400000, guid: 7f58beac8eaa3224582fd14f293c5a85, type: 2}

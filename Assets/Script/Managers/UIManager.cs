@@ -265,7 +265,7 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    public void ToggleDialogueView (bool isOn, DialogueData firstData = null, PNJBrain pnjBrain = null)
+    public void ToggleDialoguePNJView (bool isOn, DialogueData firstData = null, PNJBrain pnjBrain = null)
     {
         ExecuteAfterOneFrame(() =>
         {
@@ -274,6 +274,27 @@ public class UIManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
                 dialogueViewInstance.Setup(firstData, pnjBrain);
+                managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Validate.Enable();
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Validate.Disable();
+            }
+        });
+    }
+
+    public void ToggleDialogueDataView(bool isOn, DialogueData firstData = null, Identity identity = null)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            dialogueViewInstance.Toggle(isOn);
+            if (isOn)
+            {
+                Time.timeScale = 0f;
+                dialogueViewInstance.Setup(firstData, identity);
                 managerRefs.InputManager.SetActionType(false, false, true);
                 managerRefs.InputManager.Actions.UI.Validate.Enable();
             }

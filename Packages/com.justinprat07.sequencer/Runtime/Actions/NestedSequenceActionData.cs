@@ -11,29 +11,46 @@ namespace Sequencer.Actions
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new NestedSequenceActionBehavior(owner, this);
+            NestedSequenceActionBehavior nestedSequenceActionBehavior = new NestedSequenceActionBehavior();
+            nestedSequenceActionBehavior.Setup(this, owner);
+            return nestedSequenceActionBehavior;
         }
 
         public class NestedSequenceActionBehavior : SequenceActionBehavior
         {
             private NestedSequenceActionData data;
-
-            public NestedSequenceActionBehavior(GameObject owner, NestedSequenceActionData data) : base(owner)
-            {
-                this.data = data;
-            }
+            private List<SequenceActionBehavior> behaviors = new List<SequenceActionBehavior>();
+            private SequenceActionBehavior currentBehavior;
 
             public override IEnumerator Execute()
             {
+                foreach (SequenceActionBehavior behavior in behaviors)
+                {
+                    currentBehavior = behavior;
+                    yield return behavior.Execute();
+                }
+
+                currentBehavior = null;
+            }
+
+            public void Setup(NestedSequenceActionData data, GameObject owner)
+            {
+                this.data = data;
+                this.owner = owner;
+
                 foreach (SequenceActionData action in data.NestedActions)
                 {
                     SequenceActionBehavior behavior = action.CreateBehavior(owner);
-                    yield return behavior.Execute();
+                    behaviors.Add(behavior);
                 }
             }
 
-            public override void Setup()
+            public override void Stop()
             {
+                if (currentBehavior != null)
+                {
+                    currentBehavior.Stop();
+                }
             }
         }
     }

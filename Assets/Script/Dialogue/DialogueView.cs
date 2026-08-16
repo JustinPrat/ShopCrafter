@@ -52,14 +52,24 @@ public class DialogueView : UIView
 
     private bool isAsking = false;
     private float currentDelaySkip;
+    private bool isPNJTalking;
 
     public void Setup (DialogueData dialogueData, PNJBrain pnjBehaviour)
     {
+        isPNJTalking = true;
         currentDialogue = dialogueData;
         currentPNJ = pnjBehaviour;
-
         portrait.sprite = currentPNJ.Data.Identity.Portrait;
         textName.text = currentPNJ.Data.Identity.Name;
+        StartDialogue();
+    }
+
+    public void Setup(DialogueData dialogueData, Identity identity)
+    {
+        isPNJTalking = false;
+        currentDialogue = dialogueData;
+        portrait.sprite = identity.Portrait;
+        textName.text = identity.Name;
         StartDialogue();
     }
 
@@ -173,7 +183,8 @@ public class DialogueView : UIView
 
     private void OnTextEvent(TMPEventArgs args) 
     {
-        currentPNJ.OnTextEvent(args);
+        if (isPNJTalking)
+            currentPNJ.OnTextEvent(args);
     }
 
     private void StartDialogue ()
@@ -187,14 +198,16 @@ public class DialogueView : UIView
             Destroy(answerUIButtons[i].gameObject);
         }
 
-        if (currentDialogue.ReplaceMainDialogue != null)
+        if (currentDialogue.ReplaceMainDialogue != null && isPNJTalking)
         {
             currentPNJ.ChangeMainDialogue(currentDialogue.ReplaceMainDialogue);
         }
 
         answerUIButtons.Clear();
         NextLine(0);
-        managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
+
+        if (isPNJTalking)
+            managerRefs.GameEventsManager.OnPNJTalked?.Invoke(currentPNJ, currentDialogue);
     }
 
     private void TryAskQuestion ()
@@ -212,7 +225,7 @@ public class DialogueView : UIView
             }
         }
 
-        if (managerRefs.DialogueManager.SpecialDialogues.Count > 0)
+        if (managerRefs.DialogueManager.SpecialDialogues.Count > 0 && isPNJTalking)
         {
             SpecialDialogue specialDialogue = managerRefs.DialogueManager.GetSpecialDialogue(currentPNJ.gameObject);
             if (specialDialogue != null)
@@ -275,12 +288,12 @@ public class DialogueView : UIView
         }
 
         answerUIButtons.Clear();
-        if (currentSpecialDialogue != null && currentSpecialDialogue.Answers.Contains(selectedAnswer))
+        if (isPNJTalking && currentSpecialDialogue != null && currentSpecialDialogue.Answers.Contains(selectedAnswer))
         {
             managerRefs.DialogueManager.ConsumeSpecialDialogue(currentSpecialDialogue, currentPNJ.gameObject);
         }
 
-        if (selectedAnswer.ReplaceMainDialogue != null)
+        if (isPNJTalking && selectedAnswer.ReplaceMainDialogue != null)
         {
             currentPNJ.ChangeMainDialogue(selectedAnswer.ReplaceMainDialogue);
         }
@@ -288,7 +301,7 @@ public class DialogueView : UIView
         currentDialogue = selectedAnswer.AnswerDialogueData;
         if (selectedAnswer.Reward.Value != null)
         {
-            selectedAnswer.Reward.Value.OnGetReward(managerRefs, currentPNJ.gameObject);
+            selectedAnswer.Reward.Value.OnGetReward(managerRefs, isPNJTalking ? currentPNJ.gameObject : gameObject);
         }
 
         if (currentDialogue != null)
@@ -339,7 +352,7 @@ public class DialogueView : UIView
 
     public void StopDialogue ()
     {
-        managerRefs.UIManager.ToggleDialogueView(false);
+        managerRefs.UIManager.ToggleDialoguePNJView(false);
 
         for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
         {

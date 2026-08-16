@@ -8,25 +8,29 @@ namespace Sequencer.Actions
     {
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new PlaySequencerActionBehavior(owner, this);
+            PlaySequencerActionBehavior playSequencerActionBehavior = new PlaySequencerActionBehavior();
+            playSequencerActionBehavior.Setup(this, owner);
+            return playSequencerActionBehavior;
         }
 
         public class PlaySequencerActionBehavior : SequenceActionBehavior
         {
-            private PlaySequencerActionData data;            private Sequencer sequencer;
-            public PlaySequencerActionBehavior(GameObject owner, PlaySequencerActionData data) : base(owner)
+            private PlaySequencerActionData data;            private Sequencer sequencer;
+
+            public void Setup(PlaySequencerActionData data, GameObject owner)
             {
                 this.data = data;
-            }
-
-            public override void Setup()
-            {
-                sequencer = owner.GetComponent<Sequencer>();
+                this.owner = owner;
             }
 
             public override IEnumerator Execute()
             {
                 yield return sequencer.StartCoroutine(sequencer.ExecuteSequence());
+            }
+
+            public override void Stop()
+            {
+                sequencer.StopSequence();
             }
         }
     }

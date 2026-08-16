@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static Sequencer.Actions.ActivationActionData;
 
 namespace Sequencer.Actions
 {
@@ -12,7 +13,9 @@ namespace Sequencer.Actions
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
-            return new RotationActionBehavior(owner, this);
+            RotationActionBehavior rotationActionBehavior = new RotationActionBehavior();
+            rotationActionBehavior.Setup(this, owner);
+            return rotationActionBehavior;
         }
 
         public class RotationActionBehavior : SequenceActionBehavior
@@ -20,13 +23,11 @@ namespace Sequencer.Actions
             private RotationActionData data;
             private float timer;
             private Vector3 baseRotation;
-            public RotationActionBehavior(GameObject owner, RotationActionData data) : base(owner)
+
+            public void Setup(RotationActionData data, GameObject owner)
             {
                 this.data = data;
-            }
-
-            public override void Setup()
-            {
+                this.owner = owner;
             }
 
             public override IEnumerator Execute()
@@ -50,6 +51,11 @@ namespace Sequencer.Actions
                     yield return null;
                 }
 
+                owner.transform.localRotation = Quaternion.Euler(data.RotationTarget);
+            }
+
+            public override void Stop()
+            {
                 owner.transform.localRotation = Quaternion.Euler(data.RotationTarget);
             }
         }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac8156f51e101d4fbd31e19eed08a66, type: 3}
   m_Name: RampMoveActionUp
   m_EditorClassIdentifier: Sequencer::Sequencer.Actions.MovePositionActionData
-  MoveOffset: {x: 0, y: 0, z: 3}
+  MovementType: 0
+  Movement: {x: 0, y: -0.131, z: 0.5400001}
   MoveCurve:
     serializedVersion: 2
     m_Curve:
