@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 2198828477231398309}
   - component: {fileID: 2307948605793081572}
   - component: {fileID: 1231616800516967759}
+  - component: {fileID: 6768876302608270320}
   m_Layer: 5
   m_Name: BGFade
   m_TagString: Untagged
@@ -455,6 +456,82 @@ MonoBehaviour:
   m_DetailTexSpeed: {x: 0, y: 0}
   m_CustomRoot: {fileID: 0}
   m_Flip: 0
+--- !u!114 &6768876302608270320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461615793053857105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ac5d06c7b714c29a6b7b3b80e443a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Coffee.UIEffect::Coffee.UIEffects.UIEffectTweener
+  m_CullingMask: 8
+  m_Direction: 0
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_SeparateReverseCurve: 0
+  m_ReverseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Delay: 0
+  m_Duration: 1
+  m_Interval: 0
+  m_PlayOnEnable: 1
+  m_ResetTimeOnEnable: 1
+  m_WrapMode: 1
+  m_UpdateMode: 1
+  m_OnComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnChangedRate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2813235343791059201
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +543,8 @@ GameObject:
   - component: {fileID: 5742452551669428460}
   - component: {fileID: 3622813781165345728}
   - component: {fileID: 6120953500666851730}
+  - component: {fileID: 2827354401298088701}
+  - component: {fileID: 4051699783379316516}
   m_Layer: 5
   m_Name: DialogueUI
   m_TagString: Untagged
@@ -520,6 +599,8 @@ MonoBehaviour:
   dialogueBubblesAnchor: {fileID: 7830263535759453268}
   textName: {fileID: 5486301822057009273}
   bubbleSpacing: 70
+  bubbleMoveDuration: 0.5
+  bubbleReducedScale: 0.7
   delayBetweenSkip: 0.55
   dialogueBubbleUIPrefab: {fileID: 3999981298277703632, guid: 43d1ea8056a311d428ddbb6fc787a196, type: 3}
   portrait: {fileID: 5144875373979950590}
@@ -529,6 +610,55 @@ MonoBehaviour:
   - 0.5
   - 0.25
   - 0
+  backGroundUIEffect: {fileID: 1231616800516967759}
+  defaultBGUIPreset: {fileID: 11400000, guid: df013a6cf957b784f971609386ae8816, type: 2}
+--- !u!114 &2827354401298088701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813235343791059201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 5397454583847977094
+  - rid: 5397454583847977095
+  playOnStart: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 5397454583847977094
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 85fecb4a446932f498350c58cdb5d84e, type: 2}
+    - rid: 5397454583847977095
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 7821339628459934832}
+        type: 1
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: b095c3824f43ba54499ec1a8befe6b6f, type: 2}
+--- !u!225 &4051699783379316516
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813235343791059201}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3706679026937017933
 GameObject:
   m_ObjectHideFlags: 0

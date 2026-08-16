@@ -40,6 +40,10 @@ namespace Sequencer.Actions
 
             public override void Stop()
             {                data.ManagerRefs.UIManager.ToggleDialoguePNJView(false);            }
+
+            public override void SetExecuteBaseValue()
+            {
+            }
         }
     }
 }

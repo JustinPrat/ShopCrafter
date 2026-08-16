@@ -16,6 +16,10 @@ namespace Sequencer.Actions
             yield return null;
         }
 
+        public override void SetExecuteBaseValue()
+        {
+        }
+
         public override void Stop()
         {
         }

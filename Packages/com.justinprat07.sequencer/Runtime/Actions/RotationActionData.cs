@@ -1,6 +1,6 @@
 using System.Collections;
+using TriInspector;
 using UnityEngine;
-using static Sequencer.Actions.ActivationActionData;
 
 namespace Sequencer.Actions
 {
@@ -10,6 +10,10 @@ namespace Sequencer.Actions
         public Vector3 RotationTarget;
         public AnimationCurve RotationCurve = AnimationCurve.Linear(0, 0, 1, 1);
         public float Duration = 1f;
+
+        public bool UseExecuteValue;
+        [ShowIf(nameof(UseExecuteValue))]
+        public Vector3 ExecuteValue;
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
@@ -57,6 +61,12 @@ namespace Sequencer.Actions
             public override void Stop()
             {
                 owner.transform.localRotation = Quaternion.Euler(data.RotationTarget);
+            }
+
+            public override void SetExecuteBaseValue()
+            {
+                if (data.UseExecuteValue)
+                    owner.transform.localRotation = Quaternion.Euler(data.ExecuteValue);
             }
         }
     }

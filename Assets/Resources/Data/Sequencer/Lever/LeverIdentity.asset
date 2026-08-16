@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PNJSingleIdentity
   identity:
     Name: ...
-    Description: .......
-    Portrait: {fileID: 21300000, guid: 383bd7e0f13ac4e438357c4122de4eb5, type: 3}
+    Description: 
+    Portrait: {fileID: 21300000, guid: dc1044098af096944a587803c5bc63ca, type: 3}
     Dialogue: {fileID: 11400000, guid: 7f58beac8eaa3224582fd14f293c5a85, type: 2}

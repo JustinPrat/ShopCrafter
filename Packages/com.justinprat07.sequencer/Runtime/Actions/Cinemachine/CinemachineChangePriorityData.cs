@@ -37,6 +37,10 @@ namespace SequencerCinemachine
             public override void Stop()
             {
             }
+
+            public override void SetExecuteBaseValue()
+            {
+            }
         }
     }
 }

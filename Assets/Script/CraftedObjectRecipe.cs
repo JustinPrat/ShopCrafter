@@ -64,7 +64,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     {
         return new IRewardable.UIDisplayData
         {
-            DisplayName = CraftedName + " Recipe",
+            DisplayName = CraftedName,
             Icon = CraftedSprite,
             HighlightColor = Rarity.RarityColor
         };

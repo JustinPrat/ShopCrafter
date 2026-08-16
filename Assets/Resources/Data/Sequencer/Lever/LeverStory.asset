@@ -13,16 +13,22 @@ MonoBehaviour:
   m_Name: LeverStory
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Fais en bon usage ...
+  - Line: <jump>...</jump>
+    Emotion: {fileID: 0}
+  - Line: .............<sketchy>FKLM?ERFJJSN!</sketchy>
+    Emotion: {fileID: 0}
+  - Line: Fais e<sketchy>Z</sketchy>n b<sketchy>P</sketchy>on us<sketchy>F</sketchy>age
+      ...
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
-  TMPAnimDatabase: {fileID: 0}
+  EffectPreset: {fileID: 11400000, guid: d079689c3a39a294f984cfc1e24672d1, type: 2}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
-  TMPAnimationName: 
+  TMPAnimationName: sketchy
   TMPEventName: 0
   TMPColor: {r: 1, g: 1, b: 1, a: 1}
   TMPIconName: 

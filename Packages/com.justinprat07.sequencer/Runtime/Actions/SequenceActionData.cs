@@ -16,6 +16,7 @@ namespace Sequencer.Actions
 
         public abstract IEnumerator Execute();
         public abstract void Stop();
+        public abstract void SetExecuteBaseValue();
     }
 
     [Serializable]

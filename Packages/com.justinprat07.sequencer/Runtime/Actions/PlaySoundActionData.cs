@@ -40,6 +40,10 @@ namespace Sequencer.Actions
             public override void Stop()
             {
             }
+
+            public override void SetExecuteBaseValue()
+            {
+            }
         }
     }
 }

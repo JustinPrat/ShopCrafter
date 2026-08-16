@@ -1,3 +1,4 @@
+using Coffee.UIEffects;
 using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +44,12 @@ public class DialogueView : UIView
     [SerializeField]
     private List<float> transparencySteps;
 
+    [SerializeField]
+    private UIEffect backGroundUIEffect;
+
+    [SerializeField]
+    private UIEffectPreset defaultBGUIPreset;
+
     private DialogueData currentDialogue;
     private PNJBrain currentPNJ;
     private SpecialDialogue currentSpecialDialogue;
@@ -53,6 +60,7 @@ public class DialogueView : UIView
     private bool isAsking = false;
     private float currentDelaySkip;
     private bool isPNJTalking;
+    private bool hasModifiedPreset;
 
     public void Setup (DialogueData dialogueData, PNJBrain pnjBehaviour)
     {
@@ -152,7 +160,14 @@ public class DialogueView : UIView
         {
             managerRefs.InputManager.Actions.Player.NextDialogue.started -= OnNextDialogueStarted;
             managerRefs.InputManager.Actions.UI.Cancel.performed -= OnCancelPerformed;
+
+            if (hasModifiedPreset)
+            {
+                backGroundUIEffect.LoadPreset(defaultBGUIPreset);
+            }
         }
+
+        hasModifiedPreset = false;
     }
 
     private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -189,6 +204,12 @@ public class DialogueView : UIView
 
     private void StartDialogue ()
     {
+        if (currentDialogue.EffectPreset != null && backGroundUIEffect != null)
+        {
+            hasModifiedPreset = true;
+            backGroundUIEffect.LoadPreset(currentDialogue.EffectPreset);
+        }
+
         answerParent.gameObject.SetActive(false);
         isAsking = false;
         currentDialogueIndex = 0;

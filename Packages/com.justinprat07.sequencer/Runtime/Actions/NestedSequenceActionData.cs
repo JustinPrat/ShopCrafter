@@ -33,6 +33,14 @@ namespace Sequencer.Actions
                 currentBehavior = null;
             }
 
+            public override void SetExecuteBaseValue()
+            {
+                foreach (SequenceActionBehavior behavior in behaviors)
+                {
+                    behavior.SetExecuteBaseValue();
+                }
+            }
+
             public void Setup(NestedSequenceActionData data, GameObject owner)
             {
                 this.data = data;

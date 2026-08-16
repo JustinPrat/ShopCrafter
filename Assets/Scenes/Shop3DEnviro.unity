@@ -11501,25 +11501,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1250198513}
     - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjPoolList.Array.data[1].milestoneIndex
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[0].afterReputation
-      value: 
-      objectReference: {fileID: 11400000, guid: 331967d7f8672144f9c974ba123e352c, type: 2}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjPoolList.Array.data[1].afterReputation
       value: 
       objectReference: {fileID: 11400000, guid: c94159913705dc7438e2dbd5c32cb7b3, type: 2}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[0].beforeReputation
-      value: 
-      objectReference: {fileID: 11400000, guid: 331967d7f8672144f9c974ba123e352c, type: 2}
     - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: pnjPoolList.Array.data[1].beforeReputation
       value: 

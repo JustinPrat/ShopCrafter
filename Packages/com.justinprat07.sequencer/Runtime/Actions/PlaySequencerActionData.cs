@@ -32,6 +32,10 @@ namespace Sequencer.Actions
             {
                 sequencer.StopSequence();
             }
+
+            public override void SetExecuteBaseValue()
+            {
+            }
         }
     }
 }

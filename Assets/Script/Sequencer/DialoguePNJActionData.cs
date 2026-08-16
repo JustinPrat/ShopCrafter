@@ -40,5 +40,9 @@ public class DialoguePNJActionData : SequenceActionData
         {
             data.ManagerRefs.UIManager.ToggleDialoguePNJView(false);
         }
+
+        public override void SetExecuteBaseValue()
+        {
+        }
     }
 }

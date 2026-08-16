@@ -1,3 +1,4 @@
+using Coffee.UIEffects;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -24,6 +25,8 @@ public class DialogueData : ScriptableObject
     [TriInspector.ShowIf(nameof(HasNextDialogue))]
     public DialogueData NextDialogue;
     public DialogueData ReplaceMainDialogue;
+
+    public UIEffectPreset EffectPreset;
 
 #if UNITY_EDITOR
     [Group("texttool")]

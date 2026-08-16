@@ -1212,7 +1212,7 @@ MonoBehaviour:
   dayStartTime: 10
   dayEndTime: 20
   nearDayEndTime: 19
-  targetNumberPnj: 5
+  targetNumberPnj: 2
   waitBeforeSpawnPNJ: 5
   pnjPoolList:
   - milestoneIndex: 0

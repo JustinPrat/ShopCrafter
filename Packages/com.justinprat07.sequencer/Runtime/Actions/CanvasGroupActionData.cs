@@ -1,4 +1,5 @@
 using System.Collections;
+using TriInspector;
 using UnityEngine;
 
 namespace Sequencer.Actions
@@ -11,6 +12,11 @@ namespace Sequencer.Actions
 
         public float Duration = 1;
         public AnimationCurve Curve = AnimationCurve.Linear(0, 0, 1, 1);
+
+        public bool UseExecuteValue;
+
+        [ShowIf(nameof(UseExecuteValue))]
+        public float ExectuteValue = 0;
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
         {
@@ -36,7 +42,7 @@ namespace Sequencer.Actions
 
                 while (timer < data.Duration)
                 {
-                    timer += Time.deltaTime;
+                    timer += Time.unscaledDeltaTime;
                     canvasGroup.alpha = Mathf.Lerp(baseValue, data.TargetValue , data.Curve.Evaluate(timer/data.Duration));
                     yield return null;
                 }
@@ -47,6 +53,14 @@ namespace Sequencer.Actions
             public override void Stop()
             {
                 canvasGroup.alpha = data.TargetValue;
+            }
+
+            public override void SetExecuteBaseValue()
+            {
+                if (data.UseExecuteValue)
+                {
+                    canvasGroup.alpha = data.ExectuteValue;
+                }
             }
         }
     }

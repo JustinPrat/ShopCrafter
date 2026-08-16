@@ -54,6 +54,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: COLOR_FILTER
         passType: 0
+      - keywords: COLOR_FILTER DETAIL_MULTIPLY TRANSITION_PATTERN
+        passType: 0
       - keywords: COLOR_FILTER EDGE_PLAIN GRADATION_COLOR2
         passType: 0
       - keywords: COLOR_FILTER EDGE_PLAIN GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
@@ -61,6 +63,8 @@ ShaderVariantCollection:
       - keywords: COLOR_FILTER EDGE_PLAIN TRANSITION_PATTERN
         passType: 0
       - keywords: COLOR_FILTER GRADATION_COLOR2
+        passType: 0
+      - keywords: COLOR_FILTER GRADATION_COLOR2 TRANSITION_PATTERN
         passType: 0
       - keywords: COLOR_FILTER SAMPLING_BLUR_FAST
         passType: 0
@@ -72,9 +76,13 @@ ShaderVariantCollection:
         passType: 0
       - keywords: COLOR_FILTER TRANSITION_MELT
         passType: 0
+      - keywords: COLOR_FILTER TRANSITION_PATTERN
+        passType: 0
       - keywords: DETAIL_ADDITIVE
         passType: 0
       - keywords: DETAIL_ADDITIVE EDGE_SHINY
+        passType: 0
+      - keywords: DETAIL_ADDITIVE TRANSITION_PATTERN
         passType: 0
       - keywords: DETAIL_MASKING
         passType: 0
@@ -103,6 +111,10 @@ ShaderVariantCollection:
       - keywords: DETAIL_MULTIPLY EDGE_SHINY SAMPLING_EDGE_ALPHA
         passType: 0
       - keywords: DETAIL_MULTIPLY SAMPLING_BLUR_FAST
+        passType: 0
+      - keywords: DETAIL_MULTIPLY SAMPLING_EDGE_LUMINANCE TRANSITION_PATTERN
+        passType: 0
+      - keywords: DETAIL_MULTIPLY TRANSITION_PATTERN
         passType: 0
       - keywords: DETAIL_MULTIPLY_ADDITIVE
         passType: 0

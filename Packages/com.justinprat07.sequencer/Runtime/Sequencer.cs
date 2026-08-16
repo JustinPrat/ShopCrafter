@@ -34,6 +34,9 @@ namespace Sequencer
         [Button, HideInEditMode]
         public void StartSequence()
         {
+            if (!isActiveAndEnabled)
+                return;
+
             StartCoroutine(ExecuteSequence());
         }
 
@@ -55,6 +58,11 @@ namespace Sequencer
 
         public IEnumerator ExecuteSequence()
         {
+            foreach (Action action in actions)
+            {
+                action.Behavior.SetExecuteBaseValue();
+            }
+
             for (int i = 0; i < actions.Count; i++)
             {
                 Action action = actions[i];
