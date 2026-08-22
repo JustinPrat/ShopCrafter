@@ -1,9 +1,29 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StartDayToggle : ToggleActivation
 {
     [SerializeField]
     private ManagerRefs managerRefs;
+
+    protected override void Start()
+    {
+        base.Start();
+        managerRefs.GameEventsManager.dayEvents.OnEndDay += OnEndDay;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        if (managerRefs.GameEventsManager != null)
+            managerRefs.GameEventsManager.dayEvents.OnEndDay -= OnEndDay;
+    }
+
+    private void OnEndDay()
+    {
+        Toggle();
+    }
 
     public override bool CanInteract(PlayerBrain playerBrain)
     {

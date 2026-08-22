@@ -28,6 +28,12 @@ public class CraftingTable : MonoBehaviour, IInteractable
     [SerializeField]
     private CinemachineCamera cinemachineFocusCamera;
 
+    [SerializeField]
+    private Sequencer.Sequencer interactSequencer;
+
+    [SerializeField]
+    private Sequencer.Sequencer outInteractSequencer;
+
     public List<CraftedItemReceiver> ReceiveSlots => receiveSlots;
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
@@ -54,13 +60,22 @@ public class CraftingTable : MonoBehaviour, IInteractable
     public void DoInteract(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleCraftingView(true, this, UICraftAnchor == null ? transform.position : UICraftAnchor.position);
+
+        if (interactSequencer != null)
+            interactSequencer.StartSequence();
     }
 
-    public void OnInteractRange(PlayerBrain playerBrain)
+    public void ExitInteract()
+    {
+        if (outInteractSequencer != null)
+            outInteractSequencer.StartSequence();
+    }
+
+    public void OnTargeted(PlayerBrain playerBrain)
     {
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void UnTargeted(PlayerBrain playerBrain)
     {
     }
 
@@ -83,8 +98,14 @@ public class CraftingTable : MonoBehaviour, IInteractable
         }
 
         if (sequencer != null)
-        {
             sequencer.StartSequence();
-        }
+    }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OutInteractRange(PlayerBrain playerBrain)
+    {
     }
 }

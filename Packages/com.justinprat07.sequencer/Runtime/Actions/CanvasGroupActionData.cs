@@ -39,6 +39,7 @@ namespace Sequencer.Actions
             public override IEnumerator Execute()
             {
                 baseValue = canvasGroup.alpha;
+                timer = 0f;
 
                 while (timer < data.Duration)
                 {

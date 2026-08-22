@@ -48,11 +48,19 @@ public class CraftedObject : MonoBehaviour, IInteractable
         //playerBrain.TryHoldItem(this);
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OnTargeted(PlayerBrain playerBrain)
     {
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

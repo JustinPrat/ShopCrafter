@@ -7,6 +7,7 @@ using UnityEngine;
 public class QuestInfoSO : ScriptableObject, IRewardable
 {
     [field: SerializeField] public string ID { get; private set; }
+    public SpawnedReward RewardPrefab { get; set; }
 
     [Header("General")]
     public string DisplayName;

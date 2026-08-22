@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MilestoneUpgradeData : IRewardable
 {
+    public SpawnedReward RewardPrefab { get; set; }
+
     public IRewardable.UIDisplayData GetRewardDisplayData()
     {
         return new IRewardable.UIDisplayData()

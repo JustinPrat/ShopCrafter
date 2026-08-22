@@ -276,14 +276,6 @@ public class DialogueView : UIView
         }
     }
 
-    private IEnumerator SelectButtonAfterFrame(GameObject gameObject)
-    {
-        yield return new WaitForEndOfFrame();
-
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(gameObject);
-    }
-
     private void SetupNavigation()
     {
         for (int i = 0; i < answerUIButtons.Count; i++)

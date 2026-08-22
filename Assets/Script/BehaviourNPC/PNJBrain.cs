@@ -286,7 +286,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void UnTargeted(PlayerBrain playerBrain)
     {
         if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state) && state.Value != State.GoOut)
         {
@@ -298,7 +298,15 @@ public class PNJBrain : MonoBehaviour, IInteractable
         }
     }
 
+    public void OnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
     public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

@@ -48,13 +48,27 @@ public class ShopView : UIView
             itemShopUI.OnItemBuy += ((IPNJTraitRuntime)sellerTrait).OnItemBuy;
         }
 
-        if (itemSellingInstantiated.Count > 0)
+        if (managerRefs.InputManager.IsGamepad && itemSellingInstantiated.Count > 0)
         {
             EventSystem.current.SetSelectedGameObject(itemSellingInstantiated[0].BuyButton.gameObject);
         }
 
         portrait.sprite = pnjBrain.Data.Identity.Portrait;
         coinAmountText.text = managerRefs.SellManager.CoinAmount.ToString();
+    }
+
+    protected override void OnInputDeviceChanged()
+    {
+        base.OnInputDeviceChanged();
+
+        if (managerRefs.InputManager.IsGamepad && itemSellingInstantiated.Count > 0)
+        {
+            StartCoroutine(SelectButtonAfterFrame(itemSellingInstantiated[0].gameObject));
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void OnCancel(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -84,11 +98,14 @@ public class ShopView : UIView
         {
             itemUI.UpdateCoinAmount();
 
-            if (needToUpdateFocus && itemShopUI != itemUI && itemUI.BuyButton.enabled)
+            if (managerRefs.InputManager.IsGamepad && needToUpdateFocus && itemShopUI != itemUI && itemUI.BuyButton.enabled)
             {
                 EventSystem.current.SetSelectedGameObject(itemUI.BuyButton.gameObject);
             }
         }
+
+        if (!managerRefs.InputManager.IsGamepad)
+            EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void CloseShop () // inspector button click

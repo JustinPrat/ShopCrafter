@@ -14,6 +14,10 @@ public class Item : ScriptableObject, IRewardable, ICost
     public Sprite ItemSprite;
     public List<TagValue> Tags;
 
+    [SerializeField]
+    private SpawnedReward rewardPrefab;
+    public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
+
 #if UNITY_EDITOR
     private void UpdateItemData()
     {

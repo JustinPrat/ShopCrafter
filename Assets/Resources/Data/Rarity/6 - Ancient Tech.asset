@@ -17,3 +17,11 @@ MonoBehaviour:
   RarityColor: {r: 1, g: 0.026731448, b: 0, a: 1}
   RarityName: Ancient Tech
   RarityDescription: 
+  ReputationGain: 0
+  MaxStatModifier:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

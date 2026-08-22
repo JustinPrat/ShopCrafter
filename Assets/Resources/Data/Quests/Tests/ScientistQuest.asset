@@ -31,3 +31,4 @@ MonoBehaviour:
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 40
+        rewardPrefab: {fileID: 0}

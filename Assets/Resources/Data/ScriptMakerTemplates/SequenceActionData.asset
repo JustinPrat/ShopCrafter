@@ -23,5 +23,7 @@ MonoBehaviour:
     data, GameObject owner)\r\n            {\n\t\tthis.data = data;\n\t\tthis.owner
     = owner;\r\n            }\r\n\r\n            public override IEnumerator Execute()\r\n           
     {\r\n                yield return null;\r\n            }\n\n            public
-    override void Stop()\r\n            {\r            }\r\n        }\r\n    }\r\n}"
+    override void SetExecuteBaseValue()\r\n            {\r\n            }\n\n           
+    public override void Stop()\r\n            {\r            }\r\n        }\r\n   
+    }\r\n}"
   scriptNameSuffix: Data

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.AppUI.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIView : MonoBehaviour
 {
@@ -45,5 +46,13 @@ public class UIView : MonoBehaviour
     protected virtual void OnInputDeviceChanged()
     {
 
+    }
+
+    protected IEnumerator SelectButtonAfterFrame(GameObject gameObject)
+    {
+        yield return new WaitForEndOfFrame();
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(gameObject);
     }
 }

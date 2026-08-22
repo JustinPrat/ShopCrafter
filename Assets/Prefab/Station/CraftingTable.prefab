@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 8004390244090909545}
   - component: {fileID: 4276016274147360290}
   - component: {fileID: 6374920548729315652}
+  - component: {fileID: 8870731043509402360}
   m_Layer: 0
   m_Name: CraftingTable
   m_TagString: Untagged
@@ -181,6 +182,7 @@ MonoBehaviour:
   - {fileID: 3547498067192691449}
   sequencer: {fileID: 6374920548729315652}
   cinemachineFocusCamera: {fileID: 0}
+  interactSequencer: {fileID: 8870731043509402360}
 --- !u!65 &8004390244090909545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -235,31 +237,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
   actions:
-  - ChangeTarget: 1
-    Target: {fileID: 0}
-    type: 0
-    ActionData: {fileID: 11400000, guid: fb3b8541406648b4eb1d27d8ff98e0c2, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 1
-    Target: {fileID: 0}
-    type: 0
-    ActionData: {fileID: 11400000, guid: 97f27fd727f03384bb46be0779838455, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 0
-    Target: {fileID: 0}
-    type: 0
-    ActionData: {fileID: 11400000, guid: bd14aa837971b56408fb1a136ec2bb57, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 1
-    Target: {fileID: 0}
-    type: 0
-    ActionData: {fileID: 11400000, guid: ee3de00326623c344bbc12f6a8e6d616, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 1
-    Target: {fileID: 0}
-    type: 0
-    ActionData: {fileID: 11400000, guid: 2b5ed6ad5e602254c9db50af511825e2, type: 2}
-    IsExecuting: 0
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  playOnStart: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &8870731043509402360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200564092630354569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 5397454708259160314
+  playOnStart: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 5397454708259160314
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 97f27fd727f03384bb46be0779838455, type: 2}
 --- !u!1001 &1079278989899056484
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -43,14 +43,12 @@ namespace Sequencer.Actions
             {
                 this.data = data;
                 this.owner = owner;
-                timer = 0;
             }
 
             public override IEnumerator Execute()
             {
                 timer = 0;
                 basePos = owner.transform.position;
-
                 targetPos = GetTargetPos(data.Movement);
 
                 while (timer < data.Duration)

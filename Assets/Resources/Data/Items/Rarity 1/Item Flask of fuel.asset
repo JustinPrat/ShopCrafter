@@ -20,3 +20,4 @@ MonoBehaviour:
   - Asset: {fileID: 11400000, guid: 9e040654e15ac164687f3c911654df76, type: 2}
     Amount:
       BaseValue: 1
+  rewardPrefab: {fileID: 3518631551006526312, guid: 4f59ff44cc804384a9e61dcd53937eba, type: 3}

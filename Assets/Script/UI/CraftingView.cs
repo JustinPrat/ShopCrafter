@@ -56,6 +56,7 @@ public class CraftingView : UIView
 
     private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
+        CurrentCraftingTable.ExitInteract();
         managerRefs.UIManager.ToggleCraftingView(false, CurrentCraftingTable);
     }
 

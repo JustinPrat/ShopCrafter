@@ -1,4 +1,3 @@
-using Alchemy.Inspector;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +10,8 @@ public class ItemBatchData : ScriptableObject, ICost, IRewardable
 #if UNITY_EDITOR
     private int amount;
     private Item item;
+
+    public SpawnedReward RewardPrefab { get => ItemBatch.RewardPrefab; set => ItemBatch.RewardPrefab = value; }
 
     private void OnValidate()
     {
@@ -57,6 +58,9 @@ public class ItemBatch : ICost, IRewardable
 {
     public int Amount;
     public Item Item;
+    public SpawnedReward rewardPrefab;
+
+    public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
 
     public bool CanPay(ManagerRefs managerRefs)
     {

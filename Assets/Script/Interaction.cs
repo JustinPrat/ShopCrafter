@@ -33,6 +33,7 @@ public class Interaction : MonoBehaviour
         if (collision.transform.TryGetComponent(out IInteractable interactable) && !interactablesInRange.Contains(interactable))
         {
             interactablesInRange.Add(interactable);
+            interactable.OnInteractRange(playerBrain);
             interactable.OnDestroyEvent += RemoveDestroyedInteractable;
         }
     }
@@ -42,6 +43,7 @@ public class Interaction : MonoBehaviour
         if (collision.transform.TryGetComponent(out IInteractable interactable) && interactablesInRange.Contains(interactable))
         {
             interactable.OnDestroyEvent -= RemoveDestroyedInteractable;
+            interactable.OutInteractRange(playerBrain);
             interactablesInRange.Remove(interactable);
         }
     }
@@ -72,14 +74,13 @@ public class Interaction : MonoBehaviour
 
         if (currentInteractable != null && newInteractable != currentInteractable)
         {
-            currentInteractable.OutOfInteractRange(playerBrain);
+            currentInteractable.UnTargeted(playerBrain);
             currentInteractable = null;
         }
 
         if (currentInteractable == null && newInteractable != null)
         {
-            newInteractable.OnInteractRange(playerBrain);
-
+            newInteractable.OnTargeted(playerBrain);
             worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
         }
 

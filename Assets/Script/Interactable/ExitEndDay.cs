@@ -68,11 +68,19 @@ public class ExitEndDay : MonoBehaviour, IInteractable
         managerRefs.UIManager.ToggleEndDayView(true);
     }
 
+    public void OnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
     public void OnInteractRange(PlayerBrain playerBrain)
     {
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

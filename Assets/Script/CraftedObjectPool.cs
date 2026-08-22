@@ -62,7 +62,7 @@ public class CraftedObjectPool : ScriptableObject
                 }
             }
 
-            if (canCraft && (targetRecipe == null || recipe.Rarity.ERarity > highestRarity))
+            if (canCraft && (targetRecipe == null || recipe.Rarity.ERarity > highestRarity || recipe.TargetScore > targetRecipe.TargetScore))
             {
                 highestRarity = recipe.Rarity.ERarity;
                 targetRecipe = recipe;

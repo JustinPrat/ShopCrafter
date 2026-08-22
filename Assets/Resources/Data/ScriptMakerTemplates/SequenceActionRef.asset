@@ -15,6 +15,7 @@ MonoBehaviour:
   scriptBody: "using System;\r\nusing System.Collections;\r\nusing UnityEngine;\r\n\r\nnamespace
     Sequencer.Actions\r\n{\r\n    [Serializable]\r\n    public class {ScriptName}Ref
     : SequenceRefActionData\r\n    {\r\n        public override IEnumerator Execute()\r\n       
-    {\r\n            yield return null;\r\n        }\r\n\r\n        public override
+    {\r\n            yield return null;\r\n        }\n\n        public override void
+    SetExecuteBaseValue()\r\n        {\r\n        }\r\n\r\n        public override
     void Stop()\r\n        {\r\n        }\r\n    }\r\n}\r\n"
   scriptNameSuffix: Ref

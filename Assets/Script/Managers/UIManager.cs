@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
     private GameObject endDayViewPrefab;
 
     [SerializeField]
+    private GameObject startDayViewPrefab;
+
+    [SerializeField]
     private GameObject inventoryMaterialViewPrefab;
 
     [SerializeField]
@@ -56,6 +59,7 @@ public class UIManager : MonoBehaviour
     private PriceCheckView priceCheckViewInstance;
     private InventoryView inventoryViewInstance;
     private EndDayView endDayViewInstance;
+    private StartDayView startDayViewInstance;
     private MaterialInventoryView materialInventoryViewInstance;
     private RewardView rewardViewInstance;
 
@@ -93,6 +97,9 @@ public class UIManager : MonoBehaviour
 
         endDayViewInstance = Instantiate(endDayViewPrefab, canvas.transform).GetComponent<EndDayView>();
         endDayViewInstance.gameObject.SetActive(false);
+
+        startDayViewInstance = Instantiate(startDayViewPrefab, canvas.transform).GetComponent<StartDayView>();
+        startDayViewInstance.gameObject.SetActive(false);
 
         materialInventoryViewInstance = Instantiate(inventoryMaterialViewPrefab, canvas.transform).GetComponent<MaterialInventoryView>();
         materialInventoryViewInstance.gameObject.SetActive(false);
@@ -179,6 +186,14 @@ public class UIManager : MonoBehaviour
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Validate.Disable();
             }
+        });
+    }
+
+    public void ToggleStartDayView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            startDayViewInstance.Toggle(isOn);
         });
     }
 

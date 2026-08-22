@@ -26,12 +26,12 @@ public class ToggleActivation : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
 
 
-    private void Start()
+    protected virtual void Start()
     {
         CallEvents();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         OnDestroyEvent?.Invoke(this);
     }
@@ -48,7 +48,7 @@ public class ToggleActivation : MonoBehaviour, IInteractable
         CallEvents();
     }
 
-    private void CallEvents()
+    protected void CallEvents()
     {
         if (activeState)
         {
@@ -70,11 +70,19 @@ public class ToggleActivation : MonoBehaviour, IInteractable
         Toggle();
     }
 
-    public virtual void OnInteractRange(PlayerBrain playerBrain)
+    public virtual void OnTargeted(PlayerBrain playerBrain)
     {
     }
 
-    public virtual void OutOfInteractRange(PlayerBrain playerBrain)
+    public virtual void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

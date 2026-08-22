@@ -6,6 +6,10 @@ public class MoneyBatchData : ScriptableObject, ICost, IRewardable
 {
     public MoneyBatch MoneyBatch;
 
+    [SerializeField]
+    private SpawnedReward rewardPrefab;
+    public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
+
     public bool CanPay(ManagerRefs managerRefs)
     {
         return MoneyBatch.CanPay(managerRefs);
@@ -36,6 +40,10 @@ public class MoneyBatchData : ScriptableObject, ICost, IRewardable
 public class MoneyBatch : ICost, IRewardable
 {
     public int Amount;
+
+    [SerializeField]
+    private SpawnedReward rewardPrefab;
+    public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
 
     public bool CanPay(ManagerRefs managerRefs)
     {

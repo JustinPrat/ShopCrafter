@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private PlayerBrain playerBrain;
 
+    public PlayerBrain PlayerBrain => playerBrain;
+
     private void Awake()
     {
         managerRefs.PlayerManager = this;

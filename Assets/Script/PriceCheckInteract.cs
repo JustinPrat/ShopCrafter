@@ -34,7 +34,7 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
     {
     }
 
-    public void OnInteractRange(PlayerBrain playerBrain)
+    public void OnTargeted(PlayerBrain playerBrain)
     {
         if (IsLocked)
             return;
@@ -42,11 +42,19 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
         managerRefs.UIManager.TogglePriceCheckView(true, transform.position);
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void UnTargeted(PlayerBrain playerBrain)
     {
         if (IsLocked)
             return;
 
         managerRefs.UIManager.TogglePriceCheckView(false);
+    }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OutInteractRange(PlayerBrain playerBrain)
+    {
     }
 }

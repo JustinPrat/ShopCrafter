@@ -13,7 +13,14 @@ namespace Sequencer
         private List<Action> actions;
 
         [SerializeField]
-        private bool playOnStart = false;
+        private PlayMode playMode;
+
+        public enum PlayMode
+        {
+            Manual,
+            Start,
+            Enable
+        }
 
         private void Awake()
         {
@@ -23,9 +30,17 @@ namespace Sequencer
             }
         }
 
+        private void OnEnable()
+        {
+            if (playMode == PlayMode.Enable)
+            {
+                StartSequence();
+            }
+        }
+
         private void Start()
         {
-            if (playOnStart)
+            if (playMode == PlayMode.Start)
             {
                 StartSequence();
             }

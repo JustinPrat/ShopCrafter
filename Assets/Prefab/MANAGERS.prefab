@@ -713,6 +713,7 @@ MonoBehaviour:
   priceCheckViewPrefab: {fileID: 5475771195858154003, guid: 6a378493ed43ca5429a7908fa8fc6579, type: 3}
   inventoryViewPrefab: {fileID: 5475771195858154003, guid: 0cd2dbdd89b6e9f499d348e182a73729, type: 3}
   endDayViewPrefab: {fileID: 5475771195858154003, guid: a5f2388e6d6f64b49b7bcfd1a8d7011d, type: 3}
+  startDayViewPrefab: {fileID: 5475771195858154003, guid: 870be09f17fb4484aafe1745b87c69e5, type: 3}
   inventoryMaterialViewPrefab: {fileID: 2813235343791059201, guid: 3441fe8bab6f83341966b6ad31b4b1cc, type: 3}
   cardTagViewPrefab: {fileID: 2813235343791059201, guid: 6983024d023997b409d01252abca387a, type: 3}
   rewardViewPrefab: {fileID: 2813235343791059201, guid: 06237f87cb6694e4fb75aee1ab402cce, type: 3}

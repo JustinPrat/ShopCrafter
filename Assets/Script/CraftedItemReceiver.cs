@@ -76,7 +76,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         heldObject.transform.localPosition = Vector3.zero;
     }
 
-    public virtual void OnInteractRange(PlayerBrain playerBrain)
+    public virtual void OnTargeted(PlayerBrain playerBrain)
     {
         if (HasHeldItem)
         {
@@ -84,8 +84,16 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         }
     }
 
-    public virtual void OutOfInteractRange(PlayerBrain playerBrain)
+    public virtual void UnTargeted(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleCraftedStatView(false);
+    }
+
+    public virtual void OnInteractRange(PlayerBrain playerBrain)
+    {
+    }
+
+    public virtual void OutInteractRange(PlayerBrain playerBrain)
+    {
     }
 }

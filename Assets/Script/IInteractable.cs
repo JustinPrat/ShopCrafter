@@ -15,7 +15,10 @@ public interface IInteractable
 
     public bool CanInteract(PlayerBrain playerBrain);
 
-    public void OutOfInteractRange(PlayerBrain playerBrain);
+    public void UnTargeted(PlayerBrain playerBrain);
+
+    public void OnTargeted(PlayerBrain playerBrain);
 
     public void OnInteractRange(PlayerBrain playerBrain);
+    public void OutInteractRange(PlayerBrain playerBrain);
 }

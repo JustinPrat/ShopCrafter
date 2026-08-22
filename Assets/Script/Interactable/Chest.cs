@@ -34,11 +34,19 @@ public class Chest : MonoBehaviour, IInteractable
         //Open chest UI
     }
 
+    public void OnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
     public void OnInteractRange(PlayerBrain playerBrain)
     {
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

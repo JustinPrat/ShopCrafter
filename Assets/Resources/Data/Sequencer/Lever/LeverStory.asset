@@ -15,10 +15,9 @@ MonoBehaviour:
   Lines:
   - Line: <jump>...</jump>
     Emotion: {fileID: 0}
-  - Line: .............<sketchy>FKLM?ERFJJSN!</sketchy>
+  - Line: .....
     Emotion: {fileID: 0}
-  - Line: Fais e<sketchy>Z</sketchy>n b<sketchy>P</sketchy>on us<sketchy>F</sketchy>age
-      ...
+  - Line: .........?
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0

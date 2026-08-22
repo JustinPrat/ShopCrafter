@@ -2,6 +2,7 @@ using UnityEngine;
 
 public interface IRewardable
 {
+    public SpawnedReward RewardPrefab { get; set; }
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver = null);
     public UIDisplayData GetRewardDisplayData();
 

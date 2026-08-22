@@ -79,6 +79,7 @@ public class CardTagView : UIView
             scoreText.text = "";
 
             bonusTagGameUI.gameObject.SetActive(false);
+            CurrentCraftingTable.ExitInteract();
         }
     }
 

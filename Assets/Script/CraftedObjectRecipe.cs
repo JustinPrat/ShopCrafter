@@ -25,6 +25,10 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public string CraftedDescription;
     public Sprite CraftedSprite;
 
+    [SerializeField]
+    private SpawnedReward rewardPrefab;
+    public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
+
 #if UNITY_EDITOR
     private void UpdateCraftedObjectData()
     {
@@ -98,8 +102,17 @@ public class CraftedObjectData
         this.craftedObjectRecipe = craftedObjectRecipe;
         this.managerRefs = managerRefs;
         this.isNew = isNew;
-        FindRarity();
-        SetPrice();
+
+        if (craftedObjectRecipe.Rarity.ERarity != ERarity.Unique)
+        {
+            FindRarity();
+            SetPrice();
+        }
+        else
+        {
+            rarity = managerRefs.CraftingManager.RarityHierarchy.UniqueRarity;
+            basePrice = 0;
+        }
     }
 
     public int GetPrice()
@@ -134,7 +147,7 @@ public class CraftedObjectData
 
     private void SetPrice ()
     {
-        PricePerRarity prices = managerRefs.CraftingManager.BasePrices.PricePerRarities[(int)rarity.ERarity + boostedRarity];
+        PricePerRarity prices = managerRefs.CraftingManager.BasePrices.PricePerRarities[(int)rarity.ERarity];
         basePrice = UnityEngine.Random.Range(prices.MinPrice, prices.MaxPrice + 1);
     }
 }

@@ -48,7 +48,11 @@ public class PickCraftedObject : MonoBehaviour, IInteractable
             CraftedObjectData craftedObjectData = managerRefs.CraftingManager.GetCraftedData(craftedObjectRecipe, isNew);
             craftedObject.Init(craftedObjectData);
 
-            playerBrain.Inventory.TryTakeItem(craftedObject);
+            if (playerBrain.Inventory.TryTakeItem(craftedObject))
+            {
+                craftedObject.transform.SetParent(playerBrain.Inventory.ObjectHoldAnchor);
+                craftedObject.transform.localPosition = Vector3.zero;
+            }
 
             if (onPickSequencer != null)
             {
@@ -78,11 +82,19 @@ public class PickCraftedObject : MonoBehaviour, IInteractable
         }
     }
 
+    public void OnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
     public void OnInteractRange(PlayerBrain playerBrain)
     {
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

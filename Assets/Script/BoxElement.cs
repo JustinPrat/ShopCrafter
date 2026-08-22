@@ -38,11 +38,19 @@ public class BoxElement : MonoBehaviour, IInteractable
         Tween.PunchScale(transform, Vector3.one * squishScale, squishDuration);
     }
 
+    public void OnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
     public void OnInteractRange(PlayerBrain playerBrain)
     {
     }
 
-    public void OutOfInteractRange(PlayerBrain playerBrain)
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
     }
 }

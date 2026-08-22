@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5412287541280365960}
   - component: {fileID: 423861095960938157}
   - component: {fileID: 7142572496914790305}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 304508821757569057}
   - component: {fileID: 6514036058239530554}
   - component: {fileID: 8298432798010859213}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SpeechBubble (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 2298291556002776684}
   - component: {fileID: 291852416035208275}
   - component: {fileID: 6238120338151017981}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 8320593396581906413}
   - component: {fileID: 8488547792345904771}
   - component: {fileID: 1947376819428045492}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: WorldSpeech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 1477744653469662395}
   - component: {fileID: 5589179253716472200}
   - component: {fileID: 2284425399025197862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 6845624578194423303}
   - component: {fileID: 244556665368812383}
   - component: {fileID: 1567977269504606653}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3918904495187732345}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HoldAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 5169222683156532306}
   - component: {fileID: 8164209314263159591}
   - component: {fileID: 3580146705437190990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -996,7 +996,7 @@ GameObject:
   - component: {fileID: 3642951060576395641}
   - component: {fileID: 3409415272018995774}
   - component: {fileID: 346871583016922647}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpriteHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
