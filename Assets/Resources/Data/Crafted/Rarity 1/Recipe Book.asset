@@ -10,21 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
-  m_Name: Recipe Light Bulb
+  m_Name: Recipe Book
   m_EditorClassIdentifier: Assembly-CSharp::CraftedObjectRecipe
   RequiredTags:
-  - Asset: {fileID: 11400000, guid: 912934c4c75fecb4d9d1d36e6c83aebc, type: 2}
+  - Asset: {fileID: 11400000, guid: a366667dab875104197ad209b41ec9c5, type: 2}
     Amount:
-      BaseValue: 3
-  - Asset: {fileID: 11400000, guid: cab62e5a6f360d24eb2b0c3d55245057, type: 2}
-    Amount:
-      BaseValue: 1
-  - Asset: {fileID: 11400000, guid: 23960009bc042b64a85f33d458de6005, type: 2}
+      BaseValue: 2
+  - Asset: {fileID: 11400000, guid: 2f4299a4e29db5e4cbeb1f383ff416d9, type: 2}
     Amount:
       BaseValue: 1
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
-  TargetScore: 10
-  CraftedName: Light Bulb
-  CraftedDescription: Electrician's favorite
-  CraftedSprite: {fileID: 21300000, guid: fffaaf6bb7ba77c49af70e90fe3a9d3c, type: 3}
+  TargetScore: 15
+  CraftedName: Book
+  CraftedDescription: 
+  CraftedSprite: {fileID: 21300000, guid: 29b9622c62292b14d96470443c4d751a, type: 3}
+  rewardPrefab: {fileID: 0}

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TagDivideOtherScore", menuName = "ShopCrafter/Tags/TagDivideOtherScore")]
+[CreateAssetMenu(fileName = "TagModifyOtherScore", menuName = "ShopCrafter/Tags/TagModifyOtherScore")]
 public class TagModifyOtherScore : TagEffect
 {
-    public Other otherPos;
+    public bool UseOwnValue;
+    public Other OtherPos;
 
     [SerializeReference]
     public StatModifier statModifier;
@@ -14,7 +15,9 @@ public class TagModifyOtherScore : TagEffect
         Before = 0,
         After = 1,
         Both = 2,
-        All = 3
+        All = 3,
+        Opposite = 4,
+        Self = 5
     }
 
     public override int ApplyTagEffect(int score)
@@ -24,11 +27,14 @@ public class TagModifyOtherScore : TagEffect
 
     public override void PreSelectionApply(List<TagValue> otherTagValues, int ownIndex)
     {
+        if (UseOwnValue)
+            statModifier.Value = otherTagValues[ownIndex].Amount.Value;
+
         for (int i = 0; i < otherTagValues.Count; i++)
         {
             TagValue tagValue = otherTagValues[i];
 
-            switch (otherPos)
+            switch (OtherPos)
             {
                 case Other.Before:
                     if (i == ownIndex - 1)
@@ -56,6 +62,24 @@ public class TagModifyOtherScore : TagEffect
                     break;
 
                 case Other.All:
+                    break;
+                
+                case Other.Opposite:
+                    if (i == 0)
+                    {
+                        tagValue.Amount.AddModifier(statModifier);
+                    }
+                    if (i == otherTagValues.Count - 1)
+                    {
+                        tagValue.Amount.AddModifier(statModifier);
+                    }
+                    break;
+                    
+                case Other.Self:
+                    if (i == ownIndex)
+                    {
+                        tagValue.Amount.AddModifier(statModifier);
+                    }
                     break;
             }
         }
@@ -67,7 +91,7 @@ public class TagModifyOtherScore : TagEffect
         {
             TagValue tagValue = otherTagValues[i];
 
-            switch (otherPos)
+            switch (OtherPos)
             {
                 case Other.Before:
                     if (i == ownIndex - 1)
@@ -95,6 +119,24 @@ public class TagModifyOtherScore : TagEffect
                     break;
 
                 case Other.All:
+                    break;
+
+                case Other.Opposite:
+                    if (i == 0)
+                    {
+                        tagValue.Amount.RemoveModifier(statModifier);
+                    }
+                    if (i == otherTagValues.Count - 1)
+                    {
+                        tagValue.Amount.RemoveModifier(statModifier);
+                    }
+                    break;
+
+                case Other.Self:
+                    if (i == ownIndex)
+                    {
+                        tagValue.Amount.RemoveModifier(statModifier);
+                    }
                     break;
             }
         }

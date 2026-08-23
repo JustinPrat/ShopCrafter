@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a807aa173ad13e48bf67312828b0a77, type: 3}
-  m_Name: X2
-  m_EditorClassIdentifier: Assembly-CSharp::TagMultiplyScore
-  MultiplyAmount: 2
+  m_Script: {fileID: 11500000, guid: 83169cf0d1a81b34aba31cb82a77a3db, type: 3}
+  m_Name: TagModifyOtherModifiers
+  m_EditorClassIdentifier: Assembly-CSharp::TagModifyOtherModifiers
+  KeepModifiers: 1
+  OtherPos: 1

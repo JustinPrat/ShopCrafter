@@ -8786,8 +8786,16 @@ MonoBehaviour:
     unityReference: {fileID: 11400000, guid: d16658e9a16a615479e013aff747db06, type: 2}
     rawReference:
       rid: -2
-  maxRewardNumber: 3
-  timeBeforeNewReward: 10
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: a8b5f572e2723914b81f632eef6c4dca, type: 2}
+    rawReference:
+      rid: -2
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 6c55e09e6dabcfb4994fbddd0e6fea56, type: 2}
+    rawReference:
+      rid: -2
+  maxRewardNumber: 2
+  timeBeforeNewReward: 25
   pickPrefab: {fileID: 761883529733276740, guid: 8d177ce2472c6dc439816b71d3500db2, type: 3}
   references:
     version: 2
@@ -12090,12 +12098,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: __alchemySerializationData_CraftingManager.itemInventory.data
-      value: "[\n    {\n        \"Key\": 0,\n        \"Value\": 2\n    },\n    {\n       
-        \"Key\": 1,\n        \"Value\": 1\n    }\n]"
+      value: "[\n    {\n        \"Key\": 0,\n        \"Value\": 1\n    },\n    {\n       
+        \"Key\": 1,\n        \"Value\": 10\n    },\n    {\n        \"Key\": 2,\n       
+        \"Value\": 10\n    },\n    {\n        \"Key\": 3,\n        \"Value\": 10\n   
+        }\n]"
       objectReference: {fileID: 0}
     - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: __alchemySerializationData_CraftingManager.unityObjectReferences.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[0]'
@@ -12104,15 +12114,15 @@ PrefabInstance:
     - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: d16658e9a16a615479e013aff747db06, type: 2}
+      objectReference: {fileID: 11400000, guid: a8b5f572e2723914b81f632eef6c4dca, type: 2}
     - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 68bfe6b48ba806741989188c83405a05, type: 2}
+      objectReference: {fileID: 11400000, guid: b3209a526714b2d479e268252a588fd8, type: 2}
     - target: {fileID: 2642512225080994224, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: '__alchemySerializationData_CraftingManager.unityObjectReferences.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 1e3b19392abe8794284ee2b52929bfbd, type: 2}
+      objectReference: {fileID: 11400000, guid: d16658e9a16a615479e013aff747db06, type: 2}
     - target: {fileID: 5794145097326252712, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: baseMoney
       value: 10
@@ -12129,18 +12139,6 @@ PrefabInstance:
       propertyPath: 'SellSlots.Array.data[2]'
       value: 
       objectReference: {fileID: 1250198513}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[1].milestoneIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[1].afterReputation
-      value: 
-      objectReference: {fileID: 11400000, guid: c94159913705dc7438e2dbd5c32cb7b3, type: 2}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[1].beforeReputation
-      value: 
-      objectReference: {fileID: 11400000, guid: 1cb852b13eb09c74ba555deef692bdce, type: 2}
     - target: {fileID: 6310679627409969459, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.92676

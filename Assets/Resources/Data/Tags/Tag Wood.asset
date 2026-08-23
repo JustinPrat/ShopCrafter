@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tag Wood
   m_EditorClassIdentifier: Assembly-CSharp::TagAsset
   Name: Wood
-  Description: '-'
+  Description: Ajoute 3 de valeur
   Icon: {fileID: 21300000, guid: 93004ad6706479e4c8762381d4c6cebd, type: 3}
-  Effects: []
+  Effects:
+  - {fileID: 11400000, guid: 99e0a32eeef55524eb0adf28e9418f29, type: 2}

@@ -111,7 +111,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void OnLeftClick(AdvancedButton button)
     {
-        OnBeginDrag(null);
+        //OnBeginDrag(null);
         currentDragType = DragType.Controller;
         managerRefs.InputManager.Actions.Player.Navigate.started += SwapPlace;
         Navigation noneNav = new Navigation() { mode = Navigation.Mode.None };
@@ -134,8 +134,8 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void OnLeftClickReleased(AdvancedButton button)
     {
+        //OnEndDrag(null);
         managerRefs.InputManager.Actions.Player.Navigate.started -= SwapPlace;
-        OnEndDrag(null);
         button.navigation = Navigation.defaultNavigation;
     }
 

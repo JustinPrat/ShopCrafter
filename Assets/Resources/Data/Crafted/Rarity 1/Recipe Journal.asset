@@ -18,7 +18,8 @@ MonoBehaviour:
       BaseValue: 2
   CraftedType: 2
   Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
-  TargetScore: 5
+  TargetScore: 10
   CraftedName: Journal
-  CraftedDescription: Old paper from before times
+  CraftedDescription: 
   CraftedSprite: {fileID: 21300000, guid: e7bb53f6895f6084e8b7d6e293ebbd72, type: 3}
+  rewardPrefab: {fileID: 0}

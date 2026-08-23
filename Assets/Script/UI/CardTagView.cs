@@ -101,7 +101,12 @@ public class CardTagView : UIView
             tagUI.OnDragStarted += OnDragTagStarted;
         }
 
-        EventSystem.current.SetSelectedGameObject(tagsUI[0].gameObject);
+
+        if (managerRefs.InputManager.IsGamepad)
+        {
+            EventSystem.current.SetSelectedGameObject(tagsUI[0].gameObject);
+        }
+
         ApplyPreSelectionTags();
     }
 
@@ -152,12 +157,17 @@ public class CardTagView : UIView
         DisplayBonus();
 
         validateButton.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(validateButton);
+
+        if (managerRefs.InputManager.IsGamepad)
+        {
+            EventSystem.current.SetSelectedGameObject(validateButton);
+        }
     }
 
     //UI Advanced button setup
     public void OnValidateClick()
     {
+        RemovePreSelectionTags();
         CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData, rarityBoost, modifier);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
         managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);

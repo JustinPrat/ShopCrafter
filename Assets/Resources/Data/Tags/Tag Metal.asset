@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tag Metal
   m_EditorClassIdentifier: Assembly-CSharp::TagAsset
   Name: Metal
-  Description: Multiply score by 2
+  Description: Add value to left and right tags
   Icon: {fileID: 4396868544863946106, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
-  Effects: []
+  Effects:
+  - {fileID: 11400000, guid: 6a8d671d9aafa5c429fdc8772cb86106, type: 2}
