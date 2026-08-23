@@ -73,8 +73,12 @@ public class PNJBrain : MonoBehaviour, IInteractable
             traitRuntime.OnDespawn(this);
         }
 
-        pnjBuying.Value.Event -= OnPNJBuying;
-        pnjOutside.Value.Event -= OnPNJOutside;
+        if (pnjBuying != null)
+            pnjBuying.Value.Event -= OnPNJBuying;
+
+        if (pnjOutside != null)
+            pnjOutside.Value.Event -= OnPNJOutside;
+
         managerRefs.GameEventsManager.questEvents.onFinishQuest -= OnFinishQuest;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay -= ForceDayEnd;
 

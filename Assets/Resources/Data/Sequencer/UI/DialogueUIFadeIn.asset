@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DialogueUIFadeIn
   m_EditorClassIdentifier: Sequencer::Sequencer.Actions.CanvasGroupActionData
   TargetValue: 1
-  Duration: 1
+  Duration: 0.5
   Curve:
     serializedVersion: 2
     m_Curve:

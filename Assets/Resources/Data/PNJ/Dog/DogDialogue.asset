@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
+  m_Name: DogDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  Lines:
+  - Line: <shake>Ouaf !</shake>
+    Emotion: {fileID: 0}
+  HasQuestion: 1
+  HasNextDialogue: 0
+  Answers:
+  - Line: Pet
+    AnswerDialogueData: {fileID: 11400000, guid: 87f36109f50800f43a3a0015a10ecd52, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 11400000, guid: be642d688480eb34fbcc86a89a176a0d, type: 2}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
+  tmpType: 2
+  TMPAnimationName: shake
+  TMPEventName: 0
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
+  TMPIconName: 
+  preview: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

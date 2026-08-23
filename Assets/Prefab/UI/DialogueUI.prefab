@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 3622813781165345728}
   - component: {fileID: 6120953500666851730}
   - component: {fileID: 2827354401298088701}
+  - component: {fileID: 5939235779806846510}
   - component: {fileID: 4051699783379316516}
   m_Layer: 5
   m_Name: DialogueUI
@@ -612,6 +613,8 @@ MonoBehaviour:
   - 0
   backGroundUIEffect: {fileID: 1231616800516967759}
   defaultBGUIPreset: {fileID: 11400000, guid: df013a6cf957b784f971609386ae8816, type: 2}
+  delayBeforeLeave: 0.5
+  outAnim: {fileID: 5939235779806846510}
 --- !u!114 &2827354401298088701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,7 +630,7 @@ MonoBehaviour:
   actions:
   - rid: 5397454583847977094
   - rid: 5397454583847977095
-  playOnStart: 1
+  playMode: 2
   references:
     version: 2
     RefIds:
@@ -647,6 +650,41 @@ MonoBehaviour:
         type: 1
         IsExecuting: 0
         ActionData: {fileID: 11400000, guid: b095c3824f43ba54499ec1a8befe6b6f, type: 2}
+--- !u!114 &5939235779806846510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813235343791059201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 5397454583847977095
+  - rid: 5397454583847977094
+  playMode: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 5397454583847977094
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 279e4fb32a372234490150c43640ceba, type: 2}
+    - rid: 5397454583847977095
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 7821339628459934832}
+        type: 1
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: fb77449f9cb195b48a8aebfb6064629f, type: 2}
 --- !u!225 &4051699783379316516
 CanvasGroup:
   m_ObjectHideFlags: 0

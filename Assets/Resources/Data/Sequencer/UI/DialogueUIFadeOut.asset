@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DialogueUIFadeOut
   m_EditorClassIdentifier: Sequencer::Sequencer.Actions.CanvasGroupActionData
   TargetValue: 0
-  Duration: 0.5
+  Duration: 0.2
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -38,3 +38,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  UseExecuteValue: 0
+  ExectuteValue: 0

@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour
         managerRefs.InputManager.Actions.UI.Remove.Disable();
 
         managerRefs.InputManager.Actions.Player.MaterialInventory.performed += InventoryPerformed;
-        managerRefs.InputManager.Actions.Player.Encyclopedia.performed += EncyclopediaPerformed;
+        //managerRefs.InputManager.Actions.Player.Encyclopedia.performed += EncyclopediaPerformed;
     }
 
     private void OnDestroy()
@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
         if (managerRefs.InputManager != null)
         {
             managerRefs.InputManager.Actions.Player.MaterialInventory.performed -= InventoryPerformed;
-            managerRefs.InputManager.Actions.Player.Encyclopedia.performed -= EncyclopediaPerformed;
+            //managerRefs.InputManager.Actions.Player.Encyclopedia.performed -= EncyclopediaPerformed;
         }
     }
 
@@ -127,10 +127,10 @@ public class UIManager : MonoBehaviour
     {
         ToggleMaterialInventoryView(!materialInventoryViewInstance.gameObject.activeInHierarchy);
     }
-    private void EncyclopediaPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
-    {
-        ToggleEncyclopedieView(!encyclopedieViewInstance.gameObject.activeInHierarchy);
-    }
+    //private void EncyclopediaPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    //{
+    //    ToggleEncyclopedieView(!encyclopedieViewInstance.gameObject.activeInHierarchy);
+    //}
 
     public void ToggleInventoryUI (bool isOn)
     {

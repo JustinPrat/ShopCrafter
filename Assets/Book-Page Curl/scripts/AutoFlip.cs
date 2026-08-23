@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour {
@@ -10,6 +10,9 @@ public class AutoFlip : MonoBehaviour {
     public Book ControledBook;
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
+
+    public bool IsFlipping => isFlipping;
+
     // Use this for initialization
     void Start () {
         if (!ControledBook)
@@ -31,94 +34,82 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
-        float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
-        //float h =  ControledBook.Height * 0.5f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
-        float dx = (xl)*2 / AnimationFramesCount;
-        StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
+        StartCoroutine(FlipRTL(xc, xl, h));
     }
     public void FlipLeftPage()
     {
         if (isFlipping) return;
         if (ControledBook.currentPage <= 0) return;
         isFlipping = true;
-        float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
-        //float h =  ControledBook.Height * 0.5f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
-        float dx = (xl) * 2 / AnimationFramesCount;
-        StartCoroutine(FlipLTR(xc, xl, h, frameTime, dx));
+        StartCoroutine(FlipLTR(xc, xl, h));
     }
     IEnumerator FlipToEnd()
     {
         yield return new WaitForSeconds(DelayBeforeStarting);
-        float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2)*0.9f;
-        //float h =  ControledBook.Height * 0.5f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y)*0.9f;
-        //y=-(h/(xl)^2)*(x-xc)^2          
-        //               y         
-        //               |          
-        //               |          
-        //               |          
-        //_______________|_________________x         
-        //              o|o             |
-        //           o   |   o          |
-        //         o     |     o        | h
-        //        o      |      o       |
-        //       o------xc-------o      -
-        //               |<--xl-->
-        //               |
-        //               |
-        float dx = (xl)*2 / AnimationFramesCount;
         switch (Mode)
         {
             case FlipMode.RightToLeft:
                 while (ControledBook.currentPage < ControledBook.TotalPageCount)
                 {
-                    StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
+                    StartCoroutine(FlipRTL(xc, xl, h));
                     yield return new WaitForSeconds(TimeBetweenPages);
                 }
                 break;
             case FlipMode.LeftToRight:
                 while (ControledBook.currentPage > 0)
                 {
-                    StartCoroutine(FlipLTR(xc, xl, h, frameTime, dx));
+                    StartCoroutine(FlipLTR(xc, xl, h));
                     yield return new WaitForSeconds(TimeBetweenPages);
                 }
                 break;
         }
     }
-    IEnumerator FlipRTL(float xc, float xl, float h, float frameTime, float dx)
+    IEnumerator FlipRTL(float xc, float xl, float h)
     {
-        float x = xc + xl;
-        float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
+        float elapsedTime = 0f;
+        float duration = Mathf.Max(0.01f, PageFlipTime);
+        float startX = xc + xl;
+        float endX = xc - xl;
 
-        ControledBook.DragRightPageToPoint(new Vector3(x, y, 0));
-        for (int i = 0; i < AnimationFramesCount; i++)
+        ControledBook.DragRightPageToPoint(new Vector3(startX, (-h / (xl * xl)) * (startX - xc) * (startX - xc), 0));
+
+        while (elapsedTime < duration)
         {
-            y = (-h / (xl * xl)) * (x - xc) * (x - xc);
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float x = Mathf.Lerp(startX, endX, t);
+            float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
             ControledBook.UpdateBookRTLToPoint(new Vector3(x, y, 0));
-            yield return new WaitForSeconds(frameTime);
-            x -= dx;
+            yield return null;
         }
         ControledBook.ReleasePage();
     }
-    IEnumerator FlipLTR(float xc, float xl, float h, float frameTime, float dx)
+    IEnumerator FlipLTR(float xc, float xl, float h)
     {
-        float x = xc - xl;
-        float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
-        ControledBook.DragLeftPageToPoint(new Vector3(x, y, 0));
-        for (int i = 0; i < AnimationFramesCount; i++)
+        float elapsedTime = 0f;
+        float duration = Mathf.Max(0.01f, PageFlipTime);
+        float startX = xc - xl;
+        float endX = xc + xl;
+
+        ControledBook.DragLeftPageToPoint(new Vector3(startX, (-h / (xl * xl)) * (startX - xc) * (startX - xc), 0));
+
+        while (elapsedTime < duration)
         {
-            y = (-h / (xl * xl)) * (x - xc) * (x - xc);
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float x = Mathf.Lerp(startX, endX, t);
+            float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
             ControledBook.UpdateBookLTRToPoint(new Vector3(x, y, 0));
-            yield return new WaitForSeconds(frameTime);
-            x += dx;
+            yield return null;
         }
         ControledBook.ReleasePage();
     }

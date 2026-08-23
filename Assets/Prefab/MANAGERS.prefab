@@ -839,8 +839,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MilestoneManager
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   milestoneList:
-  - ReputationRequiredForSpecial: 100
-  - ReputationRequiredForSpecial: 200
+  - ReputationRequiredForSpecial: 30
+  - ReputationRequiredForSpecial: 50
 --- !u!1 &4245724505804988578
 GameObject:
   m_ObjectHideFlags: 0

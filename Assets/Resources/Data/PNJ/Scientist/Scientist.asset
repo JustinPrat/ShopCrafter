@@ -15,6 +15,6 @@ MonoBehaviour:
   PnjPrefab: {fileID: 6362052680927295878, guid: 304fd6ec3152617449f444a52d2f4f07, type: 3}
   IdentityInfo: {fileID: 11400000, guid: a5f3aec328d48a64b909a602e39255b7, type: 2}
   TraitDatas: []
-  ShopStayDuration: 30
+  ShopStayDuration: 15
   ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   IsSpecial: 0

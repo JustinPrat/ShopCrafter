@@ -450,16 +450,20 @@ public class Book : MonoBehaviour {
     }
     public IEnumerator TweenTo(Vector3 to, float duration, System.Action onFinish)
     {
-        int steps = (int)(duration / 0.025f);
-        Vector3 displacement = (to - f) / steps;
-        for (int i = 0; i < steps-1; i++)
+        Vector3 startPos = f;
+        float elapsedTime = 0f;
+        float dur = Mathf.Max(0.01f, duration);
+        while (elapsedTime < dur)
         {
-            if(mode== FlipMode.RightToLeft)
-            UpdateBookRTLToPoint( f + displacement);
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / dur);
+            Vector3 currentPos = Vector3.Lerp(startPos, to, t);
+            if (mode == FlipMode.RightToLeft)
+                UpdateBookRTLToPoint(currentPos);
             else
-                UpdateBookLTRToPoint(f + displacement);
+                UpdateBookLTRToPoint(currentPos);
 
-            yield return new WaitForSeconds(0.025f);
+            yield return null;
         }
         if (onFinish != null)
             onFinish();

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ac8156f51e101d4fbd31e19eed08a66, type: 3}
-  m_Name: DialogueCharacterMoveIn
+  m_Name: DialogueCharacterMoveOut
   m_EditorClassIdentifier: Sequencer::Sequencer.Actions.MovePositionActionData
   UseUI: 1
   MovementType: 0
-  Movement: {x: 300, y: 100, z: 0}
+  Movement: {x: 300, y: -200, z: 0}
   MoveCurve:
     serializedVersion: 2
     m_Curve:
@@ -39,6 +39,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Duration: 0.5
+  Duration: 0.3
   UseExecuteValue: 1
-  ExecuteValue: {x: 300, y: -200, z: 0}
+  ExecuteValue: {x: 300, y: 100, z: 0}

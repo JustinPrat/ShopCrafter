@@ -15,6 +15,6 @@ MonoBehaviour:
   BuyProbabilityMinMax: {x: 90, y: 100}
   NumberCraftPref: 1
   CraftedPrefTypes: 02000000
-  TimeBeforeTryBuyMinMax: {x: 20, y: 30}
+  TimeBeforeTryBuyMinMax: {x: 15, y: 20}
   TimeWaitingAtTryBuyMinMax: {x: 4, y: 6}
   WaitingIcon: {fileID: 5369531339107709376, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}

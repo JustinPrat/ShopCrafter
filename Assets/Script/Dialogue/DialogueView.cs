@@ -50,6 +50,12 @@ public class DialogueView : UIView
     [SerializeField]
     private UIEffectPreset defaultBGUIPreset;
 
+    [SerializeField]
+    private float delayBeforeLeave = 1;
+
+    [SerializeField]
+    private Sequencer.Sequencer outAnim;
+
     private DialogueData currentDialogue;
     private PNJBrain currentPNJ;
     private SpecialDialogue currentSpecialDialogue;
@@ -61,6 +67,7 @@ public class DialogueView : UIView
     private float currentDelaySkip;
     private bool isPNJTalking;
     private bool hasModifiedPreset;
+    private bool isLeaving;
 
     public void Setup (DialogueData dialogueData, PNJBrain pnjBehaviour)
     {
@@ -363,7 +370,31 @@ public class DialogueView : UIView
         }
     }
 
-    public void StopDialogue ()
+    public void StopDialogue(bool applyDelay = true)
+    {
+        if (applyDelay)
+        {
+            if (!isLeaving)
+                StartCoroutine(LeaveAfterDelay());
+        }
+        else
+        {
+            CloseDialogue();
+        }
+    }
+
+    IEnumerator LeaveAfterDelay()
+    {
+        if (outAnim != null)
+            outAnim.StartSequence();
+
+        isLeaving = true;
+        yield return new WaitForSecondsRealtime(delayBeforeLeave);
+        isLeaving = false;
+        CloseDialogue();
+    }
+
+    public void CloseDialogue()
     {
         managerRefs.UIManager.ToggleDialoguePNJView(false);
 
