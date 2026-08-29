@@ -613,7 +613,7 @@ MonoBehaviour:
   - 0
   backGroundUIEffect: {fileID: 1231616800516967759}
   defaultBGUIPreset: {fileID: 11400000, guid: df013a6cf957b784f971609386ae8816, type: 2}
-  delayBeforeLeave: 0.5
+  delayBeforeLeave: 0.3
   outAnim: {fileID: 5939235779806846510}
 --- !u!114 &2827354401298088701
 MonoBehaviour:
@@ -674,7 +674,7 @@ MonoBehaviour:
       data:
         ChangeTarget: 0
         Target: {fileID: 0}
-        type: 0
+        type: 1
         IsExecuting: 0
         ActionData: {fileID: 11400000, guid: 279e4fb32a372234490150c43640ceba, type: 2}
     - rid: 5397454583847977095
