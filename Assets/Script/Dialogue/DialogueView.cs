@@ -160,12 +160,12 @@ public class DialogueView : UIView
 
         if (isOn)
         {
-            managerRefs.InputManager.Actions.Player.NextDialogue.started += OnNextDialogueStarted;
+            managerRefs.InputManager.Actions.UI.Submit.started += OnNextDialogueStarted;
             managerRefs.InputManager.Actions.UI.Cancel.performed += OnCancelPerformed;
         }
         else
         {
-            managerRefs.InputManager.Actions.Player.NextDialogue.started -= OnNextDialogueStarted;
+            managerRefs.InputManager.Actions.UI.Submit.started -= OnNextDialogueStarted;
             managerRefs.InputManager.Actions.UI.Cancel.performed -= OnCancelPerformed;
 
             if (hasModifiedPreset)

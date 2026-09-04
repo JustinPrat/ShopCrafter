@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc51de53e763d04c91a79658240024e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   itemHolder: {fileID: 7622467153991739498}
   itemUIPrefab: {fileID: 7168899551575844205, guid: 162055c31248fed4aa6e911ffb67ce9d, type: 3}
   tagHolder: {fileID: 3257251633121624169}
@@ -510,7 +511,6 @@ MonoBehaviour:
   - {fileID: 682905601948756169}
   - {fileID: 2034793816548989654}
   - {fileID: 5774326092360059995}
-  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   normalSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   validateButton: {fileID: 5213569536771371057}
   validateButtonEffects: {fileID: 8126358739963699636}
@@ -941,7 +941,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8764396064688250329}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 938fce054c42f40a3969e27a88d9bdd8, type: 3}
   m_Name: 

@@ -86,7 +86,7 @@ public class CardTagView : UIView
     public void Setup(List<Item> itemConsumed)
     {
         items.AddRange(itemConsumed);
-        craftedObjectRecipe = managerRefs.CraftingManager.PoolCraftedItem(items, out isNew, out tags);
+        craftedObjectRecipe = managerRefs.CraftingManager.PreviewPoolCraftedItem(items, out isNew, out tags);
         craftedObjectData = managerRefs.CraftingManager.GetCraftedData(craftedObjectRecipe, isNew);
         craftedRecipeDayUI.Setup(craftedObjectRecipe, isNew);
 
@@ -129,7 +129,7 @@ public class CardTagView : UIView
     }
 
     //UI Advanced button setup
-    public void OnCraftClick()
+    public void OnValidateClick()
     {
         foreach (TagIconUI tagUI in tagsUI)
         {
@@ -165,18 +165,14 @@ public class CardTagView : UIView
     }
 
     //UI Advanced button setup
-    public void OnValidateClick()
+    public void OnCraftClick()
     {
         RemovePreSelectionTags();
-        CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData, rarityBoost, modifier);
-        CurrentCraftingTable.SpawnCraftedItem(craftedObject);
-        managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
 
-        if (isNew)
-        {
-            managerRefs.UIManager.ToggleRewardView(true, craftedObjectRecipe);
-        }
+        craftedObjectData.BoostRarity(rarityBoost);
+        craftedObjectData.AddModifier(modifier);
+        managerRefs.UIManager.ShowMiniGameView(CurrentCraftingTable, craftedObjectData, CurrentCraftingTable.GetValidUIPos());
     }
 
     private void ScoreBonus()

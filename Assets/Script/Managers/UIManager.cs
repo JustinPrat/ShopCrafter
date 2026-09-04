@@ -107,8 +107,8 @@ public class UIManager : MonoBehaviour
         rewardViewInstance = Instantiate(rewardViewPrefab, canvas.transform).GetComponent<RewardView>();
         rewardViewInstance.gameObject.SetActive(false);
 
-        managerRefs.InputManager.Actions.UI.Validate.Disable();
-        managerRefs.InputManager.Actions.UI.Remove.Disable();
+        managerRefs.InputManager.Actions.UI.Submit.Disable();
+        managerRefs.InputManager.Actions.UI.Cancel.Disable();
 
         managerRefs.InputManager.Actions.Player.MaterialInventory.performed += InventoryPerformed;
         //managerRefs.InputManager.Actions.Player.Encyclopedia.performed += EncyclopediaPerformed;
@@ -178,13 +178,13 @@ public class UIManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
                 managerRefs.InputManager.SetActionType(false, false, true);
-                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
             }
             else
             {
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
-                managerRefs.InputManager.Actions.UI.Validate.Disable();
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
             }
         });
     }
@@ -205,11 +205,15 @@ public class UIManager : MonoBehaviour
 
             if (isOn)
             {
-                managerRefs.InputManager.SetActionType(false, false, false);
+                managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
+                managerRefs.InputManager.Actions.UI.Cancel.Enable();
             }
             else
             {
                 managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
+                managerRefs.InputManager.Actions.UI.Cancel.Disable();
             }
         });
     }
@@ -225,34 +229,66 @@ public class UIManager : MonoBehaviour
             if (isOn)
             {
                 managerRefs.InputManager.SetActionType(false, false, true);
-                managerRefs.InputManager.Actions.UI.Validate.Enable();
-                managerRefs.InputManager.Actions.UI.Remove.Enable();
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
+                managerRefs.InputManager.Actions.UI.Cancel.Enable();
             }
             else
             {
                 managerRefs.InputManager.SetActionType(true, true, true);
-                managerRefs.InputManager.Actions.UI.Validate.Disable();
-                managerRefs.InputManager.Actions.UI.Remove.Disable();
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
+                managerRefs.InputManager.Actions.UI.Cancel.Disable();
             }
         });
     }
 
-    public void ToggleMiniGameView (bool isOn, CraftingTable craftingTable, Vector3 pos = new Vector3())
+    //public void ToggleMiniGameView (bool isOn, CraftingTable craftingTable, CraftedObjectData data = null, Vector3 pos = new Vector3())
+    //{
+    //    ExecuteAfterOneFrame(() =>
+    //    {
+    //        miniGameViewInstance.CurrentCraftingTable = craftingTable;
+    //        miniGameViewInstance.Toggle(isOn);
+    //        miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
+
+    //        if (isOn)
+    //        {
+    //            miniGameViewInstance.Setup(data);
+    //            managerRefs.InputManager.SetActionType(false, false, true);
+    //            managerRefs.InputManager.Actions.UI.Submit.Enable();
+    //            managerRefs.InputManager.Actions.UI.Cancel.Enable();
+    //        }
+    //        else
+    //        {
+    //            managerRefs.InputManager.SetActionType(true, true, true);
+    //            managerRefs.InputManager.Actions.UI.Submit.Disable();
+    //            managerRefs.InputManager.Actions.UI.Cancel.Disable();
+    //        }
+    //    });
+    //}
+
+    public void ShowMiniGameView(CraftingTable craftingTable, CraftedObjectData data, Vector3 pos = new Vector3())
     {
         ExecuteAfterOneFrame(() =>
         {
             miniGameViewInstance.CurrentCraftingTable = craftingTable;
-            miniGameViewInstance.Toggle(isOn);
+            miniGameViewInstance.Setup(data);
+            miniGameViewInstance.Toggle(true);
+
             miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
 
-            if (isOn)
-            {
-                managerRefs.InputManager.SetActionType(false, false, true);
-            }
-            else
-            {
-                managerRefs.InputManager.SetActionType(true, true, true);
-            }
+            managerRefs.InputManager.SetActionType(false, false, true);
+            managerRefs.InputManager.Actions.UI.Submit.Enable();
+            managerRefs.InputManager.Actions.UI.Cancel.Enable();
+        });
+    }
+
+    public void HideMiniGameView()
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            miniGameViewInstance.Toggle(false);
+            managerRefs.InputManager.SetActionType(true, true, true);
+            managerRefs.InputManager.Actions.UI.Submit.Disable();
+            managerRefs.InputManager.Actions.UI.Cancel.Disable();
         });
     }
 
@@ -268,14 +304,14 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 0f;
                 cardTagViewInstance.Setup(consumedItems);
                 managerRefs.InputManager.SetActionType(false, false, true);
-                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
                 managerRefs.InputManager.Actions.Player.Navigate.Enable();
             }
             else
             {
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
-                managerRefs.InputManager.Actions.UI.Validate.Disable();
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
             }
         });
     }
@@ -290,13 +326,15 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 0f;
                 dialogueViewInstance.Setup(firstData, pnjBrain);
                 managerRefs.InputManager.SetActionType(false, false, true);
-                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
+                managerRefs.InputManager.Actions.UI.Cancel.Enable();
             }
             else
             {
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
-                managerRefs.InputManager.Actions.UI.Validate.Disable();
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
+                managerRefs.InputManager.Actions.UI.Cancel.Disable();
             }
         });
     }
@@ -311,13 +349,13 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 0f;
                 dialogueViewInstance.Setup(firstData, identity);
                 managerRefs.InputManager.SetActionType(false, false, true);
-                managerRefs.InputManager.Actions.UI.Validate.Enable();
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
             }
             else
             {
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
-                managerRefs.InputManager.Actions.UI.Validate.Disable();
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
             }
         });
     }
@@ -331,14 +369,14 @@ public class UIManager : MonoBehaviour
             {
                 shopViewInstance.Setup(sellingItems, sellerTrait, pnjBrain);
                 managerRefs.InputManager.Actions.Player.Disable();
-                managerRefs.InputManager.Actions.UI.Validate.Enable();
-                managerRefs.InputManager.Actions.UI.Remove.Enable();
+                managerRefs.InputManager.Actions.UI.Submit.Enable();
+                managerRefs.InputManager.Actions.UI.Cancel.Enable();
             }
             else
             {
                 managerRefs.InputManager.Actions.Player.Enable();
-                managerRefs.InputManager.Actions.UI.Validate.Disable();
-                managerRefs.InputManager.Actions.UI.Remove.Disable();
+                managerRefs.InputManager.Actions.UI.Submit.Disable();
+                managerRefs.InputManager.Actions.UI.Cancel.Disable();
             }
         });
     }

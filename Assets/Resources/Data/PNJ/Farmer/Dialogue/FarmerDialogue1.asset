@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: FarmerDialogue1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <shake>Je n'ai pas tous ton temps</shake>, Il faut que j'aille m'occuper
-      de mes champs
+  - Line: <shake>Je n'ai pas tous ton temps</shake>
     Emotion: {fileID: 0}
   - Line: Tu veux <color=#FFB500FF><grow>m'acheter</grow></color> quelque chose ?
     Emotion: {fileID: 0}
@@ -49,6 +48,7 @@ MonoBehaviour:
         rid: -2
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 2
   TMPAnimationName: shake

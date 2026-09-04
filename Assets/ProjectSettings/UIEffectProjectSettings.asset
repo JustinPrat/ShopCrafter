@@ -54,6 +54,16 @@ ShaderVariantCollection:
         passType: 0
       - keywords: COLOR_FILTER
         passType: 0
+      - keywords: COLOR_FILTER DETAIL_MASKING EDGE_PLAIN GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: COLOR_FILTER DETAIL_MASKING EDGE_PLAIN SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: COLOR_FILTER DETAIL_MASKING EDGE_SHINY SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: COLOR_FILTER DETAIL_MASKING GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: COLOR_FILTER DETAIL_MASKING SAMPLING_EDGE_ALPHA
+        passType: 0
       - keywords: COLOR_FILTER DETAIL_MULTIPLY TRANSITION_PATTERN
         passType: 0
       - keywords: COLOR_FILTER EDGE_PLAIN GRADATION_COLOR2
@@ -88,6 +98,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_MASKING EDGE_PLAIN GRADATION_COLOR2 SAMPLING_PIXELATION
         passType: 0
+      - keywords: DETAIL_MASKING EDGE_PLAIN SAMPLING_EDGE_ALPHA
+        passType: 0
       - keywords: DETAIL_MASKING EDGE_SHINY
         passType: 0
       - keywords: DETAIL_MASKING EDGE_SHINY GRADATION_COLOR2
@@ -99,6 +111,10 @@ ShaderVariantCollection:
       - keywords: DETAIL_MASKING GRADATION_COLOR2
         passType: 0
       - keywords: DETAIL_MASKING GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: DETAIL_MASKING GRADATION_COLOR2 SAMPLING_EDGE_ALPHA TRANSITION_FADE
+        passType: 0
+      - keywords: DETAIL_MASKING SAMPLING_EDGE_ALPHA
         passType: 0
       - keywords: DETAIL_MASKING TRANSITION_PATTERN
         passType: 0

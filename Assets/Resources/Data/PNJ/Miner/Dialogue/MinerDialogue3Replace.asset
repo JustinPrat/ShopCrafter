@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: MinerDialogue3Replace
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: "<grow>Merci, les pandaraign\xE9es ne me font plus peur !</grow>"
+  - Line: <grow>Merci, les taupes volantes ne me font plus peur !</grow>
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: grow

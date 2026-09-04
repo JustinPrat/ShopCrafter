@@ -65,6 +65,11 @@ public class CraftingTable : MonoBehaviour, IInteractable
             interactSequencer.StartSequence();
     }
 
+    public Vector3 GetValidUIPos()
+    {
+        return UICraftAnchor == null ? transform.position : UICraftAnchor.position;
+    }
+
     public void ExitInteract()
     {
         if (outInteractSequencer != null)

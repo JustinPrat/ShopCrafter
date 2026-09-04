@@ -47,7 +47,7 @@ public class ValidateInputArrow : MonoBehaviour
             slider.gameObject.SetActive(false);
         }
 
-        managerRefs.InputManager.Actions.Player.NextDialogue.performed += OnNextDialoguePressed;
+        managerRefs.InputManager.Actions.UI.Submit.performed += OnNextDialoguePressed;
         managerRefs.InputManager.OnInputDeviceChanged += OnInputDeviceChanged;
 
         OnInputDeviceChanged();
@@ -63,7 +63,7 @@ public class ValidateInputArrow : MonoBehaviour
 
     private void OnDestroy()
     {
-        managerRefs.InputManager.Actions.Player.NextDialogue.performed -= OnNextDialoguePressed;
+        managerRefs.InputManager.Actions.UI.Submit.performed -= OnNextDialoguePressed;
         managerRefs.InputManager.OnInputDeviceChanged -= OnInputDeviceChanged;
     }
 

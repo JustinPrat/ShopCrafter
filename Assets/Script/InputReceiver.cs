@@ -48,7 +48,7 @@ public class InputReceiver : MonoBehaviour
     {
         SetAction(managerRefs.InputManager.Actions.Player.Move, canMove);
         SetAction(managerRefs.InputManager.Actions.Player.Interact, canInteract);
-        SetAction(managerRefs.InputManager.Actions.Player.NextDialogue, canNextDialogue);
+        SetAction(managerRefs.InputManager.Actions.UI.Submit, canNextDialogue);
     }
 
     private void SetAction (InputAction inputAction, bool newState)

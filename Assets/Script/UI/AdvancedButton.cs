@@ -142,7 +142,7 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 
     private void Update()
     {
-        if (buttonPressed && !managerRefs.InputManager.Actions.UI.Validate.IsPressed() && interactable)
+        if (buttonPressed && !managerRefs.InputManager.Actions.UI.Submit.IsPressed() && interactable)
         {
             DoStateTransition(SelectionState.Selected, true);
             OnLeftClickReleased?.Invoke(this);
@@ -170,7 +170,7 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 
     public void OnSubmit(BaseEventData eventData)
     {
-        if (managerRefs.InputManager.Actions.UI.Validate.IsPressed() && interactable)
+        if (managerRefs.InputManager.Actions.UI.Submit.IsPressed() && interactable)
         {
             DoStateTransition(SelectionState.Pressed, true);
             OnLeftClick?.Invoke(this);
@@ -180,7 +180,7 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
                 Debug.Log("Submit Left");
             }
         }
-        else if (managerRefs.InputManager.Actions.UI.Remove.IsPressed() && interactable)
+        else if (managerRefs.InputManager.Actions.UI.Cancel.IsPressed() && interactable)
         {
             DoStateTransition(SelectionState.Pressed, true);
             OnRightClick?.Invoke(this);

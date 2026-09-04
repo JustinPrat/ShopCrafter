@@ -22,4 +22,6 @@ MonoBehaviour:
   CraftedName: Journal
   CraftedDescription: 
   CraftedSprite: {fileID: 21300000, guid: e7bb53f6895f6084e8b7d6e293ebbd72, type: 3}
+  BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
+  TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}
   rewardPrefab: {fileID: 0}

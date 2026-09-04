@@ -21,6 +21,7 @@ namespace Sequencer.Actions
             {
                 this.data = data;
                 this.owner = owner;
+                sequencer = owner.GetComponent<Sequencer>();
             }
 
             public override IEnumerator Execute()

@@ -33,6 +33,7 @@ MonoBehaviour:
         rid: 7665218516911390824
   NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: shake
@@ -49,3 +50,4 @@ MonoBehaviour:
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 25
+        rewardPrefab: {fileID: 0}

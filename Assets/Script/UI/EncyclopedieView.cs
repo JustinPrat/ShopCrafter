@@ -32,7 +32,7 @@ public class EncyclopedieView : UIView
             book.OnLeftDrag.AddListener(OnLeftDrag);
             book.OnFinishFlip.AddListener(OnFlip);
             book.OnAbortFlip.AddListener(OnFlip);
-            managerRefs.InputManager.Actions.Player.Back.started += EscapePressed;
+            managerRefs.InputManager.Actions.UI.Cancel.started += CancelPressed;
             managerRefs.InputManager.Actions.Player.Navigate.started += NavigateStarted;
 
             OnFlip();
@@ -44,7 +44,7 @@ public class EncyclopedieView : UIView
             book.OnLeftDrag.RemoveListener(OnLeftDrag);
             book.OnFinishFlip.RemoveListener(OnFlip);
             book.OnAbortFlip.RemoveListener(OnFlip);
-            managerRefs.InputManager.Actions.Player.Back.started -= EscapePressed;
+            managerRefs.InputManager.Actions.UI.Cancel.started -= CancelPressed;
             managerRefs.InputManager.Actions.Player.Navigate.started -= NavigateStarted;
 
             ClearBook();
@@ -83,7 +83,7 @@ public class EncyclopedieView : UIView
         }
     }
 
-    private void EscapePressed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void CancelPressed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         managerRefs.UIManager.ToggleEncyclopedieView(false);
     }

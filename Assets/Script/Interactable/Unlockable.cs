@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TNRD;
@@ -20,6 +21,9 @@ public class Unlockable : MonoBehaviour, IInteractable
 
     [SerializeField]
     private Sequencer.Sequencer sequenceOnUnlocked;
+
+    [SerializeField]
+    private float waitBeforeEnableInteraction = 0;
 
     private bool hasBeenUnlocked;
     private List<IInteractable> interactables;
@@ -58,8 +62,16 @@ public class Unlockable : MonoBehaviour, IInteractable
 
         hasBeenUnlocked = true;
         requiredCost.Value.ResolveCost(refs);
-        SetInteractLock(false);
         physicCollider.enabled = false;
+
+        if (waitBeforeEnableInteraction <= 0)
+        {
+            SetInteractLock(false);
+        }
+        else
+        {
+            StartCoroutine(WaitBeforeEnableInteraction());
+        }
 
         if (sequenceOnUnlocked != null)
             sequenceOnUnlocked.StartSequence();
@@ -74,6 +86,12 @@ public class Unlockable : MonoBehaviour, IInteractable
             if (interactable.PhysicCollider != null)
                 interactable.PhysicCollider.enabled = !locking;
         }
+    }
+
+    private IEnumerator WaitBeforeEnableInteraction()
+    {
+        yield return new WaitForSeconds(waitBeforeEnableInteraction);
+        SetInteractLock(false);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)

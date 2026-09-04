@@ -1032,10 +1032,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  baseMoney: 30
+  baseMoney: 10
   numberToTakeForPriceVariation: 5
   SellSlots:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   SellingSlots: []
@@ -1207,8 +1206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  pnjSpawnOutside: {fileID: 651398584208690550}
-  pnjShopStop: {fileID: 4511565329272077915}
+  pnjSpawnOutside: {fileID: 883571137826965254}
+  pnjShopStop: {fileID: 9149127597726829885}
   dayDuration: 150
   dayStartTime: 10
   dayEndTime: 20

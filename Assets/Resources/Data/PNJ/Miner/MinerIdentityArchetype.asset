@@ -26,5 +26,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9cab3590d745c414098b96bfbc2fb1b9, type: 3}
   possibleDialogues:
   - {fileID: 11400000, guid: e85249ea0df635649add91bf772cde9e, type: 2}
-  - {fileID: 11400000, guid: 0068177618b59264b834822acd12ff0a, type: 2}
   - {fileID: 11400000, guid: 332de1e509f15cd42a50c59f973b3782, type: 2}

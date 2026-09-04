@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: TierList
+  m_Script: {fileID: 11500000, guid: a669cbc8745d63e4685151416a0f13b2, type: 3}
+  m_Name: TierList1
   m_EditorClassIdentifier: Assembly-CSharp::TierList
   Tiers:
   - {fileID: 11400000, guid: 1d04b4a04694d12409b8d4212eb2b41b, type: 2}
   - {fileID: 11400000, guid: 8642692f2bc22a640ae85312022f6ff4, type: 2}
   - {fileID: 11400000, guid: 83a49e07413fcff4180b696e30b8161f, type: 2}
-  - {fileID: 11400000, guid: 555f36ebca17d8a4a9e6b1c653563a72, type: 2}
-  - {fileID: 11400000, guid: 2ebc87c1e8ace7e45a24c754eafba39c, type: 2}

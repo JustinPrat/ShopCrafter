@@ -24,6 +24,8 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
+    public BarData BarElementData;
+    public TierList TierList;
 
     [SerializeField]
     private SpawnedReward rewardPrefab;

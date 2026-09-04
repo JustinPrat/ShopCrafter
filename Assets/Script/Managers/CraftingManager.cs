@@ -110,6 +110,14 @@ public partial class CraftingManager : MonoBehaviour
             blueprintRecipes.Add(recipeBlueprint);
     }
 
+    public void AddCraftedRecipe(CraftedObjectRecipe recipe)
+    {
+        if (recipe != null && !craftedRecipes.Contains(recipe))
+        {
+            craftedRecipes.Add(recipe);
+        }
+    }
+
     public CraftedObjectRecipe PoolCraftedItem(List<Item> items, out bool isNew, out List<TagValue> tags)
     {
         CraftedObjectRecipe recipe = PreviewPoolCraftedItem(items, out isNew, out tags);
@@ -169,11 +177,8 @@ public partial class CraftingManager : MonoBehaviour
         return values;
     }
 
-    public CraftedObject CraftItem (CraftedObjectData craftedObjectData, int boostNumber = 0, StatModifier modifier = null)
+    public CraftedObject CraftItem (CraftedObjectData craftedObjectData)
     {
-        craftedObjectData.BoostRarity(boostNumber);
-        craftedObjectData.AddModifier(modifier);
-
         CraftedObject craftedObject = Instantiate(managerRefs.CraftingManager.CraftedObjectPrefab);
         craftedObject.Init(craftedObjectData);
 

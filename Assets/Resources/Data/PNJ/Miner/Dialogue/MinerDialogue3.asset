@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MinerDialogue3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Tu aurais une arme, les mines regorge de <color=#FF5800FF><shake>PANDARAIGNEES</shake></color>
+  - Line: Tu aurais une arme, les mines regorge de <color=#FF5800FF><shake>taupes
+      volantes</shake></color>
     Emotion: {fileID: 0}
   HasQuestion: 1
   HasNextDialogue: 0
@@ -21,18 +22,19 @@ MonoBehaviour:
   - Line: Radio
     AnswerDialogueData: {fileID: 0}
     Reward:
-      mode: 0
-      unityReference: {fileID: 11400000, guid: da57414308f69c44a894d7a69602b93f, type: 2}
+      mode: 1
+      unityReference: {fileID: 0}
       rawReference:
-        rid: -2
+        rid: 4317222609902633066
     ReplaceMainDialogue: {fileID: 11400000, guid: 2b371a141a07fac4aa753d91c5dae5ff, type: 2}
     Cost:
       mode: 0
-      unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
+      unityReference: {fileID: 11400000, guid: 4f22512f7caed24418f4c5704f52155c, type: 2}
       rawReference:
         rid: -2
   NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 3
   TMPAnimationName: shake
@@ -45,3 +47,8 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 4317222609902633066
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 15
+        rewardPrefab: {fileID: 0}

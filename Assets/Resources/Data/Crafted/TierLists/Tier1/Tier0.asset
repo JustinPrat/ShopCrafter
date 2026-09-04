@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da7b9aa3fbcd0cb49a064e2b5e9e3e85, type: 3}
-  m_Name: Tier2
+  m_Name: Tier0
   m_EditorClassIdentifier: 
-  TierSpeed: 1.5
-  TierTargetSize: 0.2
+  TierSpeed: 0.5
+  TierTargetSize: 0.3
