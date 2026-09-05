@@ -116,6 +116,8 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         managerRefs.InputManager.Actions.Player.Navigate.started += SwapPlace;
         Navigation noneNav = new Navigation() { mode = Navigation.Mode.None };
         button.navigation = noneNav;
+
+        OnDragStarted?.Invoke();
     }
 
     private void SwapPlace(InputAction.CallbackContext ctx)
@@ -137,6 +139,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         //OnEndDrag(null);
         managerRefs.InputManager.Actions.Player.Navigate.started -= SwapPlace;
         button.navigation = Navigation.defaultNavigation;
+        OnDragReleased?.Invoke();
     }
 
     public void BlockOrdering()

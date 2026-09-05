@@ -17,7 +17,7 @@ public class Unlockable : MonoBehaviour, IInteractable
     private string interactText;
 
     [SerializeField]
-    private ManagerRefs refs;
+    protected ManagerRefs refs;
 
     [SerializeField]
     private Sequencer.Sequencer sequenceOnUnlocked;
@@ -55,7 +55,7 @@ public class Unlockable : MonoBehaviour, IInteractable
         return requiredCost != null && requiredCost.Value.CanPay(refs) && !hasBeenUnlocked;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public virtual void DoInteract(PlayerBrain playerBrain)
     {
         if (hasBeenUnlocked)
             return;

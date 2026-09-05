@@ -21,7 +21,8 @@ MonoBehaviour:
   TargetScore: 5
   CraftedName: Battery
   CraftedDescription: 
-  CraftedSprite: {fileID: -5321099399631716182, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  CraftedSprite: {fileID: 21300000, guid: fa5ca7669a313eb49a21074f307eedd1, type: 3}
   BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
   TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}
+  BasePrice: 5
   rewardPrefab: {fileID: 0}

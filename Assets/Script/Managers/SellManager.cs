@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [AlchemySerialize]
 public partial class SellManager : MonoBehaviour
@@ -31,6 +32,7 @@ public partial class SellManager : MonoBehaviour
     public Dictionary<ECraftedType, PriceVariation> PriceVariations => priceVariations;
 
     private int coinAmount;
+    private bool hasUnlockedVariation;
     private Queue<ECraftedType> priceVariationLastTypes = new Queue<ECraftedType>();
 
     //private float nextTimePriceVariation;
@@ -63,22 +65,32 @@ public partial class SellManager : MonoBehaviour
     {
         managerRefs.SellManager = this;
         coinAmount = baseMoney;
-        UpdatePrices(true);
+        ResetBasePrices();
     }
 
     private void Start()
     {
         managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
+        managerRefs.GameEventsManager.OnUnlockPriceVariation += OnUnlockPriceVariation;
     }
 
     private void OnDestroy()
     {
         managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
+        managerRefs.GameEventsManager.OnUnlockPriceVariation -= OnUnlockPriceVariation;
+    }
+
+    private void OnUnlockPriceVariation()
+    {
+        hasUnlockedVariation = true;
     }
 
     private void OnStartDay()
     {
-        UpdatePrices(true);
+        if (hasUnlockedVariation)
+            UpdatePrices(true);
+        else
+            ResetBasePrices();
     }
 
     [Button]
@@ -112,13 +124,16 @@ public partial class SellManager : MonoBehaviour
         SellSlots.Remove(sellSlot);
         SellingSlots.Add(sellSlot);
 
-        if (priceVariationLastTypes.Count >= numberToTakeForPriceVariation)
+        if (hasUnlockedVariation)
         {
-            priceVariationLastTypes.Dequeue();
-        }
+            if (priceVariationLastTypes.Count >= numberToTakeForPriceVariation)
+            {
+                priceVariationLastTypes.Dequeue();
+            }
 
-        priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedData.CraftedObjectRecipe.CraftedType);
-        UpdatePrices(false);
+            priceVariationLastTypes.Enqueue(sellSlot.HeldObject.CraftedData.CraftedObjectRecipe.CraftedType);
+            UpdatePrices(false);
+        }
     }
 
     public void OnItemRemoved (SellSlot sellSlot)
@@ -149,29 +164,20 @@ public partial class SellManager : MonoBehaviour
         return false;
     }
 
-    //private void Update()
-    //{
-    //    if (Time.time >= nextTimePriceVariation)
-    //    {
-    //        UpdatePrices(true);
-    //    }
-    //}
+    private void ResetBasePrices()
+    {
+        foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
+        {
+            priceVariation.Value.BaseRolledPricePercent = 100;
+            priceVariation.Value.currentPricePercent = 100;
+        }
+    }
 
     private void UpdatePrices (bool needReroll)
     {
-        //nextTimePriceVariation = Time.time + timeBeforePriceVariation;
-
         foreach (ECraftedType variationType in priceVariationLastTypes)
         {
             priceVariations[variationType].currentCraftedCount++;
-
-            //foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)
-            //{
-            //    if (variationType.HasFlag(priceVariation.Key))
-            //    {
-            //        priceVariation.Value.currentCraftedCount++;
-            //    }
-            //}
         }
 
         foreach (KeyValuePair<ECraftedType, PriceVariation> priceVariation in priceVariations)

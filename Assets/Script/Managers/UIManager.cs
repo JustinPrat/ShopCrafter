@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -63,6 +64,9 @@ public class UIManager : MonoBehaviour
     private MaterialInventoryView materialInventoryViewInstance;
     private RewardView rewardViewInstance;
 
+    private List<UIView> focusList = new List<UIView>();
+    public UIView CurrentFocus => focusList.Last();
+
     public DialogueView DialogueView => dialogueViewInstance;
 
     private void Awake()
@@ -111,7 +115,27 @@ public class UIManager : MonoBehaviour
         managerRefs.InputManager.Actions.UI.Cancel.Disable();
 
         managerRefs.InputManager.Actions.Player.MaterialInventory.performed += InventoryPerformed;
-        //managerRefs.InputManager.Actions.Player.Encyclopedia.performed += EncyclopediaPerformed;
+    }
+
+    private void NewFocus(UIView newFocus)
+    {
+        focusList.Add(newFocus);
+    }
+
+    private void RemoveFocus(UIView newFocus)
+    {
+        if (focusList.Contains(newFocus))
+        {
+            focusList.Remove(newFocus);
+        }
+    }
+
+    private void UpdateFocus(bool isOn, UIView uiView)
+    {
+        if (isOn)
+            NewFocus(uiView);
+        else
+            RemoveFocus(uiView);
     }
 
     private void OnDestroy()
@@ -119,7 +143,6 @@ public class UIManager : MonoBehaviour
         if (managerRefs.InputManager != null)
         {
             managerRefs.InputManager.Actions.Player.MaterialInventory.performed -= InventoryPerformed;
-            //managerRefs.InputManager.Actions.Player.Encyclopedia.performed -= EncyclopediaPerformed;
         }
     }
 
@@ -127,10 +150,6 @@ public class UIManager : MonoBehaviour
     {
         ToggleMaterialInventoryView(!materialInventoryViewInstance.gameObject.activeInHierarchy);
     }
-    //private void EncyclopediaPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
-    //{
-    //    ToggleEncyclopedieView(!encyclopedieViewInstance.gameObject.activeInHierarchy);
-    //}
 
     public void ToggleInventoryUI (bool isOn)
     {
@@ -144,6 +163,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, materialInventoryViewInstance);
             materialInventoryViewInstance.Toggle(isOn);
         });
     }
@@ -152,6 +172,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, rewardViewInstance);
             rewardViewInstance.Toggle(isOn);
 
             if (isOn)
@@ -172,6 +193,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, endDayViewInstance);
             endDayViewInstance.Toggle(isOn);
 
             if (isOn)
@@ -201,6 +223,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, encyclopedieViewInstance);
             encyclopedieViewInstance.Toggle(isOn);
 
             if (isOn)
@@ -222,6 +245,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, craftingViewInstance);
             craftingViewInstance.CurrentCraftingTable = craftingTable;
             craftingViewInstance.Toggle(isOn);
             craftingViewInstance.transform.position = pos;
@@ -241,34 +265,11 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    //public void ToggleMiniGameView (bool isOn, CraftingTable craftingTable, CraftedObjectData data = null, Vector3 pos = new Vector3())
-    //{
-    //    ExecuteAfterOneFrame(() =>
-    //    {
-    //        miniGameViewInstance.CurrentCraftingTable = craftingTable;
-    //        miniGameViewInstance.Toggle(isOn);
-    //        miniGameViewInstance.transform.position = pos + 1f * Vector3.up;
-
-    //        if (isOn)
-    //        {
-    //            miniGameViewInstance.Setup(data);
-    //            managerRefs.InputManager.SetActionType(false, false, true);
-    //            managerRefs.InputManager.Actions.UI.Submit.Enable();
-    //            managerRefs.InputManager.Actions.UI.Cancel.Enable();
-    //        }
-    //        else
-    //        {
-    //            managerRefs.InputManager.SetActionType(true, true, true);
-    //            managerRefs.InputManager.Actions.UI.Submit.Disable();
-    //            managerRefs.InputManager.Actions.UI.Cancel.Disable();
-    //        }
-    //    });
-    //}
-
     public void ShowMiniGameView(CraftingTable craftingTable, CraftedObjectData data, Vector3 pos = new Vector3())
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(true, miniGameViewInstance);
             miniGameViewInstance.CurrentCraftingTable = craftingTable;
             miniGameViewInstance.Setup(data);
             miniGameViewInstance.Toggle(true);
@@ -285,6 +286,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(false, miniGameViewInstance);
             miniGameViewInstance.Toggle(false);
             managerRefs.InputManager.SetActionType(true, true, true);
             managerRefs.InputManager.Actions.UI.Submit.Disable();
@@ -296,6 +298,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, cardTagViewInstance);
             cardTagViewInstance.CurrentCraftingTable = craftingTable;
             cardTagViewInstance.Toggle(isOn);
 
@@ -320,6 +323,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, dialogueViewInstance);
             dialogueViewInstance.Toggle(isOn);
             if (isOn)
             {
@@ -343,6 +347,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, dialogueViewInstance);
             dialogueViewInstance.Toggle(isOn);
             if (isOn)
             {
@@ -364,6 +369,7 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
+            UpdateFocus(isOn, shopViewInstance);
             shopViewInstance.Toggle(isOn);
             if (isOn)
             {

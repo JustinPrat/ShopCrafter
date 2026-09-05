@@ -27,7 +27,7 @@ public class StartDayToggle : ToggleActivation
 
     public override bool CanInteract(PlayerBrain playerBrain)
     {
-        if (managerRefs.PNJManager.CurrentDayTime == PNJManager.DayTime.Morning && !activeState)
+        if (managerRefs.PNJManager.CurrentDayPeriod == PNJManager.DayTime.Morning && !activeState)
         {
             return true;
         }

@@ -26,6 +26,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public Sprite CraftedSprite;
     public BarData BarElementData;
     public TierList TierList;
+    public int BasePrice;
 
     [SerializeField]
     private SpawnedReward rewardPrefab;
@@ -82,21 +83,12 @@ public class CraftedObjectData
 {
     [ReadOnly, SerializeField]
     private CraftedObjectRecipe craftedObjectRecipe;
-
-    [ReadOnly, SerializeField]
-    private Rarity rarity;
-
     private ManagerRefs managerRefs;
-
-    [ReadOnly, SerializeField]
-    private int basePrice;
-
     private ModifiableValue price = new ModifiableValue();
-    private int boostedRarity;
     private bool isNew;
 
     public CraftedObjectRecipe CraftedObjectRecipe => craftedObjectRecipe;
-    public Rarity Rarity => rarity;
+    public Rarity Rarity => craftedObjectRecipe.Rarity;
     public bool IsNew => isNew;
 
     public CraftedObjectData (CraftedObjectRecipe craftedObjectRecipe, ManagerRefs managerRefs, bool isNew)
@@ -105,35 +97,35 @@ public class CraftedObjectData
         this.managerRefs = managerRefs;
         this.isNew = isNew;
 
-        if (craftedObjectRecipe.Rarity.ERarity != ERarity.Unique)
-        {
-            FindRarity();
-            SetPrice();
-        }
-        else
-        {
-            rarity = managerRefs.CraftingManager.RarityHierarchy.UniqueRarity;
-            basePrice = 0;
-        }
+        //if (craftedObjectRecipe.Rarity.ERarity != ERarity.Unique)
+        //{
+        //    FindRarity();
+        //    SetPrice();
+        //}
+        //else
+        //{
+        //    rarity = managerRefs.CraftingManager.RarityHierarchy.UniqueRarity;
+        //    basePrice = 0;
+        //}
     }
 
     public int GetPrice()
     {
-        price.BaseValue = basePrice * (managerRefs.SellManager.PriceVariations[craftedObjectRecipe.CraftedType].currentPricePercent / 100f);
+        price.BaseValue = craftedObjectRecipe.BasePrice * (managerRefs.SellManager.PriceVariations[craftedObjectRecipe.CraftedType].currentPricePercent / 100f);
         return price.Value;
     }
 
-    public void BoostRarity(int boostRarity)
-    {
-        if (boostRarity <= 0 || (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity > Enum.GetValues(typeof(ERarity)).Length - 1)
-            return;
+    //public void BoostRarity(int boostRarity)
+    //{
+    //    if (boostRarity <= 0 || (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity > Enum.GetValues(typeof(ERarity)).Length - 1)
+    //        return;
 
-        boostedRarity += boostRarity;
-        FindRarity();
-        SetPrice();
-    }
+    //    boostedRarity += boostRarity;
+    //    FindRarity();
+    //    SetPrice();
+    //}
 
-    public void AddModifier(StatModifier modifier)
+    public void AddPriceModifier(StatModifier modifier)
     {
         if (modifier != null)
         {
@@ -141,15 +133,15 @@ public class CraftedObjectData
         }
     }
 
-    public void FindRarity ()
-    {
-        RarityHierarchy hierarchy = managerRefs.CraftingManager.RarityHierarchy;
-        rarity = hierarchy.RarityList[Mathf.Min(hierarchy.RarityList.Length -1, (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity)];
-    }
+    //public void FindRarity ()
+    //{
+    //    RarityHierarchy hierarchy = managerRefs.CraftingManager.RarityHierarchy;
+    //    rarity = hierarchy.RarityList[Mathf.Min(hierarchy.RarityList.Length -1, (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity)];
+    //}
 
-    private void SetPrice ()
-    {
-        PricePerRarity prices = managerRefs.CraftingManager.BasePrices.PricePerRarities[(int)rarity.ERarity];
-        basePrice = UnityEngine.Random.Range(prices.MinPrice, prices.MaxPrice + 1);
-    }
+    //private void SetPrice()
+    //{
+    //    PricePerRarity prices = managerRefs.CraftingManager.BasePrices.PricePerRarities[(int)rarity.ERarity];
+    //    basePrice = UnityEngine.Random.Range(prices.MinPrice, prices.MaxPrice + 1);
+    //}
 }

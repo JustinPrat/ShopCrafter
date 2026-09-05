@@ -19,6 +19,7 @@ public class GameEventsManager : MonoBehaviour
 
     public Action<PNJBrain, DialogueData> OnPNJTalked;
     public Action<SpecialDialogue> OnSpecialDialogueUsed;
+    public Action OnUnlockPriceVariation;
 
     #endregion
 

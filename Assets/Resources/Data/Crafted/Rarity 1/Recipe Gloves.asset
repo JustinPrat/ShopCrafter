@@ -21,7 +21,8 @@ MonoBehaviour:
   TargetScore: 17
   CraftedName: Gloves
   CraftedDescription: 
-  CraftedSprite: {fileID: -3511087439571332015, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  CraftedSprite: {fileID: 21300000, guid: ff870ae0072bdca4e83d14aa92628b2e, type: 3}
   BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
   TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}
+  BasePrice: 7
   rewardPrefab: {fileID: 0}

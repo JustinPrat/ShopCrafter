@@ -13,6 +13,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     private const string OutsidePosVariable = "OutsidePos";
     private const string ShopPosVariable = "ShopPos";
     private const string ShopDurationVariable = "ShopDuration";
+    private const string BuyingPosition = "BuyingObjectPos";
     #region Variables
 
     [SerializeField] private BehaviorGraphAgent agent;
@@ -23,6 +24,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private Collider collider;
     [SerializeField] private WorldSpeech worldSpeech;
     [SerializeField] private PNJInfoData startData;
+
+    [SerializeField] private float interactStopMaxDistance = 0.5f;
 
     private PNJInfoData PNJBaseData;
     private PNJRuntimeData PNJRuntime;
@@ -136,7 +139,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     {
         if (managerRefs.SellManager.GetRandomSellSlot(prefTypes, out SellSlot sellSlot))
         {
-            agent.SetVariableValue<Vector3>("BuyingObjectPos", sellSlot.transform.position);
+            agent.SetVariableValue<Vector3>(BuyingPosition, sellSlot.BuyPosition.position);
         }
         return sellSlot;
     }
@@ -282,11 +285,20 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
-        if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state) && state.Value != State.GoOut)
+        if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state))
         {
-            agent.SetVariableValue<State>("ActualState", State.Stop);
-            SetPauseShopLeaving(true);
+            Vector3 vectorToPlayer = transform.position - playerBrain.transform.position;
+            vectorToPlayer.y = 0;
+
+            if (vectorToPlayer.magnitude <= interactStopMaxDistance && state.Value != State.GoOut && state.Value != State.Buying)
+            {
+                agent.SetVariableValue<State>("ActualState", State.Stop);
+                SetPauseShopLeaving(true);
+            }
+
+            return state.Value == State.RoamingAround || state.Value == State.Stop;
         }
+
         return true;
     }
 

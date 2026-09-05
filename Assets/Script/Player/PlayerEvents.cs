@@ -23,4 +23,10 @@ public class PlayerEvents
     {
         OnSelectedInventoryIndexClick?.Invoke(index);
     }
+
+    public event Action<bool> OnPlayerZoneTrain;
+    public void PlayerZoneTrain(bool isInside)
+    {
+        OnPlayerZoneTrain?.Invoke(isInside);
+    }
 }

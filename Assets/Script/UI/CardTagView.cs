@@ -49,7 +49,7 @@ public class CardTagView : UIView
     private bool isNew = false;
 
     private int score;
-    private int rarityBoost;
+    //private int rarityBoost;
     private StatModifier modifier;
 
     public override void Toggle(bool isOn)
@@ -101,7 +101,6 @@ public class CardTagView : UIView
             tagUI.OnDragStarted += OnDragTagStarted;
         }
 
-
         if (managerRefs.InputManager.IsGamepad)
         {
             EventSystem.current.SetSelectedGameObject(tagsUI[0].gameObject);
@@ -143,7 +142,7 @@ public class CardTagView : UIView
     private IEnumerator CountScores()
     {
         score = 0;
-        rarityBoost = 0;
+        //rarityBoost = 0;
         modifier = null;
 
         foreach (TagIconUI tagUI in tagsUI)
@@ -170,22 +169,20 @@ public class CardTagView : UIView
         RemovePreSelectionTags();
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
 
-        craftedObjectData.BoostRarity(rarityBoost);
-        craftedObjectData.AddModifier(modifier);
+        //craftedObjectData.BoostRarity(rarityBoost);
+        craftedObjectData.AddPriceModifier(modifier);
         managerRefs.UIManager.ShowMiniGameView(CurrentCraftingTable, craftedObjectData, CurrentCraftingTable.GetValidUIPos());
     }
 
     private void ScoreBonus()
     {
-        if (score > craftedObjectRecipe.TargetScore)
-        {
-            rarityBoost++;
-        }
-        else
-        {
-            modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
-            modifier.Value *= 1 + (modifier.Value - 1) * (score / craftedObjectRecipe.TargetScore);
-        }
+        //if (score > craftedObjectRecipe.TargetScore)
+        //{
+        //    rarityBoost++;
+        //}
+
+        modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
+        modifier.Value *= 1 + (modifier.Value - 1) * Mathf.Min(score / craftedObjectRecipe.TargetScore, 1);
     }
 
     private void DisplayBonus()
@@ -197,14 +194,12 @@ public class CardTagView : UIView
 
         bonusTagGameUI.gameObject.SetActive(true);
         animator.SetTrigger(BonusTrigger);
-        if (rarityBoost > 0)
-        {
-            bonusTagGameUI.Setup(rarityBoost, true);
-        }
-        else
-        {
-            bonusTagGameUI.Setup((int)(priceModif.Value - priceModif.BaseValue), false);
-        }
+        //if (rarityBoost > 0)
+        //{
+        //    bonusTagGameUI.Setup(rarityBoost, true);
+        //}
+
+        bonusTagGameUI.Setup((int)(priceModif.Value - priceModif.BaseValue), false);
     }
 
     private void UpdateUIOrder()

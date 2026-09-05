@@ -101,6 +101,8 @@ public class MiniGameView : UIView
 
         toCraftItemHolder.Setup(data.CraftedObjectRecipe);
         toCraftItemHolder.ValidateButton.onClick.AddListener(OnItemClick);
+        toCraftItemHolder.SetShadowFadeRatio(1);
+
         itemImage.sprite = data.CraftedObjectRecipe.CraftedSprite;
 
         if (data.CraftedObjectRecipe.BarElementData != null)
@@ -146,7 +148,6 @@ public class MiniGameView : UIView
             currentBarBehaviour.OnStop(this);
             currentBarBehaviour = null;
         }
-
         CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
         managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
@@ -222,6 +223,8 @@ public class MiniGameView : UIView
                 goodWord.transform.position = currentTarget.transform.position;
                 goodWord.gameObject.SetActive(true);
 
+                toCraftItemHolder.SetShadowFadeRatio(1 - ((float)tierCount / currentTierList.Tiers.Count));
+                
                 SetupTarget();
                 currentSpeed = currentTierList.Tiers[tierCount].TierSpeed;
             }

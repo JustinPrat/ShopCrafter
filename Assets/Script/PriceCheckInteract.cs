@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PriceCheckInteract : MonoBehaviour, IInteractable
@@ -36,25 +35,25 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+    }
+
+    public void UnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public void OnInteractRange(PlayerBrain playerBrain)
+    {
         if (IsLocked)
             return;
 
         managerRefs.UIManager.TogglePriceCheckView(true, transform.position);
     }
 
-    public void UnTargeted(PlayerBrain playerBrain)
+    public void OutInteractRange(PlayerBrain playerBrain)
     {
         if (IsLocked)
             return;
 
         managerRefs.UIManager.TogglePriceCheckView(false);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
     }
 }

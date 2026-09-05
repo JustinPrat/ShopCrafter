@@ -9,6 +9,7 @@ public class GameMetaDataManager : MonoBehaviour
 
     private int moneyToday;
     private int moneyTotal;
+    private bool playerInsideTrain;
 
     private List<CraftedObjectData> craftedObjectsToday = new List<CraftedObjectData>();
     private List<CraftedObjectData> craftedObjectsTotal = new List<CraftedObjectData>();
@@ -18,6 +19,8 @@ public class GameMetaDataManager : MonoBehaviour
 
     public IReadOnlyList<CraftedObjectData> CraftedRecipesToday => craftedObjectsToday;
     public IReadOnlyList<CraftedObjectData> CraftedRecipesTotal => craftedObjectsTotal;
+
+    public bool PlayerInsideTrain => playerInsideTrain;
 
 
     private void Awake()
@@ -31,6 +34,12 @@ public class GameMetaDataManager : MonoBehaviour
         managerRefs.GameEventsManager.OnMoneyGained += OnMoneyGained;
         managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
         managerRefs.GameEventsManager.craftEvents.OnCraftedItem += OnCraftedItem;
+        managerRefs.GameEventsManager.playerEvents.OnPlayerZoneTrain += OnPlayerZoneTrain;
+    }
+
+    private void OnPlayerZoneTrain(bool isInside)
+    {
+        playerInsideTrain = isInside;
     }
 
     private void OnDestroy()

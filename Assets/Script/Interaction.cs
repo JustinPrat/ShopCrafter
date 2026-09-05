@@ -56,7 +56,7 @@ public class Interaction : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(transform.position, new Vector3(playerBrain.LastPlayerMovement.x, 0, playerBrain.LastPlayerMovement.y), Color.yellow, Time.deltaTime);
+        Debug.DrawRay(transform.position, new Vector3(playerBrain.LastValidDirectionPlayerMovement.x, 0, playerBrain.LastValidDirectionPlayerMovement.y), Color.yellow, Time.deltaTime);
 
         IInteractable newInteractable = null;
         float highestDot = -1f;
@@ -64,7 +64,7 @@ public class Interaction : MonoBehaviour
         foreach (IInteractable interactable in interactablesInRange)
         {
             Vector2 interactDir = new Vector2(interactable.GameObject.transform.position.x - transform.position.x, interactable.GameObject.transform.position.z - transform.position.z).normalized;
-            float dot = Vector2.Dot(playerBrain.LastPlayerMovement.normalized, interactDir);
+            float dot = Vector2.Dot(playerBrain.LastValidDirectionPlayerMovement.normalized, interactDir);
             if (interactable.CanInteract(playerBrain) && !interactable.IsLocked && dot > highestDot)
             {
                 newInteractable = interactable;
@@ -95,7 +95,7 @@ public class Interaction : MonoBehaviour
     private void OnInteractStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         Debug.Log("Interact");
-        Debug.DrawRay(transform.position, playerBrain.LastPlayerMovement, Color.blue, 1f);
+        Debug.DrawRay(transform.position, playerBrain.LastValidDirectionPlayerMovement, Color.blue, 1f);
 
         currentInteractable?.DoInteract(playerBrain);
     }

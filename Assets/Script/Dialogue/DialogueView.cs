@@ -191,6 +191,9 @@ public class DialogueView : UIView
 
     private void OnNextDialogueStarted (InputAction.CallbackContext ctx)
     {
+        if (managerRefs.UIManager.CurrentFocus != this)
+            return;
+
         NextInputPressed();
     }
 

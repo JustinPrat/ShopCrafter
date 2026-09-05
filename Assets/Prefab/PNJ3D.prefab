@@ -793,6 +793,7 @@ MonoBehaviour:
   collider: {fileID: 9055680474981931885}
   worldSpeech: {fileID: 2199096443231282290}
   startData: {fileID: 0}
+  interactStopMaxDistance: 0.5
 --- !u!114 &2742724138226711751
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,7 +21,8 @@ MonoBehaviour:
   TargetScore: 12
   CraftedName: Drug seringue
   CraftedDescription: 
-  CraftedSprite: {fileID: 3272861516853997401, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  CraftedSprite: {fileID: 21300000, guid: ee5dbb15491f16a4c92d347750de2144, type: 3}
   BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
   TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}
+  BasePrice: 5
   rewardPrefab: {fileID: 0}

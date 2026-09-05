@@ -1211,7 +1211,7 @@ MonoBehaviour:
   dayDuration: 150
   dayStartTime: 10
   dayEndTime: 20
-  nearDayEndTime: 18
+  nearDayEndTime: 19
   targetNumberPnj: 2
   waitBeforeSpawnPNJ: 5
   pnjPoolList:

@@ -24,7 +24,8 @@ MonoBehaviour:
   TargetScore: 15
   CraftedName: Gun BodyPart
   CraftedDescription: 
-  CraftedSprite: {fileID: -9115938624207856695, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  CraftedSprite: {fileID: 21300000, guid: f237579cad6b0ef419961c970f4be6c2, type: 3}
   BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
   TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}
+  BasePrice: 10
   rewardPrefab: {fileID: 0}

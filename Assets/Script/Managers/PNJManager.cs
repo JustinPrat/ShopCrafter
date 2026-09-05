@@ -56,7 +56,7 @@ public class PNJManager : MonoBehaviour
     private DateTime currentHourDayTime;
     private int dayIndex;
     private bool isNearDayEndEventTriggered;
-    private DayTime dayTime;
+    private DayTime dayPeriod;
     private int numberSpecialSpawnedToday;
     private float nearEndDayDuration => (nearDayEndTime / dayEndTime) * dayDuration;
 
@@ -70,7 +70,7 @@ public class PNJManager : MonoBehaviour
 
     public Vector3 PnjSpawnOutside => pnjSpawnOutside.position;
     public Vector3 PnjShopStop => pnjShopStop.position;
-    public DayTime CurrentDayTime => dayTime;
+    public DayTime CurrentDayPeriod => dayPeriod;
 
     public bool HasEnoughtPNJ => PNJList.Count >= targetNumberPnj;
 
@@ -146,7 +146,7 @@ public class PNJManager : MonoBehaviour
     private void Update()
     {
         bool hasPNJToSpawn = PNJDataPoolList.Count > 0 || NeedRespawnPNJList.Count > 0 || SpecialPNJDataPoolList.Count > 0;
-        if (dayTime == DayTime.Afternoon && !HasEnoughtPNJ && hasPNJToSpawn)
+        if (dayPeriod == DayTime.Afternoon && !HasEnoughtPNJ && hasPNJToSpawn)
         {
             waitPNJCounter += Time.deltaTime;
 
@@ -157,14 +157,9 @@ public class PNJManager : MonoBehaviour
             }
         }
        
-        if (dayTime != DayTime.Night && dayTime != DayTime.Morning)
+        if (dayPeriod == DayTime.Afternoon)
         {
             currentDayTime += Time.deltaTime;
-            if (currentDayTime >= dayDuration)
-            {
-                EndDay();
-            }
-
             if (currentDayTime >= nearEndDayDuration && !isNearDayEndEventTriggered)
             {
                 NearDayEnd();
@@ -173,11 +168,20 @@ public class PNJManager : MonoBehaviour
             currentHourDayTime = currentHourDayTime.AddSeconds((Time.deltaTime / dayDuration) * ((dayEndTime - dayStartTime) * 3600f));
             daytime.text = "date : " + currentHourDayTime.Day + " - " + currentHourDayTime.Hour + "h" + currentHourDayTime.Minute;
         }
+
+        if (dayPeriod == DayTime.Evening)
+        {
+            if (PNJList.Count <= 0 && managerRefs.GameMetaDataManager.PlayerInsideTrain)
+            {
+                currentDayTime = dayEndTime;
+                EndDay();
+            }
+        }
     }
 
     public void StartDay ()
     {
-        dayTime = DayTime.Morning;
+        dayPeriod = DayTime.Morning;
         currentDayTime = 0;
         dayIndex++;
         isNearDayEndEventTriggered = false;
@@ -189,19 +193,19 @@ public class PNJManager : MonoBehaviour
 
     public void StartAfternoon()
     {
-        dayTime = DayTime.Afternoon;
+        dayPeriod = DayTime.Afternoon;
         managerRefs.GameEventsManager.dayEvents.StartAfternoon();
     }
 
     private void EndDay ()
     {
-        dayTime = DayTime.Night;
+        dayPeriod = DayTime.Night;
         managerRefs.GameEventsManager.dayEvents.EndDay();
     }
 
     private void NearDayEnd()
     {
-        dayTime = DayTime.Evening;
+        dayPeriod = DayTime.Evening;
         isNearDayEndEventTriggered = true;
         managerRefs.GameEventsManager.dayEvents.NearEndDay();
     }

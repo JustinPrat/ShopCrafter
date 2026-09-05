@@ -90,6 +90,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1691010697064007810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5248836016667282588}
+  m_Layer: 0
+  m_Name: BuyPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5248836016667282588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691010697064007810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7826762491290370416}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2214664647650997391
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +219,7 @@ Transform:
   - {fileID: 1296529846931300435}
   - {fileID: 8397408711625929970}
   - {fileID: 4918698281812511290}
+  - {fileID: 5248836016667282588}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2598970479186191324
@@ -209,6 +241,7 @@ MonoBehaviour:
   UIStatAnchor: {fileID: 4918698281812511290}
   physicCollider: {fileID: 797958540356178465}
   sequencer: {fileID: 7608358091598398058}
+  buyPosition: {fileID: 5248836016667282588}
 --- !u!65 &797958540356178465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -263,23 +296,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
   actions:
-  - ChangeTarget: 1
-    Target: {fileID: 5843829833474692562}
-    type: 0
-    ActionData: {fileID: 11400000, guid: 2ee0907b0aeef564a810d3588f0a62bb, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 1
-    Target: {fileID: 5843829833474692562}
-    type: 1
-    ActionData: {fileID: 11400000, guid: 18cca001b6143c745b0581db64dc5eb5, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 1
-    Target: {fileID: 5843829833474692562}
-    type: 0
-    ActionData: {fileID: 11400000, guid: 426a9dd61a9289b439cbf1e689bf67c0, type: 2}
-    IsExecuting: 0
-  - ChangeTarget: 1
-    Target: {fileID: 5843829833474692562}
-    type: 1
-    ActionData: {fileID: 11400000, guid: 456415baa209cab4391e5197d1fe3dd9, type: 2}
-    IsExecuting: 0
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  playMode: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

@@ -5,6 +5,11 @@ public class SellSlot : CraftedItemReceiver
     [SerializeField]
     private Sequencer.Sequencer sequencer;
 
+    [SerializeField]
+    private Transform buyPosition;
+
+    public Transform BuyPosition => buyPosition;
+
     private void Start()
     {
         managerRefs.SellManager.OnItemRemoved(this);

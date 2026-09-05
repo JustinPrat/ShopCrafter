@@ -21,16 +21,23 @@ public class PlayerBrain : MonoBehaviour
     private RotateWithDirection rotateWithDirection;
 
     private Vector2 lastPlayerMovement;
+    private Vector2 lastValidDirectionPlayerMovement;
 
     public Inventory Inventory => inventory;
     public Interaction Interaction => interaction;
     public Vector2 LastPlayerMovement => lastPlayerMovement;
+    public Vector2 LastValidDirectionPlayerMovement => lastValidDirectionPlayerMovement;
     public ManagerRefs ManagerRefsProperty => managerRefs;
 
     public void SetLastPlayerMovement(Vector2 movement)
     {
         lastPlayerMovement = movement;
         rotateWithDirection.UpdateWithRotation(movement);
+
+        if (movement.magnitude >= 0.1f)
+        {
+            lastValidDirectionPlayerMovement = movement.normalized;
+        }
     }
 
     public void StopMovementPlayer()
