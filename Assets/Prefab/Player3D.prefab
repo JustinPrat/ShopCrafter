@@ -596,6 +596,7 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   playerBrain: {fileID: 3495039221512116469}
   physicCollider: {fileID: 1477744653469662395}
+  maxStepHeight: 0.3
 --- !u!114 &2148126113902146160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,7 +667,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -678,7 +679,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5297662393300078703}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a4ce91d9065546045b1adfe5303c8973, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

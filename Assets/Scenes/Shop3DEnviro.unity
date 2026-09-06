@@ -9471,6 +9471,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5801126888105753439, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5801126888105753439, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5801126888105753439, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5940720520110901808, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
       propertyPath: m_Radius
       value: 0.3
@@ -9478,6 +9490,10 @@ PrefabInstance:
     - target: {fileID: 6362052680927295878, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
       propertyPath: m_Name
       value: Dog
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362052680927295878, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9055680474981931885, guid: 0a48e917f16449a43b3cbe6f9c6b0483, type: 3}
       propertyPath: m_Radius
@@ -13589,8 +13605,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 14.27041, y: 3.111499, z: 5.030113}
-  m_Center: {x: 3.7626014, y: 1.5862099, z: -0.02377081}
+  m_Size: {x: 13.745839, y: 3.111499, z: 4.4907255}
+  m_Center: {x: 3.723186, y: 1.5862099, z: 0.039433956}
 --- !u!114 &1911479322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14598,6 +14614,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6670342744302803209, guid: 2d61c07b8dc13be4c89fe05b9fcd02fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871941897534009106, guid: 2d61c07b8dc13be4c89fe05b9fcd02fc, type: 3}
+      propertyPath: heightOffset
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

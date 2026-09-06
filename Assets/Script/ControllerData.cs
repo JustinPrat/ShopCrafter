@@ -7,5 +7,7 @@ public class ControllerData : ScriptableObject
     public float InteractionRange = 1f;
     public LayerMask InteractionLayer;
     public LayerMask GroundLayer;
+    public float MaxStepHeight = 0.3f;
+    public float MaxDownHeight = 0.1f;
     public bool ToggleDebug;
 }

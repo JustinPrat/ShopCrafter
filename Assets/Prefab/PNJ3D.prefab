@@ -794,6 +794,8 @@ MonoBehaviour:
   worldSpeech: {fileID: 2199096443231282290}
   startData: {fileID: 0}
   interactStopMaxDistance: 0.5
+  outlineMat: {fileID: 2100000, guid: 887036bf43d2bf744aca476ab9329c88, type: 2}
+  mainRenderer: {fileID: 5801126888105753439}
 --- !u!114 &2742724138226711751
 MonoBehaviour:
   m_ObjectHideFlags: 0

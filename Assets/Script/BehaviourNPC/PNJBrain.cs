@@ -9,7 +9,6 @@ using UnityEngine.AI;
 
 public class PNJBrain : MonoBehaviour, IInteractable
 {
-
     private const string OutsidePosVariable = "OutsidePos";
     private const string ShopPosVariable = "ShopPos";
     private const string ShopDurationVariable = "ShopDuration";
@@ -24,9 +23,11 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private Collider collider;
     [SerializeField] private WorldSpeech worldSpeech;
     [SerializeField] private PNJInfoData startData;
-
     [SerializeField] private float interactStopMaxDistance = 0.5f;
+    [SerializeField] private Material outlineMat;
+    [SerializeField] private Renderer mainRenderer;
 
+    private Material baseMat;
     private PNJInfoData PNJBaseData;
     private PNJRuntimeData PNJRuntime;
     private List<QuestInfoSO> givenQuests = new List<QuestInfoSO>();
@@ -55,6 +56,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     private void Start()
     {
+        baseMat = mainRenderer.material;
+
         if (startData != null)
         {
             Setup(startData);
@@ -304,6 +307,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        mainRenderer.material = baseMat;
+
         if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state) && state.Value != State.GoOut)
         {
             agent.SetVariableValue<State>("ActualState", State.RoamingAround);
@@ -316,6 +321,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        mainRenderer.material = outlineMat != null ? outlineMat : baseMat;
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)
