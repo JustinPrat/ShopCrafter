@@ -1208,11 +1208,11 @@ MonoBehaviour:
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   pnjSpawnOutside: {fileID: 883571137826965254}
   pnjShopStop: {fileID: 9149127597726829885}
-  dayDuration: 150
+  dayDuration: 80
   dayStartTime: 10
   dayEndTime: 20
   nearDayEndTime: 19
-  targetNumberPnj: 2
+  targetNumberPnj: 3
   waitBeforeSpawnPNJ: 5
   pnjPoolList:
   - milestoneIndex: 0

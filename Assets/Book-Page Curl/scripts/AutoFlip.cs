@@ -14,41 +14,57 @@ public class AutoFlip : MonoBehaviour {
     public bool IsFlipping => isFlipping;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (!ControledBook)
             ControledBook = GetComponent<Book>();
         if (AutoStartFlip)
             StartFlipping();
+
+        // On écoute OnFlip et OnAbortFlip pour s'assurer de bien débloquer l'UI
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
-	}
+        ControledBook.OnAbortFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
+    }
+
     void PageFlipped()
     {
         isFlipping = false;
+        ControledBook.interactable = true; // On rend la main au joueur
     }
-	public void StartFlipping()
+
+    public void StartFlipping()
     {
         StartCoroutine(FlipToEnd());
     }
+
     public void FlipRightPage()
     {
         if (isFlipping) return;
-        if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
+        if (ControledBook.currentPage >= ControledBook.TotalPageCount - 1) return;
+
         isFlipping = true;
+        ControledBook.interactable = false;
+
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         StartCoroutine(FlipRTL(xc, xl, h));
     }
+
     public void FlipLeftPage()
     {
         if (isFlipping) return;
-        if (ControledBook.currentPage <= 0) return;
+        if (ControledBook.currentPage <= 1) return;
+
         isFlipping = true;
+        ControledBook.interactable = false;
+
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         StartCoroutine(FlipLTR(xc, xl, h));
     }
+
     IEnumerator FlipToEnd()
     {
         yield return new WaitForSeconds(DelayBeforeStarting);
@@ -81,18 +97,23 @@ public class AutoFlip : MonoBehaviour {
         float endX = xc - xl;
 
         ControledBook.DragRightPageToPoint(new Vector3(startX, (-h / (xl * xl)) * (startX - xc) * (startX - xc), 0));
+        Canvas.ForceUpdateCanvases();
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             float x = Mathf.Lerp(startX, endX, t);
+
+            // On reprend la courbe parabolique d'origine
             float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
+
             ControledBook.UpdateBookRTLToPoint(new Vector3(x, y, 0));
             yield return null;
         }
         ControledBook.ReleasePage();
     }
+
     IEnumerator FlipLTR(float xc, float xl, float h)
     {
         float elapsedTime = 0f;
@@ -101,13 +122,19 @@ public class AutoFlip : MonoBehaviour {
         float endX = xc + xl;
 
         ControledBook.DragLeftPageToPoint(new Vector3(startX, (-h / (xl * xl)) * (startX - xc) * (startX - xc), 0));
+        Canvas.ForceUpdateCanvases();
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             float x = Mathf.Lerp(startX, endX, t);
+
+            // On reprend la courbe parabolique d'origine
             float y = (-h / (xl * xl)) * (x - xc) * (x - xc);
+
+            y += 0.01f;
+
             ControledBook.UpdateBookLTRToPoint(new Vector3(x, y, 0));
             yield return null;
         }

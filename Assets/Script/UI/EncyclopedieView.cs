@@ -90,7 +90,11 @@ public class EncyclopedieView : UIView
 
     private void NavigateStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        bool isInputRight = obj.ReadValue<Vector2>().x > 0 ? false : true;
+        float inputX = obj.ReadValue<Vector2>().x;
+
+        //if (Mathf.Abs(inputX) < 0.3f) return;
+
+        bool isInputRight = inputX > 0;
 
         if (isInputRight)
         {

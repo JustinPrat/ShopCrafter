@@ -14790,10 +14790,6 @@ PrefabInstance:
       propertyPath: 'SellSlots.Array.data[2]'
       value: 
       objectReference: {fileID: 1250198513}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: dayDuration
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 6310679627409969459, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.92676

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7b9aa3fbcd0cb49a064e2b5e9e3e85, type: 3}
   m_Name: Tier1
   m_EditorClassIdentifier: 
-  TierSpeed: 0.6
-  TierTargetSize: 0.25
+  TierSpeed: 0.8
+  TierTargetSize: 0.125

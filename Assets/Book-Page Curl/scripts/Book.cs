@@ -178,7 +178,9 @@ public class Book : MonoBehaviour {
         Vector3 t1;
         float clipAngle = CalcClipAngle(c, ebl, out t1);
         //0 < T0_T1_Angle < 180
+        Debug.Log("clip before : " + clipAngle);
         clipAngle = (clipAngle + 180) % 180;
+        Debug.Log("clip after : " + clipAngle + " value : " + (clipAngle - 90));
 
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
         ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
@@ -234,21 +236,26 @@ public class Book : MonoBehaviour {
 
         Shadow.rectTransform.SetParent(Right.rectTransform, true);
     }
-    private float CalcClipAngle(Vector3 c,Vector3 bookCorner,out  Vector3 t1)
+    private float CalcClipAngle(Vector3 c, Vector3 bookCorner, out Vector3 t1)
     {
         Vector3 t0 = (c + bookCorner) / 2;
         float T0_CORNER_dy = bookCorner.y - t0.y;
         float T0_CORNER_dx = bookCorner.x - t0.x;
         float T0_CORNER_Angle = Mathf.Atan2(T0_CORNER_dy, T0_CORNER_dx);
         float T0_T1_Angle = 90 - T0_CORNER_Angle;
-        
+
         float T1_X = t0.x - T0_CORNER_dy * Mathf.Tan(T0_CORNER_Angle);
         T1_X = normalizeT1X(T1_X, bookCorner, sb);
         t1 = new Vector3(T1_X, sb.y, 0);
-        
-        //clipping plane angle=T0_T1_Angle
+
         float T0_T1_dy = t1.y - t0.y;
         float T0_T1_dx = t1.x - t0.x;
+
+        if (Mathf.Approximately(T0_T1_dx, 0f) && Mathf.Approximately(T0_T1_dy, 0f))
+        {
+            return -90f;
+        }
+
         T0_T1_Angle = Mathf.Atan2(T0_T1_dy, T0_T1_dx) * Mathf.Rad2Deg;
         return T0_T1_Angle;
     }
@@ -345,6 +352,7 @@ public class Book : MonoBehaviour {
         Left.sprite = (currentPage >= 2) ? bookPages[currentPage - 2] : background;
 
         LeftNext.sprite = (currentPage >= 3) ? bookPages[currentPage - 3] : background;
+        RightNext.sprite = (currentPage < bookPages.Length) ? bookPages[currentPage] : background;
 
         RightNext.transform.SetAsFirstSibling();
         if (enableShadowEffect) ShadowLTR.gameObject.SetActive(true);
@@ -402,6 +410,10 @@ public class Book : MonoBehaviour {
         Right.gameObject.SetActive(false);
         Right.transform.SetParent(BookPanel.transform, true);
         RightNext.transform.SetParent(BookPanel.transform, true);
+
+        ClippingPlane.transform.localEulerAngles = Vector3.zero;
+        NextPageClip.transform.localEulerAngles = Vector3.zero;
+
         UpdateSprites();
         Shadow.gameObject.SetActive(false);
         ShadowLTR.gameObject.SetActive(false);
@@ -421,6 +433,9 @@ public class Book : MonoBehaviour {
                     RightNext.transform.SetParent(BookPanel.transform);
                     Right.transform.SetParent(BookPanel.transform);
 
+                    ClippingPlane.transform.localEulerAngles = Vector3.zero;
+                    NextPageClip.transform.localEulerAngles = Vector3.zero;
+
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
@@ -438,6 +453,9 @@ public class Book : MonoBehaviour {
 
                     LeftNext.transform.SetParent(BookPanel.transform);
                     Left.transform.SetParent(BookPanel.transform);
+
+                    ClippingPlane.transform.localEulerAngles = Vector3.zero;
+                    NextPageClip.transform.localEulerAngles = Vector3.zero;
 
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);

@@ -149,7 +149,9 @@ public class MiniGameView : UIView
             currentBarBehaviour = null;
         }
         CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData);
+        managerRefs.CraftingManager.AddCraftedRecipe(craftedObjectData.CraftedObjectRecipe);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
+
         managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
         managerRefs.UIManager.HideMiniGameView();
 
