@@ -20,7 +20,7 @@ MonoBehaviour:
   Rarity: {fileID: 11400000, guid: 7072c47d6085c6b41a0b74cf83d83349, type: 2}
   TargetScore: 5
   CraftedName: Battery
-  CraftedDescription: 
+  CraftedDescription: Description d'un object
   CraftedSprite: {fileID: 21300000, guid: fa5ca7669a313eb49a21074f307eedd1, type: 3}
   BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
   TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}

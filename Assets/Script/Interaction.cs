@@ -88,6 +88,10 @@ public class Interaction : MonoBehaviour
         {
             worldSpeech.StopSpeech();
         }
+        else if (!worldSpeech.IsSpeechDisplayed)
+        {
+            worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
+        }
 
         currentInteractable = newInteractable;
     }

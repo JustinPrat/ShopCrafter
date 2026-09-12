@@ -29,4 +29,10 @@ public class PlayerEvents
     {
         OnPlayerZoneTrain?.Invoke(isInside);
     }
+
+    public event Action OnPlayerGetRewardFeedback;
+    public void PlayerGetRewardFeedback()
+    {
+        OnPlayerGetRewardFeedback?.Invoke();
+    }
 }

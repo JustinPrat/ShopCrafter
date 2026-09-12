@@ -1,3 +1,4 @@
+using Sequencer;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -20,6 +21,9 @@ public class PlayerBrain : MonoBehaviour
     [SerializeField]
     private RotateWithDirection rotateWithDirection;
 
+    [SerializeField]
+    private Sequencer.Sequencer rewardFeedback;
+
     private Vector2 lastPlayerMovement;
     private Vector2 lastValidDirectionPlayerMovement;
 
@@ -28,6 +32,22 @@ public class PlayerBrain : MonoBehaviour
     public Vector2 LastPlayerMovement => lastPlayerMovement;
     public Vector2 LastValidDirectionPlayerMovement => lastValidDirectionPlayerMovement;
     public ManagerRefs ManagerRefsProperty => managerRefs;
+
+    private void Start()
+    {
+        managerRefs.GameEventsManager.playerEvents.OnPlayerGetRewardFeedback += OnPlayerGetRewardFeedback;
+    }
+
+    private void OnDestroy()
+    {
+        managerRefs.GameEventsManager.playerEvents.OnPlayerGetRewardFeedback -= OnPlayerGetRewardFeedback;
+    }
+
+    private void OnPlayerGetRewardFeedback()
+    {
+        if (rewardFeedback != null)
+            rewardFeedback.StartSequence();
+    }
 
     public void SetLastPlayerMovement(Vector2 movement)
     {

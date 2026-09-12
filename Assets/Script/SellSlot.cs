@@ -29,13 +29,32 @@ public class SellSlot : CraftedItemReceiver
         return base.CanInteract(playerBrain) && (playerBrain.Inventory.HasItem && playerBrain.Inventory.HeldObject.CraftedData.Rarity.ERarity != ERarity.Unique);
     }
 
+    public override void DoInteract(PlayerBrain playerBrain)
+    {
+        base.DoInteract(playerBrain);
+        OnInteractRange(playerBrain);
+    }
+
     public override void OnInteractRange(PlayerBrain playerBrain)
     {
         base.OnInteractRange(playerBrain);
-
         if (HasHeldItem)
         {
-
+            managerRefs.UIManager.ToggleCraftedStatView(true, heldObject.CraftedData, UIStatAnchor.transform.position);
         }
+    }
+
+    public override void OutInteractRange(PlayerBrain playerBrain)
+    {
+        base.OutInteractRange(playerBrain);
+        managerRefs.UIManager.ToggleCraftedStatView(false);
+    }
+
+    public override void OnTargeted(PlayerBrain playerBrain)
+    {
+    }
+
+    public override void UnTargeted(PlayerBrain playerBrain)
+    {
     }
 }

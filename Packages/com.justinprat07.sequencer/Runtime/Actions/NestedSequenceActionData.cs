@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Sequencer.Actions
 {
     [CreateAssetMenu(fileName = "NestedSequenceActionData", menuName = "Sequencer/NestedSequenceActionData")]
     public class NestedSequenceActionData : SequenceActionData
     {
+        public bool PlayAtSameTime;
+
         public List<SequenceActionData> NestedActions;
 
         public override SequenceActionBehavior CreateBehavior(GameObject owner)
@@ -21,13 +24,22 @@ namespace Sequencer.Actions
             private NestedSequenceActionData data;
             private List<SequenceActionBehavior> behaviors = new List<SequenceActionBehavior>();
             private SequenceActionBehavior currentBehavior;
+            private MonoBehaviour monoBehaviour;
 
             public override IEnumerator Execute()
             {
                 foreach (SequenceActionBehavior behavior in behaviors)
                 {
                     currentBehavior = behavior;
-                    yield return behavior.Execute();
+
+                    if (data.PlayAtSameTime)
+                    {
+                        monoBehaviour.StartCoroutine(behavior.Execute());
+                    }
+                    else
+                    {
+                        yield return behavior.Execute();
+                    }
                 }
 
                 currentBehavior = null;
@@ -51,6 +63,10 @@ namespace Sequencer.Actions
                     SequenceActionBehavior behavior = action.CreateBehavior(owner);
                     behaviors.Add(behavior);
                 }
+
+                monoBehaviour = owner.GetComponent<MonoBehaviour>();
+                if (monoBehaviour == null)
+                    monoBehaviour = owner.AddComponent<BehaviorCoroutine>();
             }
 
             public override void Stop()

@@ -16,6 +16,7 @@ public class WorldSpeech : MonoBehaviour
     private bool isSpeechDisplayed;
     private float speechTimerEnd;
     private bool speechAlwaysDisplay;
+    public bool IsSpeechDisplayed => isSpeechDisplayed;
 
 #if UNITY_EDITOR
     [Button]

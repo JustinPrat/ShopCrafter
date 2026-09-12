@@ -33,7 +33,7 @@ public class EncyclopedieView : UIView
             book.OnFinishFlip.AddListener(OnFlip);
             book.OnAbortFlip.AddListener(OnFlip);
             managerRefs.InputManager.Actions.UI.Cancel.started += CancelPressed;
-            managerRefs.InputManager.Actions.Player.Navigate.started += NavigateStarted;
+            managerRefs.InputManager.Actions.Player.Navigate.performed += NavigatePerformed;
 
             OnFlip();
             AppearAnim();
@@ -45,7 +45,7 @@ public class EncyclopedieView : UIView
             book.OnFinishFlip.RemoveListener(OnFlip);
             book.OnAbortFlip.RemoveListener(OnFlip);
             managerRefs.InputManager.Actions.UI.Cancel.started -= CancelPressed;
-            managerRefs.InputManager.Actions.Player.Navigate.started -= NavigateStarted;
+            managerRefs.InputManager.Actions.Player.Navigate.performed -= NavigatePerformed;
 
             ClearBook();
         }
@@ -88,14 +88,12 @@ public class EncyclopedieView : UIView
         managerRefs.UIManager.ToggleEncyclopedieView(false);
     }
 
-    private void NavigateStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void NavigatePerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         float inputX = obj.ReadValue<Vector2>().x;
-
-        //if (Mathf.Abs(inputX) < 0.3f) return;
+        if (Mathf.Abs(inputX) < 0.3f) return;
 
         bool isInputRight = inputX > 0;
-
         if (isInputRight)
         {
             flip.FlipRightPage();

@@ -115,10 +115,19 @@ MonoBehaviour:
   - rid: 5397454708259160255
   - rid: 5397454708259160254
   - rid: 5397454708259160256
-  playOnStart: 0
+  - rid: 4317222791247036544
+  playMode: 0
   references:
     version: 2
     RefIds:
+    - rid: 4317222791247036544
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 1
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: f44bcd386bb47f44dbb40a654b1fbbab, type: 2}
     - rid: 5397454708259160254
       type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
       data:

@@ -360,7 +360,6 @@ public class DialogueView : UIView
                 TryAskQuestion();
             }
 
-
             DialogueBubbleUI bubble = CreateBubble();
             bubble.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
 

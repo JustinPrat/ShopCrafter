@@ -178,9 +178,7 @@ public class Book : MonoBehaviour {
         Vector3 t1;
         float clipAngle = CalcClipAngle(c, ebl, out t1);
         //0 < T0_T1_Angle < 180
-        Debug.Log("clip before : " + clipAngle);
         clipAngle = (clipAngle + 180) % 180;
-        Debug.Log("clip after : " + clipAngle + " value : " + (clipAngle - 90));
 
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
         ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
