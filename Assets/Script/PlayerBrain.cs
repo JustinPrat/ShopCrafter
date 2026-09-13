@@ -24,6 +24,15 @@ public class PlayerBrain : MonoBehaviour
     [SerializeField]
     private Sequencer.Sequencer rewardFeedback;
 
+    [SerializeField]
+    private Transform rewardAnchor;
+
+    [SerializeField]
+    private RewardElementUI rewardUIPrefab;
+
+    [SerializeField]
+    private float rewardUIDuration = 3;
+
     private Vector2 lastPlayerMovement;
     private Vector2 lastValidDirectionPlayerMovement;
 
@@ -32,6 +41,8 @@ public class PlayerBrain : MonoBehaviour
     public Vector2 LastPlayerMovement => lastPlayerMovement;
     public Vector2 LastValidDirectionPlayerMovement => lastValidDirectionPlayerMovement;
     public ManagerRefs ManagerRefsProperty => managerRefs;
+
+    private List<RewardElementUI> rewardElementUIs = new List<RewardElementUI>();
 
     private void Start()
     {
@@ -47,6 +58,24 @@ public class PlayerBrain : MonoBehaviour
     {
         if (rewardFeedback != null)
             rewardFeedback.StartSequence();
+
+        foreach (RewardElementUI rewardElementUI in rewardElementUIs)
+        {
+            if (!rewardElementUI.gameObject.activeInHierarchy)
+            {
+                rewardElementUI.gameObject.SetActive(true);
+                break;
+            }
+        }
+    }
+
+    public void QueueNextRewardUI(IRewardable rewardable)
+    {
+        RewardElementUI rewardElementUI = Instantiate(rewardUIPrefab, rewardAnchor);
+        rewardElementUI.Setup(rewardable);
+        rewardElementUI.gameObject.SetActive(false);
+        rewardElementUI.SpawnedDuration = rewardUIDuration;
+        rewardElementUIs.Add(rewardElementUI);
     }
 
     public void SetLastPlayerMovement(Vector2 movement)
@@ -63,5 +92,23 @@ public class PlayerBrain : MonoBehaviour
     public void StopMovementPlayer()
     {
         rotateWithDirection.StopMovement();
+    }
+
+    private void Update()
+    {
+        for (int i = rewardElementUIs.Count - 1; i >= 0; i--)
+        {
+            RewardElementUI rewardElementUI = rewardElementUIs[i];
+            if (rewardElementUI.gameObject.activeInHierarchy)
+            {
+                rewardElementUI.SpawnedDuration -= Time.deltaTime;
+
+                if (rewardElementUI.SpawnedDuration <= 0)
+                {
+                    rewardElementUIs.Remove(rewardElementUI);
+                    Destroy(rewardElementUI.gameObject);
+                }
+            }
+        }
     }
 }

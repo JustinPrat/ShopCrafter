@@ -8,11 +8,26 @@ public class SellSlot : CraftedItemReceiver
     [SerializeField]
     private Transform buyPosition;
 
+    [SerializeField]
+    private PickRewardable pickRewardablePrefab;
+
+    [SerializeField]
+    private SpawnedReward moneyRewardPrefab;
+
     public Transform BuyPosition => buyPosition;
 
     private void Start()
     {
         managerRefs.SellManager.OnItemRemoved(this);
+    }
+
+    public void Sell()
+    {
+        MoneyBatch moneyBatch = new MoneyBatch() { Amount = heldObject.Price, RewardPrefab = moneyRewardPrefab };
+        PickRewardable pickRewardable = Instantiate(pickRewardablePrefab, objectHoldAnchor);
+        pickRewardable.SetupReward(moneyBatch);
+
+        Destroy(heldObject.gameObject);
     }
 
     protected override void OnItemReceived()

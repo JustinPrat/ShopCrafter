@@ -242,6 +242,8 @@ MonoBehaviour:
   physicCollider: {fileID: 797958540356178465}
   sequencer: {fileID: 7608358091598398058}
   buyPosition: {fileID: 5248836016667282588}
+  pickRewardablePrefab: {fileID: 761883529733276740, guid: 36614f9c2a3ec5b4da8295a75e5451af, type: 3}
+  moneyRewardPrefab: {fileID: 3518631551006526312, guid: 4f59ff44cc804384a9e61dcd53937eba, type: 3}
 --- !u!65 &797958540356178465
 BoxCollider:
   m_ObjectHideFlags: 0

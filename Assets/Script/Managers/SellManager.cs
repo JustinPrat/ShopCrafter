@@ -147,8 +147,7 @@ public partial class SellManager : MonoBehaviour
         if (sellSlot.HasHeldItem)
         {
             OnItemSelling(sellSlot);
-            GainMoney(sellSlot.HeldObject.Price);
-            Destroy(sellSlot.HeldObject.gameObject);
+            sellSlot.Sell();
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerShade2MaterialColorTransitionData
   m_EditorClassIdentifier: Sequencer::Sequencer.Actions.MaterialColorTransitionData
   ColorPropertyName: _2nd_ShadeColor
-  Target: {r: 0.17970589, g: 0.30588236, b: 0.15294118, a: 1}
+  Target: {r: 0.29313728, g: 0.30588236, b: 0.15294118, a: 1}
   ColorCurve:
     serializedVersion: 2
     m_Curve:

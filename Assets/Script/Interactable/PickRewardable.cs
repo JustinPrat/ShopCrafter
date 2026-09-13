@@ -6,7 +6,7 @@ using UnityEngine;
 public class PickRewardable : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private SerializableInterface<IRewardable> reward;
+    private SerializableInterface<IRewardable> rewardSerialized;
 
     [SerializeField]
     private Collider physicCollider;
@@ -20,6 +20,8 @@ public class PickRewardable : MonoBehaviour, IInteractable
     [SerializeField]
     private RewardSpawner rewardSpawner;
 
+    private IRewardable reward;
+
     public bool IsLocked { get; set; }
 
     public string InteractText => "Take";
@@ -30,7 +32,20 @@ public class PickRewardable : MonoBehaviour, IInteractable
 
     public Action<IInteractable> OnDestroyEvent { get; set; }
 
+    private void Awake()
+    {
+        if (rewardSerialized != null && rewardSerialized.Value != null)
+        {
+            reward = rewardSerialized.Value;
+        }
+    }
+
     public void SetupReward(SerializableInterface<IRewardable> rewardable)
+    {
+        reward = rewardable.Value;
+    }
+
+    public void SetupReward(IRewardable rewardable)
     {
         reward = rewardable;
     }
@@ -42,12 +57,13 @@ public class PickRewardable : MonoBehaviour, IInteractable
 
     public void DoInteract(PlayerBrain playerBrain)
     {
-        if (reward.Value == null)
+        if (reward == null)
             return;
-        
-        reward.Value.OnGetReward(managerRefs, gameObject);
+
+        playerBrain.QueueNextRewardUI(reward);
+        reward.OnGetReward(managerRefs, gameObject);
         cinemachineImpulseSource.GenerateImpulse(0.2f);
-        rewardSpawner.Spawn(reward.Value);
+        rewardSpawner.Spawn(reward);
         Destroy(gameObject);
     }
 
