@@ -38,7 +38,10 @@ public class ValidateInputArrow : MonoBehaviour
 
     [SerializeField]
     private bool onEnabledMove = true;
-   
+
+    [SerializeField]
+    private bool isVertical = true;
+
 
     private void Awake()
     {
@@ -111,7 +114,11 @@ public class ValidateInputArrow : MonoBehaviour
             return;
 
         transform.localPosition = Vector3.zero;
-        Tween.LocalPositionY(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
+
+        if (isVertical)
+            Tween.LocalPositionY(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
+        else
+            Tween.LocalPositionX(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
 
         if (hold)
         {

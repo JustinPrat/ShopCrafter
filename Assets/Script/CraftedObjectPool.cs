@@ -28,12 +28,12 @@ public class CraftedObjectPool : ScriptableObject
 
 #endif
 
-    public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems)
+    public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems, List<CraftedObjectRecipe> blueprints)
     {
-        return FindCraftableRecipe(toUseItems, out List<TagValue> values);
+        return FindCraftableRecipe(toUseItems, blueprints, out List<TagValue> values);
     }
 
-    public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems, out List<TagValue> values)
+    public CraftedObjectRecipe FindCraftableRecipe(List<Item> toUseItems, List<CraftedObjectRecipe> blueprints, out List<TagValue> values)
     {
         values = CraftingManager.CombineItemTags(toUseItems);
 
@@ -41,6 +41,9 @@ public class CraftedObjectPool : ScriptableObject
         CraftedObjectRecipe targetRecipe = null;
         foreach (CraftedObjectRecipe recipe in craftedObjectPool)
         {
+            if (!blueprints.Contains(recipe))
+                continue;
+
             bool canCraft = true;
             foreach (TagValue requiredTag in recipe.RequiredTags)
             {

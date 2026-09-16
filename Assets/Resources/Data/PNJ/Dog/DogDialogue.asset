@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
   - Line: <shake>Ouaf !</shake>
-    Emotion: {fileID: 0}
+    Emotion: {fileID: 11400000, guid: c75d35c91b2931043838a305eff74ff1, type: 2}
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
@@ -33,7 +33,7 @@ MonoBehaviour:
         rid: -2
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
-  EffectPreset: {fileID: 11400000, guid: be642d688480eb34fbcc86a89a176a0d, type: 2}
+  EffectPreset: {fileID: 11400000, guid: 77fd2296a00fbf04594eeb62bdf540c2, type: 2}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 2
   TMPAnimationName: shake

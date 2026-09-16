@@ -24,7 +24,8 @@ public class ToggleActivation : MonoBehaviour, IInteractable
     public Collider PhysicCollider => physicCollider;
 
     public Action<IInteractable> OnDestroyEvent { get; set; }
-
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     protected virtual void Start()
     {
@@ -72,10 +73,12 @@ public class ToggleActivation : MonoBehaviour, IInteractable
 
     public virtual void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public virtual void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)

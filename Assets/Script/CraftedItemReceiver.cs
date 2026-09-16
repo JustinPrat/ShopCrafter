@@ -31,6 +31,8 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
 
     public bool IsLocked { get; set; }
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     public bool CanTakePlayerItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
 
@@ -78,6 +80,8 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
 
     public virtual void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
+
         if (HasHeldItem)
         {
             managerRefs.UIManager.ToggleCraftedStatView(true, heldObject.CraftedData, UIStatAnchor.transform.position);
@@ -86,6 +90,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
 
     public virtual void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
         managerRefs.UIManager.ToggleCraftedStatView(false);
     }
 

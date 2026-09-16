@@ -12,30 +12,38 @@ public class SpawnedReward : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    Sequencer.Sequencer sequenceSpawn;
+    private Sequencer.Sequencer sequenceSpawn;
 
     [SerializeField]
-    Sequencer.Sequencer sequenceFly;
+    private Sequencer.Sequencer touchGroundSequence;
+
+    [SerializeField]
+    private LayerMask groundLayer;
 
     public Rigidbody RB => rb;
 
     public void Setup(IRewardable rewardable)
     {
         IRewardable.UIDisplayData displayData = rewardable.GetRewardDisplayData();
-        spriteRenderer.sprite = displayData.Icon;
+
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = displayData.Icon;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        FlyToPlayer();
+        if (LayerMethods.IsInLayerMask(collision.gameObject, groundLayer))
+        {
+            OnTouchGround();
+        }
     }
 
-    public void FlyToPlayer()
+    public void OnTouchGround()
     {
         col.isTrigger = true;
         rb.isKinematic = true;
 
-        if (sequenceFly != null)
-            sequenceFly.StartSequence();
+        if (touchGroundSequence != null)
+            touchGroundSequence.StartSequence();
     }
 }

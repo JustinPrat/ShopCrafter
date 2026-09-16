@@ -20,6 +20,9 @@ public class CraftedStatView : UIView
     private TextMeshProUGUI priceText;
 
     [SerializeField]
+    private TextMeshProUGUI priceBonusText;
+
+    [SerializeField]
     private Vector2 minMaxRotationToPlayer;
 
     [SerializeField]
@@ -36,7 +39,13 @@ public class CraftedStatView : UIView
         rarityIconImage.sprite = craftedObjectData.Rarity.RarityIcon;
         nameText.text = craftedObjectData.CraftedObjectRecipe.CraftedName;
         descriptionText.text = craftedObjectData.CraftedObjectRecipe.CraftedDescription;
-        priceText.text = craftedObjectData.GetPrice().ToString();
+        priceText.text = craftedObjectData.CraftedObjectRecipe.BasePrice.ToString();
+
+        int bonusPrice = craftedObjectData.GetPrice() - craftedObjectData.CraftedObjectRecipe.BasePrice;
+        if (bonusPrice > 0)
+            priceBonusText.text = "+" + bonusPrice.ToString();
+        else
+            priceBonusText.text = "";
 
         transform.position = pos;
     }

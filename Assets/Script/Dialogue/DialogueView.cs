@@ -56,6 +56,9 @@ public class DialogueView : UIView
     [SerializeField]
     private Sequencer.Sequencer outAnim;
 
+    [SerializeField]
+    private DialogueBubbleUI dialogueBubbleUI;
+
     private DialogueData currentDialogue;
     private PNJBrain currentPNJ;
     private SpecialDialogue currentSpecialDialogue;
@@ -68,6 +71,17 @@ public class DialogueView : UIView
     private bool isPNJTalking;
     private bool hasModifiedPreset;
     private bool isLeaving;
+    private GameObject currentEmotion;
+
+    private void Awake()
+    {
+        dialogueBubbleUI.TextWriter.OnTextEvent.AddListener(OnTextEvent);
+    }
+
+    private void OnDestroy()
+    {
+        dialogueBubbleUI.TextWriter.OnTextEvent.RemoveListener(OnTextEvent);
+    }
 
     public void Setup (DialogueData dialogueData, PNJBrain pnjBehaviour)
     {
@@ -110,49 +124,49 @@ public class DialogueView : UIView
         }
     }
 
-    private DialogueBubbleUI CreateBubble()
-    {
-        DialogueBubbleUI bubble = Instantiate(dialogueBubbleUIPrefab, dialogueBubblesAnchor).GetComponent<DialogueBubbleUI>();
-        dialogueBubbles.Add(bubble);
-        bubble.TextWriter.OnTextEvent.AddListener(OnTextEvent);
-        bubble.SetTransparency(0f);
+    //private DialogueBubbleUI CreateBubble()
+    //{
+    //    DialogueBubbleUI bubble = Instantiate(dialogueBubbleUIPrefab, dialogueBubblesAnchor).GetComponent<DialogueBubbleUI>();
+    //    dialogueBubbles.Add(bubble);
+    //    bubble.TextWriter.OnTextEvent.AddListener(OnTextEvent);
+    //    bubble.SetTransparency(0f);
 
-        return bubble;
-    }
+    //    return bubble;
+    //}
 
-    private IEnumerator UpdateBubbleStep()
-    {
-        yield return new WaitForEndOfFrame();
+    //private IEnumerator UpdateBubbleStep()
+    //{
+    //    yield return new WaitForEndOfFrame();
 
-        DialogueBubbleUI lastBubble = dialogueBubbles[dialogueBubbles.Count - 1];
-        lastBubble.UpdateBubbleHeight();
+    //    DialogueBubbleUI lastBubble = dialogueBubbles[dialogueBubbles.Count - 1];
+    //    lastBubble.UpdateBubbleHeight();
 
-        Vector2 basePos = lastBubble.MainRectTransform.anchoredPosition;
-        lastBubble.SetTransparency(1f, bubbleMoveDuration);
-        lastBubble.MainRectTransform.anchoredPosition = new Vector2(lastBubble.MainRectTransform.anchoredPosition.x, lastBubble.MainRectTransform.anchoredPosition.y - lastBubble.BubbleHeight - bubbleSpacing);
-        Tween.UIAnchoredPosition(lastBubble.MainRectTransform, basePos, bubbleMoveDuration, useUnscaledTime: true);
+    //    Vector2 basePos = lastBubble.MainRectTransform.anchoredPosition;
+    //    lastBubble.SetTransparency(1f, bubbleMoveDuration);
+    //    lastBubble.MainRectTransform.anchoredPosition = new Vector2(lastBubble.MainRectTransform.anchoredPosition.x, lastBubble.MainRectTransform.anchoredPosition.y - lastBubble.BubbleHeight - bubbleSpacing);
+    //    Tween.UIAnchoredPosition(lastBubble.MainRectTransform, basePos, bubbleMoveDuration, useUnscaledTime: true);
 
-        for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
-        {
-            DialogueBubbleUI dialogueBubble = dialogueBubbles[i];
-            int currentStep = dialogueBubbles.Count - 1 - i;
+    //    for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
+    //    {
+    //        DialogueBubbleUI dialogueBubble = dialogueBubbles[i];
+    //        int currentStep = dialogueBubbles.Count - 1 - i;
 
-            if (dialogueBubbles.Count - 1 == i)
-                continue;
+    //        if (dialogueBubbles.Count - 1 == i)
+    //            continue;
 
-            if (currentStep > transparencySteps.Count - 1)
-            {
-                Destroy(dialogueBubble.gameObject);
-            }
-            else
-            {
-                dialogueBubble.SetClickVisual(false);
-                dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], bubbleMoveDuration);
-                Tween.UIAnchoredPositionY(dialogueBubble.MainRectTransform, dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, bubbleMoveDuration, useUnscaledTime: true);
-                Tween.Scale(dialogueBubble.MainRectTransform, Vector3.one * bubbleReducedScale, bubbleMoveDuration, useUnscaledTime: true);
-            }
-        }
-    }
+    //        if (currentStep > transparencySteps.Count - 1)
+    //        {
+    //            Destroy(dialogueBubble.gameObject);
+    //        }
+    //        else
+    //        {
+    //            dialogueBubble.SetClickVisual(false);
+    //            dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], bubbleMoveDuration);
+    //            Tween.UIAnchoredPositionY(dialogueBubble.MainRectTransform, dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, bubbleMoveDuration, useUnscaledTime: true);
+    //            Tween.Scale(dialogueBubble.MainRectTransform, Vector3.one * bubbleReducedScale, bubbleMoveDuration, useUnscaledTime: true);
+    //        }
+    //    }
+    //}
 
     public override void Toggle(bool isOn)
     {
@@ -360,15 +374,25 @@ public class DialogueView : UIView
                 TryAskQuestion();
             }
 
-            DialogueBubbleUI bubble = CreateBubble();
-            bubble.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
+            //DialogueBubbleUI bubble = CreateBubble();
+            dialogueBubbleUI.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
+
+            if (currentEmotion != null)
+            {
+                Destroy(currentEmotion);
+            }
+
+            if (currentDialogue.Lines[currentDialogueIndex].Emotion != null)
+            {
+                currentEmotion = Instantiate(currentDialogue.Lines[currentDialogueIndex].Emotion.EmotionPrefab, portrait.transform);
+            }
 
             if (!isAsking)
-                bubble.SetClickVisual(true);
-            else 
-                bubble.SetClickVisual(false);
+                dialogueBubbleUI.SetClickVisual(true);
+            else
+                dialogueBubbleUI.SetClickVisual(false);
 
-            StartCoroutine(UpdateBubbleStep());
+            //StartCoroutine(UpdateBubbleStep());
         }
     }
 

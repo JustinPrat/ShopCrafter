@@ -18,11 +18,11 @@ MonoBehaviour:
   - Line: "de nouvelles t\xEAtes pourrait venir te voir"
     Emotion: {fileID: 0}
   HasQuestion: 0
-  HasNextDialogue: 0
+  HasNextDialogue: 1
   Answers: []
-  NextDialogue: {fileID: 0}
+  NextDialogue: {fileID: 11400000, guid: 6fb8050d13816444da2d6105e8849c6d, type: 2}
   ReplaceMainDialogue: {fileID: 0}
-  EffectPreset: {fileID: 11400000, guid: df013a6cf957b784f971609386ae8816, type: 2}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: grow

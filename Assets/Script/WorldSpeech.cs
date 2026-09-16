@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class WorldSpeech : MonoBehaviour
 {
-    private const string SpeechBool = "Speech";
-    private const string SpeechSpeed = "SpeechSpeed";
-
     [SerializeField] private TextMeshProUGUI speechText;
     [SerializeField] private float speechDuration;
     [SerializeField] private float speechSpeed = 1f;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Sequencer.Sequencer appearSequence;
+    [SerializeField] private Sequencer.Sequencer hideSequence;
     [SerializeField] private GameObject activatedSpeechObject;
 
     private bool isSpeechDisplayed;
@@ -26,11 +24,6 @@ public class WorldSpeech : MonoBehaviour
     }
 #endif
 
-    private void Start()
-    {
-        animator.SetFloat(SpeechSpeed, speechSpeed);
-    }
-
     private void Update()
     {
         if (isSpeechDisplayed && speechTimerEnd <= Time.time && !speechAlwaysDisplay)
@@ -41,19 +34,18 @@ public class WorldSpeech : MonoBehaviour
 
     public void DisplaySpeech(string text, bool alwaysDisplay = false)
     {
-        activatedSpeechObject.SetActive(true);
-        animator.SetBool(SpeechBool, true);
+        hideSequence.StopSequence();
+        appearSequence.StartSequence();
         speechText.text = text;
         isSpeechDisplayed = true;
         speechTimerEnd = Time.time + speechDuration;
         speechAlwaysDisplay = alwaysDisplay;
     }
 
-
     public void DisplaySpeech(string text, float duration)
     {
-        activatedSpeechObject.SetActive(true);
-        animator.SetBool(SpeechBool, true);
+        hideSequence.StopSequence();
+        appearSequence.StartSequence();
         speechText.text = text;
         isSpeechDisplayed = true;
         speechTimerEnd = Time.time + duration;
@@ -62,8 +54,8 @@ public class WorldSpeech : MonoBehaviour
 
     public void StopSpeech()
     {
-        activatedSpeechObject.SetActive(false);
-        animator.SetBool(SpeechBool, false);
+        appearSequence.StopSequence();
+        hideSequence.StartSequence();
         speechText.text = "";
         isSpeechDisplayed = false;
     }

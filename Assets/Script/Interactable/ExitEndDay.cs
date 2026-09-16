@@ -21,6 +21,8 @@ public class ExitEndDay : MonoBehaviour, IInteractable
     public string InteractText => interactText;
     public bool IsLocked { get; set; }
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     private void Start()
     {
@@ -70,10 +72,12 @@ public class ExitEndDay : MonoBehaviour, IInteractable
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,8 +8,12 @@ public class UIView : MonoBehaviour
     [SerializeField]
     protected ManagerRefs managerRefs;
 
+    [SerializeField]
+    protected CanvasGroup canvasGroup;
+
     protected bool activeState;
     public bool ActiveState => activeState;
+    public CanvasGroup CanvasGroup => canvasGroup;
 
     public virtual void Toggle (bool isOn)
     {

@@ -19,3 +19,7 @@ MonoBehaviour:
   CraftedName: BrokenLever
   CraftedDescription: Repair the lever to start your journey
   CraftedSprite: {fileID: 21300000, guid: 4248cd4c2e0e7a947ab1c98731110fb9, type: 3}
+  BarElementData: {fileID: 0}
+  TierList: {fileID: 0}
+  BasePrice: 0
+  rewardPrefab: {fileID: 3518631551006526312, guid: 4f59ff44cc804384a9e61dcd53937eba, type: 3}

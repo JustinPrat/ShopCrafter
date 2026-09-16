@@ -104,9 +104,14 @@ public partial class CraftingManager : MonoBehaviour
         return itemInventory.ContainsKey(item) && itemInventory[item] >= amount;
     }
 
+    public bool HasBlueprint (CraftedObjectRecipe recipeBlueprint)
+    {
+        return blueprintRecipes.Contains(recipeBlueprint);
+    }
+
     public void AddBlueprint (CraftedObjectRecipe recipeBlueprint)
     {
-        if (!blueprintRecipes.Contains(recipeBlueprint))
+        if (!HasBlueprint(recipeBlueprint))
             blueprintRecipes.Add(recipeBlueprint);
     }
 
@@ -131,7 +136,7 @@ public partial class CraftingManager : MonoBehaviour
 
     public CraftedObjectRecipe PreviewPoolCraftedItem(List<Item> items, out bool isNew, out List<TagValue> tags)
     {
-        CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items, out tags);
+        CraftedObjectRecipe recipe = currentCraftedObjectPool.FindCraftableRecipe(items, blueprintRecipes, out tags);
         if (recipe != null && !craftedRecipes.Contains(recipe))
         {
             isNew = true;

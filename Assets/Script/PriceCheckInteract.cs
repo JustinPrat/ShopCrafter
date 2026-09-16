@@ -18,6 +18,8 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
     public string InteractText => interactText;
 
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -35,10 +37,12 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)

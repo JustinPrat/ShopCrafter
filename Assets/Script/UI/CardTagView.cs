@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardTagView : UIView
 {
@@ -30,13 +31,31 @@ public class CardTagView : UIView
     private CraftedRecipeDayUI craftedRecipeDayUI;
 
     [SerializeField]
-    private BonusTagGameUI bonusTagGameUI;
-
-    [SerializeField]
     private Animator animator;
 
     [SerializeField]
     private TextMeshProUGUI basePriceText;
+
+    [SerializeField]
+    private Slider sliderPoints;
+
+    [SerializeField]
+    private TextMeshProUGUI maxPointBonus;
+
+    [SerializeField]
+    private TextMeshProUGUI currentPointBonus;
+
+    [SerializeField]
+    private TextMeshProUGUI currentPointValue;
+
+    [SerializeField]
+    private Transform currentValuesTransform;
+
+    [SerializeField]
+    private float sliderDuration = 2f;
+
+    [SerializeField]
+    private AnimationCurve sliderAnimCurve;
 
     public CraftingTable CurrentCraftingTable { get; set; }
 
@@ -60,6 +79,7 @@ public class CardTagView : UIView
         {
             craftButton.SetActive(true);
             validateButton.SetActive(false);
+            currentValuesTransform.gameObject.SetActive(false);
         }
         else
         {
@@ -77,8 +97,6 @@ public class CardTagView : UIView
             tagsUI.Clear();
 
             scoreText.text = "";
-
-            bonusTagGameUI.gameObject.SetActive(false);
             CurrentCraftingTable.ExitInteract();
         }
     }
@@ -106,6 +124,7 @@ public class CardTagView : UIView
             EventSystem.current.SetSelectedGameObject(tagsUI[0].gameObject);
         }
 
+        maxPointBonus.text = craftedObjectRecipe.TargetScore.ToString();
         ApplyPreSelectionTags();
     }
 
@@ -153,14 +172,7 @@ public class CardTagView : UIView
         }
 
         ScoreBonus();
-        DisplayBonus();
-
-        validateButton.SetActive(true);
-
-        if (managerRefs.InputManager.IsGamepad)
-        {
-            EventSystem.current.SetSelectedGameObject(validateButton);
-        }
+        StartCoroutine(OnScoreBonus(Mathf.Min((float)score / craftedObjectRecipe.TargetScore, 1)));
     }
 
     //UI Advanced button setup
@@ -169,37 +181,59 @@ public class CardTagView : UIView
         RemovePreSelectionTags();
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
 
-        //craftedObjectData.BoostRarity(rarityBoost);
         craftedObjectData.AddPriceModifier(modifier);
         managerRefs.UIManager.ShowMiniGameView(CurrentCraftingTable, craftedObjectData, CurrentCraftingTable.GetValidUIPos());
     }
 
     private void ScoreBonus()
     {
-        //if (score > craftedObjectRecipe.TargetScore)
-        //{
-        //    rarityBoost++;
-        //}
-
         modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
-        modifier.Value *= 1 + (modifier.Value - 1) * Mathf.Min(score / craftedObjectRecipe.TargetScore, 1);
+        modifier.Value *= 1 + (modifier.Value - 1) * Mathf.Min((float)score / craftedObjectRecipe.TargetScore, 1);
     }
 
-    private void DisplayBonus()
+    private IEnumerator OnScoreBonus(float target)
     {
+        float startValue = 0f;
+        float elapsedTime = 0f;
+
+        currentValuesTransform.gameObject.SetActive(true);
+
+        while (elapsedTime < sliderDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsedTime / sliderDuration);
+
+            float curveProgress = sliderAnimCurve.Evaluate(t);
+            float current = Mathf.LerpUnclamped(startValue, target, curveProgress);
+
+            sliderPoints.value = current;
+            DisplayBonus(current);
+
+            yield return null;
+        }
+
+        sliderPoints.value = target;
+        DisplayBonus(target);
+        validateButton.SetActive(true);
+
+        if (managerRefs.InputManager.IsGamepad)
+        {
+            EventSystem.current.SetSelectedGameObject(validateButton);
+        }
+    }
+
+    private void DisplayBonus(float current)
+    {
+        StatModifier tmpModif = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
+        tmpModif.Value *= 1 + (tmpModif.Value - 1) * Mathf.Min(current, 1);
+
         ModifiableValue priceModif = new ModifiableValue();
         int basePrice = craftedObjectData.GetPrice();
         priceModif.BaseValue = basePrice;
-        priceModif.AddModifier(modifier);
+        priceModif.AddModifier(tmpModif);
 
-        bonusTagGameUI.gameObject.SetActive(true);
-        animator.SetTrigger(BonusTrigger);
-        //if (rarityBoost > 0)
-        //{
-        //    bonusTagGameUI.Setup(rarityBoost, true);
-        //}
-
-        bonusTagGameUI.Setup((int)(priceModif.Value - priceModif.BaseValue), false);
+        currentPointBonus.text = "+" + (priceModif.Value - priceModif.BaseValue).ToString();
+        currentPointValue.text = (craftedObjectRecipe.TargetScore * current).ToString("F0");
     }
 
     private void UpdateUIOrder()

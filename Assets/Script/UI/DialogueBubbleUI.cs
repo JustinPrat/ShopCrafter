@@ -10,8 +10,8 @@ public class DialogueBubbleUI : MonoBehaviour
     [SerializeField]
     private TMPWriter textWriter;
 
-    [SerializeField]
-    private RectTransform mainRectTransform;
+    //[SerializeField]
+    //private RectTransform mainRectTransform;
 
     [SerializeField]
     private CanvasGroup canvasGroup;
@@ -23,12 +23,12 @@ public class DialogueBubbleUI : MonoBehaviour
 
     public TMPWriter TextWriter => textWriter;
     public float BubbleHeight => bubbleHeight;
-    public RectTransform MainRectTransform => mainRectTransform;
+    //public RectTransform MainRectTransform => mainRectTransform;
 
     public void SetText(string newText)
     {
         textAnimator.SetText(newText);
-        UpdateBubbleHeight();
+        //UpdateBubbleHeight();
     }
 
     public void SetClickVisual(bool isActive)
@@ -36,10 +36,10 @@ public class DialogueBubbleUI : MonoBehaviour
         clickToSkip.SetActive(isActive);
     }
 
-    public void UpdateBubbleHeight()
-    {
-        bubbleHeight = mainRectTransform.rect.height;
-    }
+    //public void UpdateBubbleHeight()
+    //{
+    //    bubbleHeight = mainRectTransform.rect.height;
+    //}
 
     public void SetTransparency(float alpha)
     {
@@ -53,17 +53,17 @@ public class DialogueBubbleUI : MonoBehaviour
 
     private void Awake()
     {
-        if (mainRectTransform == null)
-        {
-            mainRectTransform = GetComponent<RectTransform>();
-        }
+        //if (mainRectTransform == null)
+        //{
+        //    mainRectTransform = GetComponent<RectTransform>();
+        //}
 
         if (canvasGroup == null)
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        UpdateBubbleHeight();
+        //UpdateBubbleHeight();
 
         clickToSkip.SetActive(false);
     }

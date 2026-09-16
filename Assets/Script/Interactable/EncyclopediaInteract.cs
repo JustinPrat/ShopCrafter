@@ -18,6 +18,8 @@ public class EncyclopediaInteract : MonoBehaviour, IInteractable
     public Collider PhysicCollider => physicCollider;
 
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -40,6 +42,7 @@ public class EncyclopediaInteract : MonoBehaviour, IInteractable
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public void OutInteractRange(PlayerBrain playerBrain)
@@ -48,5 +51,6 @@ public class EncyclopediaInteract : MonoBehaviour, IInteractable
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 }

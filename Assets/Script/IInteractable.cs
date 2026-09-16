@@ -10,6 +10,8 @@ public interface IInteractable
     public GameObject GameObject { get; }
     public Collider PhysicCollider { get; }
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     public void DoInteract(PlayerBrain playerBrain);
 

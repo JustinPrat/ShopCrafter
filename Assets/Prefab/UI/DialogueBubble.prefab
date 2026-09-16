@@ -94,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 2562597943114462205}
   - component: {fileID: 5817472961643416491}
   - component: {fileID: 5706200704781218050}
+  - component: {fileID: 5064890451693032956}
   m_Layer: 0
   m_Name: DialogueBubble
   m_TagString: Untagged
@@ -277,7 +278,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8704313885715000179}
   - {fileID: 9082145023453984479}
@@ -358,6 +359,32 @@ MonoBehaviour:
   mainRectTransform: {fileID: 761877398976742687}
   canvasGroup: {fileID: 2562597943114462205}
   clickToSkip: {fileID: 3572864837529649227}
+--- !u!114 &5064890451693032956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999981298277703632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 4317222836159381633
+  playMode: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 4317222836159381633
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 532070200a3e91c42ae2bdbb01f24268, type: 2}
 --- !u!1 &6106377351096401248
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,8 +422,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000091552734, y: -10}
-  m_SizeDelta: {x: 99.99983, y: 60}
+  m_AnchoredPosition: {x: 20.000149, y: -15}
+  m_SizeDelta: {x: 139.99971, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8582399719573406389
 CanvasRenderer:
@@ -419,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.7560784, b: 0.61490196, a: 0.69803923}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.4}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -921,7 +948,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1593651719876713545, guid: 947e1553284463b439a3927dce415367, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281242592848637773, guid: 947e1553284463b439a3927dce415367, type: 3}
+      propertyPath: moveDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5344641083861296283, guid: 947e1553284463b439a3927dce415367, type: 3}
       propertyPath: m_Pivot.x
@@ -997,7 +1028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5344641083861296283, guid: 947e1553284463b439a3927dce415367, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 96.9
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 5344641083861296283, guid: 947e1553284463b439a3927dce415367, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1018,6 +1049,18 @@ PrefabInstance:
     - target: {fileID: 5344641083861296283, guid: 947e1553284463b439a3927dce415367, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488803726450465437, guid: 947e1553284463b439a3927dce415367, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488803726450465437, guid: 947e1553284463b439a3927dce415367, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684087362325795052, guid: 947e1553284463b439a3927dce415367, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7714178425268220738, guid: 947e1553284463b439a3927dce415367, type: 3}
       propertyPath: m_Name

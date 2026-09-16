@@ -15,6 +15,10 @@ namespace Sequencer
         [SerializeField]
         private PlayMode playMode;
 
+        private Coroutine currentCoroutine;
+
+        public List<Action> Actions => actions;
+
         public enum PlayMode
         {
             Manual,
@@ -52,7 +56,12 @@ namespace Sequencer
             if (!isActiveAndEnabled)
                 return;
 
-            StartCoroutine(ExecuteSequence());
+            if (currentCoroutine != null)
+            {
+                StopSequence();
+            }
+
+            currentCoroutine = StartCoroutine(ExecuteSequence());
         }
 
         public void StopSequence()

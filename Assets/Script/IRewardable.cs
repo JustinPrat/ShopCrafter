@@ -1,3 +1,4 @@
+using Coffee.UIEffects;
 using UnityEngine;
 
 public interface IRewardable
@@ -8,6 +9,7 @@ public interface IRewardable
 
     public class UIDisplayData
     {
+        public bool DisplayAbovePlayer = true;
         public string DisplayName;
         public Sprite Icon;
         public Color HighlightColor = Color.white;

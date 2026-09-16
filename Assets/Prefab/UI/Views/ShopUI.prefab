@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 3622813781165345728}
   - component: {fileID: 2310742199738227186}
   - component: {fileID: 4928602383719361649}
+  - component: {fileID: -611556115144670161}
   m_Layer: 5
   m_Name: ShopUI
   m_TagString: Untagged
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  canvasGroup: {fileID: -611556115144670161}
   itemContainer: {fileID: 8740137156828823018}
   portrait: {fileID: 5144875373979950590}
   itemUIPrefab: {fileID: 7534516114177195901, guid: 2bd66b9c58ef4044b9af874bbd6f1c93, type: 3}
@@ -231,6 +233,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &-611556115144670161
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813235343791059201}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3082309605770066717
 GameObject:
   m_ObjectHideFlags: 0

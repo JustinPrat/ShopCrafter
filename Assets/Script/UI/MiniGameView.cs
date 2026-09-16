@@ -1,4 +1,5 @@
 using Alchemy.Inspector;
+using Coffee.UIEffects;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -46,6 +47,9 @@ public class MiniGameView : UIView
 
     [SerializeField]
     private GameObject goodWord;
+
+    [SerializeField]
+    private UIEffectPreset newItemUIEffect;
 
     private float barCount = 0f;
     private int tierCount = 0;
@@ -157,7 +161,7 @@ public class MiniGameView : UIView
 
         if (craftedObjectData.IsNew)
         {
-            managerRefs.UIManager.ToggleRewardView(true, craftedObjectData.CraftedObjectRecipe);
+            managerRefs.UIManager.ToggleRewardView(true, craftedObject, newItemUIEffect);
         }
 
         tierCount = 0;

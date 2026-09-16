@@ -24,7 +24,7 @@ MonoBehaviour:
   Answers: []
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
-  EffectPreset: {fileID: 11400000, guid: d079689c3a39a294f984cfc1e24672d1, type: 2}
+  EffectPreset: {fileID: 11400000, guid: 34561426418c7b941969bb5b3451771a, type: 2}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: sketchy

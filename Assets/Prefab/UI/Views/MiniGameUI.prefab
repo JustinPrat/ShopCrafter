@@ -5817,6 +5817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  canvasGroup: {fileID: 587664530065935704}
   stepParticle: {fileID: 8379277733056713898}
   toCraftItemHolder: {fileID: 5989320922695938457}
   progressBar: {fileID: 6058938815969397961}
@@ -5830,6 +5831,7 @@ MonoBehaviour:
   lifePrefab: {fileID: 396592323599005064, guid: b9c58d9feed756c4ea5fa4a0a9786ceb, type: 3}
   lifeParent: {fileID: 7151925515540170341}
   goodWord: {fileID: 8525224461398209493}
+  newItemUIEffect: {fileID: 11400000, guid: 9eaf6b99deb9e2c4a9ff8430f1c0cd82, type: 2}
 --- !u!225 &587664530065935704
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5894,6 +5896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fa9333f5f88ae409f09d2b9ad25f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIBillboarding
+  onlyOnEnable: 0
 --- !u!1 &5477318423081016726
 GameObject:
   m_ObjectHideFlags: 0

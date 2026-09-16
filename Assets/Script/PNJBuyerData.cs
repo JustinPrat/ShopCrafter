@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.Behavior;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [CreateAssetMenu(fileName = "PNJBuyerData", menuName = "ShopCrafter/PNJBuyerData")]
 public class PNJBuyerData : PNJRandomData
@@ -46,7 +48,9 @@ public class PNJBuyerBehaviour : PNJRandomBehaviour
     {
         base.OnUpdate(pnjBrain);
 
-        if (Time.time >= timerBeforeBuying && !hasBought)
+        pnjBrain.Agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state);
+
+        if (Time.time >= timerBeforeBuying && !hasBought && state != State.GoOut)
         {
             hasBought = true;
 

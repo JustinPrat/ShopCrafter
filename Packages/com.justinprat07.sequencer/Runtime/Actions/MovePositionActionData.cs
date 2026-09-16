@@ -48,31 +48,36 @@ namespace Sequencer.Actions
             public override IEnumerator Execute()
             {
                 timer = 0;
-                basePos = owner.transform.position;
+
+                SetBasePos();
                 targetPos = GetTargetPos(data.Movement);
 
                 while (timer < data.Duration)
                 {
                     timer += Time.unscaledDeltaTime;
-                    owner.transform.position = Vector3.LerpUnclamped(basePos, targetPos, data.MoveCurve.Evaluate(timer / data.Duration));
+                    float t = data.MoveCurve.Evaluate(timer / data.Duration);
+                    SetTargetPos(t);
                     yield return null;
                 }
 
-                owner.transform.position = targetPos;
+                SetTargetPos(1);
             }
 
             public override void Stop()
             {
-                owner.transform.position = targetPos;
+                SetTargetPos(1);
             }
 
             public override void SetExecuteBaseValue()
             {
                 if (data.UseExecuteValue)
-                    owner.transform.position = GetTargetPos(data.ExecuteValue);
+                {
+                    targetPos = GetTargetPos(data.ExecuteValue);
+                    SetTargetPos(1);
+                }
             }
 
-            private Vector3 GetTargetPos(Vector3 movement)
+            private void SetBasePos()
             {
                 switch (data.MovementType)
                 {
@@ -80,25 +85,52 @@ namespace Sequencer.Actions
                         if (data.UseUI)
                         {
                             RectTransform rect = owner.GetComponent<RectTransform>();
-                            RectTransform parentRect = rect.parent as RectTransform;
-
-                            Vector2 anchorCenter = (rect.anchorMin + rect.anchorMax) * 0.5f;
-
-                            Vector3 anchorLocalPos = new Vector3(
-                                Mathf.Lerp(parentRect.rect.xMin, parentRect.rect.xMax, anchorCenter.x),
-                                Mathf.Lerp(parentRect.rect.yMin, parentRect.rect.yMax, anchorCenter.y),
-                                0f
-                            );
-
-                            return rect.parent.TransformPoint(anchorLocalPos + movement);
+                            basePos = rect.anchoredPosition;
                         }
                         else
                         {
-                            return owner.transform.parent.position + movement;
+                            basePos = owner.transform.localPosition;
                         }
+                        break;
 
                     case MoveType.World:
+                    case MoveType.Offset:
+                        basePos = owner.transform.position;
+                        break;
+                }
+            }
+
+            private void SetTargetPos(float t)
+            {
+                switch (data.MovementType)
+                {
+                    case MoveType.Local:
+                        if (data.UseUI)
+                        {
+                            RectTransform rect = owner.GetComponent<RectTransform>();
+                            rect.anchoredPosition = Vector3.LerpUnclamped(basePos, targetPos, t);
+                        }
+                        else
+                        {
+                            owner.transform.localPosition = Vector3.LerpUnclamped(basePos, targetPos, t);
+                        }
+                        break;
+
+                    case MoveType.World:
+                    case MoveType.Offset:
+                        owner.transform.position = Vector3.LerpUnclamped(basePos, targetPos, t);
+                        break;
+                }
+            }
+
+            private Vector3 GetTargetPos(Vector3 movement)
+            {
+                switch (data.MovementType)
+                {
+                    case MoveType.Local:
+                    case MoveType.World:
                         return movement;
+
                     case MoveType.Offset:
                         return basePos + movement;
                 }

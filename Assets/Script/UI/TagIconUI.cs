@@ -22,6 +22,9 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private TextMeshProUGUI tagText;
 
     [SerializeField]
+    private TextMeshProUGUI tagBonusText;
+
+    [SerializeField]
     private Animator animator;
 
     [SerializeField]
@@ -29,6 +32,9 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     [SerializeField]
     private LayoutElement layoutElement;
+
+    [SerializeField]
+    private AdvancedButton button;
 
     [SerializeField]
     private bool canBeMoved;
@@ -39,8 +45,6 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField, ShowIf(nameof(canBeMoved))]
     private float smoothSpeed = 15f;
 
-    [SerializeField, ShowIf(nameof(canBeMoved))]
-    private AdvancedButton button;
 
     private TagPlaceholderUI anchor;
     private RectTransform parentRect;
@@ -78,7 +82,10 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
             button.OnLeftClick.AddListener(OnLeftClick);
             button.OnLeftClickReleased.AddListener(OnLeftClickReleased);
+        }
 
+        if (button != null)
+        {
             button.OnSelected += OnSelect;
             button.OnDeselected += OnDeSelect;
         }
@@ -90,28 +97,28 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             button.OnLeftClick.RemoveListener(OnLeftClick);
             button.OnLeftClickReleased.RemoveListener(OnLeftClickReleased);
+        }
 
+        if (button != null)
+        {
             button.OnSelected -= OnSelect;
-            button.OnDeselected -=  OnDeSelect;
+            button.OnDeselected -= OnDeSelect;
         }
     }
 
     private void OnSelect(AdvancedButton button)
     {
         animator.SetBool(HoverBool, true);
-
         Debug.Log("Pointer Select");
     }
     private void OnDeSelect(AdvancedButton button)
     {
         animator.SetBool(HoverBool, false);
-
         Debug.Log("Pointer Deselect");
     }
 
     private void OnLeftClick(AdvancedButton button)
     {
-        //OnBeginDrag(null);
         currentDragType = DragType.Controller;
         managerRefs.InputManager.Actions.Player.Navigate.started += SwapPlace;
         Navigation noneNav = new Navigation() { mode = Navigation.Mode.None };
@@ -152,7 +159,14 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         tagValue = tagData;
         tagImage.color = Color.white;
         tagImage.sprite = tagData.Asset.Icon;
-        tagText.text = tagData.Amount.Value.ToString();
+        tagText.text = tagData.Amount.BaseValue.ToString();
+
+        float amountBonus = tagData.Amount.Value - tagData.Amount.BaseValue;
+        if (amountBonus > 0)
+            tagBonusText.text = "+" + (tagData.Amount.Value - tagData.Amount.BaseValue).ToString();
+        else
+            tagBonusText.text = "";
+
         descTags.text = tagData.Asset.Description;
     }
 

@@ -81,17 +81,17 @@ public class Interaction : MonoBehaviour
         if (currentInteractable == null && newInteractable != null)
         {
             newInteractable.OnTargeted(playerBrain);
-            worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
+            //worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
         }
 
-        if (newInteractable == null || !newInteractable.CanInteract(playerBrain) || newInteractable.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
-        {
-            worldSpeech.StopSpeech();
-        }
-        else if (!worldSpeech.IsSpeechDisplayed)
-        {
-            worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
-        }
+        //if (newInteractable == null || !newInteractable.CanInteract(playerBrain) || newInteractable.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
+        //{
+        //    worldSpeech.StopSpeech();
+        //}
+        //else if (!worldSpeech.IsSpeechDisplayed)
+        //{
+        //    worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
+        //}
 
         currentInteractable = newInteractable;
     }

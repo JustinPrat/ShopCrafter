@@ -1,14 +1,16 @@
 using UnityEngine;
 
-public abstract class EmotionData : ScriptableObject
+[CreateAssetMenu(fileName = "EmotionData", menuName = "ShopCrafter/Dialogue/EmotionData")]
+public class EmotionData : ScriptableObject
 {
-    [SerializeField]
-    protected EmotionType emotionType;
+    public EmotionType EmotionType;
 
-    public virtual EmotionBehaviour GetEmotionBehaviour()
-    {
-        return new EmotionBehaviour(this);
-    }
+    public GameObject EmotionPrefab;
+
+    //public virtual EmotionBehaviour GetEmotionBehaviour()
+    //{
+    //    return new EmotionBehaviour(this);
+    //}
 }
 
 public enum EmotionType
@@ -17,19 +19,19 @@ public enum EmotionType
     Questionning
 }
 
-public class EmotionBehaviour
-{
-    public EmotionBehaviour(EmotionData data)
-    {
-    }
+//public class EmotionBehaviour
+//{
+//    public EmotionBehaviour(EmotionData data)
+//    {
+//    }
 
-    public virtual void ApplyEmotion()
-    {
+//    public virtual void ApplyEmotion()
+//    {
 
-    }
+//    }
 
-    public virtual void RemoveEmotion()
-    {
+//    public virtual void RemoveEmotion()
+//    {
 
-    }
-}
+//    }
+//}

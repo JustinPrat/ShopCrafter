@@ -51,6 +51,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public WorldSpeech WorldSpeech => worldSpeech;
     public string InteractText => interactText;
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     #endregion
 
@@ -317,10 +319,13 @@ public class PNJBrain : MonoBehaviour, IInteractable
                 SetPauseShopLeaving(false);
             }
         }
+
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
         mainRenderer.material = outlineMat != null ? outlineMat : baseMat;
     }
 

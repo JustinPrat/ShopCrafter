@@ -11,6 +11,7 @@ public class AnswerUIButton : MonoBehaviour
     [SerializeField] private GameObject costUI;
     [SerializeField] private TextMeshProUGUI costAmountText;
     [SerializeField] private Image costSpriteImage;
+    [SerializeField] private GameObject validateArrow;
 
     [SerializeField] private ManagerRefs managerRefs;
 
@@ -38,6 +39,9 @@ public class AnswerUIButton : MonoBehaviour
         button.OnLeftClick.RemoveListener(OnClick);
         button.OnLeftClick.AddListener(OnClick);
 
+        button.OnSelected += OnSelected;
+        button.OnDeselected += OnDeselected;
+
         UpdateAnswerState();
 
         costUI.SetActive(hasCost);
@@ -47,6 +51,16 @@ public class AnswerUIButton : MonoBehaviour
             costAmountText.text = data.Amount.ToString();
             costSpriteImage.sprite = data.Icon;
         }
+    }
+
+    private void OnSelected(AdvancedButton button)
+    {
+        validateArrow.gameObject.SetActive(true);
+    }
+
+    private void OnDeselected(AdvancedButton button)
+    {
+        validateArrow.gameObject.SetActive(false);
     }
 
     private void OnMoneyUpdated(int newAmount)
@@ -99,5 +113,8 @@ public class AnswerUIButton : MonoBehaviour
         {
             managerRefs.GameEventsManager.OnMoneyUpdated -= OnMoneyUpdated;
         }
+
+        button.OnSelected -= OnSelected;
+        button.OnDeselected -= OnDeselected;
     }
 }

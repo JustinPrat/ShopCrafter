@@ -67,9 +67,11 @@ public class SellSlot : CraftedItemReceiver
 
     public override void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public override void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 }

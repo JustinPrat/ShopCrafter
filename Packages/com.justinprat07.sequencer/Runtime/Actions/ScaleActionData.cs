@@ -42,7 +42,7 @@ namespace Sequencer.Actions
 
                 while (timer < data.Duration)
                 {
-                    timer += Time.deltaTime;
+                    timer += Time.unscaledDeltaTime;
                     owner.transform.localScale = Vector3.LerpUnclamped(baseScale, data.ScaleTarget, data.ScaleCurve.Evaluate(timer / data.Duration));
                     yield return null;
                 }

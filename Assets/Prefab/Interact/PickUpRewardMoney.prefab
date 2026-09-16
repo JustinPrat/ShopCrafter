@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7524284096749496474}
   - component: {fileID: 1759660587859659547}
   - component: {fileID: 5628757114367470078}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PickUpRewardMoney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,20 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a56941d729a7148983e1640c02cced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickRewardable
-  reward:
-    mode: 0
-    unityReference: {fileID: 0}
-    rawReference:
-      rid: -2
+  rewardsSerialized: []
   physicCollider: {fileID: 1759660587859659547}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   cinemachineImpulseSource: {fileID: 5628757114367470078}
   rewardSpawner: {fileID: 7524284096749496474}
+  interactUIReward: 1
   references:
     version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    RefIds: []
 --- !u!114 &7524284096749496474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +158,7 @@ GameObject:
   - component: {fileID: 4974509346595693516}
   - component: {fileID: 7581636065781455533}
   - component: {fileID: 2898824781577198351}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +250,7 @@ GameObject:
   - component: {fileID: 245176175747746228}
   - component: {fileID: 5031696880254495097}
   - component: {fileID: 8506717835726262609}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

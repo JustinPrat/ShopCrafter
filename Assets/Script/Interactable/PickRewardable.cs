@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TNRD;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class PickRewardable : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private SerializableInterface<IRewardable> rewardSerialized;
+    private List<SerializableInterface<IRewardable>> rewardsSerialized;
 
     [SerializeField]
     private Collider physicCollider;
@@ -20,7 +21,7 @@ public class PickRewardable : MonoBehaviour, IInteractable
     [SerializeField]
     private RewardSpawner rewardSpawner;
 
-    private IRewardable reward;
+    private List<IRewardable> rewards = new List<IRewardable>();
 
     public bool IsLocked { get; set; }
 
@@ -31,23 +32,28 @@ public class PickRewardable : MonoBehaviour, IInteractable
     public Collider PhysicCollider => physicCollider;
 
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     private void Awake()
     {
-        if (rewardSerialized != null && rewardSerialized.Value != null)
+        foreach (SerializableInterface<IRewardable> rewardSerialized in rewardsSerialized)
         {
-            reward = rewardSerialized.Value;
+            if (rewardSerialized != null && rewardSerialized.Value != null)
+            {
+                rewards.Add(rewardSerialized.Value);
+            }
         }
     }
 
     public void SetupReward(SerializableInterface<IRewardable> rewardable)
     {
-        reward = rewardable.Value;
+        rewards.Add(rewardable.Value);
     }
 
     public void SetupReward(IRewardable rewardable)
     {
-        reward = rewardable;
+        rewards.Add(rewardable);
     }
 
     public bool CanInteract(PlayerBrain playerBrain)
@@ -57,22 +63,33 @@ public class PickRewardable : MonoBehaviour, IInteractable
 
     public void DoInteract(PlayerBrain playerBrain)
     {
-        if (reward == null)
+        if (rewards.Count <= 0)
             return;
 
-        playerBrain.QueueNextRewardUI(reward);
-        reward.OnGetReward(managerRefs, gameObject);
+        for (int i = 0; i < rewards.Count; i++)
+        {
+            IRewardable reward = rewards[i];
+
+            IRewardable.UIDisplayData displayData = reward.GetRewardDisplayData();
+            if (displayData != null && displayData.DisplayAbovePlayer)
+                playerBrain.QueueNextRewardUI(reward);
+
+            reward.OnGetReward(managerRefs, gameObject);
+            rewardSpawner.Spawn(reward);
+        }
+
         cinemachineImpulseSource.GenerateImpulse(0.2f);
-        rewardSpawner.Spawn(reward);
         Destroy(gameObject);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     private void OnDestroy()

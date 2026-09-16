@@ -1209,10 +1209,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3344372057591464336}
   - component: {fileID: 7810537680299298134}
+  - component: {fileID: 8127271115425114614}
   - component: {fileID: 587664530065935704}
   - component: {fileID: 2810644224596270384}
   - component: {fileID: 2788657785465553824}
-  - component: {fileID: 8127271115425114614}
   m_Layer: 5
   m_Name: EndDayUI
   m_TagString: Untagged
@@ -1250,6 +1250,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5475771195858154003}
   m_CullTransparentMesh: 1
+--- !u!114 &8127271115425114614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5475771195858154003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c409cc249acb44a8ea22d536ddcc4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EndDayView
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  canvasGroup: {fileID: 587664530065935704}
+  recipeDayPrefab: {fileID: 8308597209202285856, guid: 19c37a5c44720da45ac2e036ff69d70b, type: 3}
+  recipeDayHolder: {fileID: 6265434682973758262}
+  moneyDayText: {fileID: 7623816097989035515}
+  nextDayButton: {fileID: 4526638594249069469}
 --- !u!225 &587664530065935704
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1302,23 +1320,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8127271115425114614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5475771195858154003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c409cc249acb44a8ea22d536ddcc4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EndDayView
-  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  recipeDayPrefab: {fileID: 8308597209202285856, guid: 19c37a5c44720da45ac2e036ff69d70b, type: 3}
-  recipeDayHolder: {fileID: 6265434682973758262}
-  moneyDayText: {fileID: 7623816097989035515}
-  nextDayButton: {fileID: 4526638594249069469}
 --- !u!1 &5545566086412407159
 GameObject:
   m_ObjectHideFlags: 0

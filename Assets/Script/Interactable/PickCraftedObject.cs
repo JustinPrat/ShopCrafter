@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PickCraftedObject : MonoBehaviour, IInteractable
+public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
 {
     [SerializeField]
     private CraftedObjectRecipe craftedObjectRecipe;
@@ -16,6 +16,9 @@ public class PickCraftedObject : MonoBehaviour, IInteractable
     [SerializeField]
     private Sequencer.Sequencer onPickSequencer;
 
+    [SerializeField]
+    private SpawnedReward rewardPrefab;
+
     public bool IsLocked { get; set; }
 
     public string InteractText => "Take";
@@ -24,7 +27,10 @@ public class PickCraftedObject : MonoBehaviour, IInteractable
 
     public Collider PhysicCollider => physicCollider;
 
+    public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -78,16 +84,18 @@ public class PickCraftedObject : MonoBehaviour, IInteractable
     {
         if (isNew)
         {
-            managerRefs.UIManager.ToggleRewardView(true, craftedObjectRecipe);
+            managerRefs.UIManager.ToggleRewardView(true, this);
         }
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)
@@ -96,5 +104,20 @@ public class PickCraftedObject : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void OnGetReward(ManagerRefs managerRefs, GameObject giver = null)
+    {
+    }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return new IRewardable.UIDisplayData
+        {
+            DisplayAbovePlayer = false,
+            DisplayName = craftedObjectRecipe.CraftedName,
+            Icon = craftedObjectRecipe.CraftedSprite,
+            HighlightColor = craftedObjectRecipe.Rarity.RarityColor
+        };
     }
 }

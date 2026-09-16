@@ -1,4 +1,5 @@
 using Alchemy.Inspector;
+using Coffee.UIEffects;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -27,6 +28,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public BarData BarElementData;
     public TierList TierList;
     public int BasePrice;
+    public UIEffectPreset UIEffectPreset;
 
     [SerializeField]
     private SpawnedReward rewardPrefab;
@@ -64,6 +66,9 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
 
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver)
     {
+        if (!managerRefs.CraftingManager.HasBlueprint(this))
+            managerRefs.UIManager.ToggleRewardView(true, this, UIEffectPreset);
+
         managerRefs.CraftingManager.AddBlueprint(this);
     }
 
@@ -71,7 +76,8 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     {
         return new IRewardable.UIDisplayData
         {
-            DisplayName = CraftedName,
+            DisplayAbovePlayer = false,
+            DisplayName = CraftedName + " Blueprint",
             Icon = CraftedSprite,
             HighlightColor = Rarity.RarityColor
         };
@@ -91,22 +97,13 @@ public class CraftedObjectData
     public Rarity Rarity => craftedObjectRecipe.Rarity;
     public bool IsNew => isNew;
 
+
+
     public CraftedObjectData (CraftedObjectRecipe craftedObjectRecipe, ManagerRefs managerRefs, bool isNew)
     {
         this.craftedObjectRecipe = craftedObjectRecipe;
         this.managerRefs = managerRefs;
         this.isNew = isNew;
-
-        //if (craftedObjectRecipe.Rarity.ERarity != ERarity.Unique)
-        //{
-        //    FindRarity();
-        //    SetPrice();
-        //}
-        //else
-        //{
-        //    rarity = managerRefs.CraftingManager.RarityHierarchy.UniqueRarity;
-        //    basePrice = 0;
-        //}
     }
 
     public int GetPrice()
@@ -115,16 +112,6 @@ public class CraftedObjectData
         return price.Value;
     }
 
-    //public void BoostRarity(int boostRarity)
-    //{
-    //    if (boostRarity <= 0 || (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity > Enum.GetValues(typeof(ERarity)).Length - 1)
-    //        return;
-
-    //    boostedRarity += boostRarity;
-    //    FindRarity();
-    //    SetPrice();
-    //}
-
     public void AddPriceModifier(StatModifier modifier)
     {
         if (modifier != null)
@@ -132,16 +119,4 @@ public class CraftedObjectData
             price.AddModifier(modifier);
         }
     }
-
-    //public void FindRarity ()
-    //{
-    //    RarityHierarchy hierarchy = managerRefs.CraftingManager.RarityHierarchy;
-    //    rarity = hierarchy.RarityList[Mathf.Min(hierarchy.RarityList.Length -1, (int)craftedObjectRecipe.Rarity.ERarity + boostedRarity)];
-    //}
-
-    //private void SetPrice()
-    //{
-    //    PricePerRarity prices = managerRefs.CraftingManager.BasePrices.PricePerRarities[(int)rarity.ERarity];
-    //    basePrice = UnityEngine.Random.Range(prices.MinPrice, prices.MaxPrice + 1);
-    //}
 }

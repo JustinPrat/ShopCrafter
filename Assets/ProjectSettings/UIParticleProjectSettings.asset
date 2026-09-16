@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: UIParticleProjectSettings
   m_EditorClassIdentifier: 
   m_EnableLinearToGamma: 1
-  m_HideGeneratedObjects: 1
+  m_HideGeneratedObjects: 0

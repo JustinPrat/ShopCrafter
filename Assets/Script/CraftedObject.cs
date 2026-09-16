@@ -2,7 +2,7 @@ using System;
 using TriInspector;
 using UnityEngine;
 
-public class CraftedObject : MonoBehaviour, IInteractable
+public class CraftedObject : MonoBehaviour, IInteractable, IRewardable
 {
     [SerializeField]
     private string interactText;
@@ -23,7 +23,10 @@ public class CraftedObject : MonoBehaviour, IInteractable
     public GameObject GameObject => gameObject;
     public string InteractText => interactText;
 
+    public SpawnedReward RewardPrefab { get; set; }
     public Action<IInteractable> OnDestroyEvent { get; set; }
+    public Action<IInteractable> OnTargetedEvent { get; set; }
+    public Action<IInteractable> OnUnTargetedEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -50,10 +53,12 @@ public class CraftedObject : MonoBehaviour, IInteractable
 
     public void UnTargeted(PlayerBrain playerBrain)
     {
+        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
     {
+        OnTargetedEvent?.Invoke(this);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)
@@ -62,5 +67,20 @@ public class CraftedObject : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void OnGetReward(ManagerRefs managerRefs, GameObject giver = null)
+    {
+    }
+
+    public IRewardable.UIDisplayData GetRewardDisplayData()
+    {
+        return new IRewardable.UIDisplayData()
+        {
+            DisplayAbovePlayer = false,
+            DisplayName = craftedObjectData.CraftedObjectRecipe.CraftedName,
+            Icon = craftedObjectData.CraftedObjectRecipe.CraftedSprite,
+            HighlightColor = craftedObjectData.CraftedObjectRecipe.Rarity.RarityColor
+        };
     }
 }

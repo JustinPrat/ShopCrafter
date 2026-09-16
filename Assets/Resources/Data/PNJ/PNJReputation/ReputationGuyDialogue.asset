@@ -59,7 +59,7 @@ MonoBehaviour:
         rid: -2
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
-  EffectPreset: {fileID: 11400000, guid: df013a6cf957b784f971609386ae8816, type: 2}
+  EffectPreset: {fileID: 11400000, guid: 58509dc8dadc8604f96c5ce2e245f8ff, type: 2}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 1
   TMPAnimationName: shake

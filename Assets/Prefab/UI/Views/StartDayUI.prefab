@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartDayView
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  canvasGroup: {fileID: 587664530065935704}
 --- !u!1 &5545566086412407159
 GameObject:
   m_ObjectHideFlags: 0

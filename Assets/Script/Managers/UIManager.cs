@@ -1,3 +1,4 @@
+using Coffee.UIEffects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,6 +118,22 @@ public class UIManager : MonoBehaviour
         managerRefs.InputManager.Actions.Player.MaterialInventory.performed += InventoryPerformed;
     }
 
+    public void HideUIVisualy()
+    {
+        foreach (UIView view in focusList)
+        {
+            view.CanvasGroup.alpha = 0;
+        }
+    }
+
+    public void ShowUIVisualy()
+    {
+        foreach (UIView view in focusList)
+        {
+            view.CanvasGroup.alpha = 1;
+        }
+    }
+
     private void NewFocus(UIView newFocus)
     {
         focusList.Add(newFocus);
@@ -168,16 +185,16 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    public void ToggleRewardView(bool isOn, IRewardable rewardable = null)
+    public void ToggleRewardView(bool isOn, IRewardable rewardable = null, UIEffectPreset uiEffectPreset = null)
     {
         ExecuteAfterOneFrame(() =>
         {
-            UpdateFocus(isOn, rewardViewInstance);
             rewardViewInstance.Toggle(isOn);
 
             if (isOn)
             {
-                rewardViewInstance.Setup(rewardable);
+                HideUIVisualy();
+                rewardViewInstance.Setup(rewardable, uiEffectPreset);
                 Time.timeScale = 0f;
                 managerRefs.InputManager.SetActionType(false, false, true);
             }
@@ -185,7 +202,10 @@ public class UIManager : MonoBehaviour
             {
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
+                ShowUIVisualy();
             }
+
+            UpdateFocus(isOn, rewardViewInstance);
         });
     }
     
