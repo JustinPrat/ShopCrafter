@@ -7,4 +7,11 @@ public static class ListExtension
     {
         return list[Random.Range(0, list.Count)];
     }
+
+    public static T GetAndRemoveRandomElement<T>(this List<T> list)
+    {
+        T element = list[Random.Range(0, list.Count)];
+        list.Remove(element);
+        return element;
+    }
 }

@@ -49,6 +49,9 @@ public class UIManager : MonoBehaviour
     private GameObject rewardViewPrefab;
 
     [SerializeField]
+    private GameObject reputationBoardViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     private CraftingView craftingViewInstance;
@@ -64,6 +67,7 @@ public class UIManager : MonoBehaviour
     private StartDayView startDayViewInstance;
     private MaterialInventoryView materialInventoryViewInstance;
     private RewardView rewardViewInstance;
+    private ReputationBoardView reputationBoardViewInstance;
 
     private List<UIView> focusList = new List<UIView>();
     public UIView CurrentFocus => focusList.Last();
@@ -111,6 +115,9 @@ public class UIManager : MonoBehaviour
 
         rewardViewInstance = Instantiate(rewardViewPrefab, canvas.transform).GetComponent<RewardView>();
         rewardViewInstance.gameObject.SetActive(false);
+
+        reputationBoardViewInstance = Instantiate(reputationBoardViewPrefab, canvas.transform).GetComponent<ReputationBoardView>();
+        reputationBoardViewInstance.gameObject.SetActive(false);
 
         managerRefs.InputManager.Actions.UI.Submit.Disable();
         managerRefs.InputManager.Actions.UI.Cancel.Disable();
@@ -208,7 +215,29 @@ public class UIManager : MonoBehaviour
             UpdateFocus(isOn, rewardViewInstance);
         });
     }
-    
+
+    public void ToggleReputationBoardView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            UpdateFocus(isOn, reputationBoardViewInstance);
+            reputationBoardViewInstance.Toggle(isOn);
+
+            if (isOn)
+            {
+                Time.timeScale = 0f;
+                managerRefs.InputManager.SetActionType(false, false, true);
+                managerRefs.InputManager.Actions.UI.Cancel.Enable();
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                managerRefs.InputManager.SetActionType(true, true, true);
+                managerRefs.InputManager.Actions.UI.Cancel.Disable();
+            }
+        });
+    }
+
     public void ToggleEndDayView(bool isOn)
     {
         ExecuteAfterOneFrame(() =>

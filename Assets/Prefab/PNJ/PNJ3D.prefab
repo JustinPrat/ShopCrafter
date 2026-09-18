@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fa9333f5f88ae409f09d2b9ad25f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIBillboarding
+  onlyOnEnable: 0
 --- !u!1 &2526664086174247820
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +364,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7635421879835829810}
   - component: {fileID: 2199096443231282290}
+  - component: {fileID: 1379198101810360285}
+  - component: {fileID: 2735466010418752588}
   - component: {fileID: 2076358275519400800}
   m_Layer: 6
   m_Name: WorldSpeech
@@ -406,8 +409,106 @@ MonoBehaviour:
   speechText: {fileID: 963642279947159868}
   speechDuration: 2
   speechSpeed: 1
-  animator: {fileID: 2076358275519400800}
+  appearSequence: {fileID: 1379198101810360285}
+  hideSequence: {fileID: 2735466010418752588}
   activatedSpeechObject: {fileID: 1171266412754111361}
+--- !u!114 &1379198101810360285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692692524003836396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 4317222858152739053
+  - rid: 4317222858152739043
+  - rid: 4317222858152739044
+  - rid: 4317222858152739045
+  playMode: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4317222858152739043
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: ad7f3878b82af174f90ff663f15d7695, type: 2}
+    - rid: 4317222858152739044
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 1
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 85fecb4a446932f498350c58cdb5d84e, type: 2}
+    - rid: 4317222858152739045
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 1
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 532070200a3e91c42ae2bdbb01f24268, type: 2}
+    - rid: 4317222858152739053
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: fb3b8541406648b4eb1d27d8ff98e0c2, type: 2}
+--- !u!114 &2735466010418752588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692692524003836396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 4317222858152739048
+  - rid: 4317222858152739049
+  - rid: 4317222858152739054
+  playMode: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4317222858152739048
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 32097be2f51bfbb47a5f88fcb5030d76, type: 2}
+    - rid: 4317222858152739049
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 1
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 279e4fb32a372234490150c43640ceba, type: 2}
+    - rid: 4317222858152739054
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 1
+        Target: {fileID: 1171266412754111361}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 2b5ed6ad5e602254c9db50af511825e2, type: 2}
 --- !u!95 &2076358275519400800
 Animator:
   serializedVersion: 7

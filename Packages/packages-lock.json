@@ -88,6 +88,13 @@
       },
       "hash": "7f68a7fc29efd535f53eb55a00d4ec9e54e43b70"
     },
+    "com.mackysoft.choice": {
+      "version": "https://github.com/mackysoft/Choice.git?path=Assets/MackySoft/MackySoft.Choice",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "181d439dae13eb415f88b9b1100466f0196c02af"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.4",
       "depth": 1,

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d44c53ea4350b234da9b65a7a6caad3f, type: 3}
+  m_Name: TextTicket
+  m_EditorClassIdentifier: Assembly-CSharp::TextTicketData
+  UIPrefab: {fileID: 708551481293177764, guid: f02fcf1ee2f8a8a45a4b995658fbc1a1, type: 3}
+  Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  TextPool:
+  - A
+  - B
+  - C
+  - D

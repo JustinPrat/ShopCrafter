@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: ReputationGuyAnswerReputation
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Tu as <!meta=reputation> de reputation
+  - Line: "Tu peux am\xE9liorer ta r\xE9putation en faisant des taches du tableau
+      de r\xE9putation"
     Emotion: {fileID: 0}
-  - Line: "Tu peut l'am\xE9liorer en cr\xE9ant, vendant des objets"
-    Emotion: {fileID: 0}
-  - Line: Mais aussi en satisfaisant des demandes de clients
+  - Line: Il est devant ton magasin
     Emotion: {fileID: 0}
   HasQuestion: 0
   HasNextDialogue: 1

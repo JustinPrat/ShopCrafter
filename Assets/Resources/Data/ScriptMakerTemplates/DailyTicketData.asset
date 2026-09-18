@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04e359d2acf72bf4a95d65818e2f7376, type: 3}
+  m_Name: DailyTicketData
+  m_EditorClassIdentifier: Scriptmaker.Editor::ScriptMaker.Editor.ScriptMakerTemplate
+  scriptBody: "using UnityEngine;\r\n[CreateAssetMenu(fileName = \"{ScriptName}\",
+    menuName = \"ShopCrafter/Milestone/{ScriptName}\")]\r\npublic class {ScriptName}Data
+    : DailyTicketData\r\n{\r\n\r\n    public override DailyTicketBehavior GetDailyTicketBehavior()\r\n   
+    {\r\n        {ScriptName}Behavior behavior = new {ScriptName}Behavior();\r\n       
+    behavior.Setup(this);\r\n        return behavior;\r\n    }\r\n\r\n    public
+    class {ScriptName}Behavior : DailyTicketBehavior\r\n    {\r\n        private
+    {ScriptName}Data data;\r\n\r\n        public void Setup({ScriptName}Data data)\r\n       
+    {\r\n            this.data = data;\r\n        }\r\n    }\r\n}\r\n"
+  scriptNameSuffix: Data

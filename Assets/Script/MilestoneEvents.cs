@@ -2,12 +2,12 @@ using System;
 
 public class MilestoneEvents
 {
-    public event Action OnMilestoneUpgrade;
+    public event Action OnMilestoneSpecial;
     public void MilestoneUpgrade()
     {
-        if (OnMilestoneUpgrade != null)
+        if (OnMilestoneSpecial != null)
         {
-            OnMilestoneUpgrade();
+            OnMilestoneSpecial();
         }
     }
 
@@ -20,15 +20,6 @@ public class MilestoneEvents
         }
     }
 
-    public event Action<MilestoneState> OnMilestoneStateChanged;
-    public void MilestoneStateChanged(MilestoneState newMilestoneState)
-    {
-        if (OnMilestoneStateChanged != null)
-        {
-            OnMilestoneStateChanged(newMilestoneState);
-        }
-    }
-
     public event Action<int> OnGainReputation;
     public void GainReputation(int amount)
     {
@@ -36,5 +27,23 @@ public class MilestoneEvents
         {
             OnGainReputation(amount);
         }
+    }
+
+    public event Action OnValidateMilestone;
+    public void ValidateMilestone()
+    {
+        OnValidateMilestone?.Invoke();
+    }
+
+    public event Action OnMilestoneReady;
+    public void MilestoneReady()
+    {
+        OnMilestoneReady?.Invoke();
+    }
+
+    public event Action OnTicketReroll;
+    public void TicketReroll()
+    {
+        OnTicketReroll?.Invoke();
     }
 }

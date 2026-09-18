@@ -158,6 +158,9 @@ GameObject:
   - component: {fileID: 4974509346595693516}
   - component: {fileID: 7581636065781455533}
   - component: {fileID: 2898824781577198351}
+  - component: {fileID: 9113759648164487315}
+  - component: {fileID: 2090462868272294323}
+  - component: {fileID: 969121831820303534}
   m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
@@ -213,7 +216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 8387a3270fce70a4fa96ef29ccc9411d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -237,6 +240,82 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9113759648164487315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099942654524111986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11991ad59ee14d4cb7f20a277cb12bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableSequence
+  interactable:
+    mode: 0
+    unityReference: {fileID: 761883529733276740}
+    rawReference:
+      rid: -2
+  onTargetSequencer: {fileID: 2090462868272294323}
+  onUntargetSequencer: {fileID: 969121831820303534}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &2090462868272294323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099942654524111986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 4317222881448165719
+  playMode: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4317222881448165719
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 815e65d37e67eb448a0daed3a7eec572, type: 2}
+--- !u!114 &969121831820303534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099942654524111986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d8f78e0cddc7746a13a02e22fe76e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
+  actions:
+  - rid: 4317222881448165730
+  playMode: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4317222881448165730
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 612dfcfda181fc94ebdd5e342ef290ce, type: 2}
 --- !u!1 &7956167926210688769
 GameObject:
   m_ObjectHideFlags: 0

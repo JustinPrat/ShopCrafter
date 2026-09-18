@@ -77,18 +77,17 @@ public class PNJManager : MonoBehaviour
     [Serializable]
     private struct PNJPoolElement
     {
-        public int milestoneIndex;
-        public PNJPool beforeReputation;
-        public PNJPool afterReputation;
+        public int MilestoneIndex;
+        public PNJPool Pool;
     }
 
     private int PoolListCompare (PNJPoolElement a, PNJPoolElement b)
     {
-        if (a.milestoneIndex < b.milestoneIndex)
+        if (a.MilestoneIndex < b.MilestoneIndex)
         {
             return -1;
         }
-        else if (a.milestoneIndex == b.milestoneIndex)
+        else if (a.MilestoneIndex == b.MilestoneIndex)
         {
             return 0;
         }
@@ -109,7 +108,7 @@ public class PNJManager : MonoBehaviour
     {
         managerRefs.PNJManager = this;
         PNJList = new List<PNJBrain>();
-        UpdateDataPools(pnjPoolList[currentPoolIndex].beforeReputation.PNJPoolList, pnjPoolList[currentPoolIndex].beforeReputation.SpecialPNJPool);
+        UpdateDataPools(pnjPoolList[currentPoolIndex].Pool.PNJPoolList, pnjPoolList[currentPoolIndex].Pool.SpecialPNJPool);
     }
 
     private void UpdateDataPools(List<PNJInfoData> basicPnjPool, List<PNJInfoData> specialPnjPool)
@@ -126,12 +125,6 @@ public class PNJManager : MonoBehaviour
         //managerRefs.GameEventsManager.dayEvents.OnPauseDay += PauseDayCounter;
         //managerRefs.GameEventsManager.dayEvents.OnResumeDay += ResumeDayCounter;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached += OnMilestoneReached;
-        managerRefs.GameEventsManager.milestoneEvents.OnMilestoneStateChanged += OnMilestoneStateChanged;
-    }
-
-    private void OnMilestoneStateChanged(MilestoneState state)
-    {
-        UpdateDataPools(pnjPoolList[currentPoolIndex].afterReputation.PNJPoolList, pnjPoolList[currentPoolIndex].afterReputation.SpecialPNJPool);
     }
 
     private void OnMilestoneReached(int index)
@@ -140,7 +133,7 @@ public class PNJManager : MonoBehaviour
             return;
 
         currentPoolIndex += 1;
-        UpdateDataPools(pnjPoolList[currentPoolIndex].beforeReputation.PNJPoolList, pnjPoolList[currentPoolIndex].beforeReputation.SpecialPNJPool);
+        UpdateDataPools(pnjPoolList[currentPoolIndex].Pool.PNJPoolList, pnjPoolList[currentPoolIndex].Pool.SpecialPNJPool);
     }
 
     private void Update()
@@ -290,7 +283,6 @@ public class PNJManager : MonoBehaviour
             //managerRefs.GameEventsManager.dayEvents.OnPauseDay -= PauseDayCounter;
             //managerRefs.GameEventsManager.dayEvents.OnResumeDay -= ResumeDayCounter;
             managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached -= OnMilestoneReached;
-            managerRefs.GameEventsManager.milestoneEvents.OnMilestoneStateChanged -= OnMilestoneStateChanged;
         }
     }
 }

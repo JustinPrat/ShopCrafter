@@ -29,7 +29,6 @@ public partial class CraftingManager : MonoBehaviour
     private List<CraftedObjectRecipe> craftedRecipes = new List<CraftedObjectRecipe>();
     private List<CraftedObjectRecipe> blueprintRecipes = new List<CraftedObjectRecipe>();
 
-    public event Action<int> OnItemCraft;
     public Dictionary<Item, int> ItemInventory => itemInventory;
     public RarityHierarchy RarityHierarchy => rarityHierarchy;
     public CraftedObject CraftedObjectPrefab => craftedObjectPrefab;
@@ -188,8 +187,7 @@ public partial class CraftingManager : MonoBehaviour
         craftedObject.Init(craftedObjectData);
 
         numberItemCrafted++;
-        OnItemCraft?.Invoke(numberItemCrafted);
-        managerRefs.GameEventsManager.milestoneEvents.GainReputation(craftedObjectData.Rarity.ReputationGain);
+        managerRefs.GameEventsManager.craftEvents.CraftItem(craftedObject.CraftedData);
 
         return craftedObject;
     }

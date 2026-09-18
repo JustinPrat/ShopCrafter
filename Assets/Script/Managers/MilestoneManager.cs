@@ -1,19 +1,8 @@
 using Alchemy.Inspector;
-using System;
+using MackySoft.Choice;
 using System.Collections.Generic;
 using UnityEngine;
-
-[Serializable]
-public class Milestone
-{
-    public int ReputationRequiredForSpecial;
-}
-
-public enum MilestoneState
-{
-    GainingReputation = 0,
-    SpecialCharacter = 1
-}
+using static MilestoneData;
 
 public class MilestoneManager : MonoBehaviour
 {
@@ -21,21 +10,26 @@ public class MilestoneManager : MonoBehaviour
     private ManagerRefs managerRefs;
 
     [SerializeField]
-    private List<Milestone> milestoneList;
+    private List<MilestoneData> milestoneList;
 
-    private Milestone currentMilestone;
+    private MilestoneData currentMilestone;
     private int currentMilestoneIndex;
     private int currentMilestoneReputation;
-    private MilestoneState currentMilestoneState = MilestoneState.GainingReputation;
+    private bool milestoneReady;
+    private List<DailyTicketData.DailyTicketBehavior> milestoneDailyTickets = new List<DailyTicketData.DailyTicketBehavior>();
+    private List<DailyTicketData.DailyTicketBehavior> currentDailyTicketsBehavior = new List<DailyTicketData.DailyTicketBehavior>();
 
     [ShowInInspector]
-    public Milestone CurrentMilestone => currentMilestone;
+    public MilestoneData CurrentMilestone => currentMilestone;
     [ShowInInspector]
     public int CurrentMilestoneIndex => currentMilestoneIndex;
     [ShowInInspector]
     public int CurrentMilestoneReputation => currentMilestoneReputation;
     [ShowInInspector]
-    public MilestoneState CurrentMilestoneState => currentMilestoneState;
+    public bool MilestoneReady => milestoneReady;
+
+    [ShowInInspector]
+    public List<DailyTicketData.DailyTicketBehavior> MilestoneDailyTickets => milestoneDailyTickets;
 
     private void Awake()
     {
@@ -47,40 +41,100 @@ public class MilestoneManager : MonoBehaviour
 
     private void Start()
     {
+        currentMilestone.OnEnterMilestone();
         managerRefs.GameEventsManager.milestoneEvents.OnGainReputation += OnGainReputation;
-        managerRefs.GameEventsManager.milestoneEvents.OnMilestoneUpgrade += OnMilestoneUpgrade;
+        managerRefs.GameEventsManager.milestoneEvents.OnMilestoneSpecial += OnMilestoneSpecial;
+        managerRefs.GameEventsManager.milestoneEvents.OnValidateMilestone += TryValidateMilestone;
+        managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
     }
-
-    private void OnMilestoneUpgrade()
-    {
-        currentMilestoneIndex++;
-        currentMilestone = milestoneList[currentMilestoneIndex];
-        currentMilestoneState = MilestoneState.GainingReputation;
-        currentMilestoneReputation = 0;
-        managerRefs.GameEventsManager.milestoneEvents.ReachMilestone(currentMilestoneIndex);
-    }
-
     private void OnDestroy()
     {
         if (managerRefs.GameEventsManager != null)
         {
             managerRefs.GameEventsManager.milestoneEvents.OnGainReputation -= OnGainReputation;
-            managerRefs.GameEventsManager.milestoneEvents.OnMilestoneUpgrade -= OnMilestoneUpgrade;
+            managerRefs.GameEventsManager.milestoneEvents.OnMilestoneSpecial -= OnMilestoneSpecial;
+            managerRefs.GameEventsManager.milestoneEvents.OnValidateMilestone -= TryValidateMilestone;
+            managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
         }
+    }
+
+    private void TryValidateMilestone()
+    {
+        if (milestoneReady)
+        {
+            UpgradeMilestone();
+        }
+    }
+
+    private void UpgradeMilestone()
+    {
+        milestoneReady = false;
+        currentMilestoneReputation = 0;
+
+        currentMilestoneIndex++;
+        currentMilestone.OnExitMilestone();
+        currentMilestone = milestoneList[currentMilestoneIndex];
+        currentMilestone.OnEnterMilestone();
+
+        RerollDailyTicket(currentMilestone);
+        managerRefs.GameEventsManager.milestoneEvents.ReachMilestone(currentMilestoneIndex);
+    }
+
+    private void RerollDailyTicket(MilestoneData milestone)
+    {
+        foreach (DailyTicketData.DailyTicketBehavior currentTicket in milestoneDailyTickets)
+        {
+            currentTicket.OnStopTicket();
+        }
+
+        milestoneDailyTickets.Clear();
+
+        List<DailyTicketWeighted> tmpList = new List<DailyTicketWeighted>(milestone.DailyTicketDatasPool);
+        for (int i = 0; i < milestone.NumberTickets; i++)
+        {
+            if (milestone.DailyTicketDatasPool.Count <= 0)
+                break;
+
+            IWeightedSelector<DailyTicketWeighted> selector = tmpList.ToWeightedSelector(item => item.WeightPercentChance);
+            DailyTicketWeighted dailyTicketWeighted = selector.SelectItemWithUnityRandom();
+            dailyTicketWeighted.WeightPercentChance = dailyTicketWeighted.WeightAfterPick;
+
+            for (int j = 0; j < tmpList.Count; j++)
+            {
+                if (tmpList[j].DailyTicketData == dailyTicketWeighted.DailyTicketData)
+                {
+                    tmpList[j] = dailyTicketWeighted;
+                }
+            }
+
+            DailyTicketData.DailyTicketBehavior newTicket = dailyTicketWeighted.DailyTicketData.GetDailyTicketBehavior();
+            newTicket.OnStartTicket();
+            milestoneDailyTickets.Add(newTicket);
+        }
+
+        managerRefs.GameEventsManager.milestoneEvents.TicketReroll();
     }
 
     private void OnGainReputation(int amount)
     {
-        if (currentMilestoneState != MilestoneState.GainingReputation)
-            return;
-
         currentMilestoneReputation += amount;
-        if (currentMilestoneReputation >= currentMilestone.ReputationRequiredForSpecial)
+
+        if (currentMilestoneReputation >= currentMilestone.ReputationRequired)
         {
-            currentMilestoneReputation = 0;
-            currentMilestoneState = MilestoneState.SpecialCharacter;
-            managerRefs.GameEventsManager.milestoneEvents.MilestoneStateChanged(MilestoneState.SpecialCharacter);
+            milestoneReady = true;
+            managerRefs.GameEventsManager.milestoneEvents.MilestoneReady();
         }
+    }
+
+    private void OnMilestoneSpecial()
+    {
+        milestoneReady = true;
+        managerRefs.GameEventsManager.milestoneEvents.MilestoneReady();
+    }
+
+    private void OnStartDay()
+    {
+        RerollDailyTicket(currentMilestone);
     }
 
 #if UNITY_EDITOR

@@ -11,26 +11,26 @@ using UnityEngine.UI;
 
 public class DialogueView : UIView
 {
-    [SerializeField]
-    private Transform dialogueBubblesAnchor;
+    //[SerializeField]
+    //private Transform dialogueBubblesAnchor;
 
     [SerializeField] 
     private TextMeshProUGUI textName;
 
-    [SerializeField]
-    private float bubbleSpacing;
+    //[SerializeField]
+    //private float bubbleSpacing;
 
-    [SerializeField]
-    private float bubbleMoveDuration = 0.5f;
+    //[SerializeField]
+    //private float bubbleMoveDuration = 0.5f;
 
-    [SerializeField]
-    private float bubbleReducedScale = 0.7f;
+    //[SerializeField]
+    //private float bubbleReducedScale = 0.7f;
 
     [SerializeField] 
     private float delayBetweenSkip;
 
-    [SerializeField]
-    private GameObject dialogueBubbleUIPrefab;
+    //[SerializeField]
+    //private GameObject dialogueBubbleUIPrefab;
 
     [SerializeField]
     private Image portrait;
@@ -41,8 +41,8 @@ public class DialogueView : UIView
     [SerializeField]
     private AnswerUIButton answerPrefab;
 
-    [SerializeField]
-    private List<float> transparencySteps;
+    //[SerializeField]
+    //private List<float> transparencySteps;
 
     [SerializeField]
     private UIEffect backGroundUIEffect;
