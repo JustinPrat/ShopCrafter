@@ -31,6 +31,12 @@ public class RewardView : UIView
     [SerializeField]
     private UIEffectPreset defaultBGUIPreset;
 
+    [SerializeField]
+    private GameObject smallRewardElementPrefab;
+
+    [SerializeField]
+    private Transform smallRewardAnchor;
+
     private bool hasModifiedPreset;
 
     public void Setup(IRewardable rewardable, UIEffectPreset uiEffectPreset = null)
@@ -45,6 +51,15 @@ public class RewardView : UIView
             hasModifiedPreset = true;
             uiEffectBG.LoadPreset(uiEffectPreset);
         }
+    }
+
+    public void AppendReward(IRewardable rewardable, UIEffectPreset uiEffectPreset = null)
+    {
+        RewardElementUI rewardElementUI = Instantiate(smallRewardElementPrefab, smallRewardAnchor).GetComponent<RewardElementUI>();
+        rewardElementUI.Setup(rewardable);
+
+        if (uiEffectPreset != null)
+            rewardElementUI.ChangePreset(uiEffectPreset);
     }
 
     public override void Toggle(bool isOn)
@@ -64,6 +79,11 @@ public class RewardView : UIView
             if (hasModifiedPreset)
             {
                 uiEffectBG.LoadPreset(defaultBGUIPreset);
+            }
+
+            foreach (Transform child in smallRewardAnchor)
+            {
+                Destroy(child.gameObject);
             }
         }
     }

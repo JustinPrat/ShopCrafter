@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbab4d6693694034a93364bff957668d, type: 3}
+  m_Name: Recipe Dynamite
+  m_EditorClassIdentifier: Assembly-CSharp::CraftedObjectRecipe
+  RequiredTags: []
+  CraftedType: 0
+  Rarity: {fileID: 11400000, guid: a734a5109dbe08d43995de780cdb88af, type: 2}
+  TargetScore: 0
+  CraftedName: Dynamite
+  CraftedDescription: Destroy matter
+  CraftedSprite: {fileID: 21300000, guid: 79e657ad5c3e3f747a24b3abd9ccc181, type: 3}
+  BarElementData: {fileID: 11400000, guid: 1e40d21c8ab2c6c40a0b276ac8076c75, type: 2}
+  TierList: {fileID: 11400000, guid: 516006cbbbfbd2f4c84ae9fcd4fcd338, type: 2}
+  BasePrice: 0
+  UIEffectPreset: {fileID: 11400000, guid: 9eaf6b99deb9e2c4a9ff8430f1c0cd82, type: 2}
+  rewardPrefab: {fileID: 3518631551006526312, guid: 9f61e8462172c164fb5e3c1926719f58, type: 3}

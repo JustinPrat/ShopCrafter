@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using TNRD;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,12 @@ public class ReputationBoardView : UIView
 
     [SerializeField]
     private List<Transform> clientReputationTicketPoses;
+
+    [SerializeField]
+    private Transform rewardsHolder;
+
+    [SerializeField]
+    private GameObject rewardUIPrefab;
 
     private List<Transform> availableClientReputationTicketPoses;
     private List<BaseTicketUI> baseTicketUIs = new List<BaseTicketUI>();
@@ -66,6 +73,12 @@ public class ReputationBoardView : UIView
                 objectiveUI.Setup(objective);
             }
 
+            foreach (SerializableInterface<IRewardable> reward in managerRefs.MilestoneManager.CurrentMilestone.CompleteRewards)
+            {
+                RewardElementUI rewardElementUI = Instantiate(rewardUIPrefab, rewardsHolder).GetComponent<RewardElementUI>();
+                rewardElementUI.Setup(reward.Value);
+            }
+
             currentReputationAmount.text = managerRefs.MilestoneManager.CurrentMilestoneReputation.ToString();
             targetReputationAmount.text = managerRefs.MilestoneManager.CurrentMilestone.ReputationRequired.ToString();
             currentReputationLevel.text = "Level " + (managerRefs.MilestoneManager.CurrentMilestoneIndex + 1).ToString();
@@ -83,6 +96,11 @@ public class ReputationBoardView : UIView
         else
         {
             foreach (Transform child in layoutObjectives)
+            {
+                Destroy(child.gameObject);
+            }
+
+            foreach (Transform child in rewardsHolder)
             {
                 Destroy(child.gameObject);
             }

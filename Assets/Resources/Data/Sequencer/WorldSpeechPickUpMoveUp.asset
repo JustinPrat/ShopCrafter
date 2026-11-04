@@ -39,6 +39,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Duration: 0.5
+  Duration: 0.2
   UseExecuteValue: 1
   ExecuteValue: {x: 0, y: 30, z: 0}

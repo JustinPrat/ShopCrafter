@@ -102,7 +102,7 @@ MonoBehaviour:
   touchGroundSequence: {fileID: -8994488451234892914}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1032
 --- !u!114 &-8994488451234892914
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MackySoft.Choice;
 using TriInspector;
+using TNRD;
 
 [CreateAssetMenu(fileName = "MilestoneData", menuName = "ShopCrafter/Milestone/MilestoneData")]
 public class MilestoneData : ScriptableObject
@@ -16,6 +17,8 @@ public class MilestoneData : ScriptableObject
 
     public List<Objective> Objectives;
     public List<DailyTicketWeighted> DailyTicketDatasPool;
+
+    public List<SerializableInterface<IRewardable>> CompleteRewards;
 
     [Serializable]
     public struct DailyTicketWeighted

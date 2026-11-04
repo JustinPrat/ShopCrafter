@@ -24,4 +24,35 @@ MonoBehaviour:
   - DailyTicketData: {fileID: 11400000, guid: 8ce3882f65f457148b53828e70aa5d07, type: 2}
     WeightPercentChance: 30
     WeightAfterPick: 0
+  CompleteRewards:
+  - mode: 1
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: 8687090820190306431
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 4f22512f7caed24418f4c5704f52155c, type: 2}
+    rawReference:
+      rid: -2
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 95e23a4fc17adb4418e92f01c83a0d4b, type: 2}
+    rawReference:
+      rid: -2
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 43479001670588048b7dda713f4ec531, type: 2}
+    rawReference:
+      rid: -2
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 18c335807bf7c4f43b241d3f5b217449, type: 2}
+    rawReference:
+      rid: -2
   Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 8687090820190306431
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 10
+        rewardPrefab: {fileID: 0}

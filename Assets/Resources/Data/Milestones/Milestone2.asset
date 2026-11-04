@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: Milestone2
   m_EditorClassIdentifier: Assembly-CSharp::Milestone
   IsSpecialCharacter: 1
-  ReputationRequired: 10
+  ReputationRequired: 0
+  NumberTickets: 2
   Objectives: []
+  DailyTicketDatasPool: []
+  CompleteRewards: []
   Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  references:
+    version: 2
+    RefIds: []

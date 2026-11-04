@@ -144,6 +144,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     {
         if (managerRefs.SellManager.GetRandomSellSlot(prefTypes, out SellSlot sellSlot))
         {
+            sellSlot.SetBuyLock(true);
             agent.SetVariableValue<Vector3>(BuyingPosition, sellSlot.BuyPosition.position);
         }
         return sellSlot;

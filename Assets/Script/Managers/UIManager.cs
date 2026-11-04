@@ -196,18 +196,29 @@ public class UIManager : MonoBehaviour
     {
         ExecuteAfterOneFrame(() =>
         {
-            rewardViewInstance.Toggle(isOn);
-
-            if (isOn)
+            if (rewardViewInstance.ActiveState != isOn)
             {
-                HideUIVisualy();
-                rewardViewInstance.Setup(rewardable, uiEffectPreset);
-                Time.timeScale = 0f;
-                managerRefs.InputManager.SetActionType(false, false, true);
+                rewardViewInstance.Toggle(isOn);
+
+                if (isOn)
+                {
+                    HideUIVisualy();
+                    Time.timeScale = 0f;
+                    managerRefs.InputManager.SetActionType(false, false, true);
+                    rewardViewInstance.Setup(rewardable, uiEffectPreset);
+                }
             }
             else
             {
-                Time.timeScale = 1f;
+                if (isOn)
+                    rewardViewInstance.AppendReward(rewardable, uiEffectPreset);
+            }
+
+            if (!isOn)
+            {
+                if (focusList.Count <= 1)
+                    Time.timeScale = 1f;
+
                 managerRefs.InputManager.SetActionType(true, true, true);
                 ShowUIVisualy();
             }

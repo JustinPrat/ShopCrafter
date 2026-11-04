@@ -14,15 +14,24 @@ public class SellSlot : CraftedItemReceiver
     [SerializeField]
     private SpawnedReward moneyRewardPrefab;
 
+    private bool isBuyLocked;
+
     public Transform BuyPosition => buyPosition;
+    public bool IsBuyLocked => isBuyLocked;
 
     private void Start()
     {
         managerRefs.SellManager.OnItemRemoved(this);
     }
 
+    public void SetBuyLock(bool isBuyLocked)
+    {
+        this.isBuyLocked = isBuyLocked;
+    }
+
     public void Sell()
     {
+        SetBuyLock(false);
         MoneyBatch moneyBatch = new MoneyBatch() { Amount = heldObject.Price, RewardPrefab = moneyRewardPrefab };
         PickRewardable pickRewardable = Instantiate(pickRewardablePrefab, objectHoldAnchor);
         pickRewardable.SetupReward(moneyBatch);

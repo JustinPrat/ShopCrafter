@@ -199,6 +199,7 @@ public partial class SellManager : MonoBehaviour
     {
         List<SellSlot> filteredSlots = SellingSlots
             .Where(slot => slot.HeldObject != null &&
+                           !slot.IsBuyLocked &&
                            slot.HeldObject.CraftedData != null &&
                            slot.HeldObject.CraftedData.CraftedObjectRecipe != null &&
                            prefTypes.Contains(slot.HeldObject.CraftedData.CraftedObjectRecipe.CraftedType))

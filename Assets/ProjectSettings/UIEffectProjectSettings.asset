@@ -120,6 +120,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_MASKING GRADATION_COLOR2 SAMPLING_EDGE_ALPHA TRANSITION_FADE
         passType: 0
+      - keywords: DETAIL_MASKING GRADATION_GRADIENT
+        passType: 0
       - keywords: DETAIL_MASKING SAMPLING_EDGE_ALPHA
         passType: 0
       - keywords: DETAIL_MASKING TRANSITION_PATTERN

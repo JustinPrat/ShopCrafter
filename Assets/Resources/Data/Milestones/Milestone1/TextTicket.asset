@@ -15,7 +15,7 @@ MonoBehaviour:
   UIPrefab: {fileID: 708551481293177764, guid: f02fcf1ee2f8a8a45a4b995658fbc1a1, type: 3}
   Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   TextPool:
-  - A
-  - B
-  - C
-  - D
+  - Qui est-tu ?
+  - "Je pense que le g\xE9rant est un robot"
+  - "Elle est ou l'ancienne g\xE9rante ?"
+  - "Je vais vous casser la t\xEAte"

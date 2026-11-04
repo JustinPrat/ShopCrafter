@@ -1,8 +1,10 @@
 using Alchemy.Inspector;
 using MackySoft.Choice;
 using System.Collections.Generic;
+using TNRD;
 using UnityEngine;
 using static MilestoneData;
+using static Steamworks.InventoryItem;
 
 public class MilestoneManager : MonoBehaviour
 {
@@ -62,7 +64,17 @@ public class MilestoneManager : MonoBehaviour
     {
         if (milestoneReady)
         {
+            GetMilestoneRewards();
             UpgradeMilestone();
+        }
+    }
+
+    private void GetMilestoneRewards()
+    {
+        foreach (SerializableInterface<IRewardable> reward in currentMilestone.CompleteRewards)
+        {
+            if (reward != null)
+                reward.Value.OnGetReward(managerRefs);
         }
     }
 
@@ -142,6 +154,13 @@ public class MilestoneManager : MonoBehaviour
     private void AddReputation(int amount)
     {
         managerRefs.GameEventsManager.milestoneEvents.GainReputation(amount);
+    }
+
+    [Button]
+    private void SkipMilestone()
+    {
+        managerRefs.GameEventsManager.milestoneEvents.GainReputation(currentMilestone.ReputationRequired);
+        managerRefs.GameEventsManager.milestoneEvents.ValidateMilestone();
     }
 #endif
 }

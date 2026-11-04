@@ -9,9 +9,12 @@ public class EncyclopediaInteract : MonoBehaviour, IInteractable
     [SerializeField]
     private ManagerRefs managerRefs;
 
+    [SerializeField]
+    private string interactText = "Read";
+
     public bool IsLocked { get; set; }
 
-    public string InteractText => "Encyclopedia";
+    public string InteractText => interactText;
 
     public GameObject GameObject => gameObject;
 

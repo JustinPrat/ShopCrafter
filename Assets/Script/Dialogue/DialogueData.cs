@@ -199,11 +199,12 @@ public class DialogueData : ScriptableObject
 }
 
 [Serializable]
-public struct LineData
+public class LineData
 {
     [TextArea]
     public string Line;
     public EmotionData Emotion;
+    public SerializableInterface<IRewardable> Reward;
 }
 
 [Serializable]

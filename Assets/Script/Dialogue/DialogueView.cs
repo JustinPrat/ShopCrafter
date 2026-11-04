@@ -387,6 +387,11 @@ public class DialogueView : UIView
                 currentEmotion = Instantiate(currentDialogue.Lines[currentDialogueIndex].Emotion.EmotionPrefab, portrait.transform);
             }
 
+            if (currentDialogue.Lines[currentDialogueIndex].Reward.Value != null)
+            {
+                currentDialogue.Lines[currentDialogueIndex].Reward.Value.OnGetReward(managerRefs, isPNJTalking ? currentPNJ.gameObject : gameObject);
+            }
+
             if (!isAsking)
                 dialogueBubbleUI.SetClickVisual(true);
             else
