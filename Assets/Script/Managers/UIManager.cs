@@ -54,6 +54,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Canvas canvas;
 
+    [SerializeField]
+    private EffectPresetMap presetMap;
+
     private CraftingView craftingViewInstance;
     private MiniGameView miniGameViewInstance;
     private CardTagView cardTagViewInstance;
@@ -156,7 +159,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateFocus(bool isOn, UIView uiView)
     {
-        if (isOn)
+        if (isOn && !focusList.Contains(uiView))
             NewFocus(uiView);
         else
             RemoveFocus(uiView);
@@ -192,7 +195,7 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    public void ToggleRewardView(bool isOn, IRewardable rewardable = null, UIEffectPreset uiEffectPreset = null)
+    public void ToggleRewardView(bool isOn, IRewardable rewardable = null, PresetType uiEffectPreset = PresetType.RewardElementBase)
     {
         ExecuteAfterOneFrame(() =>
         {
@@ -205,22 +208,23 @@ public class UIManager : MonoBehaviour
                     HideUIVisualy();
                     Time.timeScale = 0f;
                     managerRefs.InputManager.SetActionType(false, false, true);
-                    rewardViewInstance.Setup(rewardable, uiEffectPreset);
+                    rewardViewInstance.Setup(rewardable, presetMap.EffectPresets[uiEffectPreset].Normal);
+                }
+                else
+                {
+                    if (focusList.Count <= 1)
+                    {
+                        Time.timeScale = 1f;
+                        managerRefs.InputManager.SetActionType(true, true, true);
+                    }
+
+                    ShowUIVisualy();
                 }
             }
             else
             {
                 if (isOn)
-                    rewardViewInstance.AppendReward(rewardable, uiEffectPreset);
-            }
-
-            if (!isOn)
-            {
-                if (focusList.Count <= 1)
-                    Time.timeScale = 1f;
-
-                managerRefs.InputManager.SetActionType(true, true, true);
-                ShowUIVisualy();
+                    rewardViewInstance.AppendReward(rewardable, presetMap.EffectPresets[uiEffectPreset].Small);
             }
 
             UpdateFocus(isOn, rewardViewInstance);

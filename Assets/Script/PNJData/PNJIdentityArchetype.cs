@@ -1,3 +1,4 @@
+using Alchemy.Inspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class PNJIdentityArchetype : IdentityData
     public List<string> possibleNames;
     public List<string> possibleDescriptions;
     public List<Sprite> possiblePortraits;
+    [InlineEditor]
     public List<DialogueData> possibleDialogues;
 
     private List<DialogueData> availableDialogues;

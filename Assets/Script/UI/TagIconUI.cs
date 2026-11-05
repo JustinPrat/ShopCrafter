@@ -117,8 +117,12 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         Debug.Log("Pointer Deselect");
     }
 
+    //Controller
     private void OnLeftClick(AdvancedButton button)
     {
+        if (!managerRefs.InputManager.IsGamepad)
+            return;
+
         currentDragType = DragType.Controller;
         managerRefs.InputManager.Actions.Player.Navigate.started += SwapPlace;
         Navigation noneNav = new Navigation() { mode = Navigation.Mode.None };
@@ -143,7 +147,9 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void OnLeftClickReleased(AdvancedButton button)
     {
-        //OnEndDrag(null);
+        if (!managerRefs.InputManager.IsGamepad)
+            return;
+
         managerRefs.InputManager.Actions.Player.Navigate.started -= SwapPlace;
         button.navigation = Navigation.defaultNavigation;
         OnDragReleased?.Invoke();
@@ -215,6 +221,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         Debug.Log("Pointer Exit");
     }
 
+    //Mouse
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!canBeMoved || blockOrdering)

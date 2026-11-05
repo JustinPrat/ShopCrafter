@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8587cda18f28e4b4dacdc0ce5c71fdaf, type: 3}
+  m_Name: EffectPresetMap
+  m_EditorClassIdentifier: Assembly-CSharp::EffectPresetMap
+  effectPresets:
+  - key: 0
+    value:
+      Normal: {fileID: 11400000, guid: 9eaf6b99deb9e2c4a9ff8430f1c0cd82, type: 2}
+      Small: {fileID: 11400000, guid: 9eaf6b99deb9e2c4a9ff8430f1c0cd82, type: 2}
+  - key: 1
+    value:
+      Normal: {fileID: 11400000, guid: c18ff4f0a2865894b9eca1a038941925, type: 2}
+      Small: {fileID: 11400000, guid: eeff36f61e4e1cd46b079e55512987bb, type: 2}
+  - key: 2
+    value:
+      Normal: {fileID: 11400000, guid: 2278295be1040a84e98327dc779d11e4, type: 2}
+      Small: {fileID: 11400000, guid: 2278295be1040a84e98327dc779d11e4, type: 2}

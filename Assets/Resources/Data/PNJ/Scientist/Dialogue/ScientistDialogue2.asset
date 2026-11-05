@@ -13,8 +13,20 @@ MonoBehaviour:
   m_Name: ScientistDialogue2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Tu veux ne veut pas me trouver 3 cobailles ?
+  - Line: J'ai besoin <!delay=0.15>hmm de <!wait=0.5><!delay=0.05>3 cobailles
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: '<!delay=0.15>Tu peux ?<!wait=0.5><!delay=0.05> Me les trouver ? '
+    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
@@ -44,8 +56,9 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  NextDialogue: {fileID: 11400000, guid: 63e77aee21fdf8e4398629bba7e1e943, type: 2}
+  NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 3
   TMPAnimationName: shake

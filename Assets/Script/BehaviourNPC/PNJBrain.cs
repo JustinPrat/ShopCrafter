@@ -26,6 +26,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     [SerializeField] private float interactStopMaxDistance = 0.5f;
     [SerializeField] private Material outlineMat;
     [SerializeField] private Renderer mainRenderer;
+    [SerializeField] private bool canGoOut = true;
 
     private Material baseMat;
     private PNJInfoData PNJBaseData;
@@ -125,6 +126,9 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     private void ForceDayEnd() 
     {
+        if (!canGoOut)
+            return;
+
         ChangeState(State.GoOut);
     }
 

@@ -1,4 +1,6 @@
 public enum TMPEvents
 {
-    Shop
+    Shop,
+    wait,
+    delay
 }

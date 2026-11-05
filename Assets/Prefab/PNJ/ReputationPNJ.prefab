@@ -62,6 +62,7 @@ MonoBehaviour:
   interactStopMaxDistance: 1
   outlineMat: {fileID: 2100000, guid: 887036bf43d2bf744aca476ab9329c88, type: 2}
   mainRenderer: {fileID: 295838764871960122}
+  canGoOut: 0
 --- !u!114 &9178043326678624599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
-  m_AffectedAgents: 00000000
+  m_AffectedAgents: 00000000i
 --- !u!1 &2688785654817804124
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +232,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &295838764871960122
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -288,6 +289,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &3973799700026050317
 MonoBehaviour:
   m_ObjectHideFlags: 0

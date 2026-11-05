@@ -22,4 +22,5 @@ MonoBehaviour:
   BarElementData: {fileID: 0}
   TierList: {fileID: 0}
   BasePrice: 0
+  UIEffectPreset: 1
   rewardPrefab: {fileID: 3518631551006526312, guid: 4f59ff44cc804384a9e61dcd53937eba, type: 3}

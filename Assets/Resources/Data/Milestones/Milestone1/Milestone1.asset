@@ -34,14 +34,6 @@ MonoBehaviour:
     rawReference:
       rid: -2
   - mode: 0
-    unityReference: {fileID: 11400000, guid: 95e23a4fc17adb4418e92f01c83a0d4b, type: 2}
-    rawReference:
-      rid: -2
-  - mode: 0
-    unityReference: {fileID: 11400000, guid: 43479001670588048b7dda713f4ec531, type: 2}
-    rawReference:
-      rid: -2
-  - mode: 0
     unityReference: {fileID: 11400000, guid: 18c335807bf7c4f43b241d3f5b217449, type: 2}
     rawReference:
       rid: -2

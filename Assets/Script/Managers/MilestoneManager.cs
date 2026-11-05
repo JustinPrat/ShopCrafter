@@ -11,7 +11,7 @@ public class MilestoneManager : MonoBehaviour
     [SerializeField]
     private ManagerRefs managerRefs;
 
-    [SerializeField]
+    [SerializeField, InlineEditor]
     private List<MilestoneData> milestoneList;
 
     private MilestoneData currentMilestone;

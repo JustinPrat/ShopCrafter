@@ -28,7 +28,7 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public BarData BarElementData;
     public TierList TierList;
     public int BasePrice;
-    public UIEffectPreset UIEffectPreset;
+    public PresetType UIEffectPreset;
 
     [SerializeField]
     private SpawnedReward rewardPrefab;

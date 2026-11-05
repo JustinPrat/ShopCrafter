@@ -15,6 +15,11 @@ MonoBehaviour:
   Lines:
   - Line: "J'ai besoin de mat\xE9riel pour mes experiences"
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
@@ -31,19 +36,6 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: 13174609967054942
-  - Line: 2 Whool
-    AnswerDialogueData: {fileID: 0}
-    Reward:
-      mode: 1
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: 13174609967054945
-    ReplaceMainDialogue: {fileID: 0}
-    Cost:
-      mode: 1
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: 13174609967054943
   - Line: 4 Branches
     AnswerDialogueData: {fileID: 0}
     Reward:
@@ -59,6 +51,7 @@ MonoBehaviour:
         rid: 13174609967054948
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 3
   TMPAnimationName: shake
@@ -69,30 +62,27 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 13174609967054942
       type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 1
         Item: {fileID: 11400000, guid: 7fd7ea6273deeff469f374d13ca7f01d, type: 2}
-    - rid: 13174609967054943
-      type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
-      data:
-        Amount: 2
-        Item: {fileID: 11400000, guid: 1e3b19392abe8794284ee2b52929bfbd, type: 2}
-    - rid: 13174609967054945
-      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
-      data:
-        Amount: 20
+        rewardPrefab: {fileID: 0}
     - rid: 13174609967054946
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 13
+        rewardPrefab: {fileID: 0}
     - rid: 13174609967054947
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 7
+        rewardPrefab: {fileID: 0}
     - rid: 13174609967054948
       type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 4
         Item: {fileID: 11400000, guid: 6c55e09e6dabcfb4994fbddd0e6fea56, type: 2}
+        rewardPrefab: {fileID: 0}

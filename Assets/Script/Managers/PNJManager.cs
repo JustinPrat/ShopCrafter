@@ -1,3 +1,4 @@
+using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -78,6 +79,7 @@ public class PNJManager : MonoBehaviour
     private struct PNJPoolElement
     {
         public int MilestoneIndex;
+        [InlineEditor]
         public PNJPool Pool;
     }
 

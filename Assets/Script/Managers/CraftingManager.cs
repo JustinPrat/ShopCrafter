@@ -9,7 +9,7 @@ public partial class CraftingManager : MonoBehaviour
     [SerializeField]
     private ManagerRefs managerRefs;
 
-    [AlchemySerializeField, NonSerialized]
+    [SerializeField]
     private Dictionary<Item, int> itemInventory = new Dictionary<Item, int>();
 
     [SerializeField]

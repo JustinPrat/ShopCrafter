@@ -25,3 +25,8 @@ MonoBehaviour:
   CraftedName: Drug Seringue
   CraftedDescription: Can inject the worst crap
   CraftedSprite: {fileID: 3272861516853997401, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  BarElementData: {fileID: 0}
+  TierList: {fileID: 0}
+  BasePrice: 0
+  UIEffectPreset: 1
+  rewardPrefab: {fileID: 0}

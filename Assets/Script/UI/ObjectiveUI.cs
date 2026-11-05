@@ -15,9 +15,6 @@ public class ObjectiveUI : MonoBehaviour
     private TextMeshProUGUI amountWhenDoneText;
 
     [SerializeField]
-    private TextMeshProUGUI amountWinText;
-
-    [SerializeField]
     private Image iconImage;
 
     [SerializeField]
@@ -28,7 +25,6 @@ public class ObjectiveUI : MonoBehaviour
         nameText.text = objective.Name;
         descriptionText.text = objective.Description;
         amountWhenDoneText.text = objective.ReputationAmount.ToString();
-        amountWinText.text = "";
         iconImage.sprite = objective.Icon;
 
         if (objective.BGPreset != null)

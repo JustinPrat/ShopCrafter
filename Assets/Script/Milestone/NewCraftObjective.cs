@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCraftObjective", menuName = "ShopCrafter/Milestone/NewCraftObjective")]
 public class NewCraftObjective : Objective
 {
+    public bool RequireNew = true;
+
     public override void Subscribe(ManagerRefs refs)
     {
         refs.GameEventsManager.craftEvents.OnCraftedItem += OnCraftedItem;
@@ -10,7 +12,7 @@ public class NewCraftObjective : Objective
 
     private void OnCraftedItem(CraftedObjectData craftedObjectData)
     {
-        if (craftedObjectData.IsNew)
+        if (!RequireNew || (RequireNew && craftedObjectData.IsNew))
         {
             Refs.GameEventsManager.milestoneEvents.GainReputation(ReputationAmount);
         }

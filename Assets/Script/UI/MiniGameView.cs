@@ -49,7 +49,7 @@ public class MiniGameView : UIView
     private GameObject goodWord;
 
     [SerializeField]
-    private UIEffectPreset newItemUIEffect;
+    private PresetType newItemUIEffect;
 
     private float barCount = 0f;
     private int tierCount = 0;

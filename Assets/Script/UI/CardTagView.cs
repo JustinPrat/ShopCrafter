@@ -184,7 +184,7 @@ public class CardTagView : UIView
         craftedObjectData.AddPriceModifier(modifier);
         managerRefs.UIManager.ShowMiniGameView(CurrentCraftingTable, craftedObjectData, CurrentCraftingTable.GetValidUIPos());
     }
-
+    
     private void ScoreBonus()
     {
         modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);

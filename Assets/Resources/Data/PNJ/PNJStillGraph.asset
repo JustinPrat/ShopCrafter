@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Description: 
   m_Nodes:
   - rid: 3472448112366977217
-  m_VersionTimestamp: 639247307449827278
+  m_VersionTimestamp: 639293884548835903
   m_SerializedVersion: 3
   m_DebugInfo: {fileID: 2416889504852433205}
   m_RuntimeGraph: {fileID: 246828197533223718}
@@ -97,8 +97,7 @@ MonoBehaviour:
   m_NodeModelsInfo:
   - Name: On Start
     Story: 
-    RuntimeTypeString: Unity.Behavior.Start, Unity.Behavior, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    RuntimeTypeString: Unity.Behavior.Start, Unity.Behavior, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     RuntimeTypeID:
       m_Value0: 3335272451348827663
       m_Value1: 11549843281177505721
@@ -129,8 +128,7 @@ MonoBehaviour:
         PortModels:
         - rid: 3472448112366977218
         NodeType:
-          m_SerializableType: Unity.Behavior.Start, Unity.Behavior, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
+          m_SerializableType: Unity.Behavior.Start, Unity.Behavior, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         NodeTypeID:
           m_Value0: 3335272451348827663
           m_Value1: 11549843281177505721
@@ -178,8 +176,8 @@ MonoBehaviour:
           rid: 1135694550008857098
         BlackboardGroupReferences: []
         Root:
-          rid: 4317222770994577415
-        m_VersionTimestamp: 639247307449827278
+          rid: 8687090838331719926
+        m_VersionTimestamp: 639293884548835903
     - rid: 1135694550008857098
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -190,11 +188,11 @@ MonoBehaviour:
       type: {class: Blackboard, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Variables:
-        - rid: 4317222770994577416
-        - rid: 4317222770994577417
-        - rid: 4317222770994577418
-        - rid: 4317222770994577419
-    - rid: 4317222770994577415
+        - rid: 8687090838331719927
+        - rid: 8687090838331719928
+        - rid: 8687090838331719929
+        - rid: 8687090838331719930
+    - rid: 8687090838331719926
       type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
@@ -208,7 +206,7 @@ MonoBehaviour:
           rid: -2
         Repeat: 0
         AllowMultipleRepeatsPerTick: 0
-    - rid: 4317222770994577416
+    - rid: 8687090838331719927
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -216,7 +214,7 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 0}
-    - rid: 4317222770994577417
+    - rid: 8687090838331719928
       type: {class: 'BlackboardVariable`1[[State, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -224,7 +222,7 @@ MonoBehaviour:
           m_Value1: 17836523167627806583
         Name: ActualState
         m_Value: 0
-    - rid: 4317222770994577418
+    - rid: 8687090838331719929
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -232,7 +230,7 @@ MonoBehaviour:
           m_Value1: 13644032953359740018
         Name: RadiusRoamingPos
         m_Value: 30
-    - rid: 4317222770994577419
+    - rid: 8687090838331719930
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:

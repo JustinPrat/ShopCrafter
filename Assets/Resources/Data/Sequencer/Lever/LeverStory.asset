@@ -13,25 +13,42 @@ MonoBehaviour:
   m_Name: LeverStory
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <jump>...</jump>
+  - Line: <!delay=0.15><jump>...</jump>
     Emotion: {fileID: 0}
-  - Line: .....
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: <!delay=0.15>Tu<jump>...</jump>dois<jump>...</jump>
     Emotion: {fileID: 0}
-  - Line: .........?
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: <!delay=0.15><sketchy>reparer</sketchy> ?
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 0
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
-  EffectPreset: {fileID: 11400000, guid: 34561426418c7b941969bb5b3451771a, type: 2}
+  EffectPreset: {fileID: 11400000, guid: 2278295be1040a84e98327dc779d11e4, type: 2}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 0
+  tmpType: 1
   TMPAnimationName: sketchy
-  TMPEventName: 0
+  TMPEventName: 2
   TMPColor: {r: 1, g: 1, b: 1, a: 1}
   TMPIconName: 
   preview: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

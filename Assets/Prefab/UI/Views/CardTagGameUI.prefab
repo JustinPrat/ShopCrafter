@@ -116,7 +116,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -339,36 +339,27 @@ MonoBehaviour:
   currentPointBonus: {fileID: 6111193944407294671}
   currentPointValue: {fileID: 4762614495439830614}
   currentValuesTransform: {fileID: 5330811139016605586}
-  sliderDuration: 2
+  sliderDuration: 1.5
   sliderAnimCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0033340454
+      time: 0
       value: 0
-      inSlope: 0.12841035
-      outSlope: 0.12841035
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
-      weightedMode: 3
+      weightedMode: 0
       inWeight: 0
-      outWeight: 0.7369217
-    - serializedVersion: 3
-      time: 0.73533726
-      value: 0.32581303
-      inSlope: 1.1360935
-      outSlope: 1.1360935
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.056363598
-      outWeight: 0.20454861
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 4.8244505
-      outSlope: 4.8244505
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.09321704
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -628,7 +619,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -765,7 +756,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -978,7 +969,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1857,6 +1848,26 @@ PrefabInstance:
     - target: {fileID: 7911122897445655974, guid: 742ba8fa5d6fb2f40b062318f21430d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693620456677913527, guid: 742ba8fa5d6fb2f40b062318f21430d1, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693620456677913527, guid: 742ba8fa5d6fb2f40b062318f21430d1, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693620456677913527, guid: 742ba8fa5d6fb2f40b062318f21430d1, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693620456677913527, guid: 742ba8fa5d6fb2f40b062318f21430d1, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693620456677913527, guid: 742ba8fa5d6fb2f40b062318f21430d1, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

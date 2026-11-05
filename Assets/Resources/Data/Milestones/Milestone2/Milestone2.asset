@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a23e53c974c4314bb10ce0ac88fb9bf, type: 3}
+  m_Name: Milestone2
+  m_EditorClassIdentifier: Assembly-CSharp::MilestoneData
+  IsSpecialCharacter: 0
+  ReputationRequired: 25
+  NumberTickets: 3
+  Objectives:
+  - {fileID: 11400000, guid: 1adf590598504684aa68ca57c7bd348a, type: 2}
+  - {fileID: 11400000, guid: c4f3ba87e0e01c94c94cbf7b0045aee4, type: 2}
+  DailyTicketDatasPool:
+  - DailyTicketData: {fileID: 11400000, guid: c5e8eab5668e27a49bf6a465df731559, type: 2}
+    WeightPercentChance: 100
+    WeightAfterPick: 100
+  CompleteRewards:
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 43479001670588048b7dda713f4ec531, type: 2}
+    rawReference:
+      rid: -2
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 95e23a4fc17adb4418e92f01c83a0d4b, type: 2}
+    rawReference:
+      rid: -2
+  - mode: 0
+    unityReference: {fileID: 11400000, guid: 508b26cdda69cf34d9d8f39d26c16ed3, type: 2}
+    rawReference:
+      rid: -2
+  Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

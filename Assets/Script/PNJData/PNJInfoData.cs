@@ -1,3 +1,4 @@
+using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class PNJInfoData : ScriptableObject
 {
     public GameObject PnjPrefab;
     public IdentityData IdentityInfo;
+    [InlineEditor]
     public List<PNJTraitData> TraitDatas;
 
     public float ShopStayDuration;
