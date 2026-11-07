@@ -15,11 +15,29 @@ MonoBehaviour:
   Lines:
   - Line: <shake>Ouaf !</shake>
     Emotion: {fileID: 11400000, guid: c75d35c91b2931043838a305eff74ff1, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
   - Line: Pet
     AnswerDialogueData: {fileID: 11400000, guid: 87f36109f50800f43a3a0015a10ecd52, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: Bye
+    AnswerDialogueData: {fileID: 11400000, guid: 661a0b557a2323548999c0fad8d1f4b7, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 0}

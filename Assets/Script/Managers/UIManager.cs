@@ -161,7 +161,7 @@ public class UIManager : MonoBehaviour
     {
         if (isOn && !focusList.Contains(uiView))
             NewFocus(uiView);
-        else
+        else if (!isOn)
             RemoveFocus(uiView);
     }
 

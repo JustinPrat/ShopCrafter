@@ -75,4 +75,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   Duration: 0.3
   UseExecuteValue: 1
-  ExecuteValue: {x: 0.3, y: 0.3, z: 0.3}
+  ExecuteValue: {x: 0.5, y: 0.5, z: 0.5}

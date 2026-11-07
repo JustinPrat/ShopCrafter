@@ -12,15 +12,18 @@ public class AnswerUIButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI costAmountText;
     [SerializeField] private Image costSpriteImage;
     [SerializeField] private GameObject validateArrow;
+    [SerializeField] private Transform outShortcutButton;
 
     [SerializeField] private ManagerRefs managerRefs;
 
     private Answer currentAnswer;
     private bool clickable;
     private bool hasCost;
+    private bool isOutAnswer;
 
     public Action<Answer> OnAnswerClicked;
     public Selectable Selectable => button;
+    public bool IsOutAnswer => isOutAnswer;
 
     private void Awake()
     {
@@ -30,7 +33,12 @@ public class AnswerUIButton : MonoBehaviour
         }
     }
 
-    public void Setup (Answer answer)
+    public void Click()
+    {
+        button.Click(UnityEngine.EventSystems.PointerEventData.InputButton.Left);
+    }
+
+    public void Setup (Answer answer, bool isOutAnswer)
     {
         textUI.text = answer.Line;
         currentAnswer = answer;
@@ -50,6 +58,13 @@ public class AnswerUIButton : MonoBehaviour
             ICost.UIDisplayData data = answer.Cost.Value.GetCostDisplayData();
             costAmountText.text = data.Amount.ToString();
             costSpriteImage.sprite = data.Icon;
+        }
+
+        this.isOutAnswer = isOutAnswer;
+
+        if (isOutAnswer)
+        {
+            outShortcutButton.gameObject.SetActive(true);
         }
     }
 

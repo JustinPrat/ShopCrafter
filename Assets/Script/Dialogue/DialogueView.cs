@@ -57,6 +57,12 @@ public class DialogueView : UIView
     private Sequencer.Sequencer outAnim;
 
     [SerializeField]
+    private Sequencer.Sequencer inQuestionAnim;
+
+    [SerializeField]
+    private Sequencer.Sequencer outQuestionAnim;
+
+    [SerializeField]
     private DialogueBubbleUI dialogueBubbleUI;
 
     private DialogueData currentDialogue;
@@ -195,7 +201,14 @@ public class DialogueView : UIView
     {
         if (isAsking)
         {
-            StopDialogue();
+            foreach (AnswerUIButton button in answerUIButtons)
+            {
+                if (button.IsOutAnswer)
+                {
+                    button.Click();
+                    break;
+                }
+            }
         }
         else
         {
@@ -258,17 +271,6 @@ public class DialogueView : UIView
     private void TryAskQuestion ()
     {
         isAsking = true;
-        if (currentDialogue.HasQuestion)
-        {
-            for (int i = 0; i < currentDialogue.Answers.Count; i++)
-            {
-                AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
-                answer.Setup(currentDialogue.Answers[i]);
-                answer.OnAnswerClicked += ChooseAnswer;
-
-                answerUIButtons.Add(answer);
-            }
-        }
 
         if (managerRefs.DialogueManager.SpecialDialogues.Count > 0 && isPNJTalking)
         {
@@ -277,7 +279,21 @@ public class DialogueView : UIView
             {
                 currentSpecialDialogue = specialDialogue;
                 AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
-                answer.Setup(specialDialogue.Answers[0]);
+                answer.Setup(specialDialogue.Answers[0], false);
+                answer.OnAnswerClicked += ChooseAnswer;
+
+                answerUIButtons.Add(answer);
+            }
+        }
+
+        if (currentDialogue.HasQuestion)
+        {
+            for (int i = 0; i < currentDialogue.Answers.Count; i++)
+            {
+                bool isLastAnswer = i >= currentDialogue.Answers.Count -1;
+
+                AnswerUIButton answer = Instantiate(answerPrefab, answerParent);
+                answer.Setup(currentDialogue.Answers[i], isLastAnswer);
                 answer.OnAnswerClicked += ChooseAnswer;
 
                 answerUIButtons.Add(answer);
@@ -293,6 +309,9 @@ public class DialogueView : UIView
 
             answerParent.gameObject.SetActive(true);
             SetupNavigation();
+
+            outQuestionAnim.StopSequence();
+            inQuestionAnim.StartSequence();
         }
         else
         {
@@ -340,6 +359,9 @@ public class DialogueView : UIView
         {
             selectedAnswer.Reward.Value.OnGetReward(managerRefs, isPNJTalking ? currentPNJ.gameObject : gameObject);
         }
+
+        inQuestionAnim.StopSequence();
+        outQuestionAnim.StartSequence();
 
         if (currentDialogue != null)
         {

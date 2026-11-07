@@ -28,6 +28,16 @@ public class DialogueBubbleUI : MonoBehaviour
     public void SetText(string newText)
     {
         textAnimator.SetText(newText);
+        
+        if (textAnimator.TextComponent.textInfo.lineCount <= 1)
+        {
+            textAnimator.TextComponent.alignment = TMPro.TextAlignmentOptions.Center;
+        }
+        else
+        {
+            textAnimator.TextComponent.alignment = TMPro.TextAlignmentOptions.Left;
+        }
+
         //UpdateBubbleHeight();
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Milestone2
   m_EditorClassIdentifier: Assembly-CSharp::MilestoneData
   IsSpecialCharacter: 0
-  ReputationRequired: 25
+  ReputationRequired: 30
   NumberTickets: 3
   Objectives:
   - {fileID: 11400000, guid: 1adf590598504684aa68ca57c7bd348a, type: 2}

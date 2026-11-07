@@ -18,7 +18,17 @@ public class RandomRewardSpawner : MonoBehaviour
 
     private List<PickRewardable> enabledRewards = new List<PickRewardable>();
     private float timer;
+    private List<Transform> openAnchors = new List<Transform>();
+    private List<Transform> closedAnchors = new List<Transform>();
 
+
+    private void Awake()
+    {
+        foreach (Transform child in transform)
+        {
+            openAnchors.Add(child);
+        }
+    }
 
     private void Start()
     {
@@ -27,7 +37,7 @@ public class RandomRewardSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (enabledRewards.Count < maxRewardNumber)
+        if (enabledRewards.Count < maxRewardNumber && openAnchors.Count > 0)
         {
             timer -= Time.deltaTime;
 
@@ -41,18 +51,27 @@ public class RandomRewardSpawner : MonoBehaviour
 
     public void Spawn()
     {
-        int childIndex = Random.Range(0, transform.childCount);
+        int childIndex = Random.Range(0, openAnchors.Count);
         PickRewardable pickRewardable = Instantiate(pickPrefab, transform.GetChild(childIndex));
         pickRewardable.SetupReward(rewardablePool.GetRandomElement());
         enabledRewards.Add(pickRewardable);
+
+        closedAnchors.Add(openAnchors[childIndex]);
+        openAnchors.RemoveAt(childIndex);
+
         pickRewardable.OnDestroyEvent += OnPickDestroyed;
     }
 
     private void OnPickDestroyed(IInteractable interactable)
     {
         PickRewardable pickRewardable = interactable as PickRewardable;
+
+        closedAnchors.Remove(pickRewardable.transform.parent);
+        openAnchors.Add(pickRewardable.transform.parent);
+
         enabledRewards.Remove(pickRewardable);
         pickRewardable.OnDestroyEvent -= OnPickDestroyed;
+
     }
 
     private void OnDestroy()

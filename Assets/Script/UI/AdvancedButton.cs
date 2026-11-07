@@ -24,6 +24,16 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
     private Coroutine _resetRoutine;
     private bool buttonPressed = false;
 
+    public void Click(PointerEventData.InputButton button)
+    {
+        PointerEventData pointer = new PointerEventData(EventSystem.current)
+        {
+            button = button
+        };
+
+        OnPointerClick(pointer);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!interactable)
