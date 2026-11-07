@@ -15,6 +15,11 @@ MonoBehaviour:
   Lines:
   - Line: J'aimerais bien gagner de l'argent pour acheter de l'alcool
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
@@ -26,6 +31,19 @@ MonoBehaviour:
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 11400000, guid: 691a55d4a30d66642961158349dd483b, type: 2}
+    Cost:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 8687090907118043337
+  - Line: Aurevoir
+    AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
     Cost:
       mode: 1
       unityReference: {fileID: 0}
@@ -47,6 +65,11 @@ MonoBehaviour:
     - rid: -2
       type: {class: , ns: , asm: }
     - rid: 7665218516911390824
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 25
+        rewardPrefab: {fileID: 0}
+    - rid: 8687090907118043337
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 25

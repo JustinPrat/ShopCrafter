@@ -49,6 +49,19 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: 13174609967054948
+  - Line: Aurevoir
+    AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
+    Reward:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 8687090907118043339
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 1
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: 8687090907118043340
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
   EffectPreset: {fileID: 0}
@@ -81,6 +94,17 @@ MonoBehaviour:
         Amount: 7
         rewardPrefab: {fileID: 0}
     - rid: 13174609967054948
+      type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 4
+        Item: {fileID: 11400000, guid: 6c55e09e6dabcfb4994fbddd0e6fea56, type: 2}
+        rewardPrefab: {fileID: 0}
+    - rid: 8687090907118043339
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 7
+        rewardPrefab: {fileID: 0}
+    - rid: 8687090907118043340
       type: {class: ItemBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 4

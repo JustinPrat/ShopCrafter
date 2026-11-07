@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Special1Dialogue2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.05> as-tu le bocal ?
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> as-tu le bocal ?
     Emotion: {fileID: 0}
     Reward:
       mode: 0

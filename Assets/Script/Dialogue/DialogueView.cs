@@ -11,26 +11,14 @@ using UnityEngine.UI;
 
 public class DialogueView : UIView
 {
-    //[SerializeField]
-    //private Transform dialogueBubblesAnchor;
-
     [SerializeField] 
     private TextMeshProUGUI textName;
-
-    //[SerializeField]
-    //private float bubbleSpacing;
-
-    //[SerializeField]
-    //private float bubbleMoveDuration = 0.5f;
-
-    //[SerializeField]
-    //private float bubbleReducedScale = 0.7f;
 
     [SerializeField] 
     private float delayBetweenSkip;
 
-    //[SerializeField]
-    //private GameObject dialogueBubbleUIPrefab;
+    [SerializeField]
+    private float delayBeforeAnswerSelect = 0.1f;
 
     [SerializeField]
     private Image portrait;
@@ -40,9 +28,6 @@ public class DialogueView : UIView
 
     [SerializeField]
     private AnswerUIButton answerPrefab;
-
-    //[SerializeField]
-    //private List<float> transparencySteps;
 
     [SerializeField]
     private UIEffect backGroundUIEffect;
@@ -74,6 +59,7 @@ public class DialogueView : UIView
 
     private bool isAsking = false;
     private float currentDelaySkip;
+    private float currentDelayAnswerSelect;
     private bool isPNJTalking;
     private bool hasModifiedPreset;
     private bool isLeaving;
@@ -128,51 +114,12 @@ public class DialogueView : UIView
         {
             currentDelaySkip -= Time.unscaledDeltaTime;
         }
+
+        if (currentDelayAnswerSelect > 0f)
+        {
+            currentDelayAnswerSelect -= Time.unscaledDeltaTime;
+        }
     }
-
-    //private DialogueBubbleUI CreateBubble()
-    //{
-    //    DialogueBubbleUI bubble = Instantiate(dialogueBubbleUIPrefab, dialogueBubblesAnchor).GetComponent<DialogueBubbleUI>();
-    //    dialogueBubbles.Add(bubble);
-    //    bubble.TextWriter.OnTextEvent.AddListener(OnTextEvent);
-    //    bubble.SetTransparency(0f);
-
-    //    return bubble;
-    //}
-
-    //private IEnumerator UpdateBubbleStep()
-    //{
-    //    yield return new WaitForEndOfFrame();
-
-    //    DialogueBubbleUI lastBubble = dialogueBubbles[dialogueBubbles.Count - 1];
-    //    lastBubble.UpdateBubbleHeight();
-
-    //    Vector2 basePos = lastBubble.MainRectTransform.anchoredPosition;
-    //    lastBubble.SetTransparency(1f, bubbleMoveDuration);
-    //    lastBubble.MainRectTransform.anchoredPosition = new Vector2(lastBubble.MainRectTransform.anchoredPosition.x, lastBubble.MainRectTransform.anchoredPosition.y - lastBubble.BubbleHeight - bubbleSpacing);
-    //    Tween.UIAnchoredPosition(lastBubble.MainRectTransform, basePos, bubbleMoveDuration, useUnscaledTime: true);
-
-    //    for (int i = dialogueBubbles.Count - 1; i >= 0; i--)
-    //    {
-    //        DialogueBubbleUI dialogueBubble = dialogueBubbles[i];
-    //        int currentStep = dialogueBubbles.Count - 1 - i;
-
-    //        if (dialogueBubbles.Count - 1 == i)
-    //            continue;
-
-    //        if (currentStep > transparencySteps.Count - 1)
-    //        {
-    //            Destroy(dialogueBubble.gameObject);
-    //        }
-    //        else
-    //        {
-    //            dialogueBubble.SetClickVisual(false);
-    //            dialogueBubble.SetTransparency(transparencySteps[currentStep - 1], bubbleMoveDuration);
-    //            Tween.UIAnchoredPositionY(dialogueBubble.MainRectTransform, dialogueBubble.MainRectTransform.anchoredPosition.y + lastBubble.BubbleHeight + bubbleSpacing, bubbleMoveDuration, useUnscaledTime: true);
-    //            Tween.Scale(dialogueBubble.MainRectTransform, Vector3.one * bubbleReducedScale, bubbleMoveDuration, useUnscaledTime: true);
-    //        }
-    //    }
-    //}
 
     public override void Toggle(bool isOn)
     {
@@ -229,7 +176,15 @@ public class DialogueView : UIView
         if (!isAsking && currentDelaySkip <= 0f)
         {
             currentDelaySkip = delayBetweenSkip;
-            NextLine();
+
+            if (dialogueBubbleUI.IsWriting)
+            {
+                dialogueBubbleUI.Skip();
+            }
+            else
+            {
+                NextLine();
+            }
         }
     }
 
@@ -302,6 +257,8 @@ public class DialogueView : UIView
 
         if (answerUIButtons.Count > 0)
         {
+            currentDelayAnswerSelect = delayBeforeAnswerSelect;
+
             if (managerRefs.InputManager.IsGamepad)
             {
                 StartCoroutine(SelectButtonAfterFrame(answerUIButtons[0].gameObject));
@@ -338,6 +295,9 @@ public class DialogueView : UIView
 
     private void ChooseAnswer (Answer selectedAnswer)
     {
+        if (currentDelayAnswerSelect > 0)
+            return;
+
         for (int i = answerUIButtons.Count - 1; i >= 0; i--)
         {
             Destroy(answerUIButtons[i].gameObject);
@@ -396,7 +356,6 @@ public class DialogueView : UIView
                 TryAskQuestion();
             }
 
-            //DialogueBubbleUI bubble = CreateBubble();
             dialogueBubbleUI.SetText(currentDialogue.Lines[currentDialogueIndex].Line);
 
             if (currentEmotion != null)
@@ -418,8 +377,6 @@ public class DialogueView : UIView
                 dialogueBubbleUI.SetClickVisual(true);
             else
                 dialogueBubbleUI.SetClickVisual(false);
-
-            //StartCoroutine(UpdateBubbleStep());
         }
     }
 

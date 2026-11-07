@@ -13,15 +13,14 @@ MonoBehaviour:
   m_Name: Special1Dialogue1Rep1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.05> tiens prend ce plan
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tiens prend ce plan
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 11400000, guid: 799db0984deb2da4b8a4c5726bfb2061, type: 2}
       rawReference:
         rid: -2
-  - Line: <!delay=0.25>Mmmmh,<!wait=0.5><!delay=0.05> frabrique moi ca et je t'aiderais
-      grandement
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> frabrique moi ca et je t'aiderais grandement
     Emotion: {fileID: 0}
     Reward:
       mode: 0

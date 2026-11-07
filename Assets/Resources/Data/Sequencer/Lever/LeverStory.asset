@@ -20,14 +20,14 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: <!delay=0.15>Tu<jump>...</jump>dois<jump>...</jump>
+  - Line: "Ce que tu as ramass\xE9,<!wait=0.5> tu dois <jump>...</jump> "
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: <!delay=0.15><sketchy>reparer</sketchy> ?
+  - Line: <!delay=0.15><sketchy>Reparer</sketchy> ?
     Emotion: {fileID: 0}
     Reward:
       mode: 0

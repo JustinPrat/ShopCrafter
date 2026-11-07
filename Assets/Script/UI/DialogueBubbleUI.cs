@@ -10,20 +10,15 @@ public class DialogueBubbleUI : MonoBehaviour
     [SerializeField]
     private TMPWriter textWriter;
 
-    //[SerializeField]
-    //private RectTransform mainRectTransform;
-
     [SerializeField]
     private CanvasGroup canvasGroup;
 
     [SerializeField]
     private GameObject clickToSkip;
 
-    private float bubbleHeight;
-
     public TMPWriter TextWriter => textWriter;
-    public float BubbleHeight => bubbleHeight;
-    //public RectTransform MainRectTransform => mainRectTransform;
+
+    public bool IsWriting => textWriter.IsWriting;
 
     public void SetText(string newText)
     {
@@ -37,19 +32,17 @@ public class DialogueBubbleUI : MonoBehaviour
         {
             textAnimator.TextComponent.alignment = TMPro.TextAlignmentOptions.Left;
         }
+    }
 
-        //UpdateBubbleHeight();
+    public void Skip()
+    {
+        textWriter.SkipWriter();
     }
 
     public void SetClickVisual(bool isActive)
     {
         clickToSkip.SetActive(isActive);
     }
-
-    //public void UpdateBubbleHeight()
-    //{
-    //    bubbleHeight = mainRectTransform.rect.height;
-    //}
 
     public void SetTransparency(float alpha)
     {
@@ -63,17 +56,10 @@ public class DialogueBubbleUI : MonoBehaviour
 
     private void Awake()
     {
-        //if (mainRectTransform == null)
-        //{
-        //    mainRectTransform = GetComponent<RectTransform>();
-        //}
-
         if (canvasGroup == null)
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }
-
-        //UpdateBubbleHeight();
 
         clickToSkip.SetActive(false);
     }

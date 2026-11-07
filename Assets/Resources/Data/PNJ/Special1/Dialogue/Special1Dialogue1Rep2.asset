@@ -13,29 +13,14 @@ MonoBehaviour:
   m_Name: Special1Dialogue1Rep2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.05> j'ai besoin d'aide ...
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> aurevoir
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.05> tu m'a l'air bien \xE9trange"
-    Emotion: {fileID: 0}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
-  - Line: "<!delay=0.15>M'aiderais-tu \xE0 prot\xE9ger ma <color=#E8FF00FF>cr\xE9ation</color>
-      ?"
-    Emotion: {fileID: 0}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
-  HasQuestion: 1
+  HasQuestion: 0
   HasNextDialogue: 0
   Answers:
   - Line: Oui, dis moi

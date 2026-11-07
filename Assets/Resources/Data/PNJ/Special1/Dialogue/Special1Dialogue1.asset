@@ -13,22 +13,21 @@ MonoBehaviour:
   m_Name: Special1Dialogue1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.05> j'ai besoin d'aide ...
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> j'ai besoin d'aide ...
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.05> tu m'a l'air bien \xE9trange"
+  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tu m'a l'air bien \xE9trange"
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.05>M'aiderais-tu \xE0 prot\xE9ger ma <color=#E8FF00FF>cr\xE9ation</color>
-      ?"
+  - Line: "<!delay=0.035>M'aiderais-tu \xE0 prot\xE9ger ma <color=#E8FF00FF>cr\xE9ation</color> ?"
     Emotion: {fileID: 0}
     Reward:
       mode: 0
