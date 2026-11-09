@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardTicketData
   UIPrefab: {fileID: 2210060676859668364, guid: e5e6d412c46c22c40b97b02fc50af3d6, type: 3}
   Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  MaxQuantity: 1
   Reward:
     mode: 1
     unityReference: {fileID: 0}

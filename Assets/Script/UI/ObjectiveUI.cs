@@ -20,7 +20,7 @@ public class ObjectiveUI : MonoBehaviour
     [SerializeField]
     private UIEffect uiEffectBackground;
 
-    public void Setup(Objective objective)
+    public void Setup(ObjectiveData objective)
     {
         nameText.text = objective.Name;
         descriptionText.text = objective.Description;

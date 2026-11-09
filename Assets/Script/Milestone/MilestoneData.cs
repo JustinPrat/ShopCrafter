@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MackySoft.Choice;
-using TriInspector;
 using TNRD;
+using Alchemy.Inspector;
 
 [CreateAssetMenu(fileName = "MilestoneData", menuName = "ShopCrafter/Milestone/MilestoneData")]
 public class MilestoneData : ScriptableObject
@@ -15,7 +15,8 @@ public class MilestoneData : ScriptableObject
 
     public int NumberTickets = 2;
 
-    public List<Objective> Objectives;
+    [InlineEditor]
+    public List<ObjectiveData> Objectives;
     public List<DailyTicketWeighted> DailyTicketDatasPool;
 
     public List<SerializableInterface<IRewardable>> CompleteRewards;
@@ -25,11 +26,8 @@ public class MilestoneData : ScriptableObject
     {
         public DailyTicketData DailyTicketData;
 
-        [Slider(0, 100)]
+        [Range(0, 100)]
         public int WeightPercentChance;
-
-        [Slider(0, 100)]
-        public int WeightAfterPick;
     }
 
     public DailyTicketData PoolDailyTicket()
@@ -40,19 +38,23 @@ public class MilestoneData : ScriptableObject
 
     public ManagerRefs Refs;
 
-    public void OnEnterMilestone()
+    public void OnEnterMilestone(List<ObjectiveBehavior> objectiveBehaviors)
     {
-        foreach (Objective objective in Objectives)
+        objectiveBehaviors.Clear();
+
+        foreach (ObjectiveData objective in Objectives)
         {
-            objective.Subscribe(Refs);
+            ObjectiveBehavior behavior = objective.GetObjectiveBehavior();
+            objectiveBehaviors.Add(behavior);
+            behavior.OnStartObjective();
         }
     }
 
-    public void OnExitMilestone()
+    public void OnExitMilestone(List<ObjectiveBehavior> objectiveBehaviors)
     {
-        foreach (Objective objective in Objectives)
+        foreach (ObjectiveBehavior objective in objectiveBehaviors)
         {
-            objective.Unsubscribe(Refs);
+            objective.OnStopObjective();
         }
     }
 }

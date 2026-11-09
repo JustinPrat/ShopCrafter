@@ -54,6 +54,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     #endregion
 
@@ -269,7 +271,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         managerRefs.PNJManager.RemovePnj(this);
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         foreach (IPNJTraitRuntime trait in PNJRuntime.ActiveTraits)
         {
@@ -289,8 +291,10 @@ public class PNJBrain : MonoBehaviour, IInteractable
         else
         {
             ManagerRefs.DialogueManager.StartDialogue(currentMainDialogue, this);
-            PNJRuntime.IsSpecial = false;
+            //PNJRuntime.IsSpecial = false;
         }
+
+        OnStartInteractEvent?.Invoke(this);
     }
 
     public bool CanInteract(PlayerBrain playerBrain)
@@ -340,5 +344,10 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

@@ -15,6 +15,11 @@ MonoBehaviour:
   Lines:
   - Line: Tu as besoin d'infos ?
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
@@ -46,6 +51,19 @@ MonoBehaviour:
         rid: -2
   - Line: Rocher
     AnswerDialogueData: {fileID: 11400000, guid: adb7273e99d6d484d9f2a04e6e8e4772, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: Aurevoir
+    AnswerDialogueData: {fileID: 11400000, guid: e9a072cffed6197428a0afff94a52bd3, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 0}

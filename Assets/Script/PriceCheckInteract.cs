@@ -20,6 +20,8 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -31,8 +33,9 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
         return false;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
+        OnStartInteractEvent?.Invoke(this);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
@@ -59,5 +62,10 @@ public class PriceCheckInteract : MonoBehaviour, IInteractable
             return;
 
         managerRefs.UIManager.TogglePriceCheckView(false);
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

@@ -41,6 +41,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -59,12 +61,14 @@ public class CraftingTable : MonoBehaviour, IInteractable
         return false;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleCraftingView(true, this, UICraftAnchor == null ? transform.position : UICraftAnchor.position);
 
         if (interactSequencer != null)
             interactSequencer.StartSequence();
+
+        OnStartInteractEvent?.Invoke(this);
     }
 
     public Vector3 GetValidUIPos()
@@ -116,5 +120,10 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

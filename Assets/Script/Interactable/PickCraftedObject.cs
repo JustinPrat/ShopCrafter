@@ -31,6 +31,8 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -45,7 +47,7 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
         return false;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         if (craftedObjectRecipe != null)
         {
@@ -69,6 +71,8 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
                 ShowNewRewardView(isNew);
                 Destroy(gameObject);
             }
+
+            OnStartInteractEvent?.Invoke(this);
         }
     }
 
@@ -119,5 +123,10 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
             Icon = craftedObjectRecipe.CraftedSprite,
             HighlightColor = craftedObjectRecipe.Rarity.RarityColor
         };
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

@@ -46,4 +46,22 @@ public class MilestoneEvents
     {
         OnTicketReroll?.Invoke();
     }
+
+    public event Action<int> OnMilestoneMoneyRequired;
+    public void MilestoneRequireMoney(int money)
+    {
+        OnMilestoneMoneyRequired?.Invoke(money);
+    }
+
+    public event Action OnMilestoneMoneyRequireStop;
+    public void MilestoneMoneyRequireStop()
+    {
+        OnMilestoneMoneyRequireStop?.Invoke();
+    }
+
+    public event Action<int> OnMilestoneMoneyGave;
+    public void MilestoneGiveMoney(int money)
+    {
+        OnMilestoneMoneyGave?.Invoke(money);
+    }
 }

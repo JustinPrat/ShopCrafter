@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CraftObjective
   m_EditorClassIdentifier: Assembly-CSharp::NewCraftObjective
   ReputationAmount: 5
+  ReputationMax: 5
   Name: Craft Items
   Description: Use crafting table to make items
   Icon: {fileID: 21300000, guid: 6406385c03bc6f341bb74ba3647c1e7e, type: 3}

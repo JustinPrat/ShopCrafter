@@ -20,13 +20,6 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tu m'a l'air bien \xE9trange"
-    Emotion: {fileID: 0}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
   - Line: "<!delay=0.035>M'aiderais-tu \xE0 prot\xE9ger ma <color=#E8FF00FF>cr\xE9ation</color> ?"
     Emotion: {fileID: 0}
     Reward:
@@ -37,7 +30,7 @@ MonoBehaviour:
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui, dis moi
+  - Line: "Quel cr\xE9ation ?"
     AnswerDialogueData: {fileID: 11400000, guid: fd72561aff77bb942a10750a182f59f9, type: 2}
     Reward:
       mode: 0

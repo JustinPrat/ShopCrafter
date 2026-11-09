@@ -26,6 +26,8 @@ public class ReputationBoardInteract : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private bool milestoneReady;
     private bool isTargeted;
@@ -64,9 +66,10 @@ public class ReputationBoardInteract : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleReputationBoardView(true);
+        OnStartInteractEvent?.Invoke(this);
     }
 
     public void OnInteractRange(PlayerBrain playerBrain)
@@ -98,5 +101,10 @@ public class ReputationBoardInteract : MonoBehaviour, IInteractable
         }
 
         isTargeted = false;
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

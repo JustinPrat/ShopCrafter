@@ -21,11 +21,13 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         managerRefs.InputManager.Actions.Player.Interact.started += OnInteractStarted;
+        managerRefs.InputManager.Actions.Player.Interact.canceled += OnInteractCanceled;
     }
 
     private void OnDestroy()
     {
         managerRefs.InputManager.Actions.Player.Interact.started -= OnInteractStarted;
+        managerRefs.InputManager.Actions.Player.Interact.canceled -= OnInteractCanceled;
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -81,26 +83,22 @@ public class Interaction : MonoBehaviour
         if (currentInteractable == null && newInteractable != null)
         {
             newInteractable.OnTargeted(playerBrain);
-            //worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
         }
-
-        //if (newInteractable == null || !newInteractable.CanInteract(playerBrain) || newInteractable.IsLocked || !managerRefs.InputManager.Actions.Player.Interact.enabled)
-        //{
-        //    worldSpeech.StopSpeech();
-        //}
-        //else if (!worldSpeech.IsSpeechDisplayed)
-        //{
-        //    worldSpeech.DisplaySpeech(newInteractable.InteractText, true);
-        //}
 
         currentInteractable = newInteractable;
     }
 
     private void OnInteractStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        Debug.Log("Interact");
+        Debug.Log("Press Interact");
         Debug.DrawRay(transform.position, playerBrain.LastValidDirectionPlayerMovement, Color.blue, 1f);
 
-        currentInteractable?.DoInteract(playerBrain);
+        currentInteractable?.StartInteract(playerBrain);
+    }
+
+    private void OnInteractCanceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Release Interact");
+        currentInteractable?.ReleaseInteract(playerBrain);
     }
 }

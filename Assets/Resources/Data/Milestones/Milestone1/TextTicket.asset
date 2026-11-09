@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TextTicketData
   UIPrefab: {fileID: 708551481293177764, guid: f02fcf1ee2f8a8a45a4b995658fbc1a1, type: 3}
   Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  MaxQuantity: 4
   TextPool:
   - Qui est-tu ?
   - "Je pense que le g\xE9rant est un robot"

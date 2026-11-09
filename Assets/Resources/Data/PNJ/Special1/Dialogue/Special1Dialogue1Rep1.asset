@@ -13,25 +13,39 @@ MonoBehaviour:
   m_Name: Special1Dialogue1Rep1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tiens prend ce plan
-    Emotion: {fileID: 0}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 11400000, guid: 799db0984deb2da4b8a4c5726bfb2061, type: 2}
-      rawReference:
-        rid: -2
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> frabrique moi ca et je t'aiderais grandement
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tu es bien curieux.
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  HasQuestion: 0
+  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> j'aimerais d\xE9fendre ma patrie contre ces abominations."
+    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035>je ne me suis pas engag\xE9<!wait=0.5> pour fabriquer des m\xE9dicaments."
+    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: <!delay=0.035>Quoi de mieux que vaincre<!delay=0.15> le feu, <!wait=0.5>par le <shake>feu</shake> ?
+    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui, dis moi
-    AnswerDialogueData: {fileID: 0}
+  - Line: "J'\xE9coute"
+    AnswerDialogueData: {fileID: 11400000, guid: ad774e95f6d399c4bbfffbc23cc87e8c, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
@@ -43,25 +57,25 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: Non
-    AnswerDialogueData: {fileID: 0}
+  - Line: Aurevoir
+    AnswerDialogueData: {fileID: 11400000, guid: aee125867f641e2489cceb6abdf12103, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-    ReplaceMainDialogue: {fileID: 0}
+    ReplaceMainDialogue: {fileID: 11400000, guid: fe7c0563c042aa348ba3b728796187d9, type: 2}
     Cost:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
   NextDialogue: {fileID: 0}
-  ReplaceMainDialogue: {fileID: 11400000, guid: ce9c9507fb9af354dbc149f3abf2fb36, type: 2}
+  ReplaceMainDialogue: {fileID: 0}
   EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 2
-  TMPAnimationName: sketchy
+  tmpType: 0
+  TMPAnimationName: shake
   TMPEventName: 0
   TMPColor: {r: 0.91291904, g: 1, b: 0, a: 1}
   TMPIconName: 

@@ -23,6 +23,8 @@ public class BoxElement : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void OnDestroy()
     {
@@ -34,10 +36,11 @@ public class BoxElement : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         transform.localScale = Vector3.one;
         Tween.PunchScale(transform, Vector3.one * squishScale, squishDuration);
+        OnStartInteractEvent?.Invoke(this);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
@@ -56,5 +59,10 @@ public class BoxElement : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

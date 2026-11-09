@@ -4,7 +4,6 @@ using UnityEngine;
 public interface IInteractable
 {
     public bool IsLocked { get; set; }
-    //public Sprite InteractIcon { get;  }
 
     public string InteractText { get; }
     public GameObject GameObject { get; }
@@ -12,8 +11,11 @@ public interface IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
-    public void DoInteract(PlayerBrain playerBrain);
+    public void StartInteract(PlayerBrain playerBrain);
+    public void ReleaseInteract(PlayerBrain playerBrain);
 
     public bool CanInteract(PlayerBrain playerBrain);
 

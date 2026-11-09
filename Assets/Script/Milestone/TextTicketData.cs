@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "TextTicket", menuName = "ShopCrafter/Milestone/TextTicket")]
 public class TextTicketData : DailyTicketData
 {
@@ -7,9 +8,13 @@ public class TextTicketData : DailyTicketData
 
     public override DailyTicketBehavior GetDailyTicketBehavior()
     {
-        TextTicketBehavior textTicketBehavior = new TextTicketBehavior();
-        textTicketBehavior.Setup(this);
-        return textTicketBehavior;
+        string randomText = TextPool[UnityEngine.Random.Range(0, TextPool.Count)];
+        return new TextTicketBehavior(this, randomText);
+    }
+
+    public override DailyTicketPool CreatePool(float weight)
+    {
+        return new DailyTicketPool<string>(this, weight, MaxQuantity, TextPool, pickedText => new TextTicketBehavior(this, pickedText));
     }
 
     public class TextTicketBehavior : DailyTicketBehavior
@@ -21,15 +26,10 @@ public class TextTicketData : DailyTicketData
 
         public override DailyTicketData Data => data;
 
-        public void Setup(TextTicketData data)
+        public TextTicketBehavior(TextTicketData data, string currentText)
         {
             this.data = data;
-        }
-
-        public override void OnStartTicket()
-        {
-            base.OnStartTicket();
-            currentText = data.TextPool.GetRandomElement();
+            this.currentText = currentText;
         }
     }
 }

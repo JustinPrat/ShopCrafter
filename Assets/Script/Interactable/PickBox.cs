@@ -25,15 +25,18 @@ public class PickBox : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     public bool CanInteract(PlayerBrain playerBrain)
     {
         return true;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         cinemachineImpulseSource.GenerateImpulse(0.2f);
+        OnStartInteractEvent?.Invoke(this);
         Destroy(gameObject);
     }
 
@@ -53,5 +56,10 @@ public class PickBox : MonoBehaviour, IInteractable
     public void UnTargeted(PlayerBrain playerBrain)
     {
         OnUnTargetedEvent?.Invoke(this);
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

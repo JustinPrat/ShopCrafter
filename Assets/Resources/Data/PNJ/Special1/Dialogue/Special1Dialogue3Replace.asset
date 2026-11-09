@@ -10,34 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
-  m_Name: Special1Dialogue2Rep1
+  m_Name: Special1Dialogue3Replace
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> merci, je te donne une puissance de l'ancien monde
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> merci bien.
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: <!delay=0.15>Mm<!wait=0.5><shake><color=#FF0000FF>DYNAMITE </color></shake>
-    Emotion: {fileID: 0}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 11400000, guid: 9ac0881b9655ce34091dbdc9b75abeb5, type: 2}
-      rawReference:
-        rid: -2
   HasQuestion: 0
   HasNextDialogue: 0
   Answers: []
   NextDialogue: {fileID: 0}
-  ReplaceMainDialogue: {fileID: 11400000, guid: ef214ffc8d66ce04f87d56c8e9708a4b, type: 2}
+  ReplaceMainDialogue: {fileID: 0}
   EffectPreset: {fileID: 0}
-  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 2
-  TMPAnimationName: shake
+  TMPAnimDatabase: {fileID: 0}
+  tmpType: 0
+  TMPAnimationName: 
   TMPEventName: 0
-  TMPColor: {r: 1, g: 0, b: 0, a: 1}
+  TMPColor: {r: 1, g: 1, b: 1, a: 1}
   TMPIconName: 
   preview: {fileID: 0}
   references:

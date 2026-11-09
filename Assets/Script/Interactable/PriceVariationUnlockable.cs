@@ -1,8 +1,8 @@
 public class PriceVariationUnlockable : Unlockable
 {
-    public override void DoInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
-        base.DoInteract(playerBrain);
+        base.StartInteract(playerBrain);
         refs.GameEventsManager.OnUnlockPriceVariation?.Invoke();
     }
 }

@@ -53,9 +53,9 @@ public class SellSlot : CraftedItemReceiver
         return base.CanInteract(playerBrain) && (playerBrain.Inventory.HasItem && playerBrain.Inventory.HeldObject.CraftedData.Rarity.ERarity != ERarity.Unique);
     }
 
-    public override void DoInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
-        base.DoInteract(playerBrain);
+        base.StartInteract(playerBrain);
         OnInteractRange(playerBrain);
     }
 

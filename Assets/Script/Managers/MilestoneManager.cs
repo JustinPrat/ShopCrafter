@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TNRD;
 using UnityEngine;
 using static MilestoneData;
-using static Steamworks.InventoryItem;
 
 public class MilestoneManager : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class MilestoneManager : MonoBehaviour
     private bool milestoneReady;
     private List<DailyTicketData.DailyTicketBehavior> milestoneDailyTickets = new List<DailyTicketData.DailyTicketBehavior>();
     private List<DailyTicketData.DailyTicketBehavior> currentDailyTicketsBehavior = new List<DailyTicketData.DailyTicketBehavior>();
+    private List<ObjectiveBehavior> currentObjectiveBehaviors = new List<ObjectiveBehavior>();
 
     [ShowInInspector]
     public MilestoneData CurrentMilestone => currentMilestone;
@@ -43,7 +43,7 @@ public class MilestoneManager : MonoBehaviour
 
     private void Start()
     {
-        currentMilestone.OnEnterMilestone();
+        currentMilestone.OnEnterMilestone(currentObjectiveBehaviors);
         managerRefs.GameEventsManager.milestoneEvents.OnGainReputation += OnGainReputation;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneSpecial += OnMilestoneSpecial;
         managerRefs.GameEventsManager.milestoneEvents.OnValidateMilestone += TryValidateMilestone;
@@ -84,9 +84,9 @@ public class MilestoneManager : MonoBehaviour
         currentMilestoneReputation = 0;
 
         currentMilestoneIndex++;
-        currentMilestone.OnExitMilestone();
+        currentMilestone.OnExitMilestone(currentObjectiveBehaviors);
         currentMilestone = milestoneList[currentMilestoneIndex];
-        currentMilestone.OnEnterMilestone();
+        currentMilestone.OnEnterMilestone(currentObjectiveBehaviors);
 
         RerollDailyTicket(currentMilestone);
         managerRefs.GameEventsManager.milestoneEvents.ReachMilestone(currentMilestoneIndex);
@@ -101,25 +101,31 @@ public class MilestoneManager : MonoBehaviour
 
         milestoneDailyTickets.Clear();
 
-        List<DailyTicketWeighted> tmpList = new List<DailyTicketWeighted>(milestone.DailyTicketDatasPool);
+        List<DailyTicketPool> tmpPools = new List<DailyTicketPool>();
+        foreach (DailyTicketWeighted weighted in milestone.DailyTicketDatasPool)
+        {
+            DailyTicketPool pool = weighted.DailyTicketData.CreatePool(weighted.WeightPercentChance);
+
+            if (pool.IsEmpty || pool.CurrentWeight <= 0)
+                continue;
+
+            tmpPools.Add(pool);
+        }
+
         for (int i = 0; i < milestone.NumberTickets; i++)
         {
-            if (milestone.DailyTicketDatasPool.Count <= 0)
+            if (tmpPools.Count <= 0)
                 break;
 
-            IWeightedSelector<DailyTicketWeighted> selector = tmpList.ToWeightedSelector(item => item.WeightPercentChance);
-            DailyTicketWeighted dailyTicketWeighted = selector.SelectItemWithUnityRandom();
-            dailyTicketWeighted.WeightPercentChance = dailyTicketWeighted.WeightAfterPick;
+            IWeightedSelector<DailyTicketPool> selector = tmpPools.ToWeightedSelector(item => item.CurrentWeight);
+            DailyTicketPool selectedPool = selector.SelectItemWithUnityRandom();
+            DailyTicketData.DailyTicketBehavior newTicket = selectedPool.PickTicket();
 
-            for (int j = 0; j < tmpList.Count; j++)
+            if (selectedPool.CurrentWeight <= 0 || selectedPool.IsEmpty)
             {
-                if (tmpList[j].DailyTicketData == dailyTicketWeighted.DailyTicketData)
-                {
-                    tmpList[j] = dailyTicketWeighted;
-                }
+                tmpPools.Remove(selectedPool);
             }
 
-            DailyTicketData.DailyTicketBehavior newTicket = dailyTicketWeighted.DailyTicketData.GetDailyTicketBehavior();
             newTicket.OnStartTicket();
             milestoneDailyTickets.Add(newTicket);
         }

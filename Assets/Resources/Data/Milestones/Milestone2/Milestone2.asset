@@ -18,6 +18,7 @@ MonoBehaviour:
   Objectives:
   - {fileID: 11400000, guid: 1adf590598504684aa68ca57c7bd348a, type: 2}
   - {fileID: 11400000, guid: c4f3ba87e0e01c94c94cbf7b0045aee4, type: 2}
+  - {fileID: 11400000, guid: 24dfa05c33d2a8b4a954d40436eb9ab3, type: 2}
   DailyTicketDatasPool:
   - DailyTicketData: {fileID: 11400000, guid: c5e8eab5668e27a49bf6a465df731559, type: 2}
     WeightPercentChance: 100

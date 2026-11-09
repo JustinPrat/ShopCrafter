@@ -35,11 +35,11 @@ public class StartDayToggle : ToggleActivation
         return false;
     }
 
-    public override void DoInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         if (!activeState)
             managerRefs.PNJManager.StartAfternoon();
 
-        base.DoInteract(playerBrain);
+        base.StartInteract(playerBrain);
     }
 }

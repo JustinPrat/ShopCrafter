@@ -1,10 +1,12 @@
 using Alchemy.Inspector;
+using TMPEffects.Components;
 using TMPro;
 using UnityEngine;
 
 public class WorldSpeech : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI speechText;
+    [SerializeField] private TMPWriter speechWriter;
     [SerializeField] private float speechDuration;
     [SerializeField] private float speechSpeed = 1f;
     [SerializeField] private Sequencer.Sequencer appearSequence;
@@ -29,6 +31,20 @@ public class WorldSpeech : MonoBehaviour
         if (isSpeechDisplayed && speechTimerEnd <= Time.time && !speechAlwaysDisplay)
         {
             StopSpeech();
+        }
+    }
+
+    public void UpdateSpeech(string speech, bool needReWrite = false)
+    {
+        if (speechText.text != speech)
+        {
+            if (!needReWrite)
+                speechWriter.WriteOnNewText = false;
+
+            speechText.text = speech;
+
+            if (!needReWrite)
+                speechWriter.WriteOnNewText = true;
         }
     }
 

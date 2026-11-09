@@ -33,6 +33,8 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     public bool CanTakePlayerItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
 
@@ -46,7 +48,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         return (playerBrain.Inventory.HasItem && !HasHeldItem) || (!playerBrain.Inventory.HasItem && HasHeldItem && canTakeBackItem);
     }
 
-    public virtual void DoInteract(PlayerBrain playerBrain)
+    public virtual void StartInteract(PlayerBrain playerBrain)
     {
         if (CanTakePlayerItem(playerBrain))
         {
@@ -66,6 +68,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
                 OnItemTaken();
             }
         }
+        OnStartInteractEvent?.Invoke(this);
     }
 
     protected virtual void OnItemReceived() { }
@@ -100,5 +103,10 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
 
     public virtual void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

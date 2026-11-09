@@ -34,6 +34,8 @@ public class PickRewardable : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void Awake()
     {
@@ -61,7 +63,7 @@ public class PickRewardable : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         if (rewards.Count <= 0)
             return;
@@ -78,6 +80,7 @@ public class PickRewardable : MonoBehaviour, IInteractable
             rewardSpawner.Spawn(reward);
         }
 
+        OnStartInteractEvent?.Invoke(this);
         cinemachineImpulseSource.GenerateImpulse(0.2f);
         Destroy(gameObject);
     }
@@ -103,5 +106,10 @@ public class PickRewardable : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

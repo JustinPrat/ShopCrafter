@@ -14,16 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Milestone
   IsSpecialCharacter: 0
   ReputationRequired: 5
-  NumberTickets: 4
+  NumberTickets: 5
   Objectives:
   - {fileID: 11400000, guid: 1adf590598504684aa68ca57c7bd348a, type: 2}
   DailyTicketDatasPool:
   - DailyTicketData: {fileID: 11400000, guid: eef31a6b7ef29434cb0d7f1cc4e4a459, type: 2}
     WeightPercentChance: 70
-    WeightAfterPick: 50
   - DailyTicketData: {fileID: 11400000, guid: 8ce3882f65f457148b53828e70aa5d07, type: 2}
     WeightPercentChance: 30
-    WeightAfterPick: 0
   CompleteRewards:
   - mode: 1
     unityReference: {fileID: 0}

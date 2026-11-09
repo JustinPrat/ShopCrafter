@@ -5,6 +5,12 @@ public abstract class DailyTicketData : ScriptableObject
 {
     public BaseTicketUI UIPrefab;
     public ManagerRefs Refs;
+    public int MaxQuantity;
+
+    public virtual DailyTicketPool CreatePool(float weight)
+    {
+        return new DailyTicketPool(this, weight, MaxQuantity);
+    }
 
     public abstract DailyTicketBehavior GetDailyTicketBehavior();
 

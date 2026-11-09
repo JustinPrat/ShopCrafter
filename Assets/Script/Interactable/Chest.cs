@@ -18,6 +18,8 @@ public class Chest : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private List<CraftedObjectData> craftedInventory = new List<CraftedObjectData>();
 
@@ -31,9 +33,10 @@ public class Chest : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void DoInteract(PlayerBrain playerBrain)
+    public void StartInteract(PlayerBrain playerBrain)
     {
         //Open chest UI
+        OnStartInteractEvent?.Invoke(this);
     }
 
     public void OnTargeted(PlayerBrain playerBrain)
@@ -52,5 +55,10 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }

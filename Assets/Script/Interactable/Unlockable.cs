@@ -35,6 +35,8 @@ public class Unlockable : MonoBehaviour, IInteractable
     public Action<IInteractable> OnDestroyEvent { get; set; }
     public Action<IInteractable> OnTargetedEvent { get; set; }
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
+    public Action<IInteractable> OnStartInteractEvent { get; set; }
+    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void Start()
     {
@@ -57,7 +59,7 @@ public class Unlockable : MonoBehaviour, IInteractable
         return requiredCost != null && requiredCost.Value.CanPay(refs) && !hasBeenUnlocked;
     }
 
-    public virtual void DoInteract(PlayerBrain playerBrain)
+    public virtual void StartInteract(PlayerBrain playerBrain)
     {
         if (hasBeenUnlocked)
             return;
@@ -77,6 +79,8 @@ public class Unlockable : MonoBehaviour, IInteractable
 
         if (sequenceOnUnlocked != null)
             sequenceOnUnlocked.StartSequence();
+
+        OnStartInteractEvent?.Invoke(this);
     }
 
     private void SetInteractLock(bool locking)
@@ -112,5 +116,10 @@ public class Unlockable : MonoBehaviour, IInteractable
 
     public void OutInteractRange(PlayerBrain playerBrain)
     {
+    }
+
+    public void ReleaseInteract(PlayerBrain playerBrain)
+    {
+        OnReleaseInteractEvent?.Invoke(this);
     }
 }
