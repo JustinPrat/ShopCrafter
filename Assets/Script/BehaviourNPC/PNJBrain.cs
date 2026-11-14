@@ -36,6 +36,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     private BlackboardVariable<PnjEvent> pnjArriveBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
     private DialogueData currentMainDialogue;
+    private bool requestOut;
 
     public PNJRuntimeData Data => PNJRuntime;
     public ManagerRefs ManagerRefs => managerRefs;
@@ -74,6 +75,12 @@ public class PNJBrain : MonoBehaviour, IInteractable
         foreach (IPNJTraitRuntime traitRuntime in PNJRuntime.ActiveTraits)
         {
             traitRuntime.OnUpdate(this);
+        }
+
+        if (requestOut && agent.BlackboardReference.GetVariable<bool>("PauseLeaving", out BlackboardVariable<bool> pauseLeaving) && !pauseLeaving)
+        {
+            requestOut = false;
+            ChangeState(State.GoOut);
         }
     }
 
@@ -131,7 +138,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (!canGoOut)
             return;
 
-        ChangeState(State.GoOut);
+        requestOut = true;
     }
 
     public void ChangeMainDialogue(DialogueData newDialogue)

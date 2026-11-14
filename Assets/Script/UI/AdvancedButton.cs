@@ -66,7 +66,8 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 
         if (_resetRoutine != null)
         {
-            StopCoroutine(OnFinishSubmit());
+            StopCoroutine(_resetRoutine);
+            _resetRoutine = null;
         }
 
         if (gameObject.activeInHierarchy)
@@ -209,5 +210,13 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
         {
             _resetRoutine = StartCoroutine(OnFinishSubmit());
         }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        buttonPressed = false;
+        DoStateTransition(SelectionState.Normal, true);
     }
 }

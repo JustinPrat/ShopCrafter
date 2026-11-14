@@ -11,16 +11,6 @@ public class MaterialInventoryView : UIView
     [SerializeField]
     private GameObject itemMaterialUIPrefab;
 
-    private void Awake()
-    {
-        managerRefs.InputManager.Actions.UI.Cancel.started += OnCancel;
-    }
-
-    private void OnDestroy()
-    {
-        managerRefs.InputManager.Actions.UI.Cancel.started -= OnCancel;
-    }
-
     private void OnCancel(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         if (gameObject.activeInHierarchy)
@@ -45,6 +35,8 @@ public class MaterialInventoryView : UIView
                 ItemInventoryUI itemUI = Instantiate(itemMaterialUIPrefab, scrollMaterials).GetComponent<ItemInventoryUI>();
                 itemUI.Setup(itemCount.Key, itemCount.Value);
             }
+
+            managerRefs.InputManager.Actions.UI.Cancel.started += OnCancel;
         }
         else
         {
@@ -52,6 +44,8 @@ public class MaterialInventoryView : UIView
             {
                 Destroy(child.gameObject);
             }
+
+            managerRefs.InputManager.Actions.UI.Cancel.started -= OnCancel;
         }
     }
 }

@@ -14,16 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MilestoneData
   IsSpecialCharacter: 0
   ReputationRequired: 30
-  NumberTickets: 3
+  NumberTickets: 2
   Objectives:
-  - {fileID: 11400000, guid: 1adf590598504684aa68ca57c7bd348a, type: 2}
-  - {fileID: 11400000, guid: c4f3ba87e0e01c94c94cbf7b0045aee4, type: 2}
-  - {fileID: 11400000, guid: 24dfa05c33d2a8b4a954d40436eb9ab3, type: 2}
+  - {fileID: 11400000, guid: 6aafb12250a292a49a1eeb80fd2a2972, type: 2}
+  - {fileID: 11400000, guid: c7b68e28dab2d2f4d8e63dfc2346474e, type: 2}
   DailyTicketDatasPool:
   - DailyTicketData: {fileID: 11400000, guid: c5e8eab5668e27a49bf6a465df731559, type: 2}
     WeightPercentChance: 100
-    WeightAfterPick: 100
   CompleteRewards:
+  - mode: 1
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: 8687090951393640607
   - mode: 0
     unityReference: {fileID: 11400000, guid: 43479001670588048b7dda713f4ec531, type: 2}
     rawReference:
@@ -42,3 +44,8 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 8687090951393640607
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 15
+        rewardPrefab: {fileID: 0}

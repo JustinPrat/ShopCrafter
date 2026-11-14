@@ -45,13 +45,6 @@ public class CraftingView : UIView
     {
         canvas = GetComponent<Canvas>();
         canvas.worldCamera = Camera.main;
-
-        managerRefs.InputManager.Actions.UI.Cancel.performed += OnCancelPerformed;
-    }
-
-    private void OnDestroy()
-    {
-        managerRefs.InputManager.Actions.UI.Cancel.performed -= OnCancelPerformed;
     }
 
     private void OnCancelPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -80,10 +73,12 @@ public class CraftingView : UIView
             }
 
             UpdatePreviewCraft();
+            managerRefs.InputManager.Actions.UI.Cancel.performed += OnCancelPerformed;
         }
         else
         {
             RemoveItems();
+            managerRefs.InputManager.Actions.UI.Cancel.performed -= OnCancelPerformed;
         }
     }
 

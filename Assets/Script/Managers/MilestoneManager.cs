@@ -29,9 +29,11 @@ public class MilestoneManager : MonoBehaviour
     public int CurrentMilestoneReputation => currentMilestoneReputation;
     [ShowInInspector]
     public bool MilestoneReady => milestoneReady;
-
     [ShowInInspector]
     public List<DailyTicketData.DailyTicketBehavior> MilestoneDailyTickets => milestoneDailyTickets;
+    [ShowInInspector]
+    public List<ObjectiveBehavior> CurrentObjectiveBehaviors => currentObjectiveBehaviors;
+
 
     private void Awake()
     {

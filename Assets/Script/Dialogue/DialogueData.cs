@@ -149,7 +149,7 @@ public class DialogueData : ScriptableObject
 
     private void UpdateIconPreview()
     {
-        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/PNJ/Dialogue/TMPIconData/sprite_sheet");
+        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/TMPIconData/sprite_sheet");
 
         int index = spriteAsset.GetSpriteIndexFromName(TMPIconName);
         preview = spriteAsset.spriteGlyphTable[index].sprite;
@@ -157,7 +157,7 @@ public class DialogueData : ScriptableObject
 
     private string[] GetTMPIconNames()
     {
-        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/PNJ/Dialogue/TMPIconData/sprite_sheet");
+        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/TMPIconData/sprite_sheet");
 
         if (spriteAsset == null)
             return new string[0];

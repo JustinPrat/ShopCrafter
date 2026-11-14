@@ -1531,9 +1531,33 @@ PrefabInstance:
       propertyPath: OnLeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5283891917020932886, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
+      propertyPath: m_EdgeMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283891917020932886, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
+      propertyPath: m_BlendType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283891917020932886, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
+      propertyPath: m_SrcBlendMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283891917020932886, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
+      propertyPath: m_SamplingFilter
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283891917020932886, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
+      propertyPath: m_SamplingIntensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6093181752956139244, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
       propertyPath: m_Name
       value: ValidateButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625712764650270180, guid: 2fcd3000e7b19474185e4b234230c9f3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

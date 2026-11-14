@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class CardTagView : UIView
 {
-    private const string BonusTrigger = "Bonus";
-
     [SerializeField]
     private Transform tagUIHolder;
 
@@ -80,6 +78,7 @@ public class CardTagView : UIView
             craftButton.SetActive(true);
             validateButton.SetActive(false);
             currentValuesTransform.gameObject.SetActive(false);
+            sliderPoints.value = 0;
         }
         else
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,18 +11,31 @@ public class InputReceiver : MonoBehaviour
     [SerializeField]
     private PlayerInput playerInput;
 
-    private InputSystem_Actions action;
-    private bool isGamepad;
-
-    public InputSystem_Actions Actions => action;
+    public InputSystem_Actions Actions => actions;
     public bool IsGamepad => isGamepad;
     public Action OnInputDeviceChanged;
 
+    private Dictionary<PlayerInputType, InputAction> playerInputActionMap;
+    private Dictionary<UIInputType, InputAction> UIInputActionMap;
+    private InputSystem_Actions actions;
+    private bool isGamepad;
+
     private void Awake()
     {
-        action = new InputSystem_Actions();
-        action.Enable();
-        playerInput.actions = action.asset;
+        actions = new InputSystem_Actions();
+        actions.Enable();
+        playerInput.actions = actions.asset;
+
+        playerInputActionMap = new Dictionary<PlayerInputType, InputAction>
+        {
+            { PlayerInputType.Move, actions.Player.Move },
+            { PlayerInputType.Interact, actions.Player.Move }
+        };
+
+        UIInputActionMap = new Dictionary<UIInputType, InputAction>
+        {
+            { UIInputType.Submit, actions.UI.Submit }
+        };
 
         managerRefs.InputManager = this;
 
@@ -46,9 +60,9 @@ public class InputReceiver : MonoBehaviour
 
     public void SetActionType (bool canMove = true, bool canInteract = true, bool canNextDialogue = true)
     {
-        SetAction(managerRefs.InputManager.Actions.Player.Move, canMove);
-        SetAction(managerRefs.InputManager.Actions.Player.Interact, canInteract);
-        SetAction(managerRefs.InputManager.Actions.UI.Submit, canNextDialogue);
+        SetAction(actions.Player.Move, canMove);
+        SetAction(actions.Player.Interact, canInteract);
+        SetAction(actions.UI.Submit, canNextDialogue);
     }
 
     private void SetAction (InputAction inputAction, bool newState)
@@ -58,4 +72,39 @@ public class InputReceiver : MonoBehaviour
         else
             inputAction.Disable();
     }
+
+    public void SetAction(PlayerInputType playerInputType, bool newState)
+    {
+        foreach (KeyValuePair<PlayerInputType, InputAction> inputTypeAction in playerInputActionMap)
+        {
+            if ((playerInputType & inputTypeAction.Key) != 0)
+            {
+                SetAction(inputTypeAction.Value, newState);
+            }
+        }
+    }
+
+    public void SetAction(UIInputType UIInputType, bool newState)
+    {
+        foreach (KeyValuePair<UIInputType, InputAction> inputTypeAction in UIInputActionMap)
+        {
+            if ((UIInputType & inputTypeAction.Key) != 0)
+            {
+                SetAction(inputTypeAction.Value, newState);
+            }
+        }
+    }
+}
+
+[Flags]
+public enum PlayerInputType
+{
+    Move,
+    Interact
+}
+
+[Flags]
+public enum UIInputType
+{
+    Submit
 }

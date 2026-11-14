@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a23e53c974c4314bb10ce0ac88fb9bf, type: 3}
+  m_Name: Milestone3
+  m_EditorClassIdentifier: Assembly-CSharp::MilestoneData
+  IsSpecialCharacter: 0
+  ReputationRequired: 60
+  NumberTickets: 4
+  Objectives:
+  - {fileID: 11400000, guid: ff1f7f62d8b59fd4e9be5ac7f8884edf, type: 2}
+  - {fileID: 11400000, guid: 77e27bbfcfbce534bba9c3d70448af4f, type: 2}
+  - {fileID: 11400000, guid: 7e4bdca9248c3b044906755f5e56f94c, type: 2}
+  DailyTicketDatasPool:
+  - DailyTicketData: {fileID: 11400000, guid: c5e8eab5668e27a49bf6a465df731559, type: 2}
+    WeightPercentChance: 80
+  - DailyTicketData: {fileID: 11400000, guid: 8ce3882f65f457148b53828e70aa5d07, type: 2}
+    WeightPercentChance: 20
+  CompleteRewards:
+  - mode: 1
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: 8687090951393640606
+  Refs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 8687090951393640606
+      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 20
+        rewardPrefab: {fileID: 0}

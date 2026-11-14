@@ -67,14 +67,14 @@ public class BuyerRuntime : IPNJTraitRuntime
 
     private void OnPnjArriveBuying(GameObject go, PNJBrain brain)
     {
-        //brain.ChangeIcon(data.WaitingIcon);
         brain.WorldSpeech.DisplaySpeech("<wave>...</wave>", true);
     }
 
     private void OnPnjBuying(GameObject go, PNJBrain brain)
     {
-        //brain.ChangeIcon(null);
         brain.WorldSpeech.StopSpeech();
+        brain.WorldSpeech.DisplaySpeech("<sprite name=\"sprite_sheet_83\">", true);
+
         if (targetSlot == null) return;
 
         if (UnityEngine.Random.value <= data.BaseBuyProbability)

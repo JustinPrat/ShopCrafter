@@ -67,7 +67,7 @@ public class ReputationBoardView : UIView
         {
             managerRefs.GameEventsManager.milestoneEvents.ValidateMilestone();
 
-            foreach (ObjectiveData objective in managerRefs.MilestoneManager.CurrentMilestone.Objectives)
+            foreach (ObjectiveBehavior objective in managerRefs.MilestoneManager.CurrentObjectiveBehaviors)
             {
                 ObjectiveUI objectiveUI = Instantiate(objectiveUIPrefab, layoutObjectives);
                 objectiveUI.Setup(objective);

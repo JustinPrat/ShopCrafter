@@ -20,14 +20,18 @@ public class ShopView : UIView
 
     private List<ItemShopUI> itemSellingInstantiated = new List<ItemShopUI>();
 
-    private void Awake()
+    public override void Toggle(bool isOn)
     {
-        managerRefs.InputManager.Actions.UI.Cancel.started += OnCancel;
-    }
+        base.Toggle(isOn);
 
-    private void OnDestroy()
-    {
-        managerRefs.InputManager.Actions.UI.Cancel.started -= OnCancel;
+        if (isOn)
+        {
+            managerRefs.InputManager.Actions.UI.Cancel.started += OnCancel;
+        }
+        else
+        {
+            managerRefs.InputManager.Actions.UI.Cancel.started -= OnCancel;
+        }
     }
 
     public void Setup (List<SellingItem> sellingItems, SellerRuntime sellerTrait, PNJBrain pnjBrain)

@@ -2,6 +2,7 @@ using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -45,6 +46,8 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField, ShowIf(nameof(canBeMoved))]
     private float smoothSpeed = 15f;
 
+    [SerializeField]
+    private GameObject highlight;
 
     private TagPlaceholderUI anchor;
     private RectTransform parentRect;
@@ -109,11 +112,13 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void OnSelect(AdvancedButton button)
     {
         animator.SetBool(HoverBool, true);
+        highlight.SetActive(true);
         Debug.Log("Pointer Select");
     }
     private void OnDeSelect(AdvancedButton button)
     {
         animator.SetBool(HoverBool, false);
+        highlight.SetActive(false);
         Debug.Log("Pointer Deselect");
     }
 

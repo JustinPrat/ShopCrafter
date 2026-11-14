@@ -27,5 +27,5 @@ MonoBehaviour:
     - rid: 4317222925189775763
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
-        Amount: 12
+        Amount: 6
         rewardPrefab: {fileID: 0}

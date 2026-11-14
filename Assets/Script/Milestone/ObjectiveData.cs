@@ -32,5 +32,8 @@ public abstract class ObjectiveBehavior
 
         ReputationGained += amount;
         Data.Refs.GameEventsManager.milestoneEvents.GainReputation(amount);
+        OnReputationUpdate?.Invoke(this);
     }
+
+    public Action<ObjectiveBehavior> OnReputationUpdate;
 }

@@ -104,6 +104,12 @@ public class PNJManager : MonoBehaviour
     {
         pnjPoolList.Sort(PoolListCompare);
     }
+
+    [Button]
+    private void SkipToEndDay()
+    {
+        NearDayEnd();
+    }
 #endif
 
     private void Awake()
@@ -181,6 +187,7 @@ public class PNJManager : MonoBehaviour
         dayIndex++;
         isNearDayEndEventTriggered = false;
         numberSpecialSpawnedToday = 0;
+        waitPNJCounter = 0;
 
         currentHourDayTime = new DateTime(1, 1, dayIndex, dayStartTime, 0, 0);
         managerRefs.GameEventsManager.dayEvents.StartDay();
@@ -216,9 +223,14 @@ public class PNJManager : MonoBehaviour
                 numberSpecialSpawnedToday++;
             }
 
-            PNJ.gameObject.SetActive(true);
-            PNJ.Agent.Restart();
             PNJ.ChangeState(State.RoamingAround);
+            PNJ.gameObject.SetActive(true);
+
+            PNJ.NavMeshAgent.isStopped = false;
+            PNJ.NavMeshAgent.Warp(PnjSpawnOutside);
+
+            PNJ.Agent.Restart();
+
             needRespawnPNJList.Remove(PNJ);
         }
         else
@@ -245,13 +257,14 @@ public class PNJManager : MonoBehaviour
             {
                 PNJList.AddRange(PNJUsedList);
             }
+
+            PNJ.NavMeshAgent.Warp(PnjSpawnOutside);
         }
         
         if (PNJ == null)
             return;
 
         pnjList.Add(PNJ);
-        PNJ.NavMeshAgent.Warp(PnjSpawnOutside);
     }
 
     public void RemovePnj (PNJBrain pnj)
@@ -261,6 +274,7 @@ public class PNJManager : MonoBehaviour
         if (pnj.ShouldReturn && !needRespawnPNJList.Contains(pnj))
         {
             needRespawnPNJList.Add(pnj);
+            pnj.Agent.End();
             pnj.gameObject.SetActive(false);
         }
         else

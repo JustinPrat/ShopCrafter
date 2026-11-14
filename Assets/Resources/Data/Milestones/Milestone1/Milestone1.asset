@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Milestone
   IsSpecialCharacter: 0
   ReputationRequired: 5
-  NumberTickets: 5
+  NumberTickets: 3
   Objectives:
   - {fileID: 11400000, guid: 1adf590598504684aa68ca57c7bd348a, type: 2}
   DailyTicketDatasPool:

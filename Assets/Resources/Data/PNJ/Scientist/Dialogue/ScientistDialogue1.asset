@@ -70,8 +70,8 @@ MonoBehaviour:
   TMPAnimationName: shake
   TMPEventName: 0
   TMPColor: {r: 1, g: 0.710177, b: 0, a: 1}
-  TMPIconName: sprite_sheet_7
-  preview: {fileID: -7430669329385756642, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  TMPIconName: sprite_sheet_83
+  preview: {fileID: -7467779675928568530, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
   references:
     version: 2
     RefIds:

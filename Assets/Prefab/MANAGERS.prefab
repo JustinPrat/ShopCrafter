@@ -814,6 +814,7 @@ MonoBehaviour:
   milestoneList:
   - {fileID: 11400000, guid: 1d640d8143eed4b4fb334c5ca4e1cc4d, type: 2}
   - {fileID: 11400000, guid: cf123dcb1daf3ff40be9220a98e76d2a, type: 2}
+  - {fileID: 11400000, guid: 987c3fc6738889946addbe19d84b856a, type: 2}
   - {fileID: 11400000, guid: 0dbce31b50b0338429fc494cfd9133bd, type: 2}
 --- !u!1 &4245724505804988578
 GameObject:
