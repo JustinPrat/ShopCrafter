@@ -451,6 +451,7 @@ MonoBehaviour:
   cardTagViewPrefab: {fileID: 2813235343791059201, guid: 6983024d023997b409d01252abca387a, type: 3}
   rewardViewPrefab: {fileID: 2813235343791059201, guid: 06237f87cb6694e4fb75aee1ab402cce, type: 3}
   reputationBoardViewPrefab: {fileID: 2813235343791059201, guid: 23ffecd53d1652b4c8944b9ff0cda34e, type: 3}
+  blackBarsViewPrefab: {fileID: 5475771195858154003, guid: 1a7f7d672012f774e80236fb6cea1b9a, type: 3}
   canvas: {fileID: 8311497530633858144}
   presetMap: {fileID: 11400000, guid: 264515ac62b70044282b554723133452, type: 2}
 --- !u!1 &2503316448329570634

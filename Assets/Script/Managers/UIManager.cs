@@ -52,6 +52,9 @@ public class UIManager : MonoBehaviour
     private GameObject reputationBoardViewPrefab;
 
     [SerializeField]
+    private GameObject blackBarsViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     [SerializeField]
@@ -71,6 +74,7 @@ public class UIManager : MonoBehaviour
     private MaterialInventoryView materialInventoryViewInstance;
     private RewardView rewardViewInstance;
     private ReputationBoardView reputationBoardViewInstance;
+    private BlackBarsView blackBarsViewInstance;
 
     private List<UIView> focusList = new List<UIView>();
     public UIView CurrentFocus => focusList.Last();
@@ -121,6 +125,11 @@ public class UIManager : MonoBehaviour
 
         reputationBoardViewInstance = Instantiate(reputationBoardViewPrefab, canvas.transform).GetComponent<ReputationBoardView>();
         reputationBoardViewInstance.gameObject.SetActive(false);
+
+        blackBarsViewInstance = Instantiate(blackBarsViewPrefab, canvas.transform).GetComponent<BlackBarsView>();
+        blackBarsViewInstance.gameObject.SetActive(false);
+
+        dialogueViewInstance.transform.SetAsLastSibling();
 
         managerRefs.InputManager.Actions.UI.Submit.Disable();
         managerRefs.InputManager.Actions.UI.Cancel.Disable();
@@ -280,6 +289,14 @@ public class UIManager : MonoBehaviour
         ExecuteAfterOneFrame(() =>
         {
             startDayViewInstance.Toggle(isOn);
+        });
+    }
+
+    public void ToggleBlackBarsView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            blackBarsViewInstance.Toggle(isOn);
         });
     }
 

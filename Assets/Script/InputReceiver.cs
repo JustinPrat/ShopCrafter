@@ -29,7 +29,7 @@ public class InputReceiver : MonoBehaviour
         playerInputActionMap = new Dictionary<PlayerInputType, InputAction>
         {
             { PlayerInputType.Move, actions.Player.Move },
-            { PlayerInputType.Interact, actions.Player.Move }
+            { PlayerInputType.Interact, actions.Player.Interact }
         };
 
         UIInputActionMap = new Dictionary<UIInputType, InputAction>
@@ -99,12 +99,12 @@ public class InputReceiver : MonoBehaviour
 [Flags]
 public enum PlayerInputType
 {
-    Move,
-    Interact
+    Move = 1 << 0,
+    Interact = 1 << 1
 }
 
 [Flags]
 public enum UIInputType
 {
-    Submit
+    Submit = 1 << 0,
 }

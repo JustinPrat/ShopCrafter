@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Sequencer::Sequencer.Sequencer
   actions:
+  - rid: 8687091067510325393
   - rid: 8687091018170892521
   - rid: 8687091046207717494
   - rid: 8687091018170892534
@@ -54,6 +55,7 @@ MonoBehaviour:
   - rid: 8687091018170892535
   - rid: 5397454574667432185
   - rid: 8687091046207717495
+  - rid: 8687091067510325394
   playMode: 0
   references:
     version: 2
@@ -114,6 +116,22 @@ MonoBehaviour:
         type: 0
         IsExecuting: 0
         ActionData: {fileID: 11400000, guid: d8a4cd05da05da34fb46d0a21c9b350f, type: 2}
+    - rid: 8687091067510325393
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: acce7cf70d766ad48ae9471952bb9bdb, type: 2}
+    - rid: 8687091067510325394
+      type: {class: Sequencer/ActionScriptable, ns: Sequencer, asm: Sequencer}
+      data:
+        ChangeTarget: 0
+        Target: {fileID: 0}
+        type: 0
+        IsExecuting: 0
+        ActionData: {fileID: 11400000, guid: 0ab2137493b68364e9f0d52719846747, type: 2}
 --- !u!114 &2200537552837520315
 MonoBehaviour:
   m_ObjectHideFlags: 0

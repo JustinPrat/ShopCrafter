@@ -1,8 +1,8 @@
-using System;
+using PrimeTween;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using PrimeTween;
 
 public class ValidateInputArrow : MonoBehaviour
 {
@@ -22,15 +22,6 @@ public class ValidateInputArrow : MonoBehaviour
     private Image iconHolder;
 
     [SerializeField]
-    private bool hold = false;
-
-    [SerializeField]
-    private float holdDuration = 1f;
-
-    [SerializeField]
-    private Slider slider;
-
-    [SerializeField]
     private AnimationCurve moveCurve;
 
     [SerializeField]
@@ -42,18 +33,35 @@ public class ValidateInputArrow : MonoBehaviour
     [SerializeField]
     private bool isVertical = true;
 
+    [SerializeField]
+    private bool hold = false;
+
+    [SerializeField, ShowIf(nameof(hold))]
+    private float holdDuration = 1f;
+
+    [SerializeField, ShowIf(nameof(hold))]
+    private Slider slider;
+
+    private Tween currentInfiniteTween;
+    private float baseLocalMovingAxis;
+
 
     private void Awake()
     {
-        if (!hold)
+        if (!hold && slider != null)
         {
             slider.gameObject.SetActive(false);
         }
 
-        managerRefs.InputManager.Actions.UI.Submit.performed += OnNextDialoguePressed;
+        managerRefs.InputManager.Actions.UI.Submit.performed += OnSubmitPressed;
         managerRefs.InputManager.OnInputDeviceChanged += OnInputDeviceChanged;
 
         OnInputDeviceChanged();
+
+        if (isVertical)
+            baseLocalMovingAxis = transform.localPosition.y;
+        else
+            baseLocalMovingAxis = transform.localPosition.x;
     }
 
     private void OnEnable()
@@ -64,9 +72,14 @@ public class ValidateInputArrow : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        currentInfiniteTween.Stop();
+    }
+
     private void OnDestroy()
     {
-        managerRefs.InputManager.Actions.UI.Submit.performed -= OnNextDialoguePressed;
+        managerRefs.InputManager.Actions.UI.Submit.performed -= OnSubmitPressed;
         managerRefs.InputManager.OnInputDeviceChanged -= OnInputDeviceChanged;
     }
 
@@ -75,7 +88,7 @@ public class ValidateInputArrow : MonoBehaviour
         iconHolder.sprite = managerRefs.InputManager.IsGamepad ? controllerIcon : keyboardIcon;
     }
 
-    private void OnNextDialoguePressed(InputAction.CallbackContext context)
+    private void OnSubmitPressed(InputAction.CallbackContext context)
     {
         if (hold)
         {
@@ -96,6 +109,8 @@ public class ValidateInputArrow : MonoBehaviour
 
     private void OnPressValidation()
     {
+        StopMoveArrow();
+
         Tween.Scale(transform, 1f, 0.2f, ease: Ease.OutBack, useUnscaledTime: true).OnComplete(() =>
         {
             transform.localScale = Vector3.one;
@@ -113,16 +128,26 @@ public class ValidateInputArrow : MonoBehaviour
         if (!transform.gameObject.activeInHierarchy)
             return;
 
-        transform.localPosition = Vector3.zero;
+        StopMoveArrow();
 
         if (isVertical)
-            Tween.LocalPositionY(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
+            currentInfiniteTween = Tween.LocalPositionY(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
         else
-            Tween.LocalPositionX(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
+            currentInfiniteTween = Tween.LocalPositionX(transform, moveDistance, moveDuration, ease: moveCurve, cycles: -1, cycleMode: CycleMode.Yoyo, useUnscaledTime: true);
 
         if (hold)
         {
             slider.gameObject.SetActive(false);
         }
+    }
+
+    public void StopMoveArrow()
+    {
+        currentInfiniteTween.Stop();
+
+        if (isVertical)
+            transform.localPosition = new Vector3(transform.localPosition.x, baseLocalMovingAxis, transform.localPosition.z);
+        else
+            transform.localPosition = new Vector3(baseLocalMovingAxis, transform.localPosition.y, transform.localPosition.z);
     }
 }
