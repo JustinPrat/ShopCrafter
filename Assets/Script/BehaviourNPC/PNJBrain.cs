@@ -97,7 +97,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (pnjOutside != null)
             pnjOutside.Value.Event -= OnPNJOutside;
 
-        managerRefs.GameEventsManager.questEvents.onFinishQuest -= OnFinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest -= OnFinishQuest;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay -= ForceDayEnd;
 
         OnDestroyEvent?.Invoke(this);
@@ -128,8 +128,8 @@ public class PNJBrain : MonoBehaviour, IInteractable
         Agent.SetVariableValue<Vector3>(ShopPosVariable, managerRefs.PNJManager.PnjShopStop);
         Agent.SetVariableValue<float>(ShopDurationVariable, PNJRuntime.ShopStayDuration);
 
-        managerRefs.GameEventsManager.questEvents.onFinishQuest += OnFinishQuest;
-        managerRefs.GameEventsManager.questEvents.onQuestStateChange += OnQuestStateChange;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest += OnFinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnQuestStateChange += OnQuestStateChange;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay += ForceDayEnd;
     }
 
@@ -219,7 +219,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     private void OnQuestStateChange(Quest quest)
     {
-        if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)
+        if (givenQuests.Contains(quest.Info) && quest.State == QuestState.CAN_FINISH)
         {
             worldSpeech.DisplaySpeech("?", true);
         }
@@ -248,7 +248,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         foreach (QuestInfoSO questInfo in givenQuests)
         {
             Quest quest = managerRefs.QuestManager.GetQuestById(questInfo.ID);
-            if (quest.state == QuestState.CAN_FINISH)
+            if (quest.State == QuestState.CAN_FINISH)
             {
                 data = quest;
                 return true;
@@ -285,14 +285,14 @@ public class PNJBrain : MonoBehaviour, IInteractable
             trait.OnInteract(this);
         }
 
-        if (TryGetRedeemQuest(out Quest data) && data.info.FinishedDialogueData != null)
+        if (TryGetRedeemQuest(out Quest data) && data.Info.FinishedDialogueData != null)
         {
-            ManagerRefs.GameEventsManager.questEvents.FinishQuest(data.info.ID);
-            ManagerRefs.DialogueManager.StartDialogue(data.info.FinishedDialogueData, this);
+            ManagerRefs.GameEventsManager.questEvents.FinishQuest(data.Info.ID);
+            ManagerRefs.DialogueManager.StartDialogue(data.Info.FinishedDialogueData, this);
 
-            if (data.info.ReplaceDialogueData != null)
+            if (data.Info.ReplaceDialogueData != null)
             {
-                ChangeMainDialogue(data.info.ReplaceDialogueData);
+                ChangeMainDialogue(data.Info.ReplaceDialogueData);
             }
         }
         else

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5a349c734886444a6dcce694f518f8, type: 3}
+  m_Name: Give bocal
+  m_EditorClassIdentifier: Assembly-CSharp::GiveItemQuestStepData
+  specialDialogueData:
+    TargetSelf: 1
+    PNJTarget: 0
+    Answers:
+    - Line: Give Bocal ?
+      AnswerDialogueData: {fileID: 11400000, guid: ada09a3aee2d73d41b499dc5b893bf9e, type: 2}
+      Reward:
+        mode: 0
+        unityReference: {fileID: 0}
+        rawReference:
+          rid: -2
+      ReplaceMainDialogue: {fileID: 0}
+      Cost:
+        mode: 0
+        unityReference: {fileID: 11400000, guid: 799db0984deb2da4b8a4c5726bfb2061, type: 2}
+        rawReference:
+          rid: -2
+  stepDisplayData:
+    Name: Give
+    Description: Give the Bocal
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

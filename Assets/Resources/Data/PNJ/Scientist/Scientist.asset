@@ -17,4 +17,5 @@ MonoBehaviour:
   TraitDatas: []
   ShopStayDuration: 15
   ManagerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  PNJType: 2
   IsSpecial: 0

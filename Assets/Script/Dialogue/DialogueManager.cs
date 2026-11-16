@@ -52,9 +52,14 @@ public class DialogueManager : MonoBehaviour
 
     public SpecialDialogue GetSpecialDialogue(GameObject consumer)
     {
+        PNJBrain pnjBrain = consumer.GetComponent<PNJBrain>();
         foreach (SpecialDialogue specialDialogue in specialDialogues)
         {
-            if (specialDialogue.Owner != consumer && !specialDialogue.AskedPNJs.Contains(consumer))
+            bool isOwner = consumer == specialDialogue.Owner;
+            bool canTargetSelf = specialDialogue.TargetSelf && isOwner;
+            bool canTargetType = specialDialogue.ContainsTarget(pnjBrain.Data.PNJType) && !isOwner;
+
+            if ((canTargetSelf || canTargetType) && !specialDialogue.AskedPNJs.Contains(consumer))
             {
                 return specialDialogue;
             }
@@ -67,12 +72,16 @@ public class DialogueManager : MonoBehaviour
 [Serializable]
 public struct SpecialDialogueData
 {
+    public bool TargetSelf;
+    public PNJType PNJTarget;
     public List<Answer> Answers;
 }
 
 [Serializable]
 public class SpecialDialogue
 {
+    public bool TargetSelf;
+    public PNJType PNJTarget;
     public List<Answer> Answers { get; set; }
     public GameObject Owner { get; set; }
     public List<GameObject> AskedPNJs { get; set; } = new List<GameObject>();
@@ -80,5 +89,19 @@ public class SpecialDialogue
     public SpecialDialogue(SpecialDialogueData data)
     {
         this.Answers = new List<Answer>(data.Answers);
+        PNJTarget = data.PNJTarget;
+        TargetSelf = data.TargetSelf;
     }
+
+    public bool ContainsTarget(PNJType pnjType)
+    {
+        return (PNJTarget & pnjType) != 0;
+    }
+}
+
+[Serializable, Flags]
+public enum PNJType
+{
+    Consumer = 1 << 1,
+    Permanent = 1 << 2
 }

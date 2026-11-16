@@ -18597,26 +18597,6 @@ PrefabInstance:
       propertyPath: pnjPoolList.Array.data[0].Pool
       value: 
       objectReference: {fileID: 11400000, guid: c94159913705dc7438e2dbd5c32cb7b3, type: 2}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[1].Pool
-      value: 
-      objectReference: {fileID: 11400000, guid: 8543d2ebf85ee9b4180305cd2974fdee, type: 2}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[2].Pool
-      value: 
-      objectReference: {fileID: 11400000, guid: 1cb852b13eb09c74ba555deef692bdce, type: 2}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[0].MilestoneIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[1].MilestoneIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881258054837223197, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
-      propertyPath: pnjPoolList.Array.data[2].MilestoneIndex
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6310679627409969459, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.92676
@@ -18685,6 +18665,14 @@ PrefabInstance:
       propertyPath: playerBrain
       value: 
       objectReference: {fileID: 8969781893455649893}
+    - target: {fileID: 8521836092167487003, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: quests.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521836092167487003, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
+      propertyPath: 'quests.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 849497cf1f2b5a44889cda2345a69d81, type: 2}
     - target: {fileID: 9033879614006047432, guid: fbd9783e442179e41bbab5f00e861cca, type: 3}
       propertyPath: m_Camera
       value: 

@@ -55,6 +55,9 @@ public class UIManager : MonoBehaviour
     private GameObject blackBarsViewPrefab;
 
     [SerializeField]
+    private GameObject questViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     [SerializeField]
@@ -75,6 +78,7 @@ public class UIManager : MonoBehaviour
     private RewardView rewardViewInstance;
     private ReputationBoardView reputationBoardViewInstance;
     private BlackBarsView blackBarsViewInstance;
+    private QuestView questViewInstance;
 
     private List<UIView> focusList = new List<UIView>();
     public UIView CurrentFocus => focusList.Last();
@@ -128,6 +132,9 @@ public class UIManager : MonoBehaviour
 
         blackBarsViewInstance = Instantiate(blackBarsViewPrefab, canvas.transform).GetComponent<BlackBarsView>();
         blackBarsViewInstance.gameObject.SetActive(false);
+
+        questViewInstance = Instantiate(questViewPrefab, canvas.transform).GetComponent<QuestView>();
+        questViewInstance.gameObject.SetActive(false);
 
         dialogueViewInstance.transform.SetAsLastSibling();
 
@@ -237,6 +244,14 @@ public class UIManager : MonoBehaviour
             }
 
             UpdateFocus(isOn, rewardViewInstance);
+        });
+    }
+
+    public void ToggleQuestView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            questViewInstance.Toggle(isOn);
         });
     }
 

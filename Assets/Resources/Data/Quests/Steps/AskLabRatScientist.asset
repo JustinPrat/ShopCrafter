@@ -15,6 +15,7 @@ MonoBehaviour:
   PNJAmount: 3
   needSpecialDialogue: 1
   specialDialogueData:
+    PNJTarget: 2
     Answers:
     - Line: Want to join lab ?
       AnswerDialogueData: {fileID: 11400000, guid: 8c23c6715f0a8b743b34239b91d945cc, type: 2}
@@ -64,3 +65,4 @@ MonoBehaviour:
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 5
+        rewardPrefab: {fileID: 0}

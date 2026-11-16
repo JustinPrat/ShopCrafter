@@ -13,6 +13,7 @@ public class PNJInfoData : ScriptableObject
 
     public float ShopStayDuration;
     public ManagerRefs ManagerRefs;
+    public PNJType PNJType;
     public bool IsSpecial;
 
     public PNJRuntimeData GetRuntimeData()
@@ -28,6 +29,7 @@ public class PNJInfoData : ScriptableObject
         runtimeData.ManagerRefs = ManagerRefs;
         runtimeData.PnjPrefab = PnjPrefab;
         runtimeData.IsSpecial = IsSpecial;
+        runtimeData.PNJType = PNJType;
         return runtimeData;
     }
 }
@@ -37,6 +39,7 @@ public class PNJRuntimeData
 {
     public GameObject PnjPrefab;
     public Identity Identity;
+    public PNJType PNJType;
     public List<IPNJTraitRuntime> ActiveTraits = new List<IPNJTraitRuntime>();
 
     public float ShopStayDuration;

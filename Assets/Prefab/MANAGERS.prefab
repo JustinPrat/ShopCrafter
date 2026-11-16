@@ -452,6 +452,7 @@ MonoBehaviour:
   rewardViewPrefab: {fileID: 2813235343791059201, guid: 06237f87cb6694e4fb75aee1ab402cce, type: 3}
   reputationBoardViewPrefab: {fileID: 2813235343791059201, guid: 23ffecd53d1652b4c8944b9ff0cda34e, type: 3}
   blackBarsViewPrefab: {fileID: 5475771195858154003, guid: 1a7f7d672012f774e80236fb6cea1b9a, type: 3}
+  questViewPrefab: {fileID: 5475771195858154003, guid: d9a6903eb381a3045889c80e8ea6134c, type: 3}
   canvas: {fileID: 8311497530633858144}
   presetMap: {fileID: 11400000, guid: 264515ac62b70044282b554723133452, type: 2}
 --- !u!1 &2503316448329570634
@@ -912,10 +913,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3f203a50dfc3fc040b13e8629c239c4f, type: 2}
   - {fileID: 11400000, guid: 5762f0e5768d7b14fb8ef0857389a4d1, type: 2}
   - {fileID: 11400000, guid: d3a1d81902f71c34e844180443ffa959, type: 2}
+  questMap: []
   __alchemySerializationData_QuestManager:
-    questMap:
-      isCreated: 1
-      data: 
     unityObjectReferences: []
 --- !u!1 &5011131817878924588
 GameObject:
