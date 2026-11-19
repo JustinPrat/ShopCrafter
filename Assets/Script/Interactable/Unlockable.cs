@@ -1,23 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TNRD;
 using UnityEngine;
 
-public class Unlockable : MonoBehaviour, IInteractable
+public class Unlockable : BaseWorldInteract
 {
     [SerializeField]
     private SerializableInterface<ICost> requiredCost;
-
-    [SerializeField]
-    private Collider physicCollider;
-
-    [SerializeField]
-    private string interactText;
-
-    [SerializeField]
-    protected ManagerRefs refs;
 
     [SerializeField]
     private Sequencer.Sequencer sequenceOnUnlocked;
@@ -27,16 +17,6 @@ public class Unlockable : MonoBehaviour, IInteractable
 
     private bool hasBeenUnlocked;
     private List<IInteractable> interactables;
-
-    public Collider PhysicCollider => physicCollider;
-    public GameObject GameObject => gameObject;
-    public string InteractText => interactText;
-    public bool IsLocked { get; set; } = false;
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void Start()
     {
@@ -49,23 +29,18 @@ public class Unlockable : MonoBehaviour, IInteractable
         SetInteractLock(true);
     }
 
-    private void OnDestroy()
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
-        OnDestroyEvent?.Invoke(this);
+        return requiredCost != null && requiredCost.Value.CanPay(managerRefs) && !hasBeenUnlocked;
     }
 
-    public bool CanInteract(PlayerBrain playerBrain)
-    {
-        return requiredCost != null && requiredCost.Value.CanPay(refs) && !hasBeenUnlocked;
-    }
-
-    public virtual void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         if (hasBeenUnlocked)
             return;
 
         hasBeenUnlocked = true;
-        requiredCost.Value.ResolveCost(refs);
+        requiredCost.Value.ResolveCost(managerRefs);
         physicCollider.enabled = false;
 
         if (waitBeforeEnableInteraction <= 0)
@@ -98,28 +73,5 @@ public class Unlockable : MonoBehaviour, IInteractable
     {
         yield return new WaitForSeconds(waitBeforeEnableInteraction);
         SetInteractLock(false);
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

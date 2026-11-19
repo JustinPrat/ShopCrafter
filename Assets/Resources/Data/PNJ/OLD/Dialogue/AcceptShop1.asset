@@ -15,6 +15,11 @@ MonoBehaviour:
   Lines:
   - Line: Regarde ce que j'ai a vendre<?Shop>
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 0
   HasNextDialogue: 0
   Answers:
@@ -46,6 +51,7 @@ MonoBehaviour:
         rid: -2
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: sketchy

@@ -11,22 +11,18 @@ public class PNJIdentityArchetype : IdentityData
     [InlineEditor]
     public List<DialogueData> possibleDialogues;
 
-    private List<DialogueData> availableDialogues;
+    public override IdentityFactory GetFactory()
+    {
+        return new IdentityArchetypeFactory(this);
+    }
 
     public override Identity GetIdentity()
     {
-        if (availableDialogues.Count == 0)
-        {
-            availableDialogues = new List<DialogueData>(possibleDialogues);
-        }
-
         Identity identity = new Identity();
         identity.Name = possibleNames.GetRandomElement();
         identity.Description = possibleDescriptions.GetRandomElement();
         identity.Portrait = possiblePortraits.GetRandomElement();
-
-        identity.Dialogue = availableDialogues.GetRandomElement();
-        availableDialogues.Remove(identity.Dialogue);
+        identity.Dialogue = possibleDialogues.GetRandomElement();
 
         return identity;
     }

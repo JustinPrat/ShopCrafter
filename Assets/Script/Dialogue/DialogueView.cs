@@ -158,7 +158,7 @@ public class DialogueView : UIView
         }
         else
         {
-            NextInputPressed();
+            NextInputPressed(true);
         }
     }
 
@@ -167,10 +167,10 @@ public class DialogueView : UIView
         if (managerRefs.UIManager.CurrentFocus != this)
             return;
 
-        NextInputPressed();
+        NextInputPressed(false);
     }
 
-    private void NextInputPressed()
+    private void NextInputPressed(bool canSkip)
     {
         if (!isAsking && currentDelaySkip <= 0f)
         {
@@ -178,7 +178,8 @@ public class DialogueView : UIView
 
             if (dialogueBubbleUI.IsWriting)
             {
-                dialogueBubbleUI.Skip();
+                if (canSkip)
+                    dialogueBubbleUI.Skip();
             }
             else
             {

@@ -314,12 +314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e14c3993f12034ca232109d619e73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canTakeBackItem: 0
-  interactText: SELL
-  objectHoldAnchor: {fileID: 8397408711625929970}
-  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  UIStatAnchor: {fileID: 4918698281812511290}
   physicCollider: {fileID: 797958540356178465}
+  managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
+  interactText: Sell
+  canTakeBackItem: 0
+  objectHoldAnchor: {fileID: 8397408711625929970}
+  UIStatAnchor: {fileID: 4918698281812511290}
   sequencer: {fileID: 7608358091598398058}
   buyPosition: {fileID: 5248836016667282588}
   pickRewardablePrefab: {fileID: 761883529733276740, guid: 36614f9c2a3ec5b4da8295a75e5451af, type: 3}
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: ffffffffi
 --- !u!114 &7608358091598398058
 MonoBehaviour:
   m_ObjectHideFlags: 0

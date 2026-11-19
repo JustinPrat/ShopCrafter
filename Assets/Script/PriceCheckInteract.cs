@@ -1,71 +1,25 @@
-using System;
-using UnityEngine;
-
-public class PriceCheckInteract : MonoBehaviour, IInteractable
+public class PriceCheckInteract : BaseWorldInteract
 {
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
-    private string interactText;
-
-    [SerializeField]
-    private Collider collider;
-
-    public bool IsLocked { get; set; }
-    public Collider PhysicCollider => collider;
-    public GameObject GameObject => gameObject;
-    public string InteractText => interactText;
-
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
-
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         return false;
     }
 
-    public void StartInteract(PlayerBrain playerBrain)
-    {
-        OnStartInteractEvent?.Invoke(this);
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
+    public override void OnInteractRange(PlayerBrain playerBrain)
     {
         if (IsLocked)
             return;
 
+        base.OnInteractRange(playerBrain);
         managerRefs.UIManager.TogglePriceCheckView(true, transform.position);
     }
 
-    public void OutInteractRange(PlayerBrain playerBrain)
+    public override void OutInteractRange(PlayerBrain playerBrain)
     {
         if (IsLocked)
             return;
 
+        base.OnInteractRange(playerBrain);
         managerRefs.UIManager.TogglePriceCheckView(false);
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

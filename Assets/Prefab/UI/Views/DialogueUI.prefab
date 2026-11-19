@@ -1706,7 +1706,7 @@ MonoBehaviour:
   writeOnNewText: 1
   useScaledTime: 0
   delays:
-    delay: 0.035
+    delay: 0.025
     whitespaceDelay: 0
     whitespaceDelayType: 0
     linebreakDelay: 0

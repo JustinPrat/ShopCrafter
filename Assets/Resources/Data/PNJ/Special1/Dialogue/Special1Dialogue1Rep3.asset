@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Special1Dialogue1Rep3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tu veux bien m'aider finalement ?
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> tu veux bien m'aider finalement ?
     Emotion: {fileID: 0}
     Reward:
       mode: 0

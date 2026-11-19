@@ -14,6 +14,8 @@ public class RewardTicketUI : BaseTicketUI
 
     private RewardTicketData.RewardTicketBehavior rewardTicketBehavior;
 
+    public override bool CanClick => true;
+
     public override void Setup(DailyTicketData.DailyTicketBehavior dailyTicketBehavior)
     {
         rewardTicketBehavior = (RewardTicketData.RewardTicketBehavior)dailyTicketBehavior;

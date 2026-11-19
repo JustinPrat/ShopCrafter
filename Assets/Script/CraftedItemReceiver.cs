@@ -1,54 +1,27 @@
-using System;
 using UnityEngine;
 
-public class CraftedItemReceiver : MonoBehaviour, IInteractable
+public class CraftedItemReceiver : BaseWorldInteract
 {
     [SerializeField]
     protected bool canTakeBackItem = true;
 
     [SerializeField]
-    protected string interactText;
-
-    [SerializeField]
     protected Transform objectHoldAnchor;
-
-    [SerializeField]
-    protected ManagerRefs managerRefs;
 
     [SerializeField]
     protected Transform UIStatAnchor;
 
-    [SerializeField]
-    protected Collider physicCollider;
-
     protected CraftedObject heldObject;
-
     public CraftedObject HeldObject => heldObject;
     public bool HasHeldItem => heldObject != null;
-    public Collider PhysicCollider => physicCollider;
-    public GameObject GameObject => gameObject;
-    public string InteractText => interactText;
-
-    public bool IsLocked { get; set; }
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
-
     public bool CanTakePlayerItem (PlayerBrain brain) => brain.Inventory.HasItem && !HasHeldItem;
 
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public virtual bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         return (playerBrain.Inventory.HasItem && !HasHeldItem) || (!playerBrain.Inventory.HasItem && HasHeldItem && canTakeBackItem);
     }
 
-    public virtual void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         if (CanTakePlayerItem(playerBrain))
         {
@@ -68,7 +41,8 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
                 OnItemTaken();
             }
         }
-        OnStartInteractEvent?.Invoke(this);
+
+        base.StartInteract(playerBrain);
     }
 
     protected virtual void OnItemReceived() { }
@@ -81,7 +55,7 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         heldObject.transform.localPosition = Vector3.zero;
     }
 
-    public virtual void OnTargeted(PlayerBrain playerBrain)
+    public override void OnTargeted(PlayerBrain playerBrain)
     {
         OnTargetedEvent?.Invoke(this);
 
@@ -91,22 +65,9 @@ public class CraftedItemReceiver : MonoBehaviour, IInteractable
         }
     }
 
-    public virtual void UnTargeted(PlayerBrain playerBrain)
+    public override void UnTargeted(PlayerBrain playerBrain)
     {
-        OnUnTargetedEvent?.Invoke(this);
+        base.UnTargeted(playerBrain);
         managerRefs.UIManager.ToggleCraftedStatView(false);
-    }
-
-    public virtual void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public virtual void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

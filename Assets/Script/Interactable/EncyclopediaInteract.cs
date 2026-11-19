@@ -1,67 +1,8 @@
-using System;
-using UnityEngine;
-
-public class EncyclopediaInteract : MonoBehaviour, IInteractable
+public class EncyclopediaInteract : WorldViewInteract<EncyclopedieView>
 {
-    [SerializeField]
-    private Collider physicCollider;
-
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
-    private string interactText = "Read";
-
-    public bool IsLocked { get; set; }
-
-    public string InteractText => interactText;
-
-    public GameObject GameObject => gameObject;
-
-    public Collider PhysicCollider => physicCollider;
-
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
-
-    private void OnDestroy()
+    public override void StartInteract(PlayerBrain playerBrain)
     {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public bool CanInteract(PlayerBrain playerBrain)
-    {
-        return true;
-    }
-
-    public void StartInteract(PlayerBrain playerBrain)
-    {
+        base.StartInteract(playerBrain);
         managerRefs.UIManager.ToggleEncyclopedieView(true);
-        OnStartInteractEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

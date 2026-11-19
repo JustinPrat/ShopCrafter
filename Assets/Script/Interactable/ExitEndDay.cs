@@ -1,30 +1,12 @@
 using System;
 using UnityEngine;
 
-public class ExitEndDay : MonoBehaviour, IInteractable
+public class ExitEndDay : BaseWorldInteract
 {
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
-    private string interactText;
-
     [SerializeField]
     private GameObject outObject;
 
-    [SerializeField]
-    private Collider collider;
-
     private bool canInteract;
-    public Collider PhysicCollider => collider;
-    public GameObject GameObject => gameObject;
-    public string InteractText => interactText;
-    public bool IsLocked { get; set; }
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void Start()
     {
@@ -37,7 +19,7 @@ public class ExitEndDay : MonoBehaviour, IInteractable
         outObject.SetActive(false);
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         if (managerRefs.GameEventsManager != null)
         {
@@ -45,54 +27,31 @@ public class ExitEndDay : MonoBehaviour, IInteractable
             managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
         }
 
-        OnDestroyEvent?.Invoke(this);
+        base.OnDestroy();
     }
 
     private void OnStartDay()
     {
         canInteract = false;
         outObject.SetActive(false);
-        collider.enabled = false; 
+        physicCollider.enabled = false; 
     }
 
     private void OnEndDay()
     {
         canInteract = true;
         outObject.SetActive(true);
-        collider.enabled = true;
+        physicCollider.enabled = true;
     }
 
-    public bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         return canInteract;
     }
 
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleEndDayView(true);
-        OnStartInteractEvent?.Invoke(this);
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
     }
 }

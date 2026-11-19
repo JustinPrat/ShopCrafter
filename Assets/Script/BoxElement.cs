@@ -1,8 +1,7 @@
 using PrimeTween;
-using System;
 using UnityEngine;
 
-public class BoxElement : MonoBehaviour, IInteractable
+public class BoxElement : BaseWorldInteract
 {
     [SerializeField] 
     private float squishScale;
@@ -10,59 +9,10 @@ public class BoxElement : MonoBehaviour, IInteractable
     [SerializeField]
     private float squishDuration = 0.3f;
 
-    [SerializeField]
-    private string interactText;
-
-    [SerializeField] 
-    private Collider collider;
-
-    public bool IsLocked { get; set; }
-    public Collider PhysicCollider => collider;
-    public GameObject GameObject => gameObject;
-    public string InteractText => interactText;
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
-
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public bool CanInteract(PlayerBrain playerBrain)
-    {
-        return true;
-    }
-
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         transform.localScale = Vector3.one;
         Tween.PunchScale(transform, Vector3.one * squishScale, squishDuration);
-        OnStartInteractEvent?.Invoke(this);
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
     }
 }

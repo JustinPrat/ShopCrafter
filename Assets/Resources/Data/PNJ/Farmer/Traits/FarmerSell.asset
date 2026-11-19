@@ -28,4 +28,4 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 7fd7ea6273deeff469f374d13ca7f01d, type: 2}
     priceEach: {x: 3, y: 4}
     amount: {x: 1, y: 1}
-  sellAmount: 3
+  sellAmount: 5

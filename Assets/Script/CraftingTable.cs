@@ -3,21 +3,10 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class CraftingTable : MonoBehaviour, IInteractable
+public class CraftingTable : WorldViewInteract<CraftingView>
 {
     [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
-    private string interactText;
-
-    [SerializeField]
-    private Collider collider;
-
-    [SerializeField]
     private Transform UICraftAnchor;
-
-    public Collider PhysicCollider => collider;
 
     [SerializeField]
     private List<CraftedItemReceiver> receiveSlots;
@@ -35,21 +24,8 @@ public class CraftingTable : MonoBehaviour, IInteractable
     private Sequencer.Sequencer outInteractSequencer;
 
     public List<CraftedItemReceiver> ReceiveSlots => receiveSlots;
-    public GameObject GameObject => gameObject;
-    public string InteractText => interactText;
-    public bool IsLocked { get; set; }
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         foreach (CraftedItemReceiver slots in receiveSlots)
         {
@@ -61,14 +37,14 @@ public class CraftingTable : MonoBehaviour, IInteractable
         return false;
     }
 
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleCraftingView(true, this, UICraftAnchor == null ? transform.position : UICraftAnchor.position);
 
         if (interactSequencer != null)
             interactSequencer.StartSequence();
 
-        OnStartInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
     }
 
     public Vector3 GetValidUIPos()
@@ -80,16 +56,6 @@ public class CraftingTable : MonoBehaviour, IInteractable
     {
         if (outInteractSequencer != null)
             outInteractSequencer.StartSequence();
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
     }
 
     public void SpawnCraftedItem (CraftedObject craftedObject)
@@ -112,18 +78,5 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
         if (sequencer != null)
             sequencer.StartSequence();
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

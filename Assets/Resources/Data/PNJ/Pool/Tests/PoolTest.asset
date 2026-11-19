@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PoolTest
   m_EditorClassIdentifier: 
   PNJPoolList:
-  - {fileID: 11400000, guid: b3a8d3d5ccc24eb4686a134cf728b8f1, type: 2}
+  - {fileID: 11400000, guid: 78809899a577d5c40b4ed7b6daaeaa94, type: 2}
   SpecialPNJPool: []

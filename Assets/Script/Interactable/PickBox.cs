@@ -3,63 +3,18 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PickBox : MonoBehaviour, IInteractable
+public class PickBox : BaseWorldInteract
 {
     [SerializeField]
     private List<GameObject> spawnObjectList;
 
     [SerializeField]
-    private Collider physicCollider;
-
-    [SerializeField]
     private CinemachineImpulseSource cinemachineImpulseSource;
 
-    public bool IsLocked { get; set; }
-
-    public string InteractText => "Open";
-
-    public GameObject GameObject => gameObject;
-
-    public Collider PhysicCollider => physicCollider;
-
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
-
-    public bool CanInteract(PlayerBrain playerBrain)
-    {
-        return true;
-    }
-
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         cinemachineImpulseSource.GenerateImpulse(0.2f);
-        OnStartInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
         Destroy(gameObject);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

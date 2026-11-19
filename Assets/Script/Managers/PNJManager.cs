@@ -60,6 +60,7 @@ public class PNJManager : MonoBehaviour
     private DayTime dayPeriod;
     private int numberSpecialSpawnedToday;
     private float nearEndDayDuration => (nearDayEndTime / dayEndTime) * dayDuration;
+    private Dictionary<IdentityData, IdentityFactory> identityFactories = new Dictionary<IdentityData, IdentityFactory>();
 
     public enum DayTime
     {
@@ -130,8 +131,6 @@ public class PNJManager : MonoBehaviour
     private void Start()
     {
         StartDay();
-        //managerRefs.GameEventsManager.dayEvents.OnPauseDay += PauseDayCounter;
-        //managerRefs.GameEventsManager.dayEvents.OnResumeDay += ResumeDayCounter;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached += OnMilestoneReached;
     }
 
@@ -256,6 +255,7 @@ public class PNJManager : MonoBehaviour
             if (PNJList.Count <= 0 && !spawnSpecial)
             {
                 PNJList.AddRange(PNJUsedList);
+                PNJUsedList.Clear();
             }
 
             PNJ.NavMeshAgent.Warp(PnjSpawnOutside);
@@ -265,6 +265,22 @@ public class PNJManager : MonoBehaviour
             return;
 
         pnjList.Add(PNJ);
+    }
+
+    public Identity DrawIdentity(IdentityData identityData)
+    {
+        if (!identityFactories.TryGetValue(identityData, out IdentityFactory factory))
+        {
+            factory = identityData.GetFactory();
+            identityFactories.Add(identityData, factory);
+        }
+
+        return factory.PickElement();
+    }
+
+    public void ResetIdentityFactories()
+    {
+        identityFactories.Clear();
     }
 
     public void RemovePnj (PNJBrain pnj)

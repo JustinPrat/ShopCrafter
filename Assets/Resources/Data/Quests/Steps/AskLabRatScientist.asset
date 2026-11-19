@@ -15,6 +15,7 @@ MonoBehaviour:
   PNJAmount: 3
   needSpecialDialogue: 1
   specialDialogueData:
+    TargetSelf: 0
     PNJTarget: 2
     Answers:
     - Line: Want to join lab ?
@@ -56,6 +57,9 @@ MonoBehaviour:
         unityReference: {fileID: 0}
         rawReference:
           rid: 350563928688033918
+  stepDisplayData:
+    Name: Lab Rat
+    Description: Ask consumers to become lab rats
   references:
     version: 2
     RefIds:

@@ -4,7 +4,7 @@ using UnityEngine;
 public interface IInteractable
 {
     public bool IsLocked { get; set; }
-
+    public bool IsInteracting { get; }
     public string InteractText { get; }
     public GameObject GameObject { get; }
     public Collider PhysicCollider { get; }

@@ -19,7 +19,8 @@ public class PNJInfoData : ScriptableObject
     public PNJRuntimeData GetRuntimeData()
     {
         PNJRuntimeData runtimeData = new PNJRuntimeData();
-        runtimeData.Identity = IdentityInfo.GetIdentity();
+        runtimeData.Identity = ManagerRefs.PNJManager.DrawIdentity(IdentityInfo);
+
         foreach (PNJTraitData traitData in TraitDatas)
         {
             runtimeData.ActiveTraits.Add(traitData.GetRuntimeLogic());

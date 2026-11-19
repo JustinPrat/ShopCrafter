@@ -253,9 +253,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009d044ef40a2a24294443cdd9f2ab3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicCollider: {fileID: 8004390244090909545}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
-  interactText: <sprite name="sprite_sheet_99">
-  collider: {fileID: 8004390244090909545}
+  interactText: Craft
   UICraftAnchor: {fileID: 1794102430751810920}
   receiveSlots:
   - {fileID: 6456885958529011949}
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: ffffffffi
 --- !u!114 &6374920548729315652
 MonoBehaviour:
   m_ObjectHideFlags: 0

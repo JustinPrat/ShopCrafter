@@ -3,8 +3,6 @@ using MackySoft.Choice;
 using System.Collections.Generic;
 using TNRD;
 using UnityEngine;
-using static MilestoneData;
-
 public class MilestoneManager : MonoBehaviour
 {
     [SerializeField]
@@ -104,7 +102,7 @@ public class MilestoneManager : MonoBehaviour
         milestoneDailyTickets.Clear();
 
         List<DailyTicketPool> tmpPools = new List<DailyTicketPool>();
-        foreach (DailyTicketWeighted weighted in milestone.DailyTicketDatasPool)
+        foreach (MilestoneData.DailyTicketWeighted weighted in milestone.DailyTicketDatasPool)
         {
             DailyTicketPool pool = weighted.DailyTicketData.CreatePool(weighted.WeightPercentChance);
 
