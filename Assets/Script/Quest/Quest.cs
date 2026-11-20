@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [Serializable]
 public class Quest
 {
-    public QuestInfoSO info;
-    public QuestState state;
+    public QuestInfoSO Info;
+    public QuestState State;
 
     private PNJBrain currentOwner;
     private int currentQuestStepIndex;
@@ -18,11 +16,11 @@ public class Quest
 
     public Quest(QuestInfoSO questInfo, ManagerRefs managerRefs)
     {
-        this.info = questInfo;
-        this.state = QuestState.NOT_RECEIVED;
+        this.Info = questInfo;
+        this.State = QuestState.NOT_RECEIVED;
         this.currentQuestStepIndex = 0;
         this.managerRefs = managerRefs;
-        this.questStepStates = new QuestStepState[info.QuestSteps.Length];
+        this.questStepStates = new QuestStepState[Info.QuestSteps.Length];
         for (int i = 0; i < questStepStates.Length; i++)
         {
             questStepStates[i] = new QuestStepState();
@@ -31,20 +29,20 @@ public class Quest
 
     public Quest(QuestInfoSO questInfo, QuestState questState, int currentQuestStepIndex, QuestStepState[] questStepStates, ManagerRefs managerRefs)
     {
-        this.info = questInfo;
-        this.state = questState;
+        this.Info = questInfo;
+        this.State = questState;
         this.currentQuestStepIndex = currentQuestStepIndex;
         this.questStepStates = questStepStates;
         this.managerRefs = managerRefs;
 
         // if the quest step states and prefabs are different lengths,
         // something has changed during development and the saved data is out of sync.
-        if (this.questStepStates.Length != this.info.QuestSteps.Length)
+        if (this.questStepStates.Length != this.Info.QuestSteps.Length)
         {
             Debug.LogWarning("Quest Step Prefabs and Quest Step States are "
                 + "of different lengths. This indicates something changed "
                 + "with the QuestInfo and the saved data is now out of sync. "
-                + "Reset your data - as this might cause issues. QuestId: " + this.info.ID);
+                + "Reset your data - as this might cause issues. QuestId: " + this.Info.ID);
         }
     }
 
@@ -55,7 +53,7 @@ public class Quest
 
     public bool CurrentStepExists()
     {
-        return (currentQuestStepIndex < info.QuestSteps.Length);
+        return (currentQuestStepIndex < Info.QuestSteps.Length);
     }
 
     public void StartQuest(PNJBrain owner)
@@ -69,22 +67,22 @@ public class Quest
         if (questStepData != null)
         {
             QuestStepRuntime questStep = questStepData.GetRuntimeLogic();
-            questStep.InitializeQuestStep(info.ID, currentQuestStepIndex, questStepStates[currentQuestStepIndex].state, managerRefs, currentOwner);
+            questStep.InitializeQuestStep(Info.ID, currentQuestStepIndex, questStepStates[currentQuestStepIndex].state, managerRefs, currentOwner);
             questStepRuntimes.Add(questStep);
         }
     }
 
-    private QuestStepData GetCurrentQuestStepData()
+    public QuestStepData GetCurrentQuestStepData()
     {
         QuestStepData questStepData = null;
         if (CurrentStepExists())
         {
-            questStepData = info.QuestSteps[currentQuestStepIndex];
+            questStepData = Info.QuestSteps[currentQuestStepIndex];
         }
         else 
         {
             Debug.LogWarning("Tried to get quest step prefab, but stepIndex was out of range indicating that "
-                + "there's no current step: QuestId=" + info.ID + ", stepIndex=" + currentQuestStepIndex);
+                + "there's no current step: QuestId=" + Info.ID + ", stepIndex=" + currentQuestStepIndex);
         }
         return questStepData;
     }
@@ -99,20 +97,20 @@ public class Quest
         else 
         {
             Debug.LogWarning("Tried to access quest step data, but stepIndex was out of range: "
-                + "Quest Id = " + info.ID + ", Step Index = " + stepIndex);
+                + "Quest Id = " + Info.ID + ", Step Index = " + stepIndex);
         }
     }
 
     public QuestData GetQuestData()
     {
-        return new QuestData(state, currentQuestStepIndex, questStepStates);
+        return new QuestData(State, currentQuestStepIndex, questStepStates);
     }
 
     public string GetFullStatusText()
     {
         string fullStatus = "";
 
-        if (state == QuestState.NOT_RECEIVED)
+        if (State == QuestState.NOT_RECEIVED)
         {
             fullStatus = "This quest can be started!";
         }
@@ -129,11 +127,11 @@ public class Quest
                 fullStatus += questStepStates[currentQuestStepIndex].status;
             }
             // when the quest is completed or turned in
-            if (state == QuestState.CAN_FINISH)
+            if (State == QuestState.CAN_FINISH)
             {
                 fullStatus += "The quest is ready to be turned in.";
             }
-            else if (state == QuestState.FINISHED)
+            else if (State == QuestState.FINISHED)
             {
                 fullStatus += "The quest has been completed!";
             }

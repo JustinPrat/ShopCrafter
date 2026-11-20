@@ -6,6 +6,10 @@ public class CollectMoneyQuestStep : QuestStepData
     [SerializeField]
     private int moneyAmount;
 
+    [SerializeField]
+    private QuestStepDisplayData stepDisplayData;
+    public override QuestStepDisplayData QuestStepUIDisplayData => stepDisplayData;
+
     public override QuestStepRuntime GetRuntimeLogic()
     {
         return new CollectMoneyQuestStepRuntime(new MoneyCollectData { MoneyAmount = moneyAmount });

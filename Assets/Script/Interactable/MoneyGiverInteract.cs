@@ -1,36 +1,14 @@
-using System;
 using UnityEngine;
 
-public class MoneyGiverInteract : MonoBehaviour, IInteractable
+public class MoneyGiverInteract : BaseWorldInteract
 {
-    [SerializeField]
-    private Collider physicCollider;
-
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
-    private string interactText = "";
-
     [SerializeField]
     private float delayBetweenGive = 0.2f;
 
     [SerializeField]
     private Sequencer.Sequencer sequenceGive;
 
-    public bool IsLocked { get; set; }
-
-    public string InteractText => interactText + (moneyNeeded - moneyGiven);
-
-    public GameObject GameObject => gameObject;
-
-    public Collider PhysicCollider => physicCollider;
-
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
+    public override string InteractText => interactText + (moneyNeeded - moneyGiven);
 
     private int moneyGiven;
     private int moneyNeeded;
@@ -43,12 +21,12 @@ public class MoneyGiverInteract : MonoBehaviour, IInteractable
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneMoneyRequireStop += OnMilestoneMoneyRequireStop;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneMoneyRequired -= OnMilestoneMoneyRequired;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneMoneyRequireStop -= OnMilestoneMoneyRequireStop;
 
-        OnDestroyEvent?.Invoke(this);
+        base.OnDestroy();
     }
 
     private void OnMilestoneMoneyRequired(int amount)
@@ -64,21 +42,21 @@ public class MoneyGiverInteract : MonoBehaviour, IInteractable
         interactPressed = false;
     }
 
-    public bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         return moneyNeeded > 0 && managerRefs.SellManager.CoinAmount >= 0;
     }
 
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         interactPressed = true;
         giveTimer = delayBetweenGive;
-        OnStartInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
     }
-    public void ReleaseInteract(PlayerBrain playerBrain)
+    public override void ReleaseInteract(PlayerBrain playerBrain)
     {
         interactPressed = false;
-        OnReleaseInteractEvent?.Invoke(this);
+        base.ReleaseInteract(playerBrain);
     }
 
     private void Update()
@@ -97,23 +75,5 @@ public class MoneyGiverInteract : MonoBehaviour, IInteractable
 
         managerRefs.SellManager.TryPayForItem(1);
         managerRefs.GameEventsManager.milestoneEvents.MilestoneGiveMoney(1);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
     }
 }

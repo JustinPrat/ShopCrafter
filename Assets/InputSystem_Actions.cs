@@ -151,6 +151,16 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Quest"",
+                    ""type"": ""Button"",
+                    ""id"": ""43418529-60dc-406f-84f7-982bf27cb341"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -580,6 +590,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Encyclopedia"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01a8c930-891f-45f7-b40c-85e3782aafa1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca1c0ba3-bdb7-4950-b3ab-6751db400f9e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Quest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b5a264e-316e-4874-b247-f5c17e139a6b"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Quest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1183,6 +1226,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_MaterialInventory = m_Player.FindAction("MaterialInventory", throwIfNotFound: true);
         m_Player_Encyclopedia = m_Player.FindAction("Encyclopedia", throwIfNotFound: true);
+        m_Player_Quest = m_Player.FindAction("Quest", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1282,6 +1326,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_MaterialInventory;
     private readonly InputAction m_Player_Encyclopedia;
+    private readonly InputAction m_Player_Quest;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1317,6 +1362,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Encyclopedia".
         /// </summary>
         public InputAction @Encyclopedia => m_Wrapper.m_Player_Encyclopedia;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Quest".
+        /// </summary>
+        public InputAction @Quest => m_Wrapper.m_Player_Quest;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1361,6 +1410,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Encyclopedia.started += instance.OnEncyclopedia;
             @Encyclopedia.performed += instance.OnEncyclopedia;
             @Encyclopedia.canceled += instance.OnEncyclopedia;
+            @Quest.started += instance.OnQuest;
+            @Quest.performed += instance.OnQuest;
+            @Quest.canceled += instance.OnQuest;
         }
 
         /// <summary>
@@ -1390,6 +1442,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Encyclopedia.started -= instance.OnEncyclopedia;
             @Encyclopedia.performed -= instance.OnEncyclopedia;
             @Encyclopedia.canceled -= instance.OnEncyclopedia;
+            @Quest.started -= instance.OnQuest;
+            @Quest.performed -= instance.OnQuest;
+            @Quest.canceled -= instance.OnQuest;
         }
 
         /// <summary>
@@ -1732,6 +1787,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEncyclopedia(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Quest" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuest(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

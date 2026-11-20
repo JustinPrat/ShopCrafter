@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0a8be6046e4794aa8723a1bba55c72, type: 3}
   m_Name: Cinematic1ScreenshakeCinemachineActionData
   m_EditorClassIdentifier: SequencerCinemachine::Sequencer.Actions.ScreenshakeCinemachineActionData
-  ImpulsePower: 0.5
+  ImpulsePower: 1

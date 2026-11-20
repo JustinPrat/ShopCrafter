@@ -136,40 +136,16 @@ public class DialogueData : ScriptableObject
     [Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsColor))]
     public Color TMPColor = Color.white;
 
-    [Dropdown(nameof(GetTMPIconNames)), Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsIcon)), OnValueChanged(nameof(UpdateIconPreview))]
+    [TMPIconSelector, Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsIcon))]
     public string TMPIconName;
 
-    [Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsIcon)), DisableInEditMode, PreviewObject]
+    [Group("texttool"), PropertySpace(SpaceAfter = 10), ShowIf(nameof(TMPTypeIsIcon)), ReadOnly, PreviewObject]
     public Sprite preview;
 
-    private bool TMPTypeIsEvent () => tmpType == TMPType.Event;
-    private bool TMPTypeIsColor () => tmpType == TMPType.Color;
+    private bool TMPTypeIsEvent() => tmpType == TMPType.Event;
+    private bool TMPTypeIsColor() => tmpType == TMPType.Color;
     private bool TMPTypeIsAnimation() => tmpType == TMPType.Animation;
     private bool TMPTypeIsIcon() => tmpType == TMPType.Icon;
-
-    private void UpdateIconPreview()
-    {
-        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/TMPIconData/sprite_sheet");
-
-        int index = spriteAsset.GetSpriteIndexFromName(TMPIconName);
-        preview = spriteAsset.spriteGlyphTable[index].sprite;
-    }
-
-    private string[] GetTMPIconNames()
-    {
-        TMP_SpriteAsset spriteAsset = Resources.Load<TMP_SpriteAsset>("Data/TMPIconData/sprite_sheet");
-
-        if (spriteAsset == null)
-            return new string[0];
-
-        List<string> names = new List<string>();
-        foreach (TMP_SpriteCharacter sprite in spriteAsset.spriteCharacterTable)
-        {
-            names.Add(sprite.name);
-        }
-
-        return names.ToArray();
-    }
 
     private string[] GetTMPAnimNames ()
     {

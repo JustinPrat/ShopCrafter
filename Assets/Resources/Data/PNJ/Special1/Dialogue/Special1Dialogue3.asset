@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Special1Dialogue3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> as-tu le bocal ?
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> as-tu le bocal ?
     Emotion: {fileID: 0}
     Reward:
       mode: 0
@@ -23,19 +23,6 @@ MonoBehaviour:
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui
-    AnswerDialogueData: {fileID: 11400000, guid: ada09a3aee2d73d41b499dc5b893bf9e, type: 2}
-    Reward:
-      mode: 0
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: -2
-    ReplaceMainDialogue: {fileID: 0}
-    Cost:
-      mode: 0
-      unityReference: {fileID: 11400000, guid: 799db0984deb2da4b8a4c5726bfb2061, type: 2}
-      rawReference:
-        rid: -2
   - Line: Aurevoir
     AnswerDialogueData: {fileID: 11400000, guid: aee125867f641e2489cceb6abdf12103, type: 2}
     Reward:

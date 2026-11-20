@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using TNRD;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "QuestInfoSO", menuName = "ScriptableObjects/QuestInfoSO", order = 1)]
+[CreateAssetMenu(fileName = "QuestInfoSO", menuName = "ShopCrafter/Quests/QuestInfoSO", order = 1)]
 public class QuestInfoSO : ScriptableObject, IRewardable
 {
     [field: SerializeField] public string ID { get; private set; }

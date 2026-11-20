@@ -13,28 +13,28 @@ MonoBehaviour:
   m_Name: Special1Dialogue1Rep1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tu es bien curieux.
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> tu es bien curieux.
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> j'aimerais d\xE9fendre ma patrie contre ces abominations."
+  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> j'aimerais d\xE9fendre ma patrie contre ces abominations."
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035>je ne me suis pas engag\xE9<!wait=0.5> pour fabriquer des m\xE9dicaments."
+  - Line: "<!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025>je ne me suis pas engag\xE9<!wait=0.5> pour fabriquer des m\xE9dicaments."
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: <!delay=0.035>Quoi de mieux que vaincre<!delay=0.15> le feu, <!wait=0.5>par le <shake>feu</shake> ?
+  - Line: <!delay=0.025>Quoi de mieux que vaincre<!delay=0.15> le feu, <!wait=0.5>par le <shake>feu</shake> ?
     Emotion: {fileID: 0}
     Reward:
       mode: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
     AnswerDialogueData: {fileID: 11400000, guid: ad774e95f6d399c4bbfffbc23cc87e8c, type: 2}
     Reward:
       mode: 0
-      unityReference: {fileID: 0}
+      unityReference: {fileID: 11400000, guid: 849497cf1f2b5a44889cda2345a69d81, type: 2}
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 0}

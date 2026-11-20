@@ -1,5 +1,3 @@
-using Alchemy.Inspector;
-using System;
 using TNRD;
 using UnityEngine;
 
@@ -14,58 +12,63 @@ public class InteractableWorldSpeech : MonoBehaviour
     [SerializeField]
     private bool textUpdateWhenInteracting;
 
-    private bool isInteracting;
+    private bool isHoldingInteract;
+    private bool isTargeted;
 
     private void Awake()
     {
         interactable.Value.OnTargetedEvent += OnTargetedEvent;
         interactable.Value.OnUnTargetedEvent += OnUnTargetedEvent;
-
-        if (textUpdateWhenInteracting)
-        {
-            interactable.Value.OnStartInteractEvent += OnStartInteract;
-            interactable.Value.OnReleaseInteractEvent += OnReleaseInteract;
-        }
+        interactable.Value.OnStartInteractEvent += OnStartInteract;
+        interactable.Value.OnReleaseInteractEvent += OnReleaseInteract;
     }
 
     private void OnDestroy()
     {
         interactable.Value.OnTargetedEvent -= OnTargetedEvent;
         interactable.Value.OnUnTargetedEvent -= OnUnTargetedEvent;
-
-        if (textUpdateWhenInteracting)
-        {
-            interactable.Value.OnStartInteractEvent -= OnStartInteract;
-            interactable.Value.OnReleaseInteractEvent -= OnReleaseInteract;
-        }
+        interactable.Value.OnStartInteractEvent -= OnStartInteract;
+        interactable.Value.OnReleaseInteractEvent -= OnReleaseInteract;
     }
 
     private void Update()
     {
-        if (isInteracting)
+        if (isHoldingInteract)
         {
             worldSpeech.UpdateSpeech(interactable.Value.InteractText);
+        }
+
+        //Interaction ON and not interacting = ReEnable speech
+        if (!worldSpeech.IsSpeechDisplayed && !interactable.Value.IsInteracting && isTargeted)
+        {
+            worldSpeech.DisplaySpeech(interactable.Value.InteractText, true);
         }
     }
 
     private void OnTargetedEvent(IInteractable interactable)
     {
+        isTargeted = true;
         worldSpeech.DisplaySpeech(interactable.InteractText, true);
     }
 
     private void OnUnTargetedEvent(IInteractable interactable)
     {
         worldSpeech.StopSpeech();
-        isInteracting = false;
+        isHoldingInteract = false;
+        isTargeted = false;
     }
 
     private void OnStartInteract(IInteractable interactable)
     {
-        isInteracting = true;
+        if (textUpdateWhenInteracting)
+            isHoldingInteract = true;
+        else
+            worldSpeech.StopSpeech();
     }
 
     private void OnReleaseInteract(IInteractable interactable)
     {
-        isInteracting = false;
+        if (textUpdateWhenInteracting)
+            isHoldingInteract = false;
     }
 }

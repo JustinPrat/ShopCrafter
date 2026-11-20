@@ -14,49 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestStepTalkToPNJ
   PNJAmount: 3
   needSpecialDialogue: 1
-  specialDialogue:
-    Answers:
-    - Line: parler roger 1
-      AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
-      Reward:
-        mode: 0
-        unityReference: {fileID: 0}
-        rawReference:
-          rid: -2
-      ReplaceMainDialogue: {fileID: 0}
-      Cost:
-        mode: 0
-        unityReference: {fileID: 0}
-        rawReference:
-          rid: -2
-    - Line: parler roger 2
-      AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
-      Reward:
-        mode: 0
-        unityReference: {fileID: 0}
-        rawReference:
-          rid: -2
-      ReplaceMainDialogue: {fileID: 0}
-      Cost:
-        mode: 0
-        unityReference: {fileID: 0}
-        rawReference:
-          rid: -2
-    - Line: parler roger 3
-      AnswerDialogueData: {fileID: 11400000, guid: 6dc44a15d436e88418594cfc513b7193, type: 2}
-      Reward:
-        mode: 0
-        unityReference: {fileID: 0}
-        rawReference:
-          rid: -2
-      ReplaceMainDialogue: {fileID: 0}
-      Cost:
-        mode: 0
-        unityReference: {fileID: 0}
-        rawReference:
-          rid: -2
+  specialDialogueData:
+    TargetSelf: 0
+    PNJTarget: 2
+    Answers: []
   references:
     version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    RefIds: []

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using TNRD;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ReputationBoardView : UIView
@@ -52,6 +53,12 @@ public class ReputationBoardView : UIView
     private void OnDestroy()
     {
         managerRefs.GameEventsManager.milestoneEvents.OnTicketReroll -= OnTicketReroll;
+    }
+
+    protected override void OnInputDeviceChanged()
+    {
+        base.OnInputDeviceChanged();
+        UpdateTicketSelection();
     }
 
     private void OnTicketReroll()
@@ -128,6 +135,33 @@ public class ReputationBoardView : UIView
             BaseTicketUI ticketUI = Instantiate(ticketBehavior.Data.UIPrefab.gameObject, pos).GetComponent<BaseTicketUI>();
             ticketUI.Setup(ticketBehavior);
             baseTicketUIs.Add(ticketUI);
+        }
+
+        UpdateTicketSelection();
+    }
+
+    private void UpdateTicketSelection()
+    {
+        if (managerRefs.InputManager.IsGamepad)
+            SelectClickableTicket();
+        else
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private void SelectClickableTicket()
+    {
+        foreach (BaseTicketUI baseTicketUI in baseTicketUIs)
+        {
+            if (baseTicketUI.CanClick)
+            {
+                Selectable selectable = baseTicketUI.gameObject.GetComponentInChildren<Selectable>();
+
+                if (selectable != null && selectable.interactable)
+                {
+                    EventSystem.current.SetSelectedGameObject(selectable.gameObject);
+                    break;
+                }
+            }
         }
     }
 

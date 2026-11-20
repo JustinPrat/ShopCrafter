@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Special1Dialogue1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> j'ai besoin d'aide ...
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> j'ai besoin d'aide ...
     Emotion: {fileID: 0}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: "<!delay=0.035>M'aiderais-tu \xE0 prot\xE9ger ma <color=#E8FF00FF>cr\xE9ation</color> ?"
+  - Line: "<!delay=0.025>M'aiderais-tu \xE0 prot\xE9ger ma <color=#E8FF00FF>cr\xE9ation</color> ?"
     Emotion: {fileID: 0}
     Reward:
       mode: 0
@@ -60,12 +60,12 @@ MonoBehaviour:
   ReplaceMainDialogue: {fileID: 0}
   EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
-  tmpType: 2
+  tmpType: 3
   TMPAnimationName: sketchy
   TMPEventName: 0
   TMPColor: {r: 0.91291904, g: 1, b: 0, a: 1}
-  TMPIconName: 
-  preview: {fileID: 0}
+  TMPIconName: TextIcons_10
+  preview: {fileID: 1539377348, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
   references:
     version: 2
     RefIds:

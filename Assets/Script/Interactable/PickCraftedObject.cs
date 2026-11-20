@@ -2,44 +2,19 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
+public class PickCraftedObject : BaseWorldInteract, IRewardable
 {
     [SerializeField]
     private CraftedObjectRecipe craftedObjectRecipe;
-
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
-    [SerializeField]
-    private Collider physicCollider;
 
     [SerializeField]
     private Sequencer.Sequencer onPickSequencer;
 
     [SerializeField]
     private SpawnedReward rewardPrefab;
-
-    public bool IsLocked { get; set; }
-
-    public string InteractText => "Take";
-
-    public GameObject GameObject => gameObject;
-
-    public Collider PhysicCollider => physicCollider;
-
     public SpawnedReward RewardPrefab { get => rewardPrefab; set => rewardPrefab = value; }
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         if (playerBrain.Inventory.HasEmptySpace())
             return true;
@@ -47,7 +22,7 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
         return false;
     }
 
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         if (craftedObjectRecipe != null)
         {
@@ -78,8 +53,9 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
 
     private IEnumerator PlayOnPickSequencer(bool isNew)
     {
+        isInteracting = true;
         yield return StartCoroutine(onPickSequencer.ExecuteSequence());
-
+        isInteracting = false;
         ShowNewRewardView(isNew);
         Destroy(gameObject);
     }
@@ -90,24 +66,6 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
         {
             managerRefs.UIManager.ToggleRewardView(true, this);
         }
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
     }
 
     public void OnGetReward(ManagerRefs managerRefs, GameObject giver = null)
@@ -123,10 +81,5 @@ public class PickCraftedObject : MonoBehaviour, IInteractable, IRewardable
             Icon = craftedObjectRecipe.CraftedSprite,
             HighlightColor = craftedObjectRecipe.Rarity.RarityColor
         };
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

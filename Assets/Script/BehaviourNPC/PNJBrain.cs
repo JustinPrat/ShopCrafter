@@ -2,23 +2,23 @@ using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
 using TMPEffects.TMPEvents;
-using TMPro;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PNJBrain : MonoBehaviour, IInteractable
+public class PNJBrain : WorldViewInteract<DialogueView>
 {
     private const string OutsidePosVariable = "OutsidePos";
     private const string ShopPosVariable = "ShopPos";
     private const string ShopDurationVariable = "ShopDuration";
     private const string BuyingPosition = "BuyingObjectPos";
+    private const string PauseForceLeave = "PauseForceLeave";
+    private const string PauseTimeLeave = "PauseTimeLeave";
     #region Variables
 
     [SerializeField] private BehaviorGraphAgent agent;
     [SerializeField] private NavMeshAgent navMeshAgent;
-    [SerializeField] private ManagerRefs managerRefs;
-    [SerializeField] private string interactText;
+    [SerializeField] private Animator animator;
     [SerializeField] private Sprite questIcon;
     [SerializeField] private Collider collider;
     [SerializeField] private WorldSpeech worldSpeech;
@@ -47,16 +47,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
     public bool HasQuest => givenQuests.Count > 0;
     public bool ShouldReturn => PNJRuntime.IsSpecial || HasQuest;
-    public bool IsLocked { get; set; }
-    public Collider PhysicCollider => collider;
-    public GameObject GameObject => gameObject;
     public WorldSpeech WorldSpeech => worldSpeech;
-    public string InteractText => interactText;
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     #endregion
 
@@ -77,14 +68,14 @@ public class PNJBrain : MonoBehaviour, IInteractable
             traitRuntime.OnUpdate(this);
         }
 
-        if (requestOut && agent.BlackboardReference.GetVariable<bool>("PauseLeaving", out BlackboardVariable<bool> pauseLeaving) && !pauseLeaving)
+        if (requestOut && agent.BlackboardReference.GetVariable<bool>(PauseForceLeave, out BlackboardVariable<bool> pauseLeaving) && !pauseLeaving)
         {
             requestOut = false;
             ChangeState(State.GoOut);
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         foreach (IPNJTraitRuntime traitRuntime in PNJRuntime.ActiveTraits)
         {
@@ -97,10 +88,10 @@ public class PNJBrain : MonoBehaviour, IInteractable
         if (pnjOutside != null)
             pnjOutside.Value.Event -= OnPNJOutside;
 
-        managerRefs.GameEventsManager.questEvents.onFinishQuest -= OnFinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest -= OnFinishQuest;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay -= ForceDayEnd;
 
-        OnDestroyEvent?.Invoke(this);
+        base.OnDestroy();
     }
 
     [Button]
@@ -123,13 +114,18 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
         transform.name = PNJRuntime.Identity.Name;
         currentMainDialogue = PNJRuntime.Identity.Dialogue;
+        
+        if (PNJRuntime.Identity.Controller != null)
+        {
+            animator.runtimeAnimatorController = PNJRuntime.Identity.Controller;
+        }
 
         Agent.SetVariableValue<Vector3>(OutsidePosVariable, managerRefs.PNJManager.PnjSpawnOutside);
         Agent.SetVariableValue<Vector3>(ShopPosVariable, managerRefs.PNJManager.PnjShopStop);
         Agent.SetVariableValue<float>(ShopDurationVariable, PNJRuntime.ShopStayDuration);
 
-        managerRefs.GameEventsManager.questEvents.onFinishQuest += OnFinishQuest;
-        managerRefs.GameEventsManager.questEvents.onQuestStateChange += OnQuestStateChange;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest += OnFinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnQuestStateChange += OnQuestStateChange;
         managerRefs.GameEventsManager.dayEvents.OnNearEndDay += ForceDayEnd;
     }
 
@@ -169,12 +165,20 @@ public class PNJBrain : MonoBehaviour, IInteractable
     }
 
     [Button]
-    public void SetPauseShopLeaving(bool isPaused)
+    public void SetPauseTimeLeave(bool isPaused)
     {
         if (agent == null)
             return;
 
-        agent.SetVariableValue<bool>("PauseLeaving", isPaused);
+        agent.SetVariableValue<bool>(PauseTimeLeave, isPaused);
+    }
+
+    public void SetPauseForceLeave(bool isPaused)
+    {
+        if (agent == null)
+            return;
+
+        agent.SetVariableValue<bool>(PauseForceLeave, isPaused);
     }
 
     #endregion
@@ -189,7 +193,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
         if (givenQuests.Count > 0)
         {
-            SetPauseShopLeaving(true);
+            SetPauseTimeLeave(true);
         }
     }
 
@@ -219,7 +223,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
 
     private void OnQuestStateChange(Quest quest)
     {
-        if (givenQuests.Contains(quest.info) && quest.state == QuestState.CAN_FINISH)
+        if (givenQuests.Contains(quest.Info) && quest.State == QuestState.CAN_FINISH)
         {
             worldSpeech.DisplaySpeech("?", true);
         }
@@ -233,7 +237,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
             {
                 givenQuests.Remove(questInfo);
                 if (givenQuests.Count <= 0)
-                    SetPauseShopLeaving(false);
+                    SetPauseTimeLeave(false);
                 break;
             }
         }
@@ -248,7 +252,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         foreach (QuestInfoSO questInfo in givenQuests)
         {
             Quest quest = managerRefs.QuestManager.GetQuestById(questInfo.ID);
-            if (quest.state == QuestState.CAN_FINISH)
+            if (quest.State == QuestState.CAN_FINISH)
             {
                 data = quest;
                 return true;
@@ -278,33 +282,34 @@ public class PNJBrain : MonoBehaviour, IInteractable
         managerRefs.PNJManager.RemovePnj(this);
     }
 
-    public void StartInteract(PlayerBrain playerBrain)
+    #region IInteractable
+
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         foreach (IPNJTraitRuntime trait in PNJRuntime.ActiveTraits)
         {
             trait.OnInteract(this);
         }
 
-        if (TryGetRedeemQuest(out Quest data) && data.info.FinishedDialogueData != null)
+        if (TryGetRedeemQuest(out Quest data) && data.Info.FinishedDialogueData != null)
         {
-            ManagerRefs.GameEventsManager.questEvents.FinishQuest(data.info.ID);
-            ManagerRefs.DialogueManager.StartDialogue(data.info.FinishedDialogueData, this);
+            ManagerRefs.GameEventsManager.questEvents.FinishQuest(data.Info.ID);
+            ManagerRefs.DialogueManager.StartDialogue(data.Info.FinishedDialogueData, this);
 
-            if (data.info.ReplaceDialogueData != null)
+            if (data.Info.ReplaceDialogueData != null)
             {
-                ChangeMainDialogue(data.info.ReplaceDialogueData);
+                ChangeMainDialogue(data.Info.ReplaceDialogueData);
             }
         }
         else
         {
             ManagerRefs.DialogueManager.StartDialogue(currentMainDialogue, this);
-            //PNJRuntime.IsSpecial = false;
         }
 
-        OnStartInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
     }
 
-    public bool CanInteract(PlayerBrain playerBrain)
+    public override bool CanInteract(PlayerBrain playerBrain)
     {
         if (agent.BlackboardReference.GetVariable<State>("ActualState", out BlackboardVariable<State> state))
         {
@@ -314,7 +319,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
             if (vectorToPlayer.magnitude <= interactStopMaxDistance && state.Value != State.GoOut && state.Value != State.Buying)
             {
                 agent.SetVariableValue<State>("ActualState", State.Stop);
-                SetPauseShopLeaving(true);
+                SetPauseTimeLeave(true);
             }
 
             return state.Value == State.RoamingAround || state.Value == State.Stop;
@@ -323,7 +328,7 @@ public class PNJBrain : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void UnTargeted(PlayerBrain playerBrain)
+    public override void UnTargeted(PlayerBrain playerBrain)
     {
         mainRenderer.material = baseMat;
 
@@ -332,29 +337,18 @@ public class PNJBrain : MonoBehaviour, IInteractable
             agent.SetVariableValue<State>("ActualState", State.RoamingAround);
             if (givenQuests.Count <= 0)
             {
-                SetPauseShopLeaving(false);
+                SetPauseTimeLeave(false);
             }
         }
 
-        OnUnTargetedEvent?.Invoke(this);
+        base.UnTargeted(playerBrain);
     }
 
-    public void OnTargeted(PlayerBrain playerBrain)
+    public override void OnTargeted(PlayerBrain playerBrain)
     {
-        OnTargetedEvent?.Invoke(this);
+        base.OnTargeted(playerBrain);
         mainRenderer.material = outlineMat != null ? outlineMat : baseMat;
     }
 
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
-    }
+    #endregion
 }

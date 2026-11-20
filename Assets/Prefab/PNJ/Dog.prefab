@@ -57,7 +57,7 @@ MonoBehaviour:
   interactText: DOG
   questIcon: {fileID: 2876555108532849410, guid: 907200b27d9f6e04ea24f52a4c484b1e, type: 3}
   collider: {fileID: 9055680474981931885}
-  worldSpeech: {fileID: 0}
+  worldSpeech: {fileID: 996635712158202431}
   startData: {fileID: 11400000, guid: 4757abb977cb6f547b96c8115a72ac95, type: 2}
   interactStopMaxDistance: 0.5
   outlineMat: {fileID: 2100000, guid: 887036bf43d2bf744aca476ab9329c88, type: 2}
@@ -412,6 +412,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2222885dcb312f5499a0156d94307310, type: 3}
+--- !u!114 &996635712158202431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 489523964967780336, guid: 2222885dcb312f5499a0156d94307310, type: 3}
+  m_PrefabInstance: {fileID: 801607290931742159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e3f0b0c4b144a46a645f5d24420089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpeech
 --- !u!224 &6333048821406377924 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6700340077211132427, guid: 2222885dcb312f5499a0156d94307310, type: 3}

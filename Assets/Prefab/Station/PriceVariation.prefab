@@ -111,9 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244b432e3728096429f881394c60447b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicCollider: {fileID: 4228842159189514245}
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   interactText: Price Variation
-  collider: {fileID: 4228842159189514245}
 --- !u!65 &4228842159189514245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: ffffffffi
 --- !u!1 &4082109496154899233
 GameObject:
   m_ObjectHideFlags: 0

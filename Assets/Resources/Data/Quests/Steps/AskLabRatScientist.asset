@@ -15,6 +15,8 @@ MonoBehaviour:
   PNJAmount: 3
   needSpecialDialogue: 1
   specialDialogueData:
+    TargetSelf: 0
+    PNJTarget: 2
     Answers:
     - Line: Want to join lab ?
       AnswerDialogueData: {fileID: 11400000, guid: 8c23c6715f0a8b743b34239b91d945cc, type: 2}
@@ -55,6 +57,9 @@ MonoBehaviour:
         unityReference: {fileID: 0}
         rawReference:
           rid: 350563928688033918
+  stepDisplayData:
+    Name: Lab Rat
+    Description: Ask consumers to become lab rats
   references:
     version: 2
     RefIds:
@@ -64,3 +69,4 @@ MonoBehaviour:
       type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
       data:
         Amount: 5
+        rewardPrefab: {fileID: 0}

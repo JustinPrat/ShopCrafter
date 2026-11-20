@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Special1Dialogue3Rep1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> merci, je te donne cette puissance de l'ancien monde
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> merci, je te donne cette puissance de l'ancien monde
     Emotion: {fileID: 0}
     Reward:
       mode: 0

@@ -1,4 +1,4 @@
-using Coffee.UIEffects;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +55,9 @@ public class UIManager : MonoBehaviour
     private GameObject blackBarsViewPrefab;
 
     [SerializeField]
+    private GameObject questViewPrefab;
+
+    [SerializeField]
     private Canvas canvas;
 
     [SerializeField]
@@ -75,11 +78,13 @@ public class UIManager : MonoBehaviour
     private RewardView rewardViewInstance;
     private ReputationBoardView reputationBoardViewInstance;
     private BlackBarsView blackBarsViewInstance;
+    private QuestView questViewInstance;
 
     private List<UIView> focusList = new List<UIView>();
     public UIView CurrentFocus => focusList.Last();
 
     public DialogueView DialogueView => dialogueViewInstance;
+    public Action<UIView> OnViewClosed;
 
     private void Awake()
     {
@@ -128,6 +133,9 @@ public class UIManager : MonoBehaviour
 
         blackBarsViewInstance = Instantiate(blackBarsViewPrefab, canvas.transform).GetComponent<BlackBarsView>();
         blackBarsViewInstance.gameObject.SetActive(false);
+
+        questViewInstance = Instantiate(questViewPrefab, canvas.transform).GetComponent<QuestView>();
+        questViewInstance.gameObject.SetActive(false);
 
         dialogueViewInstance.transform.SetAsLastSibling();
 
@@ -192,6 +200,9 @@ public class UIManager : MonoBehaviour
         ExecuteAfterOneFrame(() =>
         {
             inventoryViewInstance.Toggle(isOn);
+
+            if (!isOn)
+                OnViewClosed?.Invoke(inventoryViewInstance);
         });
     }
 
@@ -201,6 +212,9 @@ public class UIManager : MonoBehaviour
         {
             UpdateFocus(isOn, materialInventoryViewInstance);
             materialInventoryViewInstance.Toggle(isOn);
+
+            if (!isOn)
+                OnViewClosed?.Invoke(materialInventoryViewInstance);
         });
     }
 
@@ -228,6 +242,7 @@ public class UIManager : MonoBehaviour
                     }
 
                     ShowUIVisualy();
+                    OnViewClosed?.Invoke(rewardViewInstance);
                 }
             }
             else
@@ -237,6 +252,17 @@ public class UIManager : MonoBehaviour
             }
 
             UpdateFocus(isOn, rewardViewInstance);
+        });
+    }
+
+    public void ToggleQuestView(bool isOn)
+    {
+        ExecuteAfterOneFrame(() =>
+        {
+            questViewInstance.Toggle(isOn);
+
+            if (!isOn)
+                OnViewClosed?.Invoke(questViewInstance);
         });
     }
 
@@ -258,6 +284,8 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Cancel.Disable();
+
+                OnViewClosed?.Invoke(reputationBoardViewInstance);
             }
         });
     }
@@ -280,6 +308,7 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
+                OnViewClosed?.Invoke(endDayViewInstance);
             }
         });
     }
@@ -289,6 +318,9 @@ public class UIManager : MonoBehaviour
         ExecuteAfterOneFrame(() =>
         {
             startDayViewInstance.Toggle(isOn);
+
+            if (!isOn)
+                OnViewClosed?.Invoke(startDayViewInstance);
         });
     }
 
@@ -297,6 +329,9 @@ public class UIManager : MonoBehaviour
         ExecuteAfterOneFrame(() =>
         {
             blackBarsViewInstance.Toggle(isOn);
+
+            if (!isOn)
+                OnViewClosed?.Invoke(blackBarsViewInstance);
         });
     }
 
@@ -318,6 +353,8 @@ public class UIManager : MonoBehaviour
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
                 managerRefs.InputManager.Actions.UI.Cancel.Disable();
+
+                OnViewClosed?.Invoke(encyclopedieViewInstance);
             }
         });
     }
@@ -342,6 +379,8 @@ public class UIManager : MonoBehaviour
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
                 managerRefs.InputManager.Actions.UI.Cancel.Disable();
+
+                OnViewClosed?.Invoke(craftingViewInstance);
             }
         });
     }
@@ -372,6 +411,8 @@ public class UIManager : MonoBehaviour
             managerRefs.InputManager.SetActionType(true, true, true);
             managerRefs.InputManager.Actions.UI.Submit.Disable();
             managerRefs.InputManager.Actions.UI.Cancel.Disable();
+
+            OnViewClosed?.Invoke(miniGameViewInstance);
         });
     }
 
@@ -396,6 +437,7 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
+                OnViewClosed?.Invoke(cardTagViewInstance);
             }
         });
     }
@@ -420,6 +462,7 @@ public class UIManager : MonoBehaviour
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
                 managerRefs.InputManager.Actions.UI.Cancel.Disable();
+                OnViewClosed?.Invoke(dialogueViewInstance);
             }
         });
     }
@@ -442,6 +485,7 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1f;
                 managerRefs.InputManager.SetActionType(true, true, true);
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
+                OnViewClosed?.Invoke(dialogueViewInstance);
             }
         });
     }
@@ -464,6 +508,8 @@ public class UIManager : MonoBehaviour
                 managerRefs.InputManager.Actions.Player.Enable();
                 managerRefs.InputManager.Actions.UI.Submit.Disable();
                 managerRefs.InputManager.Actions.UI.Cancel.Disable();
+
+                OnViewClosed?.Invoke(shopViewInstance);
             }
         });
     }
@@ -476,6 +522,10 @@ public class UIManager : MonoBehaviour
         {
             craftedStatViewInstance.Setup(craftedObjectData, pos);
         }
+        else
+        {
+            OnViewClosed?.Invoke(craftedStatViewInstance);
+        }
     }
 
     public void TogglePriceCheckView (bool isOn, Vector3 pos = new Vector3())
@@ -485,6 +535,10 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             priceCheckViewInstance.Setup(pos);
+        }
+        else
+        {
+            OnViewClosed?.Invoke(priceCheckViewInstance);
         }
     }
 

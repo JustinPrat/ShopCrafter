@@ -1,4 +1,3 @@
-using Coffee.UIEffects;
 using UnityEngine;
 
 public interface IRewardable

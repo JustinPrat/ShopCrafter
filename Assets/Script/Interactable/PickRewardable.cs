@@ -1,19 +1,12 @@
-using System;
 using System.Collections.Generic;
 using TNRD;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PickRewardable : MonoBehaviour, IInteractable
+public class PickRewardable : BaseWorldInteract
 {
     [SerializeField]
     private List<SerializableInterface<IRewardable>> rewardsSerialized;
-
-    [SerializeField]
-    private Collider physicCollider;
-
-    [SerializeField]
-    private ManagerRefs managerRefs;
 
     [SerializeField]
     private CinemachineImpulseSource cinemachineImpulseSource;
@@ -22,20 +15,6 @@ public class PickRewardable : MonoBehaviour, IInteractable
     private RewardSpawner rewardSpawner;
 
     private List<IRewardable> rewards = new List<IRewardable>();
-
-    public bool IsLocked { get; set; }
-
-    public string InteractText => "Take";
-
-    public GameObject GameObject => gameObject;
-
-    public Collider PhysicCollider => physicCollider;
-
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
 
     private void Awake()
     {
@@ -58,12 +37,7 @@ public class PickRewardable : MonoBehaviour, IInteractable
         rewards.Add(rewardable);
     }
 
-    public bool CanInteract(PlayerBrain playerBrain)
-    {
-        return true;
-    }
-
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         if (rewards.Count <= 0)
             return;
@@ -80,36 +54,8 @@ public class PickRewardable : MonoBehaviour, IInteractable
             rewardSpawner.Spawn(reward);
         }
 
-        OnStartInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
         cinemachineImpulseSource.GenerateImpulse(0.2f);
         Destroy(gameObject);
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
-    {
-        OnTargetedEvent?.Invoke(this);
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
-    }
-
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
-    }
-
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OutInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

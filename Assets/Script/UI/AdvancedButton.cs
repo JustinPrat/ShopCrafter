@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -14,6 +15,12 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 
     public Action<AdvancedButton> OnSelected;
     public Action<AdvancedButton> OnDeselected;
+
+    public UnityEvent OnTransitionNormal;
+    public UnityEvent OnTransitionHighlighted;
+    public UnityEvent OnTransitionPressed;
+    public UnityEvent OnTransitionSelected;
+    public UnityEvent OnTransitionDisabled;
 
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -83,30 +90,35 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
         switch (state)
         {
             case SelectionState.Normal:
+                OnTransitionNormal?.Invoke();
                 if (toggleDebug)
                 {
                     Debug.Log("Normal");
                 }
                 break;
             case SelectionState.Highlighted:
+                OnTransitionHighlighted?.Invoke();
                 if (toggleDebug)
                 {
                     Debug.Log("Highlighted");
                 }
                 break;
             case SelectionState.Pressed:
+                OnTransitionPressed?.Invoke();
                 if (toggleDebug)
                 {
                     Debug.Log("Pressed");
                 }
                 break;
             case SelectionState.Selected:
+                OnTransitionSelected?.Invoke();
                 if (toggleDebug)
                 {
                     Debug.Log("Selected");
                 }
                 break;
             case SelectionState.Disabled:
+                OnTransitionDisabled?.Invoke();
                 if (toggleDebug)
                 {
                     Debug.Log("Disabled");

@@ -1,34 +1,12 @@
-using System;
 using UnityEngine;
 
-public class ReputationBoardInteract : MonoBehaviour, IInteractable
+public class ReputationBoardInteract : WorldViewInteract<ReputationBoardView>
 {
-    [SerializeField]
-    private Collider physicCollider;
-
-    [SerializeField]
-    private ManagerRefs managerRefs;
-
     [SerializeField]
     private WorldSpeech worldSpeech;
 
     [SerializeField]
     private string reputationReadyText = "?";
-
-    public bool IsLocked { get; set; }
-
-    public string InteractText => "Reputation";
-
-    public GameObject GameObject => gameObject;
-
-    public Collider PhysicCollider => physicCollider;
-
-    public Action<IInteractable> OnDestroyEvent { get; set; }
-    public Action<IInteractable> OnTargetedEvent { get; set; }
-    public Action<IInteractable> OnUnTargetedEvent { get; set; }
-    public Action<IInteractable> OnStartInteractEvent { get; set; }
-    public Action<IInteractable> OnReleaseInteractEvent { get; set; }
-
     private bool milestoneReady;
     private bool isTargeted;
 
@@ -53,47 +31,33 @@ public class ReputationBoardInteract : MonoBehaviour, IInteractable
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        OnDestroyEvent?.Invoke(this);
-
+        base.OnDestroy();
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReady -= OnMilestoneReady;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached -= OnMilestoneReached;
     }
 
-    public bool CanInteract(PlayerBrain playerBrain)
-    {
-        return true;
-    }
-
-    public void StartInteract(PlayerBrain playerBrain)
+    public override void StartInteract(PlayerBrain playerBrain)
     {
         managerRefs.UIManager.ToggleReputationBoardView(true);
-        OnStartInteractEvent?.Invoke(this);
+        base.StartInteract(playerBrain);
     }
 
-    public void OnInteractRange(PlayerBrain playerBrain)
-    {
-    }
-
-    public void OnTargeted(PlayerBrain playerBrain)
+    public override void OnTargeted(PlayerBrain playerBrain)
     {
         if (milestoneReady)
         {
             worldSpeech.StopSpeech();
         }
 
-        OnTargetedEvent?.Invoke(this);
+        base.OnTargeted(playerBrain);
         isTargeted = true;
     }
 
-    public void OutInteractRange(PlayerBrain playerBrain)
+    public override void UnTargeted(PlayerBrain playerBrain)
     {
-    }
-
-    public void UnTargeted(PlayerBrain playerBrain)
-    {
-        OnUnTargetedEvent?.Invoke(this);
+        base.UnTargeted(playerBrain);
 
         if (milestoneReady)
         {
@@ -101,10 +65,5 @@ public class ReputationBoardInteract : MonoBehaviour, IInteractable
         }
 
         isTargeted = false;
-    }
-
-    public void ReleaseInteract(PlayerBrain playerBrain)
-    {
-        OnReleaseInteractEvent?.Invoke(this);
     }
 }

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5039e4ab4091d7840b98719334bfcc21, type: 3}
+  m_Name: CinematicDynamiteDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  Lines:
+  - Line: 'Ces armes de destructions,<!wait=0.5> ne devrait pas exister '
+    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: "d\xE9truite"
+    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: <color=#FF0000FF><shake>DETRUITE</shake></color>
+    Emotion: {fileID: 11400000, guid: 76b73f1ec43b671418ce29540c6d80c9, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  HasQuestion: 0
+  HasNextDialogue: 0
+  Answers: []
+  NextDialogue: {fileID: 0}
+  ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 11400000, guid: 2278295be1040a84e98327dc779d11e4, type: 2}
+  TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
+  tmpType: 0
+  TMPAnimationName: shake
+  TMPEventName: 0
+  TMPColor: {r: 1, g: 0, b: 0, a: 1}
+  TMPIconName: sprite_sheet_77
+  preview: {fileID: 3473229518826515513, guid: dfb9e93211f917341a9e6ddb6ba3e287, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

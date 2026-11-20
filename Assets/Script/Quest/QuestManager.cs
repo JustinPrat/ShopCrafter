@@ -19,7 +19,7 @@ public partial class QuestManager : MonoBehaviour
     [SerializeField]
     private List<QuestInfoSO> quests;
 
-    [AlchemySerializeField, NonSerialized, DisableInEditMode]
+    [SerializeField, DisableInEditMode]
     private Dictionary<string, Quest> questMap;
 
 #if UNITY_EDITOR
@@ -46,35 +46,37 @@ public partial class QuestManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        managerRefs.GameEventsManager.questEvents.onStartQuest -= StartQuest;
-        managerRefs.GameEventsManager.questEvents.onAdvanceQuest -= AdvanceQuest;
-        managerRefs.GameEventsManager.questEvents.onFinishQuest -= FinishQuest;
-        managerRefs.GameEventsManager.questEvents.onQuestStepStateChange -= QuestStepStateChange;
+        managerRefs.GameEventsManager.questEvents.OnStartQuest -= StartQuest;
+        managerRefs.GameEventsManager.questEvents.OnAdvanceQuest -= AdvanceQuest;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest -= FinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
     }
 
     private void Start()
     {
-        managerRefs.GameEventsManager.questEvents.onStartQuest += StartQuest;
-        managerRefs.GameEventsManager.questEvents.onAdvanceQuest += AdvanceQuest;
-        managerRefs.GameEventsManager.questEvents.onFinishQuest += FinishQuest;
-        managerRefs.GameEventsManager.questEvents.onQuestStepStateChange += QuestStepStateChange;
+        managerRefs.GameEventsManager.questEvents.OnStartQuest += StartQuest;
+        managerRefs.GameEventsManager.questEvents.OnAdvanceQuest += AdvanceQuest;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest += FinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnQuestStepStateChange += QuestStepStateChange;
 
         foreach (Quest quest in questMap.Values)
         {
             // initialize any loaded quest steps
-            if (quest.state == QuestState.IN_PROGRESS)
+            if (quest.State == QuestState.IN_PROGRESS)
             {
                 quest.InstantiateCurrentQuestStep();
             }
             // broadcast the initial state of all quests on startup
             managerRefs.GameEventsManager.questEvents.QuestStateChange(quest);
         }
+
+        managerRefs.UIManager.ToggleQuestView(true);
     }
 
     private void ChangeQuestState(string id, QuestState state)
     {
         Quest quest = GetQuestById(id);
-        quest.state = state;
+        quest.State = state;
         managerRefs.GameEventsManager.questEvents.QuestStateChange(quest);
     }
 
@@ -83,7 +85,7 @@ public partial class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         quest.StartQuest(owner);
         quest.InstantiateCurrentQuestStep();
-        ChangeQuestState(quest.info.ID, QuestState.IN_PROGRESS);
+        ChangeQuestState(quest.Info.ID, QuestState.IN_PROGRESS);
     }
 
     private void AdvanceQuest(string id)
@@ -94,16 +96,17 @@ public partial class QuestManager : MonoBehaviour
         if (quest.CurrentStepExists())
         {
             quest.InstantiateCurrentQuestStep();
+            managerRefs.GameEventsManager.questEvents.QuestStepComplete(quest);
         }
         else
         {
-            if (quest.info.NeedFinishInteraction)
+            if (quest.Info.NeedFinishInteraction)
             {
-                ChangeQuestState(quest.info.ID, QuestState.CAN_FINISH);
+                ChangeQuestState(quest.Info.ID, QuestState.CAN_FINISH);
             }
             else
             {
-                FinishQuest(quest.info.ID);
+                FinishQuest(quest.Info.ID);
             }
         }
     }
@@ -112,12 +115,12 @@ public partial class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
-        ChangeQuestState(quest.info.ID, QuestState.FINISHED);
+        ChangeQuestState(quest.Info.ID, QuestState.FINISHED);
     }
 
     private void ClaimRewards(Quest quest)
     {
-        foreach (SerializableInterface<IRewardable> reward in quest.info.Rewards)
+        foreach (SerializableInterface<IRewardable> reward in quest.Info.Rewards)
         {
             if (reward.Value != null)
             {
@@ -130,7 +133,7 @@ public partial class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
         quest.StoreQuestStepState(questStepState, stepIndex);
-        ChangeQuestState(id, quest.state);
+        ChangeQuestState(id, quest.State);
     }
 
     private Dictionary<string, Quest> CreateQuestMap()
@@ -175,11 +178,11 @@ public partial class QuestManager : MonoBehaviour
             // saving to PlayerPrefs is just a quick example for this tutorial video,
             // you probably don't want to save this info there long-term.
             // instead, use an actual Save & Load system and write to a file, the cloud, etc..
-            PlayerPrefs.SetString(quest.info.ID, serializedData);
+            PlayerPrefs.SetString(quest.Info.ID, serializedData);
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Failed to save quest with id " + quest.info.ID + ": " + e);
+            Debug.LogError("Failed to save quest with id " + quest.Info.ID + ": " + e);
         }
     }
 
@@ -201,7 +204,7 @@ public partial class QuestManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Failed to load quest with id " + quest.info.ID + ": " + e);
+            Debug.LogError("Failed to load quest with id " + quest.Info.ID + ": " + e);
         }
         return quest;
     }

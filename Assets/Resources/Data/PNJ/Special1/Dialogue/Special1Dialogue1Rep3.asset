@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Special1Dialogue1Rep3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.035> tu veux bien m'aider finalement ?
+  - Line: <!delay=0.15>Mmmmh,<!wait=0.5><!delay=0.025> tu veux bien m'aider finalement ?
     Emotion: {fileID: 0}
     Reward:
       mode: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     AnswerDialogueData: {fileID: 11400000, guid: ad774e95f6d399c4bbfffbc23cc87e8c, type: 2}
     Reward:
       mode: 0
-      unityReference: {fileID: 0}
+      unityReference: {fileID: 11400000, guid: 849497cf1f2b5a44889cda2345a69d81, type: 2}
       rawReference:
         rid: -2
     ReplaceMainDialogue: {fileID: 0}

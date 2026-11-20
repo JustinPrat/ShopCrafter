@@ -28,6 +28,7 @@ public class ToggleActivation : MonoBehaviour, IInteractable
     public Action<IInteractable> OnUnTargetedEvent { get; set; }
     public Action<IInteractable> OnStartInteractEvent { get; set; }
     public Action<IInteractable> OnReleaseInteractEvent { get; set; }
+    public bool IsInteracting => false;
 
     protected virtual void Start()
     {
