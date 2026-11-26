@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TagSelectionFadeINData
   m_EditorClassIdentifier: Sequencer::Sequencer.Actions.CanvasGroupActionData
   TargetValue: 1
-  Duration: 0.2
+  Duration: 0.1
   Curve:
     serializedVersion: 2
     m_Curve:

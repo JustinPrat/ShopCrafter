@@ -1,13 +1,11 @@
 using Alchemy.Inspector;
 using Alchemy.Serialization;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TNRD;
 using UnityEngine;
 
 [AlchemySerialize]
-public partial class QuestManager : MonoBehaviour
+public partial class QuestManager : MonoBehaviour, IInitializableManager
 {
     [Header("Config")]
     [SerializeField] 
@@ -38,22 +36,15 @@ public partial class QuestManager : MonoBehaviour
 
 #endif
 
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.QuestManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
         questMap = CreateQuestMap();
-    }
 
-    private void OnDestroy()
-    {
-        managerRefs.GameEventsManager.questEvents.OnStartQuest -= StartQuest;
-        managerRefs.GameEventsManager.questEvents.OnAdvanceQuest -= AdvanceQuest;
-        managerRefs.GameEventsManager.questEvents.OnFinishQuest -= FinishQuest;
-        managerRefs.GameEventsManager.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
-    }
-
-    private void Start()
-    {
         managerRefs.GameEventsManager.questEvents.OnStartQuest += StartQuest;
         managerRefs.GameEventsManager.questEvents.OnAdvanceQuest += AdvanceQuest;
         managerRefs.GameEventsManager.questEvents.OnFinishQuest += FinishQuest;
@@ -73,6 +64,13 @@ public partial class QuestManager : MonoBehaviour
         managerRefs.UIManager.ToggleQuestView(true);
     }
 
+    private void OnDestroy()
+    {
+        managerRefs.GameEventsManager.questEvents.OnStartQuest -= StartQuest;
+        managerRefs.GameEventsManager.questEvents.OnAdvanceQuest -= AdvanceQuest;
+        managerRefs.GameEventsManager.questEvents.OnFinishQuest -= FinishQuest;
+        managerRefs.GameEventsManager.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
+    }
     private void ChangeQuestState(string id, QuestState state)
     {
         Quest quest = GetQuestById(id);

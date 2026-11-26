@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -86,13 +86,17 @@ public class UIManager : MonoBehaviour
     public DialogueView DialogueView => dialogueViewInstance;
     public Action<UIView> OnViewClosed;
 
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.UIManager = this;
-        craftingViewInstance = Instantiate(craftingViewPrefab).GetComponent<CraftingView>();
+    }
+
+    public void Init(ManagerRefs refs)
+    {
+        craftingViewInstance = Instantiate(craftingViewPrefab, transform).GetComponent<CraftingView>();
         craftingViewInstance.gameObject.SetActive(false);
 
-        miniGameViewInstance = Instantiate(miniGameViewPrefab).GetComponent<MiniGameView>();
+        miniGameViewInstance = Instantiate(miniGameViewPrefab, transform).GetComponent<MiniGameView>();
         miniGameViewInstance.gameObject.SetActive(false);
 
         cardTagViewInstance = Instantiate(cardTagViewPrefab, canvas.transform).GetComponent<CardTagView>();
@@ -107,13 +111,13 @@ public class UIManager : MonoBehaviour
         shopViewInstance = Instantiate(shopViewPrefab, canvas.transform).GetComponent<ShopView>();
         shopViewInstance.gameObject.SetActive(false);
 
-        craftedStatViewInstance = Instantiate(craftedStatViewPrefab).GetComponent<CraftedStatView>();
+        craftedStatViewInstance = Instantiate(craftedStatViewPrefab, transform).GetComponent<CraftedStatView>();
         craftedStatViewInstance.gameObject.SetActive(false);
 
         encyclopedieViewInstance = Instantiate(encyclopedieViewPrefab, canvas.transform).GetComponent<EncyclopedieView>();
         encyclopedieViewInstance.gameObject.SetActive(false);
 
-        priceCheckViewInstance = Instantiate(priceCheckViewPrefab).GetComponent<PriceCheckView>();
+        priceCheckViewInstance = Instantiate(priceCheckViewPrefab, transform).GetComponent<PriceCheckView>();
         priceCheckViewInstance.gameObject.SetActive(false);
 
         endDayViewInstance = Instantiate(endDayViewPrefab, canvas.transform).GetComponent<EndDayView>();
@@ -385,13 +389,14 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    public void ShowMiniGameView(CraftingTable craftingTable, CraftedObjectData data, Vector3 pos = new Vector3())
+    public void ShowMiniGameView(CraftingTable craftingTable, List<TagValue> tagValues, CraftedObjectData data, Vector3 pos = new Vector3())
     {
+        miniGameViewInstance.CurrentCraftingTable = craftingTable;
+        miniGameViewInstance.Setup(data, tagValues);
+
         ExecuteAfterOneFrame(() =>
         {
             UpdateFocus(true, miniGameViewInstance);
-            miniGameViewInstance.CurrentCraftingTable = craftingTable;
-            miniGameViewInstance.Setup(data);
             miniGameViewInstance.Toggle(true);
 
             miniGameViewInstance.transform.position = pos + 1f * Vector3.up;

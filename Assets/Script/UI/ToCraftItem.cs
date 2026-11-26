@@ -15,12 +15,7 @@ public class ToCraftItem : MonoBehaviour
     private TextMeshProUGUI itemName;
 
     [SerializeField]
-    private Button validateButton;
-
-    [SerializeField]
     private float shadowSpeed = 1;
-
-    public Button ValidateButton => validateButton;
 
     private float targetShadowFade;
 

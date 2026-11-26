@@ -46,7 +46,7 @@ namespace Sequencer.Actions
 
                 while (timer < data.Duration)
                 {
-                    timer += Time.deltaTime;
+                    timer += Time.unscaledDeltaTime;
                     image.color = Color.LerpUnclamped(baseColor, data.Target, data.ColorCurve.Evaluate(timer / data.Duration));
                     yield return null;
                 }

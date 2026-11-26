@@ -21,11 +21,12 @@ public class CraftedObjectRecipe : ScriptableObject, IRewardable, ICost
     public Rarity Rarity;
     public int TargetScore;
 
+#if UNITY_EDITOR
     [OnValueChanged(nameof(UpdateCraftedObjectData))]
+#endif
     public string CraftedName;
     public string CraftedDescription;
     public Sprite CraftedSprite;
-    public BarData BarElementData;
     public TierList TierList;
     public int BasePrice;
     public PresetType UIEffectPreset;
@@ -92,10 +93,10 @@ public class CraftedObjectData
     private ManagerRefs managerRefs;
     private ModifiableValue price = new ModifiableValue();
     private bool isNew;
-
     public CraftedObjectRecipe CraftedObjectRecipe => craftedObjectRecipe;
     public Rarity Rarity => craftedObjectRecipe.Rarity;
     public bool IsNew => isNew;
+    public ModifiableValue PriceModifiableValue => price;
 
 
 

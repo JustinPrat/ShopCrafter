@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMetaDataManager : MonoBehaviour
+public class GameMetaDataManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -22,15 +21,13 @@ public class GameMetaDataManager : MonoBehaviour
 
     public bool PlayerInsideTrain => playerInsideTrain;
 
-
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.GameMetaDataManager = this;
     }
 
-    private void Start()
+    public void Init(ManagerRefs refs)
     {
-        //SUB to data changes
         managerRefs.GameEventsManager.OnMoneyGained += OnMoneyGained;
         managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
         managerRefs.GameEventsManager.craftEvents.OnCraftedItem += OnCraftedItem;
@@ -44,11 +41,12 @@ public class GameMetaDataManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (managerRefs.GameEventsManager)
+        if (managerRefs.GameEventsManager != null)
         {
             managerRefs.GameEventsManager.OnMoneyGained -= OnMoneyGained;
             managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
             managerRefs.GameEventsManager.craftEvents.OnCraftedItem -= OnCraftedItem;
+            managerRefs.GameEventsManager.playerEvents.OnPlayerZoneTrain -= OnPlayerZoneTrain;
         }
     }
 

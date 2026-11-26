@@ -11,7 +11,7 @@ public class UIBillboarding : MonoBehaviour
         if (mainCamera == null)
             mainCamera = Camera.main;
 
-        if (onlyOnEnable)
+        if (onlyOnEnable && mainCamera != null)
             SetRotation();
     }
 

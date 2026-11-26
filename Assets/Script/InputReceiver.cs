@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputReceiver : MonoBehaviour
+public class InputReceiver : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -20,7 +20,7 @@ public class InputReceiver : MonoBehaviour
     private InputSystem_Actions actions;
     private bool isGamepad;
 
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         actions = new InputSystem_Actions();
         actions.Enable();
@@ -37,9 +37,12 @@ public class InputReceiver : MonoBehaviour
             { UIInputType.Submit, actions.UI.Submit }
         };
 
-        managerRefs.InputManager = this;
-
         playerInput.onControlsChanged += OnControlsChanged;
+        managerRefs.InputManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
     }
 
     private void OnControlsChanged(PlayerInput input)

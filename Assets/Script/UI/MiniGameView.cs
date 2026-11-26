@@ -1,17 +1,11 @@
-using Alchemy.Inspector;
-using Coffee.UIEffects;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MiniGameView : UIView
 {
-    [SerializeField]
-    private ParticleSystem stepParticle;
-
     [SerializeField]
     private ToCraftItem toCraftItemHolder;
 
@@ -22,63 +16,84 @@ public class MiniGameView : UIView
     private GameObject targetPrefab;
 
     [SerializeField]
-    private TextMeshProUGUI debugInfos;
-
-    [SerializeField]
     private Image itemImage;
 
     [SerializeField]
     private Transform targetHolder;
 
-    [SerializeField, Blockquote("Entre 0 (gauche) et 1 (droite), définit la range pour la target")]
-    private Vector2 rangeSpawn;
-
-    [SerializeField]
-    private int maxLife;
-
-    [SerializeField]
-    private Sequencer.Sequencer onHitSequence;
-
-    [SerializeField]
-    private LifeHeartUI lifePrefab;
-
-    [SerializeField]
-    private RectTransform lifeParent;
-
-    [SerializeField]
-    private GameObject goodWord;
-
     [SerializeField]
     private PresetType newItemUIEffect;
 
-    private float barCount = 0f;
-    private int tierCount = 0;
-    private float targetPos = 0f;
-    private float currentSpeed = 0f;
-    private GameObject currentTarget;
+    [SerializeField]
+    private TextMeshProUGUI barNumberText;
+
+    [SerializeField]
+    private Sequencer.Sequencer onBarNumberSetSequence;
+
+    [SerializeField]
+    private GameObject gaugeFillPrefab;
+
+    [SerializeField]
+    private RectTransform gaugeFillParent;
+
+    [SerializeField]
+    private Slider gaugeTag;
+
+    [SerializeField]
+    private GameObject finishButton;
+
+    [SerializeField]
+    private Sequencer.Sequencer finishSequence;
+
+    [SerializeField]
+    private Sequencer.Sequencer resetFinishSequence;
+
+    [SerializeField]
+    private RectTransform tutoHolder;
+
     private CraftedObjectData craftedObjectData;
     private BarBehaviour currentBarBehaviour;
-    private TierList currentTierList;
-    private int currentLife;
+    private List<TagValue> tags;
+    private List<TagGaugeUI> tagGaugeUIs = new List<TagGaugeUI>();
+    private int tagGameIndex;
+    private int score;
+    private GameObject animatedTuto;
 
-    private List<LifeHeartUI> lifeHearts = new List<LifeHeartUI>();
-
-    private bool HasTierLeft => tierCount < craftedObjectData.CraftedObjectRecipe.TierList.Tiers.Count;
     public CraftingTable CurrentCraftingTable { get; set; }
+    public GameObject TargetPrefab => targetPrefab;
+    public Slider ProgressBar => progressBar;
 
-    private void Awake()
+    private void Update()
     {
-        currentTarget = Instantiate(targetPrefab, targetHolder);
+        if (!gameObject.activeInHierarchy || currentBarBehaviour == null)
+            return;
+
+        currentBarBehaviour.OnUpdate();
     }
 
-    private void Start()
+    public void SetBarNumber(string text)
     {
-        SpawnLife();
+        barNumberText.text = text;
+
+        if (onBarNumberSetSequence != null)
+            onBarNumberSetSequence.StartSequence();
     }
 
-    private void OnCraftHit (InputAction.CallbackContext ctx)
+    private StatModifier GetScoreBonusModifier(int score, CraftedObjectRecipe recipe)
     {
-        OnItemClick();
+        StatModifier modifier = recipe.Rarity.MaxStatModifier.Clone(recipe.Rarity.MaxStatModifier);
+        modifier.Value *= 1 + (modifier.Value - 1) * Mathf.Min((float)score / recipe.TargetScore, 1);
+
+        return modifier;
+    }
+
+    private void CountScores()
+    {
+        score = 0;
+        foreach (TagValue tag in tags)
+        {
+            score += Mathf.Clamp(tag.Amount.Value, 0, tag.GaugeValue);
+        }
     }
 
     public override void Toggle(bool isOn)
@@ -87,174 +102,234 @@ public class MiniGameView : UIView
 
         if (isOn)
         {
-            tierCount = 0;
-            barCount = 0f;
-            SetLife(maxLife);
-            managerRefs.InputManager.Actions.UI.Submit.started += OnCraftHit;
+            finishButton.SetActive(false);
+            StartTag(tags[0]);
+
+            resetFinishSequence.StartSequence();
         }
         else
         {
-            managerRefs.InputManager.Actions.UI.Submit.started -= OnCraftHit;
+            foreach (TagGaugeUI tagGaugeUI in tagGaugeUIs)
+            {
+                Destroy(tagGaugeUI.gameObject);
+            }
+
+            tagGaugeUIs.Clear();
         }
     }
 
-    public void Setup (CraftedObjectData data)
+    public void Setup (CraftedObjectData data, List<TagValue> tags)
     {
+        this.tags = new List<TagValue>(tags);
+        tagGameIndex = 0;
         craftedObjectData = data;
-        currentTierList = data.CraftedObjectRecipe.TierList;
 
         toCraftItemHolder.Setup(data.CraftedObjectRecipe);
-        toCraftItemHolder.ValidateButton.onClick.AddListener(OnItemClick);
         toCraftItemHolder.SetShadowFadeRatio(1);
 
         itemImage.sprite = data.CraftedObjectRecipe.CraftedSprite;
 
-        if (data.CraftedObjectRecipe.BarElementData != null)
+        ComputeWaterFilling(tags, data.CraftedObjectRecipe.TargetScore);
+
+        float currentCursorPos = 0;
+        RectTransform gaugeBarRect = gaugeTag.GetComponent<RectTransform>();
+        foreach (TagValue tag in this.tags)
         {
-            currentBarBehaviour = data.CraftedObjectRecipe.BarElementData.GetBehaviour();
-            currentBarBehaviour.OnStart(this, currentTierList);
+            TagGaugeUI tagGaugeUI = Instantiate(gaugeFillPrefab, gaugeFillParent).GetComponent<TagGaugeUI>();
+            float size = (float)tag.GaugeValue / craftedObjectData.CraftedObjectRecipe.TargetScore;
+            SetSizePosition(tagGaugeUI.Rect, gaugeBarRect, currentCursorPos + size / 2, size);
+            tagGaugeUI.Setup(tag);
+
+            currentCursorPos += size;
+            tagGaugeUIs.Add(tagGaugeUI);
         }
 
-        SetupTarget();
-        currentSpeed = currentTierList.Tiers[tierCount].TierSpeed;
+        gaugeTag.value = currentCursorPos;
     }
 
-    private void SetupTarget ()
+    private void StartTag(TagValue tagValue)
     {
-        RectTransform progressRect = progressBar.GetComponent<RectTransform>();
+        BarData barData = tagValue.Asset.GetBarData(tagValue.Amount.Value);
+        currentBarBehaviour = barData.GetBehaviour();
+        currentBarBehaviour.OnStart(this);
+        tagGaugeUIs[tagGameIndex].SetSelection(true);
 
-        targetPos = Random.Range(rangeSpawn.x, rangeSpawn.y);
-        currentTarget.transform.localScale = new Vector3(currentTierList.Tiers[tierCount].TierTargetSize * progressRect.sizeDelta.x, currentTarget.transform.localScale.y, currentTarget.transform.localScale.z);
-        currentTarget.transform.SetSiblingIndex(currentTarget.transform.GetSiblingIndex() - 1);
-
-        Vector3 leftBorn = progressBar.transform.position - Vector3.right * progressRect.sizeDelta.x / 2;
-        float xPosFromLeft = targetPos * progressRect.sizeDelta.x;
-        leftBorn.x += xPosFromLeft;
-
-        currentTarget.transform.position = leftBorn;
+        if (barData.AnimatedTuto != null)
+            animatedTuto = Instantiate(barData.AnimatedTuto, tutoHolder);
     }
 
-    public void ChangeTargetPos ()
+    private void NextTag()
     {
-        SetupTarget();
+        tagGaugeUIs[tagGameIndex].SetSelection(false);
+        tagGameIndex++;
+        StartTag(tags[tagGameIndex]);
     }
 
-    public void InstantiateParticles (GameObject particlePrefab)
+    public void ValidateTag(float sucessRatio)
     {
-        GameObject ps = Instantiate(particlePrefab);
-        ps.transform.position = currentTarget.transform.position;
+        if (animatedTuto != null)
+        {
+            Destroy(animatedTuto);
+            animatedTuto = null;
+        }
+
+        ApplySuccessRatio(tags[tagGameIndex], sucessRatio);
+        UpdateTagGauge(tags[tagGameIndex]);
+        SetBarNumber("0");
+
+        if (tagGameIndex + 1 >= tags.Count)
+        {
+            StartFinishGame();
+        }
+        else
+        {
+            NextTag();
+        }
+
+        toCraftItemHolder.SetShadowFadeRatio(1 - ((float)tagGameIndex + 1 / tags.Count));
     }
 
-    private void WinGame ()
+    private void StartFinishGame()
     {
         if (currentBarBehaviour != null)
-        {
-            currentBarBehaviour.OnStop(this);
             currentBarBehaviour = null;
+
+        CountScores();
+        StatModifier modifier = GetScoreBonusModifier(score, craftedObjectData.CraftedObjectRecipe);
+        craftedObjectData.AddPriceModifier(modifier);
+
+        finishSequence.StartSequence();
+    }
+
+    public void DisplayFinish()
+    {
+        foreach (TagGaugeUI tagGaugeUI in tagGaugeUIs)
+        {
+            tagGaugeUI.SetSelection(true);
         }
+
+        SetBarNumber(score + "/" + craftedObjectData.CraftedObjectRecipe.TargetScore);
+        finishButton.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(finishButton);
+    }
+
+    protected override void OnInputDeviceChanged()
+    {
+        base.OnInputDeviceChanged();
+
+        if (managerRefs.InputManager.IsGamepad && finishButton.activeInHierarchy)
+        {
+            EventSystem.current.SetSelectedGameObject(finishButton);
+        }
+    }
+
+    public void OnFinishClick()
+    {
         CraftedObject craftedObject = managerRefs.CraftingManager.CraftItem(craftedObjectData);
         managerRefs.CraftingManager.AddCraftedRecipe(craftedObjectData.CraftedObjectRecipe);
         CurrentCraftingTable.SpawnCraftedItem(craftedObject);
 
         managerRefs.UIManager.HideMiniGameView();
+        CurrentCraftingTable.ExitInteract();
 
         if (craftedObjectData.IsNew)
         {
             managerRefs.UIManager.ToggleRewardView(true, craftedObject, newItemUIEffect);
         }
-
-        tierCount = 0;
     }
 
-    private void LooseGame()
+    private void ApplySuccessRatio(TagValue tagValue, float sucessRatio)
     {
-        if (currentBarBehaviour != null)
+        MultiplyModifier tagSuccessModifier = new MultiplyModifier() { Value = sucessRatio };
+        tagValue.Amount.AddModifier(tagSuccessModifier);
+    }
+
+    public void SetSizePosition(RectTransform rect, RectTransform container, float pos, float size)
+    {
+        float width = size * container.rect.width;
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+
+        float localX = Mathf.LerpUnclamped(container.rect.xMin, container.rect.xMax, pos);
+        Vector3 worldPos = container.TransformPoint(new Vector3(localX, container.rect.center.y, 0f));
+        rect.position = worldPos;
+
+        rect.SetSiblingIndex(rect.GetSiblingIndex() - 1);
+    }
+
+    public RectTransform MakeTarget()
+    {
+        return Instantiate(targetPrefab, targetHolder).GetComponent<RectTransform>();
+    }
+
+    public void InstantiateParticles(GameObject particlePrefab, Vector3 pos)
+    {
+        GameObject ps = Instantiate(particlePrefab, transform);
+        ps.transform.position = pos;
+    }
+
+    public void UpdateBarPos(float barPos)
+    {
+        progressBar.value = barPos;
+    }
+
+    private void UpdateTagGauge(TagValue tagValue)
+    {
+        RectTransform gaugeBarRect = gaugeTag.GetComponent<RectTransform>();
+        foreach (TagGaugeUI tagGauge in tagGaugeUIs)
         {
-            currentBarBehaviour.OnStop(this);
-            currentBarBehaviour = null;
-        }
-
-        managerRefs.UIManager.HideMiniGameView();
-        tierCount = 0;
-    }
-
-    private void MissHit()
-    {
-        SetLife(currentLife - 1);
-        
-        if (onHitSequence != null)
-            onHitSequence.StartSequence();
-    }
-
-    private void SetLife(int life)
-    {
-        for (int i = 0; i < lifeHearts.Count; i++)
-        {
-            LifeHeartUI lifeHeartUI = lifeHearts[i];
-
-            if (i < life && !lifeHeartUI.Activated)
+            if (tagGauge.CurrentTag == tagValue)
             {
-                lifeHeartUI.Activate();
+                tagGauge.UpdateValue();
+                break;
             }
-            else if (i >= life && lifeHeartUI.Activated)
+        }
+    }
+
+    private void ComputeWaterFilling(List<TagValue> tags, int recipeTarget)
+    {
+        int total = 0;
+        for (int i = 0; i < tags.Count; i++)
+            total += tags[i].Amount.Value;
+
+        if (total <= recipeTarget)
+        {
+            for (int i = 0; i < tags.Count; i++)
             {
-                lifeHeartUI.Deactivate();
+                tags[i].GaugeValue = tags[i].Amount.Value;
+                tags[i].Surplus = 0;
             }
+            return;
         }
 
-        currentLife = life;
-    }
+        List<TagValue> sorted = new List<TagValue>(tags);
+        sorted.Sort((a, b) => a.Amount.Value.CompareTo(b.Amount.Value));
 
-    private void SpawnLife()
-    {
-        for (int i = 0; i < maxLife; i++)
+        int remainingTarget = recipeTarget;
+        int remainingCount = sorted.Count;
+
+        for (int i = 0; i < sorted.Count; i++)
         {
-            lifeHearts.Add(Instantiate(lifePrefab, lifeParent));
-        }
-
-        currentLife = maxLife;
-    }
-
-    private void OnItemClick ()
-    {
-        if (targetPos - (currentTierList.Tiers[tierCount].TierTargetSize/2) <= barCount && targetPos + (currentTierList.Tiers[tierCount].TierTargetSize / 2) >= barCount)
-        {
-            tierCount += 1;
-
-            if (HasTierLeft)
+            int fairShare = remainingTarget / remainingCount;
+            if (sorted[i].Amount.Value <= fairShare)
             {
-                stepParticle.transform.position = currentTarget.transform.position;
-                stepParticle.Play();
-                goodWord.transform.position = currentTarget.transform.position;
-                goodWord.gameObject.SetActive(true);
-
-                toCraftItemHolder.SetShadowFadeRatio(1 - ((float)tierCount / currentTierList.Tiers.Count));
-                
-                SetupTarget();
-                currentSpeed = currentTierList.Tiers[tierCount].TierSpeed;
+                sorted[i].GaugeValue = sorted[i].Amount.Value;
+                sorted[i].Surplus = 0;
+                remainingTarget -= sorted[i].Amount.Value;
+                remainingCount--;
             }
             else
             {
-                WinGame();
+                int remainder = remainingTarget % remainingCount;
+                for (int j = i; j < sorted.Count; j++)
+                {
+                    int extra = j >= sorted.Count - remainder ? 1 : 0;
+                    int share = fairShare + extra;
+                    sorted[j].GaugeValue = share;
+                    sorted[j].Surplus = sorted[j].Amount.Value - share;
+                }
+                break;
             }
         }
-        else
-        {
-            MissHit();
-            if (currentLife <= 0)
-            {
-                LooseGame();
-            }
-        }
-    }
-
-    private void Update()
-    {
-        if (!gameObject.activeInHierarchy || currentBarBehaviour == null)
-            return;
-
-        barCount = currentBarBehaviour.OnUpdate(this, currentSpeed);
-        progressBar.value = barCount;
-        debugInfos.text = "actual pos : " + barCount + "\ntargetPos : " + targetPos + "\ntarget size : " + currentTierList.Tiers[tierCount].TierTargetSize;
     }
 }

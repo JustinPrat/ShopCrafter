@@ -27,9 +27,6 @@ public class CraftingView : UIView
     private AdvancedButton validateButton;
 
     [SerializeField]
-    private UIEffect validateButtonEffects;
-
-    [SerializeField]
     private CraftedRecipeDayUI craftedRecipePreviewUI;
 
     private List<Item> selectedItems = new List<Item>();
@@ -102,7 +99,7 @@ public class CraftingView : UIView
         {
             if (!itemsConfirmedUI[i].IsEmpty)
             {
-                itemsConfirmedUI[i].RemoveItem();
+                itemsConfirmedUI[i].RemoveItem(true);
                 itemsConfirmedUI[i].ItemImage.sprite = normalSprite;
             }
         }
@@ -178,13 +175,11 @@ public class CraftingView : UIView
             }
 
             validateButton.interactable = true;
-            validateButtonEffects.enabled = true;
         }
         else
         {
             craftedRecipePreviewUI.gameObject.SetActive(false);
             validateButton.interactable = false;
-            validateButtonEffects.enabled = false;
         }
     }
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPEffects.Databases;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 namespace TMPEffects.TMPCommands.Commands

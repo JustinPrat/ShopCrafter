@@ -1,14 +1,8 @@
-using Sequencer;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerBrain : MonoBehaviour
 {
-    //[SerializeField] 
-    //private Transform objectHoldAnchor;
-
     [SerializeField]
     private ManagerRefs managerRefs;
 
@@ -46,6 +40,7 @@ public class PlayerBrain : MonoBehaviour
 
     private void Start()
     {
+        managerRefs.PlayerManager.SetPlayer(this);
         managerRefs.GameEventsManager.playerEvents.OnPlayerGetRewardFeedback += OnPlayerGetRewardFeedback;
     }
 

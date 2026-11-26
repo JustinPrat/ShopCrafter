@@ -64,10 +64,7 @@ public class CardTagView : UIView
     private CraftedObjectRecipe craftedObjectRecipe;
     private CraftedObjectData craftedObjectData;
     private bool isNew = false;
-
     private int score;
-    //private int rarityBoost;
-    private StatModifier modifier;
 
     public override void Toggle(bool isOn)
     {
@@ -96,7 +93,6 @@ public class CardTagView : UIView
             tagsUI.Clear();
 
             scoreText.text = "";
-            CurrentCraftingTable.ExitInteract();
         }
     }
 
@@ -134,6 +130,11 @@ public class CardTagView : UIView
             TagIconUI tagUI = tagsUI[i];
             tagUI.RemovePreSelectionTag(tags, i);
         }
+
+        foreach (TagIconUI tagIconUI in tagsUI)
+        {
+            tagIconUI.UpdateValue();
+        }
     }
 
     private void ApplyPreSelectionTags()
@@ -142,6 +143,11 @@ public class CardTagView : UIView
         {
             TagIconUI tagUI = tagsUI[i];
             tagUI.ApplyPreSelectionTag(tags, i);
+        }
+
+        foreach (TagIconUI tagIconUI in tagsUI)
+        {
+            tagIconUI.UpdateValue();
         }
     }
 
@@ -160,9 +166,6 @@ public class CardTagView : UIView
     private IEnumerator CountScores()
     {
         score = 0;
-        //rarityBoost = 0;
-        modifier = null;
-
         foreach (TagIconUI tagUI in tagsUI)
         {
             score = tagUI.CountTag(score);
@@ -170,24 +173,15 @@ public class CardTagView : UIView
             yield return new WaitForSecondsRealtime(delayBetweenScoreCount);
         }
 
-        ScoreBonus();
         StartCoroutine(OnScoreBonus(Mathf.Min((float)score / craftedObjectRecipe.TargetScore, 1)));
     }
 
     //UI Advanced button setup
     public void OnCraftClick()
     {
-        RemovePreSelectionTags();
         managerRefs.UIManager.ToggleCardTagView(false, CurrentCraftingTable);
-
-        craftedObjectData.AddPriceModifier(modifier);
-        managerRefs.UIManager.ShowMiniGameView(CurrentCraftingTable, craftedObjectData, CurrentCraftingTable.GetValidUIPos());
-    }
-    
-    private void ScoreBonus()
-    {
-        modifier = craftedObjectRecipe.Rarity.MaxStatModifier.Clone(craftedObjectRecipe.Rarity.MaxStatModifier);
-        modifier.Value *= 1 + (modifier.Value - 1) * Mathf.Min((float)score / craftedObjectRecipe.TargetScore, 1);
+        managerRefs.UIManager.ShowMiniGameView(CurrentCraftingTable, tags, craftedObjectData, CurrentCraftingTable.GetValidUIPos());
+        //RemovePreSelectionTags();
     }
 
     private IEnumerator OnScoreBonus(float target)
@@ -238,7 +232,6 @@ public class CardTagView : UIView
     private void UpdateUIOrder()
     {
         tagsUI.Sort();
-
         tags.Clear();
         foreach (TagIconUI tagUI in tagsUI)
         {
@@ -251,5 +244,15 @@ public class CardTagView : UIView
     private void OnDragTagStarted()
     {
         RemovePreSelectionTags();
+    }
+
+    protected override void OnInputDeviceChanged()
+    {
+        base.OnInputDeviceChanged();
+
+        if (tagsUI.Count > 0 && managerRefs.InputManager.IsGamepad)
+        {
+            EventSystem.current.SetSelectedGameObject(tagsUI[0].gameObject);
+        }
     }
 }

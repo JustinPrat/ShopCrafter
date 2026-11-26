@@ -7,7 +7,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "ShopCrafter/Item"), Serializable]
 public class Item : ScriptableObject, IRewardable, ICost
 {
+#if UNITY_EDITOR
     [OnValueChanged(nameof(UpdateItemData))]
+#endif
     public string ItemName;
     public EItemType Type;
     public Rarity RarityInfos;

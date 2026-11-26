@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class AnimationClipHandler : MonoBehaviour
 {
     [SerializeField] private AnimationClip animationClip;
-    [SerializeField] private bool isPlayedAtStart;
+    [SerializeField] private Sequencer.PlayMode playMode;
 
     private bool isPlaying = false;
     private float timer = -1f;
     private Animator animator;
+    private Animation animation;
 
     public event Action OnClipEnded;
     public bool IsComplete => timer >= animationClip.length;
@@ -31,7 +31,15 @@ public class AnimationClipHandler : MonoBehaviour
 
     private void Start()
     {
-        if (isPlayedAtStart)
+        if (playMode == Sequencer.PlayMode.Start)
+        {
+            PlayAnimation();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (playMode == Sequencer.PlayMode.Enable)
         {
             PlayAnimation();
         }
@@ -50,7 +58,7 @@ public class AnimationClipHandler : MonoBehaviour
             OnClipEnded?.Invoke();
             isPlaying = false;
 
-            if (animationClip.isLooping)
+            if ((animationClip.wrapMode == WrapMode.Loop) || (animationClip.wrapMode == WrapMode.PingPong))
             {
                 PlayAnimation();
             }
@@ -62,7 +70,10 @@ public class AnimationClipHandler : MonoBehaviour
         if (animator == null)
             animator = GetComponent<Animator>();
 
-        if (animator.enabled)
+        if (animation == null)
+            animation = GetComponent<Animation>();
+
+        if (animator != null && animator.enabled)
             animator.enabled = false;
     }
 }

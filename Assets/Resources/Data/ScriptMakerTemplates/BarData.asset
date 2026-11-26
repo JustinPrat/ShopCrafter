@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04e359d2acf72bf4a95d65818e2f7376, type: 3}
+  m_Name: BarData
+  m_EditorClassIdentifier: Scriptmaker.Editor::ScriptMaker.Editor.ScriptMakerTemplate
+  scriptBody: "using UnityEngine;\r\n\r\n[CreateAssetMenu(fileName = \"{ScriptName}Data\", menuName = \"ShopCrafter/{ScriptName}Data\")]\r\npublic class {ScriptName}Data : BarData\r\n{\r\n    public float OnTargetSpeedMultiplier;\r\n    public int NumberHit = 3;\r\n    public GameObject HitSucessFeedbackPrefab;\r\n\r\n    public override BarBehaviour GetBehaviour()\r\n    {\r\n        {ScriptName}Behavior stats = new {ScriptName}Behavior(this);\r\n        return stats;\r\n    }\r\n\r\n    public class {ScriptName}Behavior : BarBehaviour\r\n    {\r\n        private {ScriptName}Data barElementData;\n\tprivate int hitNumber;\n\r        public {ScriptName}Behavior({ScriptName}Data data) : base(data)\r\n        {\r\n            barElementData = data;\r\n        }\r\n\r\n        public override void OnStart(MiniGameView miniGameView, TierList tierList)\r\n        {\r\n            base.OnStart(miniGameView, tierList);\r\n        }\r\n\r\n        public override void OnUpdate()\r\n        {\r\n            base.OnUpdate();\r\n        }\r\n\r\n        protected override void OnChangeDirection()\r\n        {\r\n            base.OnChangeDirection();\r\n            sucessRatio = Mathf.Clamp01((float)hitNumber/barElementData.NumberHit);\r\n            Stop();\r\n        }\r\n\r\n        public override void Stop()\r\n        {\r\n            base.Stop();\r\n        }\r\n    }\r\n}\r\n"
+  scriptNameSuffix: Data

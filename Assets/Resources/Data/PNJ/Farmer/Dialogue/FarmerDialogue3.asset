@@ -13,15 +13,25 @@ MonoBehaviour:
   m_Name: FarmerDialogue3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: "Je ne mord pas, apr\xE8s j'ai plus de dents aussi <jump>...</jump>"
+  - Line: Troc sans trac !
     Emotion: {fileID: 0}
-  - Line: "Feut-tu regarder fe que j'ai \xE0 fendre ?"
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: "Oublie la monnaie, moi je troc mon bric \xE0 brac"
     Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui
-    AnswerDialogueData: {fileID: 11400000, guid: 3333e4a80b369254ab1e4fe5c3df9ff2, type: 2}
+  - Line: Troc
+    AnswerDialogueData: {fileID: 11400000, guid: 7de554abc1ef76b4cb82ade276449c49, type: 2}
     Reward:
       mode: 0
       unityReference: {fileID: 0}
@@ -33,7 +43,7 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: Non
+  - Line: Aurevoir
     AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
     Reward:
       mode: 0
@@ -46,21 +56,9 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: 3 metal sheets = 20 dollars
-    AnswerDialogueData: {fileID: 11400000, guid: 796a58ea5281c1e40b7d36ced4094b00, type: 2}
-    Reward:
-      mode: 1
-      unityReference: {fileID: 0}
-      rawReference:
-        rid: 7665218516911390822
-    ReplaceMainDialogue: {fileID: 0}
-    Cost:
-      mode: 0
-      unityReference: {fileID: 11400000, guid: dc51adc4869f907428a84e617876d3d1, type: 2}
-      rawReference:
-        rid: -2
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: jump
@@ -73,7 +71,3 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7665218516911390822
-      type: {class: MoneyBatch, ns: , asm: Assembly-CSharp}
-      data:
-        Amount: 20

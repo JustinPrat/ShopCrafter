@@ -2,7 +2,6 @@ using Alchemy.Inspector;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -47,7 +46,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private float smoothSpeed = 15f;
 
     [SerializeField]
-    private GameObject highlight;
+    private Sequencer.Sequencer pressedGamepadSequence;
 
     private TagPlaceholderUI anchor;
     private RectTransform parentRect;
@@ -55,6 +54,11 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private TagValue tagValue;
     private bool blockOrdering;
     private DragType currentDragType;
+    private bool isHovered;
+    private bool isSelected;
+    private bool isMousePressed;
+    private bool swapped;
+    private Navigation savedNavigation;
 
     public Action OnDragReleased;
     public Action OnDragStarted;
@@ -83,8 +87,14 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             transform.SetParent(transform.parent.parent);
             layoutElement.ignoreLayout = true;
 
-            button.OnLeftClick.AddListener(OnLeftClick);
-            button.OnLeftClickReleased.AddListener(OnLeftClickReleased);
+            if (button != null)
+            {
+                savedNavigation = button.navigation;
+                button.OnLeftClick.AddListener(OnLeftClick);
+                button.OnLeftClickReleased.AddListener(OnLeftClickReleased);
+                button.OnLeftClickDown += OnLeftClickDown;
+                button.OnLeftClickUp += OnLeftClickUp;
+            }
         }
 
         if (button != null)
@@ -94,12 +104,25 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
     }
 
+    private void OnDisable()
+    {
+        CancelActiveDrag();
+        isHovered = false;
+        isSelected = false;
+        isMousePressed = false;
+        UpdateHoverState();
+    }
+
     private void OnDestroy()
     {
-        if (canBeMoved)
+        CancelActiveDrag();
+
+        if (canBeMoved && button != null)
         {
             button.OnLeftClick.RemoveListener(OnLeftClick);
             button.OnLeftClickReleased.RemoveListener(OnLeftClickReleased);
+            button.OnLeftClickDown -= OnLeftClickDown;
+            button.OnLeftClickUp -= OnLeftClickUp;
         }
 
         if (button != null)
@@ -109,60 +132,128 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
     }
 
-    private void OnSelect(AdvancedButton button)
+    private void UpdateHoverState()
     {
-        animator.SetBool(HoverBool, true);
-        highlight.SetActive(true);
-        Debug.Log("Pointer Select");
-    }
-    private void OnDeSelect(AdvancedButton button)
-    {
-        animator.SetBool(HoverBool, false);
-        highlight.SetActive(false);
-        Debug.Log("Pointer Deselect");
-    }
-
-    //Controller
-    private void OnLeftClick(AdvancedButton button)
-    {
-        if (!managerRefs.InputManager.IsGamepad)
+        if (animator == null)
             return;
 
-        currentDragType = DragType.Controller;
-        managerRefs.InputManager.Actions.Player.Navigate.started += SwapPlace;
-        Navigation noneNav = new Navigation() { mode = Navigation.Mode.None };
-        button.navigation = noneNav;
+        bool shouldHover = currentDragType == DragType.None && !isMousePressed && (isHovered || isSelected);
+        animator.SetBool(HoverBool, shouldHover);
+    }
 
+    private void OnSelect(AdvancedButton btn)
+    {
+        isSelected = true;
+        UpdateHoverState();
+    }
+
+    private void OnDeSelect(AdvancedButton btn)
+    {
+        isSelected = false;
+        UpdateHoverState();
+    }
+
+    // Controller
+    private void OnLeftClick(AdvancedButton btn)
+    {
+        if (!canBeMoved || blockOrdering || !managerRefs.InputManager.IsGamepad)
+            return;
+
+        if (currentDragType == DragType.Controller)
+            return;
+
+        if (pressedGamepadSequence != null)
+            pressedGamepadSequence.StartSequence();
+
+        currentDragType = DragType.Controller;
+        savedNavigation = btn.navigation;
+        btn.navigation = new Navigation { mode = Navigation.Mode.None };
+
+        managerRefs.InputManager.Actions.Player.Navigate.performed += SwapPlace;
+
+        transform.SetAsLastSibling();
+        UpdateHoverState();
         OnDragStarted?.Invoke();
     }
 
     private void SwapPlace(InputAction.CallbackContext ctx)
     {
-        Vector2 input = ctx.ReadValue<Vector2>();
-
-        int newSiblingIndex = anchor.transform.GetSiblingIndex();
-        int value = input.x > 0 ? 1 : -1;
-        if (newSiblingIndex + value >= 0 && newSiblingIndex + value < parentRect.childCount)
-        {
-            newSiblingIndex += value;
-        }
-
-        anchor.transform.SetSiblingIndex(newSiblingIndex);
-    }
-
-    private void OnLeftClickReleased(AdvancedButton button)
-    {
-        if (!managerRefs.InputManager.IsGamepad)
+        if (currentDragType != DragType.Controller || anchor == null || parentRect == null)
             return;
 
-        managerRefs.InputManager.Actions.Player.Navigate.started -= SwapPlace;
-        button.navigation = Navigation.defaultNavigation;
-        OnDragReleased?.Invoke();
+        Vector2 input = ctx.ReadValue<Vector2>();
+        if (Mathf.Abs(input.x) < 0.3f)
+        {
+            swapped = false;
+            return;
+        }
+
+        if (swapped)
+            return;
+
+        swapped = true;
+        int newSiblingIndex = anchor.transform.GetSiblingIndex();
+        int delta = input.x > 0f ? 1 : -1;
+        int targetIndex = newSiblingIndex + delta;
+
+        if (targetIndex >= 0 && targetIndex < parentRect.childCount)
+        {
+            anchor.transform.SetSiblingIndex(targetIndex);
+        }
+    }
+
+    private void OnLeftClickReleased(AdvancedButton btn)
+    {
+        if (currentDragType == DragType.Controller)
+        {
+            EndControllerDrag();
+            OnDragReleased?.Invoke();
+        }
+
+        UpdateHoverState();
+    }
+
+    private void EndControllerDrag()
+    {
+        swapped = false;
+
+        if (managerRefs != null && managerRefs.InputManager != null)
+        {
+            managerRefs.InputManager.Actions.Player.Navigate.performed -= SwapPlace;
+        }
+
+        if (button != null)
+        {
+            button.navigation = savedNavigation;
+        }
+
+        currentDragType = DragType.None;
+    }
+
+    private void CancelActiveDrag()
+    {
+        if (currentDragType == DragType.Controller)
+        {
+            EndControllerDrag();
+            OnDragReleased?.Invoke();
+        }
+        else if (currentDragType == DragType.Mouse)
+        {
+            currentDragType = DragType.None;
+            OnDragReleased?.Invoke();
+        }
     }
 
     public void BlockOrdering()
     {
         blockOrdering = true;
+        CancelActiveDrag();
+        UpdateHoverState();
+    }
+
+    public void UpdateValue()
+    {
+        Setup(tagValue);
     }
 
     public void Setup(TagValue tagData)
@@ -173,10 +264,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         tagText.text = tagData.Amount.BaseValue.ToString();
 
         float amountBonus = tagData.Amount.Value - tagData.Amount.BaseValue;
-        if (amountBonus > 0)
-            tagBonusText.text = "+" + (tagData.Amount.Value - tagData.Amount.BaseValue).ToString();
-        else
-            tagBonusText.text = "";
+        tagBonusText.text = amountBonus > 0 ? "+" + amountBonus : "";
 
         descTags.text = tagData.Asset.Description;
     }
@@ -190,16 +278,14 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void RemovePreSelectionTag(List<TagValue> tagValues, int tagIndex)
     {
         tagValue.Asset.PreSelectionRemoveTagAsset(tagValues, tagIndex);
-        Setup(tagValue);
     }
 
     public void ApplyPreSelectionTag(List<TagValue> tagValues, int tagIndex)
     {
         tagValue.Asset.PreSelectionApplyTagAsset(tagValues, tagIndex);
-        Setup(tagValue);
     }
 
-    void Update()
+    private void Update()
     {
         if (currentDragType != DragType.Mouse && anchor != null)
         {
@@ -214,33 +300,44 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        animator.SetBool(HoverBool, true);
-
-        Debug.Log("Pointer Enter");
+        isHovered = true;
+        UpdateHoverState();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        animator.SetBool(HoverBool, false);
-
-        Debug.Log("Pointer Exit");
+        isHovered = false;
+        UpdateHoverState();
     }
 
-    //Mouse
+    // Mouse
+    private void OnLeftClickDown(AdvancedButton btn)
+    {
+        isMousePressed = true;
+        UpdateHoverState();
+    }
+
+    private void OnLeftClickUp(AdvancedButton btn)
+    {
+        isMousePressed = false;
+        UpdateHoverState();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!canBeMoved || blockOrdering)
+        if (!canBeMoved || blockOrdering || eventData.button != PointerEventData.InputButton.Left)
             return;
 
         currentDragType = DragType.Mouse;
         lockedYPos = transform.position.y;
         transform.SetAsLastSibling();
+        UpdateHoverState();
         OnDragStarted?.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!canBeMoved || blockOrdering)
+        if (currentDragType != DragType.Mouse || !canBeMoved || blockOrdering)
             return;
 
         if (RectTransformUtility.ScreenPointToWorldPointInRectangle(parentRect, eventData.position, eventData.pressEventCamera, out Vector3 globalMousePos))
@@ -248,7 +345,7 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             transform.position = new Vector3(globalMousePos.x, lockedYPos, transform.position.z);
         }
 
-        int newSiblingIndex = transform.parent.childCount;
+        int newSiblingIndex = parentRect.childCount - 1;
 
         for (int i = 0; i < parentRect.childCount; i++)
         {
@@ -270,24 +367,21 @@ public class TagIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!canBeMoved || blockOrdering)
+        if (currentDragType != DragType.Mouse)
             return;
 
         currentDragType = DragType.None;
+        UpdateHoverState();
         OnDragReleased?.Invoke();
     }
 
     public int CompareTo(object obj)
     {
-        TagIconUI a = this;
         TagIconUI b = obj as TagIconUI;
+        if (b == null) return 1;
 
-        if (a.AnchorIndex < b.AnchorIndex)
-            return -1;
-
-        if (a.AnchorIndex > b.AnchorIndex)
-            return 1;
-
+        if (AnchorIndex < b.AnchorIndex) return -1;
+        if (AnchorIndex > b.AnchorIndex) return 1;
         return 0;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -10,9 +10,13 @@ public class PlayerManager : MonoBehaviour
 
     public PlayerBrain PlayerBrain => playerBrain;
 
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.PlayerManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
     }
 
     public bool HasCraftedItem(CraftedObjectRecipe recipe)
@@ -23,5 +27,10 @@ public class PlayerManager : MonoBehaviour
     public void ConsumeCraftedItem()
     {
         playerBrain.Inventory.ConsumeHeldItem();
+    }
+
+    public void SetPlayer(PlayerBrain playerBrain)
+    {
+        this.playerBrain = playerBrain;
     }
 }

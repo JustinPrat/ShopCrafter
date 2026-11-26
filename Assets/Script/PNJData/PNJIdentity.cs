@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Animations;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +7,7 @@ public class Identity
     public string Name;
     public string Description;
     public Sprite Portrait;
-    public AnimatorController Controller;
+    public RuntimeAnimatorController Controller;
     public DialogueData Dialogue;
 }
 

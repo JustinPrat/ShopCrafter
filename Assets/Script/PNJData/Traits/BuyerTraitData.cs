@@ -41,6 +41,7 @@ public class BuyerRuntime : IPNJTraitRuntime
     {
         pnjBrain.PNJBuying.Value.Event += (go) => OnPnjBuying(go, pnjBrain);
         pnjBrain.PNJArriveBuying.Value.Event += (go) => OnPnjArriveBuying(go, pnjBrain);
+        pnjBrain.PNJStartBuying.Value.Event += (go) => OnPnjStartBuying(go, pnjBrain);
 
         timerBeforeBuying = Time.time + data.TimeBeforeTryBuy;
         hasBought = false;
@@ -65,15 +66,22 @@ public class BuyerRuntime : IPNJTraitRuntime
     {
     }
 
+    private void OnPnjStartBuying(GameObject go, PNJBrain brain)
+    {
+        brain.WorldSpeech.StopSpeech();
+        brain.WorldSpeech.DisplaySpeech("<sprite name=\"TextIcons_85\">", true);
+    }
+
     private void OnPnjArriveBuying(GameObject go, PNJBrain brain)
     {
+        brain.WorldSpeech.StopSpeech();
         brain.WorldSpeech.DisplaySpeech("<wave>...</wave>", true);
     }
 
     private void OnPnjBuying(GameObject go, PNJBrain brain)
     {
         brain.WorldSpeech.StopSpeech();
-        brain.WorldSpeech.DisplaySpeech("<sprite name=\"sprite_sheet_83\">", true);
+        brain.WorldSpeech.DisplaySpeech("<sprite name=\"TextIcons_85\">", 2);
 
         if (targetSlot == null) return;
 

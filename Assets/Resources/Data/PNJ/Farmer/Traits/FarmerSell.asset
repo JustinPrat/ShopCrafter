@@ -18,13 +18,13 @@ MonoBehaviour:
     amount: {x: 1, y: 1}
   - item: {fileID: 11400000, guid: b3209a526714b2d479e268252a588fd8, type: 2}
     priceEach: {x: 2, y: 3}
-    amount: {x: 2, y: 3}
+    amount: {x: 2, y: 2}
   - item: {fileID: 11400000, guid: a8b5f572e2723914b81f632eef6c4dca, type: 2}
     priceEach: {x: 3, y: 4}
     amount: {x: 1, y: 1}
   - item: {fileID: 11400000, guid: d16658e9a16a615479e013aff747db06, type: 2}
     priceEach: {x: 2, y: 3}
-    amount: {x: 3, y: 5}
+    amount: {x: 2, y: 2}
   - item: {fileID: 11400000, guid: 7fd7ea6273deeff469f374d13ca7f01d, type: 2}
     priceEach: {x: 3, y: 4}
     amount: {x: 1, y: 1}

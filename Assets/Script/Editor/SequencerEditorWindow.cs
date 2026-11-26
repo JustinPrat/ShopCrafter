@@ -413,6 +413,13 @@ public class SequencerEditorWindow : EditorWindow
 
         menu.AddSeparator("");
 
+        if (action is SeqComponent.ActionScriptable sc && sc.ActionData != null)
+        {
+            menu.AddItem(new GUIContent("Dupliquer le Scriptable et remplacer"), false, () =>
+                DuplicateAndReplaceScriptable(index));
+            menu.AddSeparator("");
+        }
+
         menu.AddItem(new GUIContent("Basculer After / Join"), false, () =>
         {
             Undo.RecordObject(targetSequencer, "Toggle Action Type");
@@ -434,6 +441,39 @@ public class SequencerEditorWindow : EditorWindow
         menu.AddSeparator("");
         menu.AddItem(new GUIContent("Supprimer"), false, () => DeleteAction(index));
         menu.ShowAsContext();
+    }
+
+    private void DuplicateAndReplaceScriptable(int index)
+    {
+        if (targetSequencer == null || targetSequencer.Actions == null) return;
+        if (index < 0 || index >= targetSequencer.Actions.Count) return;
+
+        if (targetSequencer.Actions[index] is not SeqComponent.ActionScriptable sc || sc.ActionData == null)
+            return;
+
+        string sourcePath = AssetDatabase.GetAssetPath(sc.ActionData);
+        if (string.IsNullOrEmpty(sourcePath))
+            return;
+
+        string newPath = AssetDatabase.GenerateUniqueAssetPath(sourcePath);
+        if (!AssetDatabase.CopyAsset(sourcePath, newPath))
+            return;
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        SequenceActionData duplicatedAsset = AssetDatabase.LoadAssetAtPath<SequenceActionData>(newPath);
+        if (duplicatedAsset == null)
+            return;
+
+        Undo.RecordObject(targetSequencer, "Duplicate and Replace Scriptable Action");
+        sc.ActionData = duplicatedAsset;
+        EditorUtility.SetDirty(targetSequencer);
+        serializedSequencer.Update();
+
+        ClearCachedScriptableEditor();
+        EditorGUIUtility.PingObject(duplicatedAsset);
+        Repaint();
     }
 
     private void DrawInspectorPanel(Rect rect, SerializedProperty actionsProp)

@@ -22,4 +22,4 @@ MonoBehaviour:
     - rid: 2531183003854438575
       type: {class: MultiplyModifier, ns: , asm: Assembly-CSharp}
       data:
-        Value: 2
+        Value: 1.5
