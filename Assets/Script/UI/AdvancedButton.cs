@@ -4,6 +4,8 @@ using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
@@ -13,6 +15,9 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 
     public UnityEvent<AdvancedButton> OnLeftClickReleased;
 
+    public Action<AdvancedButton> OnLeftClickUp;
+    public Action<AdvancedButton> OnLeftClickDown;
+
     public Action<AdvancedButton> OnSelected;
     public Action<AdvancedButton> OnDeselected;
 
@@ -21,6 +26,8 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
     public UnityEvent OnTransitionPressed;
     public UnityEvent OnTransitionSelected;
     public UnityEvent OnTransitionDisabled;
+    public ButtonSelectionState CurrentState => currentState;
+    public bool IsPointerInside => isPointerInside;
 
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -28,8 +35,29 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
     [SerializeField]
     private bool toggleDebug;
 
-    private Coroutine _resetRoutine;
-    private bool buttonPressed = false;
+    [Serializable]
+    public enum ButtonSelectionState
+    {
+        Normal = 0,
+        Highlighted = 1,
+        Pressed = 2,
+        Selected = 3,
+        Disabled = 4
+    }
+
+    private static AdvancedButton lastPointerButton;
+
+    private Coroutine resetRoutine;
+    private bool isPointerInside;
+    private bool isSubmitHeld;
+    private float submitPressTime;
+    private InputAction activeSubmitAction;
+    private InputReceiver boundInputManager;
+
+    private bool IsGamepad => managerRefs != null && managerRefs.InputManager != null && managerRefs.InputManager.IsGamepad;
+
+    [SerializeField, ReadOnly]
+    private ButtonSelectionState currentState = ButtonSelectionState.Normal;
 
     public void Click(PointerEventData.InputButton button)
     {
@@ -41,104 +69,105 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
         OnPointerClick(pointer);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!interactable)
-            return;
-
-        DoStateTransition(SelectionState.Pressed, true);
-
-        switch (eventData.button)
-        {
-            case PointerEventData.InputButton.Left:
-                OnLeftClick?.Invoke(this);
-                buttonPressed = true;
-                if (toggleDebug)
-                {
-                    Debug.Log("Left Click On Button");
-                }
-                break;
-            case PointerEventData.InputButton.Right:
-                OnRightClick?.Invoke(this);
-                if (toggleDebug)
-                {
-                    Debug.Log("Right Click On Button");
-                }
-                break;
-            case PointerEventData.InputButton.Middle:
-                break;
-            default:
-                break;
-        }
-
-        if (_resetRoutine != null)
-        {
-            StopCoroutine(_resetRoutine);
-            _resetRoutine = null;
-        }
-
-        if (gameObject.activeInHierarchy)
-        {
-            _resetRoutine = StartCoroutine(OnFinishSubmit());
-        }
-    }
-
     protected override void DoStateTransition(SelectionState state, bool instant)
     {
+        if (isSubmitHeld && state != SelectionState.Pressed && state != SelectionState.Disabled)
+            return;
+
+        if (!IsGamepad && state == SelectionState.Selected)
+        {
+            state = isPointerInside ? SelectionState.Highlighted : SelectionState.Normal;
+        }
+
         base.DoStateTransition(state, instant);
+        currentState = (ButtonSelectionState)state;
 
         switch (state)
         {
             case SelectionState.Normal:
                 OnTransitionNormal?.Invoke();
-                if (toggleDebug)
-                {
-                    Debug.Log("Normal");
-                }
                 break;
             case SelectionState.Highlighted:
                 OnTransitionHighlighted?.Invoke();
-                if (toggleDebug)
-                {
-                    Debug.Log("Highlighted");
-                }
                 break;
             case SelectionState.Pressed:
                 OnTransitionPressed?.Invoke();
-                if (toggleDebug)
-                {
-                    Debug.Log("Pressed");
-                }
                 break;
             case SelectionState.Selected:
                 OnTransitionSelected?.Invoke();
-                if (toggleDebug)
-                {
-                    Debug.Log("Selected");
-                }
                 break;
             case SelectionState.Disabled:
                 OnTransitionDisabled?.Invoke();
-                if (toggleDebug)
-                {
-                    Debug.Log("Disabled");
-                }
                 break;
         }
     }
 
-    private IEnumerator OnFinishSubmit ()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        var fadeTime = colors.fadeDuration;
-        var elapsedTime = 0f;
+        if (!interactable)
+            return;
 
-        while (elapsedTime < fadeTime)
+        switch (eventData.button)
         {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            case PointerEventData.InputButton.Left:
+                OnLeftClick?.Invoke(this);
+                if (toggleDebug)
+                    Debug.Log("Left Click On Button");
+                break;
 
-        DoStateTransition(currentSelectionState, false);
+            case PointerEventData.InputButton.Right:
+                OnRightClick?.Invoke(this);
+                if (toggleDebug)
+                    Debug.Log("Right Click On Button");
+                break;
+        }
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        BindInputManager();
+        isPointerInside = true;
+        lastPointerButton = this;
+        base.OnPointerEnter(eventData);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerInside = false;
+        base.OnPointerExit(eventData);
+
+        if (!IsGamepad)
+            ClearEventSystemSelection();
+    }
+
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        BindInputManager();
+        lastPointerButton = this;
+
+        if (eventData.button == PointerEventData.InputButton.Left && IsInteractable())
+        {
+            DoStateTransition(SelectionState.Pressed, false);
+            OnLeftClickDown?.Invoke(this);
+        }
+    }
+
+    public override void OnPointerUp(PointerEventData eventData)
+    {
+        base.OnPointerUp(eventData);
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (!IsGamepad)
+                ClearEventSystemSelection();
+
+            if (IsInteractable())
+            {
+                DoStateTransition(isPointerInside ? SelectionState.Highlighted : SelectionState.Normal, false);
+            }
+
+            OnLeftClickUp?.Invoke(this);
+        }
     }
 
     public override void OnDeselect(BaseEventData eventData)
@@ -150,34 +179,216 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
     public override void OnSelect(BaseEventData eventData)
     {
         base.OnSelect(eventData);
-        OnSelected?.Invoke(this);
+
+        if (IsGamepad)
+            OnSelected?.Invoke(this);
     }
 
-    public override void OnPointerUp(PointerEventData eventData)
+    private void ClearEventSystemSelection()
     {
-        base.OnPointerUp(eventData);
-
-        if (toggleDebug)
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem != null && !eventSystem.alreadySelecting && eventSystem.currentSelectedGameObject == gameObject)
         {
-            Debug.Log("Out Click On Button");
+            eventSystem.SetSelectedGameObject(null);
         }
     }
 
-    private void Update()
+    private void HandleInputDeviceChanged()
     {
-        if (buttonPressed && !managerRefs.InputManager.Actions.UI.Submit.IsPressed() && interactable)
-        {
-            DoStateTransition(SelectionState.Selected, true);
-            OnLeftClickReleased?.Invoke(this);
-            buttonPressed = false;
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem == null || eventSystem.alreadySelecting)
+            return;
 
-            if (toggleDebug)
+        if (!IsGamepad)
+        {
+            if (eventSystem.currentSelectedGameObject == gameObject)
             {
-                Debug.Log("Submit Left Out");
+                lastPointerButton = this;
+                eventSystem.SetSelectedGameObject(null);
             }
         }
+        else if (eventSystem.currentSelectedGameObject == null && lastPointerButton == this && IsInteractable())
+        {
+            eventSystem.SetSelectedGameObject(gameObject);
+        }
     }
 
+    private void BindInputManager()
+    {
+        InputReceiver currentManager = managerRefs != null ? managerRefs.InputManager : null;
+        if (boundInputManager == currentManager)
+            return;
+
+        UnbindInputManager();
+
+        if (currentManager != null)
+        {
+            boundInputManager = currentManager;
+            boundInputManager.OnInputDeviceChanged += HandleInputDeviceChanged;
+        }
+    }
+
+    private void UnbindInputManager()
+    {
+        if (boundInputManager != null)
+        {
+            boundInputManager.OnInputDeviceChanged -= HandleInputDeviceChanged;
+            boundInputManager = null;
+        }
+    }
+
+    private InputAction GetSubmitAction()
+    {
+        if (EventSystem.current != null &&
+            EventSystem.current.currentInputModule is InputSystemUIInputModule uiModule &&
+            uiModule.submit != null)
+        {
+            return uiModule.submit.action;
+        }
+
+        return managerRefs != null && managerRefs.InputManager != null
+            ? managerRefs.InputManager.Actions.UI.Submit
+            : null;
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        if (!interactable)
+            return;
+
+        isSubmitHeld = true;
+        submitPressTime = Time.unscaledTime;
+
+        if (resetRoutine != null)
+        {
+            StopCoroutine(resetRoutine);
+            resetRoutine = null;
+        }
+
+        UnsubscribeSubmitCanceled();
+        activeSubmitAction = GetSubmitAction();
+        if (activeSubmitAction != null)
+        {
+            activeSubmitAction.canceled += OnSubmitCanceled;
+        }
+
+        DoStateTransition(SelectionState.Pressed, true);
+        OnLeftClick?.Invoke(this);
+
+        if (toggleDebug)
+            Debug.Log("Submit Left");
+    }
+
+    private void OnSubmitCanceled(InputAction.CallbackContext context)
+    {
+        UnsubscribeSubmitCanceled();
+
+        if (!isSubmitHeld)
+            return;
+
+        isSubmitHeld = false;
+
+        if (this == null || !interactable)
+            return;
+
+        OnLeftClickReleased?.Invoke(this);
+
+        SelectionState targetState = GetFallbackState();
+        float remainingTime = colors.fadeDuration - (Time.unscaledTime - submitPressTime);
+
+        if (remainingTime > 0f && gameObject.activeInHierarchy)
+        {
+            RestartResetRoutine(targetState, remainingTime);
+        }
+        else
+        {
+            DoStateTransition(targetState, false);
+        }
+
+        if (toggleDebug)
+            Debug.Log("Submit Left Out");
+    }
+
+    private SelectionState GetFallbackState()
+    {
+        bool isStillSelected = IsGamepad &&
+                               EventSystem.current != null &&
+                               EventSystem.current.currentSelectedGameObject == gameObject;
+
+        return isStillSelected
+            ? SelectionState.Selected
+            : (isPointerInside ? SelectionState.Highlighted : SelectionState.Normal);
+    }
+
+    private void RestartResetRoutine(SelectionState targetState, float delay)
+    {
+        if (this == null || !gameObject.activeInHierarchy)
+            return;
+
+        if (resetRoutine != null)
+        {
+            StopCoroutine(resetRoutine);
+            resetRoutine = null;
+        }
+
+        resetRoutine = StartCoroutine(OnFinishSubmit(targetState, delay));
+    }
+
+    private IEnumerator OnFinishSubmit(SelectionState targetState, float delay)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < delay)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (IsInteractable())
+        {
+            DoStateTransition(targetState, false);
+        }
+
+        resetRoutine = null;
+    }
+
+    private void UnsubscribeSubmitCanceled()
+    {
+        if (activeSubmitAction != null)
+        {
+            activeSubmitAction.canceled -= OnSubmitCanceled;
+            activeSubmitAction = null;
+        }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        BindInputManager();
+        isPointerInside = false;
+        isSubmitHeld = false;
+        DoStateTransition(IsInteractable() ? SelectionState.Normal : SelectionState.Disabled, true);
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        UnbindInputManager();
+        UnsubscribeSubmitCanceled();
+
+        if (lastPointerButton == this)
+            lastPointerButton = null;
+
+        isPointerInside = false;
+        isSubmitHeld = false;
+
+        if (resetRoutine != null)
+        {
+            StopCoroutine(resetRoutine);
+            resetRoutine = null;
+        }
+    }
+
+#if UNITY_EDITOR
     protected override void Reset()
     {
         base.Reset();
@@ -190,45 +401,5 @@ public class AdvancedButton : Selectable, IPointerClickHandler, ISubmitHandler
 
         targetGraphic = imageComponent;
     }
-
-    public void OnSubmit(BaseEventData eventData)
-    {
-        if (managerRefs.InputManager.Actions.UI.Submit.IsPressed() && interactable)
-        {
-            DoStateTransition(SelectionState.Pressed, true);
-            OnLeftClick?.Invoke(this);
-            buttonPressed = true;
-            if (toggleDebug)
-            {
-                Debug.Log("Submit Left");
-            }
-        }
-        else if (managerRefs.InputManager.Actions.UI.Cancel.IsPressed() && interactable)
-        {
-            DoStateTransition(SelectionState.Pressed, true);
-            OnRightClick?.Invoke(this);
-            if (toggleDebug)
-            {
-                Debug.Log("Submit Right");
-            }
-        }
-
-        if (_resetRoutine != null)
-        {
-            StopCoroutine(OnFinishSubmit());
-        }
-
-        if (gameObject.activeInHierarchy)
-        {
-            _resetRoutine = StartCoroutine(OnFinishSubmit());
-        }
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        buttonPressed = false;
-        DoStateTransition(SelectionState.Normal, true);
-    }
+#endif
 }

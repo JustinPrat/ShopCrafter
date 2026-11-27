@@ -14,6 +14,7 @@ public class UIView : MonoBehaviour
     protected bool activeState;
     public bool ActiveState => activeState;
     public CanvasGroup CanvasGroup => canvasGroup;
+    public ManagerRefs ManagerRefs => managerRefs;
 
     public virtual void Toggle (bool isOn)
     {

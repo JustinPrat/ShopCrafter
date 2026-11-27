@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: FarmerDialogue1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: <shake>Je n'ai pas tous ton temps</shake>
+  - Line: Tu veux <color=#FFB500FF><grow>acheter</grow></color> mes objets?
     Emotion: {fileID: 0}
-  - Line: Tu veux <color=#FFB500FF><grow>m'acheter</grow></color> quelque chose ?
-    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui
+  - Line: Achat
     AnswerDialogueData: {fileID: 11400000, guid: 3333e4a80b369254ab1e4fe5c3df9ff2, type: 2}
     Reward:
       mode: 0
@@ -33,7 +36,20 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: Non
+  - Line: Discussion
+    AnswerDialogueData: {fileID: 11400000, guid: 5a4a246720e32a6489dde95399a85fac, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: Aurevoir
     AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
     Reward:
       mode: 0

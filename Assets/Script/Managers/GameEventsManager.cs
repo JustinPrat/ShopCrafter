@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameEventsManager : MonoBehaviour
+public class GameEventsManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -23,13 +23,18 @@ public class GameEventsManager : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.GameEventsManager = this;
+
         questEvents = new QuestEvents();
         playerEvents = new PlayerEvents();
         dayEvents = new DayEvents();
         craftEvents = new CraftEvents();
         milestoneEvents = new MilestoneEvents();
+    }
+
+    public void Init(ManagerRefs refs)
+    {
     }
 }

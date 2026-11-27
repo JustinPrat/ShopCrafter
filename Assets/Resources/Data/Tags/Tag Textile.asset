@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Tag Textile
   m_EditorClassIdentifier: Assembly-CSharp::TagAsset
   Name: Textile
-  Description: "Multiplie les deux valeurs oppos\xE9s par 2"
+  Description: "Multiplie les deux valeurs oppos\xE9s par 1.5"
   Icon: {fileID: 21300000, guid: 63e6e866efce95f4a9dae5f8f6f9cb9f, type: 3}
+  TagOnGaugeColor: {r: 0.72156864, g: 0.3647059, b: 0.41960785, a: 1}
+  TagOffGaugeColor: {r: 0.42, g: 0.21144827, b: 0.24620691, a: 1}
   Effects:
   - {fileID: 11400000, guid: 764e40465068b3f4299f238bc01f6659, type: 2}
+  BarElementDatas:
+  - {fileID: 11400000, guid: 29497002c2088ea41b7774ed92576c8d, type: 2}

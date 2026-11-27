@@ -172,6 +172,7 @@ public class Movement3D : MonoBehaviour
         return currentDirectionHitPoint;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -180,6 +181,7 @@ public class Movement3D : MonoBehaviour
         Gizmos.color = Color.purple;
         Gizmos.DrawSphere(nextHitPos, 0.05f);
     }
+#endif
 
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {

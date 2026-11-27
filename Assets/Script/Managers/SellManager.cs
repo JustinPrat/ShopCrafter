@@ -3,13 +3,12 @@ using Alchemy.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 [AlchemySerialize]
-public partial class SellManager : MonoBehaviour
+public partial class SellManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField] 
     private ManagerRefs managerRefs;
@@ -23,24 +22,13 @@ public partial class SellManager : MonoBehaviour
     [NonSerialized, AlchemySerializeField]
     private Dictionary<ECraftedType, PriceVariation> priceVariations;
 
-    //[SerializeField]
-    //private float timeBeforePriceVariation;
-
     public List<SellSlot> SellSlots = new List<SellSlot>();
     public List<SellSlot> SellingSlots = new List<SellSlot>();
-
     public Dictionary<ECraftedType, PriceVariation> PriceVariations => priceVariations;
 
     private int coinAmount;
     private bool hasUnlockedVariation;
     private Queue<ECraftedType> priceVariationLastTypes = new Queue<ECraftedType>();
-
-    //private float nextTimePriceVariation;
-
-    private void OnValidate()
-    {
-        EditorUtility.SetDirty(this);
-    }
 
     public class PriceVariation
     {
@@ -61,24 +49,32 @@ public partial class SellManager : MonoBehaviour
     [ShowInInspector]
     public int CoinAmount => coinAmount;
 
-    private void Awake()
-    {
-        managerRefs.SellManager = this;
-        coinAmount = baseMoney;
-        ResetBasePrices();
-    }
-
-    private void Start()
-    {
-        managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
-        managerRefs.GameEventsManager.OnUnlockPriceVariation += OnUnlockPriceVariation;
-    }
-
     private void OnDestroy()
     {
         managerRefs.GameEventsManager.dayEvents.OnStartDay -= OnStartDay;
         managerRefs.GameEventsManager.OnUnlockPriceVariation -= OnUnlockPriceVariation;
     }
+
+    public void Register(ManagerRefs refs)
+    {
+        managerRefs.SellManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
+        managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
+        managerRefs.GameEventsManager.OnUnlockPriceVariation += OnUnlockPriceVariation;
+
+        coinAmount = baseMoney;
+        ResetBasePrices();
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        EditorUtility.SetDirty(this);
+    }
+#endif
 
     private void OnUnlockPriceVariation()
     {

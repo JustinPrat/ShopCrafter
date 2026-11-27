@@ -56,6 +56,8 @@ ShaderVariantCollection:
       variants:
       - keywords: COLOR_FILTER
         passType: 0
+      - keywords: DETAIL_MULTIPLY
+        passType: 0
       - keywords: GRADATION_COLOR2
         passType: 0
       - keywords: TONE_SEPIA
@@ -84,6 +86,8 @@ ShaderVariantCollection:
       - keywords: COLOR_FILTER EDGE_PLAIN GRADATION_COLOR2
         passType: 0
       - keywords: COLOR_FILTER EDGE_PLAIN GRADATION_COLOR2 SAMPLING_EDGE_ALPHA
+        passType: 0
+      - keywords: COLOR_FILTER EDGE_PLAIN SAMPLING_EDGE_ALPHA
         passType: 0
       - keywords: COLOR_FILTER EDGE_PLAIN TRANSITION_PATTERN
         passType: 0

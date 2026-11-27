@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41942ae3b3c38d746ab805810542bbdf, type: 3}
+  m_Name: BarMetalData
+  m_EditorClassIdentifier: Assembly-CSharp::BarMetalData
+  BarSpeed: 0.3
+  MinTagAmount: 0
+  OnTargetSpeedMultiplier: 0.5
+  NumberHit: 10
+  HitSucessFeedbackPrefab: {fileID: 3504917873796474621, guid: 3bb395da29400f94c8e07476fb33c352, type: 3}

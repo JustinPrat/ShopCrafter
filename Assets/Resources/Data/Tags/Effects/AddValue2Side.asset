@@ -22,4 +22,4 @@ MonoBehaviour:
     - rid: 5397454731071455343
       type: {class: AddModifier, ns: , asm: Assembly-CSharp}
       data:
-        Value: 0
+        Value: 2

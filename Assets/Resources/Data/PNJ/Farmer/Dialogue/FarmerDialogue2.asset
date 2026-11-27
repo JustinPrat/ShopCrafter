@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: FarmerDialogue2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   Lines:
-  - Line: Mes produits sont garantit avec moins de <grow>80%</grow><br> de <color=#00FF29FF>radiation</color>
+  - Line: J'ai des produits qui peuvent te plaire si tu veux.
     Emotion: {fileID: 0}
-  - Line: Tu veux y jeter un oeil ?
-    Emotion: {fileID: 0}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
   HasQuestion: 1
   HasNextDialogue: 0
   Answers:
-  - Line: Oui
+  - Line: Shop
     AnswerDialogueData: {fileID: 11400000, guid: 3333e4a80b369254ab1e4fe5c3df9ff2, type: 2}
     Reward:
       mode: 0
@@ -33,7 +36,20 @@ MonoBehaviour:
       unityReference: {fileID: 0}
       rawReference:
         rid: -2
-  - Line: Non
+  - Line: Discussion
+    AnswerDialogueData: {fileID: 11400000, guid: e8525f792c2c9f642b19dad789602cb5, type: 2}
+    Reward:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+    ReplaceMainDialogue: {fileID: 0}
+    Cost:
+      mode: 0
+      unityReference: {fileID: 0}
+      rawReference:
+        rid: -2
+  - Line: Aurevoir
     AnswerDialogueData: {fileID: 11400000, guid: 52c73ba5c81dbc4468613c95dfb47cbd, type: 2}
     Reward:
       mode: 0
@@ -48,6 +64,7 @@ MonoBehaviour:
         rid: -2
   NextDialogue: {fileID: 0}
   ReplaceMainDialogue: {fileID: 0}
+  EffectPreset: {fileID: 0}
   TMPAnimDatabase: {fileID: 11400000, guid: b4a1fa620b9ff844e900a530039a568d, type: 2}
   tmpType: 0
   TMPAnimationName: grow

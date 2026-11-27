@@ -7,11 +7,11 @@ public class ItemBatchData : ScriptableObject, ICost, IRewardable
 {
     public ItemBatch ItemBatch;
 
+    public SpawnedReward RewardPrefab { get => ItemBatch.RewardPrefab; set => ItemBatch.RewardPrefab = value; }
+
 #if UNITY_EDITOR
     private int amount;
     private Item item;
-
-    public SpawnedReward RewardPrefab { get => ItemBatch.RewardPrefab; set => ItemBatch.RewardPrefab = value; }
 
     private void OnValidate()
     {

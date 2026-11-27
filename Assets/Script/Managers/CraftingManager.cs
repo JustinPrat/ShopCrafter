@@ -3,7 +3,7 @@ using UnityEngine;
 using Alchemy.Serialization;
 
 [AlchemySerialize]
-public partial class CraftingManager : MonoBehaviour
+public partial class CraftingManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -36,9 +36,13 @@ public partial class CraftingManager : MonoBehaviour
     public List<CraftedObjectRecipe> BlueprintRecipes => blueprintRecipes;
     public CraftedObjectPool CurrentCraftedObjectPool => currentCraftedObjectPool;
 
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.CraftingManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
     }
 
     public void ConsumeItems (List<Item> items)

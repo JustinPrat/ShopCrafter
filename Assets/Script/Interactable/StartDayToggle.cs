@@ -38,7 +38,10 @@ public class StartDayToggle : ToggleActivation
     public override void StartInteract(PlayerBrain playerBrain)
     {
         if (!activeState)
+        {
             managerRefs.PNJManager.StartAfternoon();
+            managerRefs.UIManager.ToggleStartDayView(true);
+        }
 
         base.StartInteract(playerBrain);
     }

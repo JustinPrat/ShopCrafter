@@ -22,7 +22,7 @@ MonoBehaviour:
     unityReference: {fileID: 11400000, guid: 7a7f59b4216abbb40986033606dd6faa, type: 2}
     rawReference:
       rid: -2
-  FinishedDialogueData: {fileID: 11400000, guid: 053d127c64d44114ab58020ff074eb71, type: 2}
+  FinishedDialogueData: {fileID: 0}
   ReplaceDialogueData: {fileID: 0}
   references:
     version: 2

@@ -35,6 +35,7 @@ public class PNJBrain : WorldViewInteract<DialogueView>
     private BlackboardVariable<PnjEvent> pnjBuying;
     private BlackboardVariable<PnjEvent> pnjArriveBuying;
     private BlackboardVariable<PnjEvent> pnjOutside;
+    private BlackboardVariable<PnjEvent> pnjStartBuying;
     private DialogueData currentMainDialogue;
     private bool requestOut;
 
@@ -45,6 +46,8 @@ public class PNJBrain : WorldViewInteract<DialogueView>
     public BlackboardVariable<PnjEvent> PNJBuying => pnjBuying;
     public BlackboardVariable<PnjEvent> PNJArriveBuying => pnjArriveBuying;
     public BlackboardVariable<PnjEvent> PNJOutside => pnjOutside;
+    public BlackboardVariable<PnjEvent> PNJStartBuying => pnjStartBuying;
+
     public bool HasQuest => givenQuests.Count > 0;
     public bool ShouldReturn => PNJRuntime.IsSpecial || HasQuest;
     public WorldSpeech WorldSpeech => worldSpeech;
@@ -103,6 +106,7 @@ public class PNJBrain : WorldViewInteract<DialogueView>
         if (agent.BlackboardReference.GetVariable("PNJOutside", out pnjOutside))
             pnjOutside.Value.Event += OnPNJOutside;
 
+        agent.BlackboardReference.GetVariable("PNJStartBuying", out pnjStartBuying);
         agent.BlackboardReference.GetVariable("PNJArriveBuying", out pnjArriveBuying);
 
         PNJBaseData = datas;

@@ -45,8 +45,7 @@ public class ValidateInputArrow : MonoBehaviour
     private Tween currentInfiniteTween;
     private float baseLocalMovingAxis;
 
-
-    private void Awake()
+    private void Start()
     {
         if (!hold && slider != null)
         {

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Tag Glass
   m_EditorClassIdentifier: Assembly-CSharp::TagAsset
   Name: Glass
-  Description: Transmet les effets present au prochain tag
+  Description: Ajoute 3 de valeur au prochain tag
   Icon: {fileID: 21300000, guid: 7e1f10087de613847997c3e946a14363, type: 3}
+  TagOnGaugeColor: {r: 0.6594246, g: 0.852, b: 0.852, a: 1}
+  TagOffGaugeColor: {r: 0.4264045, g: 0.55, b: 0.55, a: 1}
   Effects:
-  - {fileID: 11400000, guid: 8a17c5b44ff4c3a4d9101b39980c7ae0, type: 2}
+  - {fileID: 11400000, guid: 4435d87ee317eaa4ca8ce9cab4afeab9, type: 2}
+  BarElementDatas:
+  - {fileID: 11400000, guid: 956cffd78750dc742b17ffaf037d86ff, type: 2}

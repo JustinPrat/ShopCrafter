@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PNJManager : MonoBehaviour
+public class PNJManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -113,13 +113,6 @@ public class PNJManager : MonoBehaviour
     }
 #endif
 
-    private void Awake()
-    {
-        managerRefs.PNJManager = this;
-        pnjList = new List<PNJBrain>();
-        UpdateDataPools(pnjPoolList[currentPoolIndex].Pool.PNJPoolList, pnjPoolList[currentPoolIndex].Pool.SpecialPNJPool);
-    }
-
     private void UpdateDataPools(List<PNJInfoData> basicPnjPool, List<PNJInfoData> specialPnjPool)
     {
         PNJDataUsedList.Clear();
@@ -132,6 +125,17 @@ public class PNJManager : MonoBehaviour
     {
         StartDay();
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneReached += OnMilestoneReached;
+    }
+
+    public void Register(ManagerRefs refs)
+    {
+        managerRefs.PNJManager = this;
+        pnjList = new List<PNJBrain>();
+    }
+
+    public void Init(ManagerRefs refs)
+    {
+        UpdateDataPools(pnjPoolList[currentPoolIndex].Pool.PNJPoolList, pnjPoolList[currentPoolIndex].Pool.SpecialPNJPool);
     }
 
     private void OnMilestoneReached(int index)
@@ -298,16 +302,6 @@ public class PNJManager : MonoBehaviour
             Destroy(pnj.gameObject);
         }
     }
-
-    //private void PauseDayCounter()
-    //{
-    //    isTimePaused = true;
-    //}
-
-    //private void ResumeDayCounter()
-    //{
-    //    isTimePaused = false;
-    //}
 
     private void OnDestroy()
     {

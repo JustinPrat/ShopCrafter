@@ -618,7 +618,7 @@ MonoBehaviour:
   canBeMoved: 0
   anchorPrefab: {fileID: 0}
   smoothSpeed: 15
-  highlight: {fileID: 4058569525409945430}
+  pressedGamepadSequence: {fileID: 0}
 --- !u!114 &5084348684736547214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,8 +721,24 @@ MonoBehaviour:
   OnLeftClickReleased:
     m_PersistentCalls:
       m_Calls: []
+  OnTransitionNormal:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransitionHighlighted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransitionPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransitionSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransitionDisabled:
+    m_PersistentCalls:
+      m_Calls: []
   managerRefs: {fileID: 11400000, guid: fbcb00529dd993140a25eca3f1686a27, type: 2}
   toggleDebug: 0
+  currentState: 0
 --- !u!1 &6714341341520142828
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using MackySoft.Choice;
 using System.Collections.Generic;
 using TNRD;
 using UnityEngine;
-public class MilestoneManager : MonoBehaviour
+public class MilestoneManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -32,23 +32,24 @@ public class MilestoneManager : MonoBehaviour
     [ShowInInspector]
     public List<ObjectiveBehavior> CurrentObjectiveBehaviors => currentObjectiveBehaviors;
 
-
-    private void Awake()
+    public void Register(ManagerRefs refs)
     {
         managerRefs.MilestoneManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
         currentMilestoneIndex = 0;
         currentMilestoneReputation = 0;
         currentMilestone = milestoneList[currentMilestoneIndex];
-    }
 
-    private void Start()
-    {
         currentMilestone.OnEnterMilestone(currentObjectiveBehaviors);
         managerRefs.GameEventsManager.milestoneEvents.OnGainReputation += OnGainReputation;
         managerRefs.GameEventsManager.milestoneEvents.OnMilestoneSpecial += OnMilestoneSpecial;
         managerRefs.GameEventsManager.milestoneEvents.OnValidateMilestone += TryValidateMilestone;
         managerRefs.GameEventsManager.dayEvents.OnStartDay += OnStartDay;
     }
+
     private void OnDestroy()
     {
         if (managerRefs.GameEventsManager != null)

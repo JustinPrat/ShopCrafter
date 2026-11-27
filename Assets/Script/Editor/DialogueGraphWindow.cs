@@ -6,15 +6,37 @@ using UnityEngine;
 
 public class DialogueGraphWindow : EditorWindow
 {
+    private enum PortType
+    {
+        Next,
+        ReplaceMain,
+        Answer
+    }
+
+    private struct DraggingPort
+    {
+        public DialogueNode SourceNode;
+        public PortType Type;
+        public int AnswerIndex;
+        public Vector2 StartCanvasPos;
+        public Color Color;
+    }
+
     private class DialogueNode
     {
         public DialogueData Data;
+        public DialogueData TreeRoot;
         public Rect Rect;
         public int Depth;
+        public Rect NextPortRect;
+        public Rect ReplacePortRect;
+        public readonly List<Rect> AnswerPortRects = new List<Rect>();
     }
 
-    private DialogueData rootDialogue;
+    private readonly List<DialogueData> rootDialogues = new List<DialogueData>();
     private PNJInfoData sourcePNJ;
+    private readonly List<DialogueData> pnjDialogues = new List<DialogueData>();
+    private int selectedPnjDialogueIndex = 0; // 0 = Tous
 
     private readonly Dictionary<DialogueData, DialogueNode> nodes = new Dictionary<DialogueData, DialogueNode>();
     private DialogueData selectedDialogue;
@@ -24,49 +46,76 @@ public class DialogueGraphWindow : EditorWindow
     private Vector2 panOffset = Vector2.zero;
     private bool isPanning;
     private DialogueNode draggingNode;
+    private bool isDraggingPort;
+    private DraggingPort activePort;
+
+    private float inspectorWidth = 420f;
+    private bool isResizingInspector;
     private Vector2 inspectorScrollPos;
 
-    private const float InspectorWidth = 340f;
     private const float ToolbarHeight = 28f;
-    private const float NodeWidth = 240f;
-    private const float NodeHorizontalSpacing = 90f;
+    private const float NodeWidth = 250f;
+    private const float NodeHorizontalSpacing = 100f;
     private const float NodeVerticalSpacing = 35f;
+    private const float TreeVerticalSpacing = 80f;
+    private const float PortSize = 12f;
 
     [MenuItem("ShopCrafter/Tools/Dialogue Graph Editor")]
     public static void ShowWindow()
     {
         DialogueGraphWindow window = GetWindow<DialogueGraphWindow>("Dialogue Graph");
-        window.minSize = new Vector2(820f, 540f);
+        window.minSize = new Vector2(860f, 540f);
     }
 
     public static void OpenWithPNJ(PNJInfoData pnjInfo)
     {
         DialogueGraphWindow window = GetWindow<DialogueGraphWindow>("Dialogue Graph");
-        window.minSize = new Vector2(820f, 540f);
-        window.sourcePNJ = pnjInfo;
-
-        DialogueData extracted = window.ExtractDialogueFromPNJ(pnjInfo);
-        if (extracted != null)
-        {
-            window.LoadRootDialogue(extracted);
-        }
-        else
-        {
-            window.ShowNotification(new GUIContent("Aucun DialogueData trouvé sur ce PNJ."), 1.5f);
-        }
-
+        window.minSize = new Vector2(860f, 540f);
+        window.LoadPNJ(pnjInfo);
         window.Focus();
     }
 
     private void OnGUI()
     {
+        inspectorWidth = Mathf.Clamp(inspectorWidth, 280f, Mathf.Max(320f, position.width * 0.65f));
+
         DrawToolbar();
 
-        Rect canvasRect = new Rect(0f, ToolbarHeight, position.width - InspectorWidth, position.height - ToolbarHeight);
-        Rect inspectorRect = new Rect(position.width - InspectorWidth, ToolbarHeight, InspectorWidth, position.height - ToolbarHeight);
+        float canvasWidth = position.width - inspectorWidth;
+        Rect canvasRect = new Rect(0f, ToolbarHeight, canvasWidth, position.height - ToolbarHeight);
+        Rect splitterRect = new Rect(canvasWidth - 3f, ToolbarHeight, 6f, position.height - ToolbarHeight);
+        Rect inspectorRect = new Rect(canvasWidth, ToolbarHeight, inspectorWidth, position.height - ToolbarHeight);
 
         DrawCanvas(canvasRect);
         DrawInspectorPanel(inspectorRect);
+        HandleSplitter(splitterRect);
+
+        if (isDraggingPort || isPanning || draggingNode != null || isResizingInspector)
+        {
+            Repaint();
+        }
+    }
+
+    private void HandleSplitter(Rect splitterRect)
+    {
+        EditorGUIUtility.AddCursorRect(splitterRect, MouseCursor.ResizeHorizontal);
+        Event e = Event.current;
+
+        if (e.type == EventType.MouseDown && e.button == 0 && splitterRect.Contains(e.mousePosition))
+        {
+            isResizingInspector = true;
+            e.Use();
+        }
+        else if (e.type == EventType.MouseDrag && isResizingInspector)
+        {
+            inspectorWidth = Mathf.Clamp(position.width - e.mousePosition.x, 280f, position.width * 0.65f);
+            e.Use();
+        }
+        else if (e.type == EventType.MouseUp && isResizingInspector)
+        {
+            isResizingInspector = false;
+            e.Use();
+        }
     }
 
     private void DrawToolbar()
@@ -74,31 +123,49 @@ public class DialogueGraphWindow : EditorWindow
         EditorGUILayout.BeginHorizontal(EditorStyles.toolbar, GUILayout.Height(ToolbarHeight));
 
         EditorGUI.BeginChangeCheck();
-        sourcePNJ = (PNJInfoData)EditorGUILayout.ObjectField("PNJ Info", sourcePNJ, typeof(PNJInfoData), false, GUILayout.Width(220));
-        if (EditorGUI.EndChangeCheck() && sourcePNJ != null)
-        {
-            DialogueData extracted = ExtractDialogueFromPNJ(sourcePNJ);
-            if (extracted != null)
-            {
-                LoadRootDialogue(extracted);
-            }
-            else
-            {
-                ShowNotification(new GUIContent("Aucun DialogueData trouvé sur ce PNJInfoData."), 1.5f);
-            }
-        }
-
-        EditorGUI.BeginChangeCheck();
-        DialogueData newRoot = (DialogueData)EditorGUILayout.ObjectField("Dialogue", rootDialogue, typeof(DialogueData), false, GUILayout.Width(230));
+        PNJInfoData newPnj = (PNJInfoData)EditorGUILayout.ObjectField(sourcePNJ, typeof(PNJInfoData), false, GUILayout.Width(170));
         if (EditorGUI.EndChangeCheck())
         {
-            sourcePNJ = null;
-            LoadRootDialogue(newRoot);
+            LoadPNJ(newPnj);
         }
 
-        if (GUILayout.Button("+ Nouveau Root", EditorStyles.toolbarButton, GUILayout.Width(105)))
+        if (sourcePNJ != null)
         {
-            CreateNewRootDialogue();
+            string[] options = new string[pnjDialogues.Count + 1];
+            options[0] = $"Tous ({pnjDialogues.Count})";
+            for (int i = 0; i < pnjDialogues.Count; i++)
+            {
+                options[i + 1] = pnjDialogues[i] != null ? $"{i + 1}. {pnjDialogues[i].name}" : $"{i + 1}. (Vide)";
+            }
+
+            selectedPnjDialogueIndex = Mathf.Clamp(selectedPnjDialogueIndex, 0, options.Length - 1);
+
+            EditorGUI.BeginChangeCheck();
+            selectedPnjDialogueIndex = EditorGUILayout.Popup(selectedPnjDialogueIndex, options, EditorStyles.toolbarPopup, GUILayout.Width(180));
+            if (EditorGUI.EndChangeCheck())
+            {
+                ApplyPNJDialogueFilter();
+            }
+
+            if (sourcePNJ.IdentityInfo is PNJIdentityArchetype && GUILayout.Button("+ Ajouter au PNJ", EditorStyles.toolbarButton, GUILayout.Width(105)))
+            {
+                AddNewDialogueToPNJ();
+            }
+        }
+        else
+        {
+            DialogueData currentSingle = rootDialogues.Count > 0 ? rootDialogues[0] : null;
+            EditorGUI.BeginChangeCheck();
+            DialogueData newRoot = (DialogueData)EditorGUILayout.ObjectField(currentSingle, typeof(DialogueData), false, GUILayout.Width(190));
+            if (EditorGUI.EndChangeCheck())
+            {
+                LoadSingleRootDialogue(newRoot);
+            }
+
+            if (GUILayout.Button("+ Nouveau Root", EditorStyles.toolbarButton, GUILayout.Width(105)))
+            {
+                CreateNewRootDialogue();
+            }
         }
 
         GUILayout.FlexibleSpace();
@@ -115,10 +182,260 @@ public class DialogueGraphWindow : EditorWindow
 
         if (GUILayout.Button("↻", EditorStyles.toolbarButton, GUILayout.Width(26)))
         {
-            RebuildGraph(false);
+            if (sourcePNJ != null)
+            {
+                RefreshPNJDialogues();
+                ApplyPNJDialogueFilter();
+            }
+            else
+            {
+                RebuildGraph(false);
+            }
         }
 
         EditorGUILayout.EndHorizontal();
+    }
+
+    private void LoadPNJ(PNJInfoData pnjInfo)
+    {
+        sourcePNJ = pnjInfo;
+        selectedPnjDialogueIndex = 0;
+        RefreshPNJDialogues();
+
+        if (sourcePNJ == null)
+        {
+            rootDialogues.Clear();
+            nodes.Clear();
+            SelectDialogue(null);
+            return;
+        }
+
+        if (pnjDialogues.Count == 0)
+        {
+            ShowNotification(new GUIContent("Aucun DialogueData trouvé sur ce PNJ."), 1.5f);
+        }
+
+        ApplyPNJDialogueFilter();
+    }
+
+    private void RefreshPNJDialogues()
+    {
+        pnjDialogues.Clear();
+        if (sourcePNJ == null) return;
+
+        if (sourcePNJ.IdentityInfo is PNJIdentityArchetype archetype && archetype.possibleDialogues != null)
+        {
+            foreach (DialogueData d in archetype.possibleDialogues)
+            {
+                if (d != null && !pnjDialogues.Contains(d))
+                    pnjDialogues.Add(d);
+            }
+            return;
+        }
+
+        if (sourcePNJ.IdentityInfo != null)
+        {
+            SerializedObject idSo = new SerializedObject(sourcePNJ.IdentityInfo);
+            SerializedProperty prop = idSo.GetIterator();
+            while (prop.NextVisible(true))
+            {
+                if (prop.propertyType == SerializedPropertyType.ObjectReference && prop.objectReferenceValue is DialogueData d)
+                {
+                    if (!pnjDialogues.Contains(d))
+                        pnjDialogues.Add(d);
+                }
+            }
+        }
+    }
+
+    private void ApplyPNJDialogueFilter(bool resetPositions = true)
+    {
+        rootDialogues.Clear();
+
+        if (selectedPnjDialogueIndex == 0)
+        {
+            rootDialogues.AddRange(pnjDialogues);
+        }
+        else
+        {
+            int idx = selectedPnjDialogueIndex - 1;
+            if (idx >= 0 && idx < pnjDialogues.Count && pnjDialogues[idx] != null)
+            {
+                rootDialogues.Add(pnjDialogues[idx]);
+            }
+            else
+            {
+                selectedPnjDialogueIndex = 0;
+                rootDialogues.AddRange(pnjDialogues);
+            }
+        }
+
+        if (selectedDialogue == null || !nodes.ContainsKey(selectedDialogue))
+        {
+            SelectDialogue(rootDialogues.Count > 0 ? rootDialogues[0] : null);
+        }
+
+        RebuildGraph(resetPositions);
+        if (resetPositions) panOffset = Vector2.zero;
+    }
+
+    private void AddNewDialogueToPNJ()
+    {
+        if (sourcePNJ == null || !(sourcePNJ.IdentityInfo is PNJIdentityArchetype archetype)) return;
+
+        string folder = Path.GetDirectoryName(AssetDatabase.GetAssetPath(archetype));
+        if (string.IsNullOrEmpty(folder)) folder = "Assets";
+
+        string assetPath = AssetDatabase.GenerateUniqueAssetPath(Path.Combine(folder, $"{sourcePNJ.name}_Dialogue{pnjDialogues.Count + 1}.asset"));
+        DialogueData created = CreateInstance<DialogueData>();
+        AssetDatabase.CreateAsset(created, assetPath);
+
+        Undo.RecordObject(archetype, "Add Dialogue to PNJ Archetype");
+        if (archetype.possibleDialogues == null) archetype.possibleDialogues = new List<DialogueData>();
+        archetype.possibleDialogues.Add(created);
+        EditorUtility.SetDirty(archetype);
+        AssetDatabase.SaveAssets();
+
+        RefreshPNJDialogues();
+        selectedPnjDialogueIndex = pnjDialogues.IndexOf(created) + 1;
+        SelectDialogue(created);
+        ApplyPNJDialogueFilter();
+    }
+
+    private void RemoveDialogueFromArchetype(DialogueData target, bool deleteAsset)
+    {
+        if (sourcePNJ == null || !(sourcePNJ.IdentityInfo is PNJIdentityArchetype archetype)) return;
+
+        Undo.RecordObject(archetype, "Remove Dialogue from PNJ Archetype");
+        if (archetype.possibleDialogues != null)
+        {
+            archetype.possibleDialogues.RemoveAll(d => d == target);
+        }
+        EditorUtility.SetDirty(archetype);
+
+        if (deleteAsset)
+        {
+            string assetPath = AssetDatabase.GetAssetPath(target);
+            UnlinkDialogueReferences(target);
+            if (!string.IsNullOrEmpty(assetPath))
+            {
+                AssetDatabase.DeleteAsset(assetPath);
+            }
+        }
+
+        AssetDatabase.SaveAssets();
+        RefreshPNJDialogues();
+        selectedPnjDialogueIndex = 0;
+        SelectDialogue(pnjDialogues.Count > 0 ? pnjDialogues[0] : null);
+        ApplyPNJDialogueFilter(true);
+    }
+
+    private void InsertNewBaseBeforeNode(DialogueNode targetNode)
+    {
+        DialogueData oldData = targetNode.Data;
+        DialogueData newBase = CreateLinkedDialogueAsset(oldData, $"{oldData.name}_Base");
+
+        Undo.RecordObject(newBase, "Link New Base Dialogue");
+        newBase.HasNextDialogue = true;
+        newBase.NextDialogue = oldData;
+        EditorUtility.SetDirty(newBase);
+
+        ReplaceRootReference(oldData, newBase);
+        AssetDatabase.SaveAssets();
+
+        if (sourcePNJ != null)
+        {
+            RefreshPNJDialogues();
+            if (selectedPnjDialogueIndex > 0)
+            {
+                int idx = pnjDialogues.IndexOf(newBase);
+                selectedPnjDialogueIndex = idx >= 0 ? idx + 1 : 0;
+            }
+            SelectDialogue(newBase);
+            ApplyPNJDialogueFilter(true);
+        }
+        else
+        {
+            SelectDialogue(newBase);
+            RebuildGraph(true);
+        }
+    }
+
+    private void PromoteNodeToRoot(DialogueNode targetNode)
+    {
+        DialogueData newRoot = targetNode.Data;
+        DialogueData oldRoot = targetNode.TreeRoot;
+
+        if (oldRoot == null || oldRoot == newRoot) return;
+
+        // Si l'ancien root pointait en Next vers le nouveau root, on inverse le lien proprement
+        if (oldRoot.HasNextDialogue && oldRoot.NextDialogue == newRoot)
+        {
+            Undo.RecordObject(oldRoot, "Swap Root Next Link");
+            Undo.RecordObject(newRoot, "Swap Root Next Link");
+
+            oldRoot.NextDialogue = null;
+            oldRoot.HasNextDialogue = false;
+
+            if (!newRoot.HasNextDialogue || newRoot.NextDialogue == null)
+            {
+                newRoot.HasNextDialogue = true;
+                newRoot.NextDialogue = oldRoot;
+            }
+
+            EditorUtility.SetDirty(oldRoot);
+            EditorUtility.SetDirty(newRoot);
+        }
+
+        ReplaceRootReference(oldRoot, newRoot);
+        AssetDatabase.SaveAssets();
+
+        if (sourcePNJ != null)
+        {
+            RefreshPNJDialogues();
+            if (selectedPnjDialogueIndex > 0)
+            {
+                int idx = pnjDialogues.IndexOf(newRoot);
+                selectedPnjDialogueIndex = idx >= 0 ? idx + 1 : 0;
+            }
+            SelectDialogue(newRoot);
+            ApplyPNJDialogueFilter(true);
+        }
+        else
+        {
+            SelectDialogue(newRoot);
+            RebuildGraph(true);
+        }
+    }
+
+    private void ReplaceRootReference(DialogueData oldRoot, DialogueData newRoot)
+    {
+        if (sourcePNJ != null && sourcePNJ.IdentityInfo is PNJIdentityArchetype archetype && archetype.possibleDialogues != null)
+        {
+            Undo.RecordObject(archetype, "Replace Root Dialogue in Archetype");
+            int idx = archetype.possibleDialogues.IndexOf(oldRoot);
+            if (idx >= 0)
+            {
+                archetype.possibleDialogues[idx] = newRoot;
+            }
+            else if (!archetype.possibleDialogues.Contains(newRoot))
+            {
+                archetype.possibleDialogues.Add(newRoot);
+            }
+            EditorUtility.SetDirty(archetype);
+        }
+        else
+        {
+            int idx = rootDialogues.IndexOf(oldRoot);
+            if (idx >= 0)
+            {
+                rootDialogues[idx] = newRoot;
+            }
+            else if (!rootDialogues.Contains(newRoot))
+            {
+                rootDialogues.Add(newRoot);
+            }
+        }
     }
 
     private void CreateNewRootDialogue()
@@ -130,37 +447,13 @@ public class DialogueGraphWindow : EditorWindow
         AssetDatabase.CreateAsset(created, path);
         AssetDatabase.SaveAssets();
         sourcePNJ = null;
-        LoadRootDialogue(created);
+        LoadSingleRootDialogue(created);
     }
 
-    private DialogueData ExtractDialogueFromPNJ(PNJInfoData pnjInfo)
+    private void LoadSingleRootDialogue(DialogueData dialogue)
     {
-        if (pnjInfo == null) return null;
-
-        SerializedObject so = new SerializedObject(pnjInfo);
-        SerializedProperty prop = so.GetIterator();
-        while (prop.NextVisible(true))
-        {
-            if (prop.propertyType == SerializedPropertyType.ObjectReference && prop.objectReferenceValue != null)
-            {
-                if (prop.objectReferenceValue is DialogueData directDialogue)
-                    return directDialogue;
-
-                if (prop.objectReferenceValue is IdentityData identityData)
-                {
-                    Identity id = identityData.GetIdentity();
-                    if (id != null && id.Dialogue != null)
-                        return id.Dialogue;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private void LoadRootDialogue(DialogueData dialogue)
-    {
-        rootDialogue = dialogue;
+        rootDialogues.Clear();
+        if (dialogue != null) rootDialogues.Add(dialogue);
         SelectDialogue(dialogue);
         RebuildGraph(true);
         panOffset = Vector2.zero;
@@ -173,7 +466,7 @@ public class DialogueGraphWindow : EditorWindow
         renameBuffer = dialogue != null ? dialogue.name : "";
     }
 
-    private void RebuildGraph(bool resetPositions)
+    private void RebuildGraph(bool resetPositions, Dictionary<DialogueData, Vector2> overridePositions = null)
     {
         Dictionary<DialogueData, Vector2> savedPositions = new Dictionary<DialogueData, Vector2>();
         if (!resetPositions)
@@ -185,91 +478,106 @@ public class DialogueGraphWindow : EditorWindow
             }
         }
 
-        nodes.Clear();
-        if (rootDialogue == null) return;
-
-        Queue<(DialogueData data, int depth)> queue = new Queue<(DialogueData, int)>();
-        Dictionary<int, List<DialogueNode>> columns = new Dictionary<int, List<DialogueNode>>();
-
-        queue.Enqueue((rootDialogue, 0));
-
-        while (queue.Count > 0)
+        if (overridePositions != null)
         {
-            var (current, depth) = queue.Dequeue();
-            if (current == null || nodes.ContainsKey(current)) continue;
-
-            float estimatedHeight = EstimateNodeHeight(current);
-            DialogueNode node = new DialogueNode
-            {
-                Data = current,
-                Depth = depth,
-                Rect = new Rect(0f, 0f, NodeWidth, estimatedHeight)
-            };
-
-            nodes.Add(current, node);
-
-            if (!columns.ContainsKey(depth))
-                columns[depth] = new List<DialogueNode>();
-            columns[depth].Add(node);
-
-            if (current.HasNextDialogue && current.NextDialogue != null)
-                queue.Enqueue((current.NextDialogue, depth + 1));
-
-            if (current.HasQuestion && current.Answers != null)
-            {
-                foreach (Answer answer in current.Answers)
-                {
-                    if (answer.AnswerDialogueData != null)
-                        queue.Enqueue((answer.AnswerDialogueData, depth + 1));
-                    if (answer.ReplaceMainDialogue != null)
-                        queue.Enqueue((answer.ReplaceMainDialogue, depth + 1));
-                }
-            }
-
-            if (current.ReplaceMainDialogue != null)
-                queue.Enqueue((current.ReplaceMainDialogue, depth + 1));
+            foreach (var kvp in overridePositions)
+                savedPositions[kvp.Key] = kvp.Value;
         }
 
-        foreach (var kvp in columns)
+        nodes.Clear();
+        if (rootDialogues.Count == 0) return;
+
+        float currentTreeStartY = 40f;
+
+        foreach (DialogueData root in rootDialogues)
         {
-            int col = kvp.Key;
-            float y = 40f;
-            foreach (DialogueNode node in kvp.Value)
+            if (root == null || nodes.ContainsKey(root)) continue;
+
+            Queue<(DialogueData data, int depth)> queue = new Queue<(DialogueData, int)>();
+            Dictionary<int, List<DialogueNode>> columns = new Dictionary<int, List<DialogueNode>>();
+
+            queue.Enqueue((root, 0));
+
+            while (queue.Count > 0)
             {
-                if (!resetPositions && savedPositions.TryGetValue(node.Data, out Vector2 pos))
+                var (current, depth) = queue.Dequeue();
+                if (current == null || nodes.ContainsKey(current)) continue;
+
+                DialogueNode node = new DialogueNode
                 {
-                    node.Rect.position = pos;
+                    Data = current,
+                    TreeRoot = root,
+                    Depth = depth,
+                    Rect = new Rect(0f, 0f, NodeWidth, EstimateNodeHeight(current))
+                };
+
+                nodes.Add(current, node);
+
+                if (!columns.ContainsKey(depth))
+                    columns[depth] = new List<DialogueNode>();
+                columns[depth].Add(node);
+
+                if (current.HasNextDialogue && current.NextDialogue != null)
+                    queue.Enqueue((current.NextDialogue, depth + 1));
+
+                if (current.HasQuestion && current.Answers != null)
+                {
+                    foreach (Answer answer in current.Answers)
+                    {
+                        if (answer.AnswerDialogueData != null)
+                            queue.Enqueue((answer.AnswerDialogueData, depth + 1));
+                        if (answer.ReplaceMainDialogue != null)
+                            queue.Enqueue((answer.ReplaceMainDialogue, depth + 1));
+                    }
                 }
-                else
+
+                if (current.ReplaceMainDialogue != null)
+                    queue.Enqueue((current.ReplaceMainDialogue, depth + 1));
+            }
+
+            float maxTreeY = currentTreeStartY;
+
+            foreach (var kvp in columns)
+            {
+                int col = kvp.Key;
+                float y = currentTreeStartY;
+
+                foreach (DialogueNode node in kvp.Value)
                 {
-                    node.Rect.position = new Vector2(40f + col * (NodeWidth + NodeHorizontalSpacing), y);
-                    y += node.Rect.height + NodeVerticalSpacing;
+                    if ((!resetPositions || overridePositions != null) && savedPositions.TryGetValue(node.Data, out Vector2 pos))
+                    {
+                        node.Rect.position = pos;
+                    }
+                    else
+                    {
+                        node.Rect.position = new Vector2(40f + col * (NodeWidth + NodeHorizontalSpacing), y);
+                        y += node.Rect.height + NodeVerticalSpacing;
+                    }
+
+                    maxTreeY = Mathf.Max(maxTreeY, node.Rect.yMax);
                 }
             }
+
+            currentTreeStartY = maxTreeY + TreeVerticalSpacing;
         }
     }
 
     private float EstimateNodeHeight(DialogueData data)
     {
-        float height = 62f;
+        float height = 56f;
         int lineCount = data.Lines != null ? Mathf.Min(data.Lines.Count, 3) : 0;
-        height += lineCount * 20f;
+        height += Mathf.Max(1, lineCount) * 18f;
+        if (data.Lines != null && data.Lines.Count > 3) height += 14f;
+
+        height += 22f; // Row Next
+        height += 22f; // Row Replace Main
 
         if (data.HasQuestion && data.Answers != null && data.Answers.Count > 0)
         {
-            height += 22f + data.Answers.Count * 22f;
-        }
-        else if (data.HasNextDialogue)
-        {
-            height += 24f;
+            height += 6f + data.Answers.Count * 22f;
         }
 
-        if (data.ReplaceMainDialogue != null)
-        {
-            height += 20f;
-        }
-
-        return Mathf.Max(100f, height);
+        return Mathf.Max(115f, height);
     }
 
     private void DrawCanvas(Rect canvasRect)
@@ -280,7 +588,7 @@ public class DialogueGraphWindow : EditorWindow
         DrawGrid(canvasRect, 20f, 0.15f, Color.gray);
         DrawGrid(canvasRect, 100f, 0.3f, Color.gray);
 
-        if (rootDialogue == null)
+        if (rootDialogues.Count == 0)
         {
             GUIStyle centerStyle = new GUIStyle(EditorStyles.boldLabel)
             {
@@ -288,7 +596,7 @@ public class DialogueGraphWindow : EditorWindow
                 fontSize = 13,
                 normal = { textColor = new Color(0.7f, 0.7f, 0.7f) }
             };
-            GUI.Label(new Rect(0, 0, canvasRect.width, canvasRect.height - 40f), "Glisse un DialogueData / PNJInfoData ou clique sur '+ Nouveau Root'.", centerStyle);
+            GUI.Label(new Rect(0, 0, canvasRect.width, canvasRect.height - 40f), "Glisse un PNJInfoData ou un DialogueData dans la barre du haut.", centerStyle);
 
             if (GUI.Button(new Rect(canvasRect.width * 0.5f - 90f, canvasRect.height * 0.5f + 10f, 180f, 30f), "+ Créer un DialogueData"))
             {
@@ -299,8 +607,20 @@ public class DialogueGraphWindow : EditorWindow
             return;
         }
 
-        HandleCanvasEvents(canvasRect);
+        foreach (DialogueNode node in nodes.Values)
+        {
+            ComputeNodePortRects(node);
+        }
+
+        HandleCanvasEvents();
         DrawConnections();
+
+        if (isDraggingPort)
+        {
+            Handles.BeginGUI();
+            DrawBezierConnection(activePort.StartCanvasPos, Event.current.mousePosition, activePort.Color, "");
+            Handles.EndGUI();
+        }
 
         foreach (DialogueNode node in new List<DialogueNode>(nodes.Values))
         {
@@ -308,6 +628,35 @@ public class DialogueGraphWindow : EditorWindow
         }
 
         GUI.EndGroup();
+    }
+
+    private void ComputeNodePortRects(DialogueNode node)
+    {
+        DialogueData data = node.Data;
+        node.Rect.height = EstimateNodeHeight(data);
+        Rect screenRect = new Rect(node.Rect.position + panOffset, node.Rect.size);
+
+        float y = screenRect.y + 28f;
+        int lineCount = data.Lines != null ? data.Lines.Count : 0;
+        y += Mathf.Max(1, Mathf.Min(lineCount, 3)) * 18f;
+        if (lineCount > 3) y += 14f;
+
+        node.NextPortRect = new Rect(screenRect.xMax - PortSize * 0.5f, y + 3f, PortSize, PortSize);
+        y += 22f;
+
+        node.ReplacePortRect = new Rect(screenRect.xMax - PortSize * 0.5f, y + 3f, PortSize, PortSize);
+        y += 22f;
+
+        node.AnswerPortRects.Clear();
+        if (data.HasQuestion && data.Answers != null && data.Answers.Count > 0)
+        {
+            y += 6f;
+            for (int i = 0; i < data.Answers.Count; i++)
+            {
+                node.AnswerPortRects.Add(new Rect(screenRect.xMax - PortSize * 0.5f, y + 4f, PortSize, PortSize));
+                y += 22f;
+            }
+        }
     }
 
     private void DrawGrid(Rect rect, float spacing, float opacity, Color color)
@@ -333,7 +682,7 @@ public class DialogueGraphWindow : EditorWindow
         Handles.EndGUI();
     }
 
-    private void HandleCanvasEvents(Rect canvasRect)
+    private void HandleCanvasEvents()
     {
         Event e = Event.current;
 
@@ -346,6 +695,12 @@ public class DialogueGraphWindow : EditorWindow
             }
             else if (e.button == 0)
             {
+                if (TryBeginPortDrag(e.mousePosition))
+                {
+                    e.Use();
+                    return;
+                }
+
                 DialogueNode clickedNode = GetNodeAtPosition(e.mousePosition);
                 if (clickedNode != null)
                 {
@@ -382,18 +737,137 @@ public class DialogueGraphWindow : EditorWindow
                 draggingNode.Rect.position += e.delta;
                 e.Use();
             }
+            else if (isDraggingPort)
+            {
+                e.Use();
+            }
         }
         else if (e.type == EventType.MouseUp)
         {
+            if (isDraggingPort)
+            {
+                CompletePortDrag(e.mousePosition);
+                isDraggingPort = false;
+                e.Use();
+            }
             isPanning = false;
             draggingNode = null;
         }
+    }
+
+    private bool TryBeginPortDrag(Vector2 mousePos)
+    {
+        foreach (DialogueNode node in nodes.Values)
+        {
+            if (ExpandRect(node.NextPortRect, 4f).Contains(mousePos))
+            {
+                isDraggingPort = true;
+                activePort = new DraggingPort
+                {
+                    SourceNode = node,
+                    Type = PortType.Next,
+                    StartCanvasPos = node.NextPortRect.center,
+                    Color = new Color(0.35f, 0.75f, 1f)
+                };
+                return true;
+            }
+
+            if (ExpandRect(node.ReplacePortRect, 4f).Contains(mousePos))
+            {
+                isDraggingPort = true;
+                activePort = new DraggingPort
+                {
+                    SourceNode = node,
+                    Type = PortType.ReplaceMain,
+                    StartCanvasPos = node.ReplacePortRect.center,
+                    Color = new Color(1f, 0.7f, 0.25f)
+                };
+                return true;
+            }
+
+            for (int i = 0; i < node.AnswerPortRects.Count; i++)
+            {
+                if (ExpandRect(node.AnswerPortRects[i], 4f).Contains(mousePos))
+                {
+                    isDraggingPort = true;
+                    activePort = new DraggingPort
+                    {
+                        SourceNode = node,
+                        Type = PortType.Answer,
+                        AnswerIndex = i,
+                        StartCanvasPos = node.AnswerPortRects[i].center,
+                        Color = new Color(0.45f, 0.9f, 0.5f)
+                    };
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void CompletePortDrag(Vector2 mousePos)
+    {
+        DialogueNode targetNode = GetNodeAtPosition(mousePos);
+        DialogueData sourceData = activePort.SourceNode.Data;
+        DialogueData targetData;
+        Dictionary<DialogueData, Vector2> overridePos = null;
+
+        if (targetNode != null && targetNode != activePort.SourceNode)
+        {
+            targetData = targetNode.Data;
+        }
+        else if (targetNode == null)
+        {
+            string suffix = activePort.Type == PortType.Next
+                ? "_Next"
+                : (activePort.Type == PortType.ReplaceMain ? "_Replace" : $"_Ans{activePort.AnswerIndex + 1}");
+
+            targetData = CreateLinkedDialogueAsset(sourceData, sourceData.name + suffix);
+            overridePos = new Dictionary<DialogueData, Vector2>
+            {
+                { targetData, mousePos - panOffset - new Vector2(0f, 20f) }
+            };
+        }
+        else
+        {
+            return;
+        }
+
+        Undo.RecordObject(sourceData, "Connect Dialogue Port");
+
+        switch (activePort.Type)
+        {
+            case PortType.Next:
+                sourceData.HasNextDialogue = true;
+                sourceData.NextDialogue = targetData;
+                break;
+            case PortType.ReplaceMain:
+                sourceData.ReplaceMainDialogue = targetData;
+                break;
+            case PortType.Answer:
+                if (sourceData.Answers != null && activePort.AnswerIndex < sourceData.Answers.Count)
+                {
+                    sourceData.Answers[activePort.AnswerIndex].AnswerDialogueData = targetData;
+                }
+                break;
+        }
+
+        EditorUtility.SetDirty(sourceData);
+        SelectDialogue(targetData);
+        RebuildGraph(false, overridePos);
+    }
+
+    private Rect ExpandRect(Rect r, float amount)
+    {
+        return new Rect(r.x - amount, r.y - amount, r.width + amount * 2f, r.height + amount * 2f);
     }
 
     private void ShowNodeContextMenu(DialogueNode node)
     {
         GenericMenu menu = new GenericMenu();
         DialogueData data = node.Data;
+        bool isRoot = rootDialogues.Contains(data);
+        bool hasArchetype = sourcePNJ != null && sourcePNJ.IdentityInfo is PNJIdentityArchetype;
 
         menu.AddItem(new GUIContent("Ajouter une Ligne"), false, () =>
         {
@@ -419,42 +893,41 @@ public class DialogueGraphWindow : EditorWindow
             RebuildGraph(false);
         });
 
-        menu.AddItem(new GUIContent("Créer & Lier NextDialogue"), false, () =>
-        {
-            Undo.RecordObject(data, "Create Next Dialogue");
-            data.HasNextDialogue = true;
-            DialogueData child = CreateLinkedDialogueAsset(data, $"{data.name}_Next");
-            data.NextDialogue = child;
-            EditorUtility.SetDirty(data);
-            SelectDialogue(child);
-            RebuildGraph(false);
-        });
+        menu.AddSeparator("");
 
-        menu.AddItem(new GUIContent("Créer & Lier ReplaceMainDialogue"), false, () =>
+        if (isRoot)
         {
-            Undo.RecordObject(data, "Create Replace Main Dialogue");
-            DialogueData child = CreateLinkedDialogueAsset(data, $"{data.name}_Replace");
-            data.ReplaceMainDialogue = child;
-            EditorUtility.SetDirty(data);
-            SelectDialogue(child);
-            RebuildGraph(false);
-        });
+            menu.AddItem(new GUIContent("Insérer un nouveau Dialogue avant (Nouveau Root)"), false, () =>
+            {
+                InsertNewBaseBeforeNode(node);
+            });
+        }
+        else
+        {
+            menu.AddItem(new GUIContent("Définir comme Root (Base)"), false, () =>
+            {
+                PromoteNodeToRoot(node);
+            });
+        }
 
         menu.AddSeparator("");
 
-        menu.AddItem(new GUIContent("Dupliquer cet asset"), false, () =>
+        if (isRoot && hasArchetype)
         {
-            string srcPath = AssetDatabase.GetAssetPath(data);
-            string dstPath = AssetDatabase.GenerateUniqueAssetPath(srcPath);
-            if (AssetDatabase.CopyAsset(srcPath, dstPath))
+            menu.AddItem(new GUIContent("Retirer de l'archétype PNJ"), false, () =>
             {
-                AssetDatabase.SaveAssets();
-                DialogueData copy = AssetDatabase.LoadAssetAtPath<DialogueData>(dstPath);
-                EditorGUIUtility.PingObject(copy);
-            }
-        });
+                RemoveDialogueFromArchetype(data, false);
+            });
 
-        if (data != rootDialogue)
+            menu.AddItem(new GUIContent("Retirer de l'archétype & Supprimer l'asset"), false, () =>
+            {
+                if (EditorUtility.DisplayDialog("Supprimer le DialogueData ?", $"Retirer '{data.name}' de l'archétype et supprimer définitivement le fichier ?", "Supprimer", "Annuler"))
+                {
+                    RemoveDialogueFromArchetype(data, true);
+                }
+            });
+        }
+        else if (!isRoot)
         {
             menu.AddItem(new GUIContent("Supprimer le fichier Asset"), false, () =>
             {
@@ -464,7 +937,7 @@ public class DialogueGraphWindow : EditorWindow
                     UnlinkDialogueReferences(data);
                     AssetDatabase.DeleteAsset(assetPath);
                     AssetDatabase.SaveAssets();
-                    SelectDialogue(rootDialogue);
+                    SelectDialogue(rootDialogues.Count > 0 ? rootDialogues[0] : null);
                     RebuildGraph(false);
                 }
             });
@@ -476,7 +949,14 @@ public class DialogueGraphWindow : EditorWindow
     private void ShowCanvasContextMenu()
     {
         GenericMenu menu = new GenericMenu();
-        menu.AddItem(new GUIContent("Créer un nouveau Dialogue (Root)"), false, CreateNewRootDialogue);
+        if (sourcePNJ != null && sourcePNJ.IdentityInfo is PNJIdentityArchetype)
+        {
+            menu.AddItem(new GUIContent("+ Ajouter un Dialogue à ce PNJ"), false, AddNewDialogueToPNJ);
+        }
+        else
+        {
+            menu.AddItem(new GUIContent("Créer un nouveau Dialogue (Root)"), false, CreateNewRootDialogue);
+        }
         menu.AddSeparator("");
         menu.AddItem(new GUIContent("Auto-Layout"), false, () => RebuildGraph(true));
         menu.AddItem(new GUIContent("Recentrer la vue"), false, () => panOffset = Vector2.zero);
@@ -524,58 +1004,35 @@ public class DialogueGraphWindow : EditorWindow
 
         foreach (DialogueNode node in nodes.Values)
         {
-            Rect fromRect = new Rect(node.Rect.position + panOffset, node.Rect.size);
             DialogueData data = node.Data;
 
             if (data.HasNextDialogue && data.NextDialogue != null && nodes.TryGetValue(data.NextDialogue, out DialogueNode nextNode))
             {
                 Rect toRect = new Rect(nextNode.Rect.position + panOffset, nextNode.Rect.size);
-                DrawBezierConnection(
-                    new Vector2(fromRect.xMax, fromRect.y + fromRect.height * 0.5f),
-                    new Vector2(toRect.xMin, toRect.y + 20f),
-                    new Color(0.35f, 0.75f, 1f),
-                    "Next"
-                );
+                DrawBezierConnection(node.NextPortRect.center, new Vector2(toRect.xMin, toRect.y + 12f), new Color(0.35f, 0.75f, 1f), "Next");
             }
 
             if (data.ReplaceMainDialogue != null && nodes.TryGetValue(data.ReplaceMainDialogue, out DialogueNode replaceNode))
             {
                 Rect toRect = new Rect(replaceNode.Rect.position + panOffset, replaceNode.Rect.size);
-                DrawBezierConnection(
-                    new Vector2(fromRect.xMax, fromRect.yMax - 12f),
-                    new Vector2(toRect.xMin, toRect.y + 20f),
-                    new Color(1f, 0.7f, 0.25f),
-                    "Replace Main"
-                );
+                DrawBezierConnection(node.ReplacePortRect.center, new Vector2(toRect.xMin, toRect.y + 12f), new Color(1f, 0.7f, 0.25f), "Replace");
             }
 
             if (data.HasQuestion && data.Answers != null)
             {
-                for (int i = 0; i < data.Answers.Count; i++)
+                for (int i = 0; i < data.Answers.Count && i < node.AnswerPortRects.Count; i++)
                 {
                     Answer ans = data.Answers[i];
-                    float yPos = fromRect.yMax - (data.Answers.Count - i) * 22f + 10f;
-
                     if (ans.AnswerDialogueData != null && nodes.TryGetValue(ans.AnswerDialogueData, out DialogueNode ansNode))
                     {
                         Rect toRect = new Rect(ansNode.Rect.position + panOffset, ansNode.Rect.size);
-                        DrawBezierConnection(
-                            new Vector2(fromRect.xMax, yPos),
-                            new Vector2(toRect.xMin, toRect.y + 20f),
-                            new Color(0.45f, 0.9f, 0.5f),
-                            $"Réponse {i + 1}"
-                        );
+                        DrawBezierConnection(node.AnswerPortRects[i].center, new Vector2(toRect.xMin, toRect.y + 12f), new Color(0.45f, 0.9f, 0.5f), $"Rép. {i + 1}");
                     }
 
                     if (ans.ReplaceMainDialogue != null && nodes.TryGetValue(ans.ReplaceMainDialogue, out DialogueNode ansReplaceNode))
                     {
                         Rect toRect = new Rect(ansReplaceNode.Rect.position + panOffset, ansReplaceNode.Rect.size);
-                        DrawBezierConnection(
-                            new Vector2(fromRect.xMax, yPos + 4f),
-                            new Vector2(toRect.xMin, toRect.y + 20f),
-                            new Color(1f, 0.7f, 0.25f),
-                            "Replace"
-                        );
+                        DrawBezierConnection(node.AnswerPortRects[i].center + Vector2.up * 4f, new Vector2(toRect.xMin, toRect.y + 12f), new Color(1f, 0.7f, 0.25f), "Replace");
                     }
                 }
             }
@@ -587,33 +1044,27 @@ public class DialogueGraphWindow : EditorWindow
     private void DrawBezierConnection(Vector2 start, Vector2 end, Color color, string label)
     {
         float tangent = Mathf.Clamp(Mathf.Abs(end.x - start.x) * 0.5f, 40f, 140f);
-        Handles.DrawBezier(
-            start,
-            end,
-            start + Vector2.right * tangent,
-            end + Vector2.left * tangent,
-            color,
-            null,
-            3f
-        );
+        Handles.DrawBezier(start, end, start + Vector2.right * tangent, end + Vector2.left * tangent, color, null, 3f);
 
-        Vector2 mid = (start + end) * 0.5f;
-        GUIStyle tagStyle = new GUIStyle(EditorStyles.miniLabel)
+        if (!string.IsNullOrEmpty(label))
         {
-            alignment = TextAnchor.MiddleCenter,
-            normal = { textColor = color }
-        };
-        GUI.Label(new Rect(mid.x - 45f, mid.y - 10f, 90f, 18f), label, tagStyle);
+            Vector2 mid = (start + end) * 0.5f;
+            GUIStyle tagStyle = new GUIStyle(EditorStyles.miniLabel)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                normal = { textColor = color }
+            };
+            GUI.Label(new Rect(mid.x - 45f, mid.y - 10f, 90f, 18f), label, tagStyle);
+        }
     }
 
     private void DrawNode(DialogueNode node)
     {
         DialogueData data = node.Data;
-        node.Rect.height = EstimateNodeHeight(data);
         Rect screenRect = new Rect(node.Rect.position + panOffset, node.Rect.size);
 
         bool isSelected = selectedDialogue == data;
-        bool isRoot = rootDialogue == data;
+        bool isRoot = rootDialogues.Contains(data);
 
         Color borderColor = isSelected ? new Color(0.3f, 0.85f, 1f) : (isRoot ? new Color(0.45f, 0.9f, 0.5f) : new Color(0.08f, 0.08f, 0.08f));
         EditorGUI.DrawRect(new Rect(screenRect.x - 2, screenRect.y - 2, screenRect.width + 4, screenRect.height + 4), borderColor);
@@ -626,9 +1077,11 @@ public class DialogueGraphWindow : EditorWindow
         GUIStyle titleStyle = new GUIStyle(EditorStyles.boldLabel)
         {
             normal = { textColor = Color.white },
-            padding = new RectOffset(6, 6, 3, 0)
+            padding = new RectOffset(8, 6, 3, 0)
         };
         GUI.Label(headerRect, data.name, titleStyle);
+
+        EditorGUI.DrawRect(new Rect(screenRect.x - 5f, screenRect.y + 7f, 10f, 10f), new Color(0.8f, 0.8f, 0.8f));
 
         float y = screenRect.y + 28f;
         int lineCount = data.Lines != null ? data.Lines.Count : 0;
@@ -636,7 +1089,7 @@ public class DialogueGraphWindow : EditorWindow
         if (lineCount == 0)
         {
             GUI.Label(new Rect(screenRect.x + 8, y, screenRect.width - 16, 18), "(Aucune ligne)", EditorStyles.miniLabel);
-            y += 20f;
+            y += 18f;
         }
         else
         {
@@ -644,44 +1097,54 @@ public class DialogueGraphWindow : EditorWindow
             for (int i = 0; i < previewCount; i++)
             {
                 string txt = data.Lines[i].Line ?? "";
-                if (txt.Length > 32) txt = txt.Substring(0, 32) + "...";
+                if (txt.Length > 34) txt = txt.Substring(0, 34) + "...";
                 GUI.Label(new Rect(screenRect.x + 8, y, screenRect.width - 16, 18), $"• {txt}", EditorStyles.miniLabel);
-                y += 20f;
+                y += 18f;
             }
             if (lineCount > 3)
             {
-                GUI.Label(new Rect(screenRect.x + 8, y - 4, screenRect.width - 16, 16), $"+ {lineCount - 3} autres lignes...", EditorStyles.centeredGreyMiniLabel);
+                GUI.Label(new Rect(screenRect.x + 8, y - 2, screenRect.width - 16, 14), $"+ {lineCount - 3} autres...", EditorStyles.centeredGreyMiniLabel);
                 y += 14f;
             }
         }
 
-        if (data.ReplaceMainDialogue != null)
-        {
-            GUIStyle repStyle = new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = new Color(1f, 0.75f, 0.35f) } };
-            GUI.Label(new Rect(screenRect.x + 8, y, screenRect.width - 16, 18), $"↻ Replace: {data.ReplaceMainDialogue.name}", repStyle);
-            y += 20f;
-        }
+        string nextLabel = data.HasNextDialogue && data.NextDialogue != null ? $"→ Next: {data.NextDialogue.name}" : "→ Next (tirer pour lier)";
+        GUIStyle nextStyle = new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = new Color(0.45f, 0.8f, 1f) } };
+        GUI.Label(new Rect(screenRect.x + 8, y, screenRect.width - 24, 18), nextLabel, nextStyle);
+        DrawPort(node.NextPortRect, new Color(0.35f, 0.75f, 1f));
+        y += 22f;
+
+        string repLabel = data.ReplaceMainDialogue != null ? $"↻ Replace: {data.ReplaceMainDialogue.name}" : "↻ Replace Main";
+        GUIStyle repStyle = new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = new Color(1f, 0.75f, 0.35f) } };
+        GUI.Label(new Rect(screenRect.x + 8, y, screenRect.width - 24, 18), repLabel, repStyle);
+        DrawPort(node.ReplacePortRect, new Color(1f, 0.7f, 0.25f));
+        y += 22f;
 
         if (data.HasQuestion && data.Answers != null && data.Answers.Count > 0)
         {
-            y += 4f;
+            y += 6f;
             for (int i = 0; i < data.Answers.Count; i++)
             {
                 string ansText = string.IsNullOrEmpty(data.Answers[i].Line) ? $"Réponse {i + 1}" : data.Answers[i].Line;
                 if (ansText.Length > 26) ansText = ansText.Substring(0, 26) + "...";
 
-                Rect ansRect = new Rect(screenRect.x + 8, y, screenRect.width - 16, 20f);
+                Rect ansRect = new Rect(screenRect.x + 8, y, screenRect.width - 22, 20f);
                 EditorGUI.DrawRect(ansRect, new Color(0.18f, 0.18f, 0.18f));
                 GUI.Label(new Rect(ansRect.x + 4, ansRect.y + 1, ansRect.width - 8, 18), $"↳ {ansText}", EditorStyles.miniLabel);
+
+                if (i < node.AnswerPortRects.Count)
+                {
+                    DrawPort(node.AnswerPortRects[i], new Color(0.45f, 0.9f, 0.5f));
+                }
                 y += 22f;
             }
         }
-        else if (data.HasNextDialogue)
-        {
-            string nextName = data.NextDialogue != null ? data.NextDialogue.name : "(Vide)";
-            GUIStyle nextStyle = new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = new Color(0.45f, 0.8f, 1f) } };
-            GUI.Label(new Rect(screenRect.x + 8, y, screenRect.width - 16, 18), $"→ Next: {nextName}", nextStyle);
-        }
+    }
+
+    private void DrawPort(Rect rect, Color color)
+    {
+        EditorGUI.DrawRect(new Rect(rect.x - 1, rect.y - 1, rect.width + 2, rect.height + 2), Color.black);
+        EditorGUI.DrawRect(rect, color);
     }
 
     private void DrawInspectorPanel(Rect inspectorRect)
@@ -693,15 +1156,20 @@ public class DialogueGraphWindow : EditorWindow
 
         if (selectedDialogue == null || selectedSerializedObject == null)
         {
-            EditorGUILayout.HelpBox("Clique sur un nœud du graphe pour éditer ses lignes, réponses et liens.\nClic droit sur un nœud pour créer des branches rapidement.", MessageType.Info);
+            EditorGUILayout.HelpBox("Clique sur un nœud pour l'éditer.\nTire un port coloré à droite d'un nœud vers un autre nœud (ou dans le vide pour en créer un).", MessageType.Info);
             GUILayout.EndArea();
             return;
         }
 
+        bool prevWide = EditorGUIUtility.wideMode;
+        float prevLabelWidth = EditorGUIUtility.labelWidth;
+        EditorGUIUtility.wideMode = true;
+        EditorGUIUtility.labelWidth = Mathf.Clamp(inspectorWidth * 0.32f, 90f, 135f);
+
         selectedSerializedObject.Update();
 
         EditorGUILayout.BeginHorizontal();
-        renameBuffer = EditorGUILayout.TextField(renameBuffer);
+        renameBuffer = EditorGUILayout.TextField(renameBuffer, GUILayout.ExpandWidth(true));
         if (renameBuffer != selectedDialogue.name && !string.IsNullOrWhiteSpace(renameBuffer) && GUILayout.Button("Renommer", GUILayout.Width(72)))
         {
             string path = AssetDatabase.GetAssetPath(selectedDialogue);
@@ -717,7 +1185,7 @@ public class DialogueGraphWindow : EditorWindow
 
         EditorGUILayout.Space(4);
 
-        inspectorScrollPos = EditorGUILayout.BeginScrollView(inspectorScrollPos);
+        inspectorScrollPos = EditorGUILayout.BeginScrollView(inspectorScrollPos, GUIStyle.none, GUI.skin.verticalScrollbar);
 
         EditorGUI.BeginChangeCheck();
 
@@ -740,6 +1208,9 @@ public class DialogueGraphWindow : EditorWindow
         }
 
         EditorGUILayout.EndScrollView();
+
+        EditorGUIUtility.wideMode = prevWide;
+        EditorGUIUtility.labelWidth = prevLabelWidth;
         GUILayout.EndArea();
     }
 
@@ -756,6 +1227,8 @@ public class DialogueGraphWindow : EditorWindow
             RebuildGraph(false);
         }
         EditorGUILayout.EndHorizontal();
+
+        GUIStyle wrappedArea = new GUIStyle(EditorStyles.textArea) { wordWrap = true };
 
         for (int i = 0; i < linesProp.arraySize; i++)
         {
@@ -776,7 +1249,7 @@ public class DialogueGraphWindow : EditorWindow
             EditorGUILayout.EndHorizontal();
 
             SerializedProperty textProp = lineElem.FindPropertyRelative("Line");
-            textProp.stringValue = EditorGUILayout.TextArea(textProp.stringValue, GUILayout.MinHeight(38));
+            textProp.stringValue = EditorGUILayout.TextArea(textProp.stringValue, wrappedArea, GUILayout.MinHeight(38), GUILayout.ExpandWidth(true));
 
             EditorGUILayout.PropertyField(lineElem.FindPropertyRelative("Emotion"));
             EditorGUILayout.PropertyField(lineElem.FindPropertyRelative("Reward"));
@@ -797,11 +1270,10 @@ public class DialogueGraphWindow : EditorWindow
         if (hasNextProp.boolValue)
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(nextProp, GUIContent.none);
-            if (nextProp.objectReferenceValue == null && GUILayout.Button("+ Créer", GUILayout.Width(60)))
+            EditorGUILayout.PropertyField(nextProp, new GUIContent("Next"));
+            if (nextProp.objectReferenceValue == null && GUILayout.Button("+", GUILayout.Width(24)))
             {
-                DialogueData created = CreateLinkedDialogueAsset(selectedDialogue, selectedDialogue.name + "_Next");
-                nextProp.objectReferenceValue = created;
+                nextProp.objectReferenceValue = CreateLinkedDialogueAsset(selectedDialogue, selectedDialogue.name + "_Next");
                 selectedSerializedObject.ApplyModifiedProperties();
                 RebuildGraph(false);
             }
@@ -810,10 +1282,9 @@ public class DialogueGraphWindow : EditorWindow
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PropertyField(replaceMainProp, new GUIContent("Replace Main"));
-        if (replaceMainProp.objectReferenceValue == null && GUILayout.Button("+ Créer", GUILayout.Width(60)))
+        if (replaceMainProp.objectReferenceValue == null && GUILayout.Button("+", GUILayout.Width(24)))
         {
-            DialogueData created = CreateLinkedDialogueAsset(selectedDialogue, selectedDialogue.name + "_Replace");
-            replaceMainProp.objectReferenceValue = created;
+            replaceMainProp.objectReferenceValue = CreateLinkedDialogueAsset(selectedDialogue, selectedDialogue.name + "_Replace");
             selectedSerializedObject.ApplyModifiedProperties();
             RebuildGraph(false);
         }
@@ -872,10 +1343,9 @@ public class DialogueGraphWindow : EditorWindow
                 SerializedProperty ansDialogue = ansElem.FindPropertyRelative("AnswerDialogueData");
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PropertyField(ansDialogue, new GUIContent("Suite"));
-                if (ansDialogue.objectReferenceValue == null && GUILayout.Button("+ Créer", GUILayout.Width(60)))
+                if (ansDialogue.objectReferenceValue == null && GUILayout.Button("+", GUILayout.Width(24)))
                 {
-                    DialogueData created = CreateLinkedDialogueAsset(selectedDialogue, $"{selectedDialogue.name}_Ans{i + 1}");
-                    ansDialogue.objectReferenceValue = created;
+                    ansDialogue.objectReferenceValue = CreateLinkedDialogueAsset(selectedDialogue, $"{selectedDialogue.name}_Ans{i + 1}");
                     selectedSerializedObject.ApplyModifiedProperties();
                     RebuildGraph(false);
                 }
@@ -884,10 +1354,9 @@ public class DialogueGraphWindow : EditorWindow
                 SerializedProperty ansReplace = ansElem.FindPropertyRelative("ReplaceMainDialogue");
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PropertyField(ansReplace, new GUIContent("Replace Main"));
-                if (ansReplace.objectReferenceValue == null && GUILayout.Button("+ Créer", GUILayout.Width(60)))
+                if (ansReplace.objectReferenceValue == null && GUILayout.Button("+", GUILayout.Width(24)))
                 {
-                    DialogueData created = CreateLinkedDialogueAsset(selectedDialogue, $"{selectedDialogue.name}_Ans{i + 1}_Replace");
-                    ansReplace.objectReferenceValue = created;
+                    ansReplace.objectReferenceValue = CreateLinkedDialogueAsset(selectedDialogue, $"{selectedDialogue.name}_Ans{i + 1}_Replace");
                     selectedSerializedObject.ApplyModifiedProperties();
                     RebuildGraph(false);
                 }

@@ -1,4 +1,5 @@
 using Alchemy.Inspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class PNJIdentityArchetype : IdentityData
 {
     public List<string> possibleNames;
     public List<string> possibleDescriptions;
-    public List<Sprite> possiblePortraits;
+    public List<SpriteController> possibleVisuals;
     [InlineEditor]
     public List<DialogueData> possibleDialogues;
 
@@ -21,9 +22,20 @@ public class PNJIdentityArchetype : IdentityData
         Identity identity = new Identity();
         identity.Name = possibleNames.GetRandomElement();
         identity.Description = possibleDescriptions.GetRandomElement();
-        identity.Portrait = possiblePortraits.GetRandomElement();
+
+        SpriteController spriteController = possibleVisuals.GetRandomElement();
+        identity.Portrait = spriteController.Sprite;
+        identity.Controller = spriteController.Controller;
+
         identity.Dialogue = possibleDialogues.GetRandomElement();
 
         return identity;
     }
+}
+
+[Serializable]
+public struct SpriteController
+{
+    public Sprite Sprite;
+    public RuntimeAnimatorController Controller;
 }

@@ -16,6 +16,12 @@ public class ItemUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI itemNameText;
 
+    [SerializeField]
+    private Sequencer.Sequencer onSetItem;
+
+    [SerializeField]
+    private Sequencer.Sequencer onRemoveSetItem;
+
     private Item item;
     private CraftingView craftingView;
 
@@ -23,7 +29,6 @@ public class ItemUI : MonoBehaviour
 
     public Item HeldItem => item;
     public bool IsEmpty => item == null;
-
     public Image ItemImage => itemImage;
 
     public void Setup (Item item, CraftingView craftingView, int itemAmount = 1)
@@ -44,6 +49,14 @@ public class ItemUI : MonoBehaviour
         this.craftingView = craftingView;
         this.itemAmount = itemAmount;
         this.itemNameText.text = item.ItemName;
+
+        if (onSetItem != null)
+        {
+            if (onRemoveSetItem != null)
+                onRemoveSetItem.StopSequence();
+
+            onSetItem.StartSequence();
+        }
     }
 
     public void UpdateAmount (int toAdd)
@@ -63,7 +76,7 @@ public class ItemUI : MonoBehaviour
         }
     }
 
-    public void RemoveItem ()
+    public void RemoveItem(bool instant = false)
     {
         item = null;
         canvasGroup.alpha = 1f;
@@ -76,6 +89,17 @@ public class ItemUI : MonoBehaviour
         if (itemNameText != null)
         {
             itemNameText.text = "";
+        }
+
+        if (onRemoveSetItem != null)
+        {
+            if (onSetItem != null)
+                onSetItem.StopSequence();
+
+            if (!instant)
+                onRemoveSetItem.StartSequence();
+            else
+                onRemoveSetItem.SkipSequence();
         }
     }
 

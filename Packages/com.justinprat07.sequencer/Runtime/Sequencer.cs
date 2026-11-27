@@ -19,13 +19,6 @@ namespace Sequencer
 
         public List<Action> Actions => actions;
 
-        public enum PlayMode
-        {
-            Manual,
-            Start,
-            Enable
-        }
-
         private void Awake()
         {
             foreach (Action action in actions)
@@ -40,6 +33,11 @@ namespace Sequencer
             {
                 StartSequence();
             }
+        }
+
+        private void OnDisable()
+        {
+            StopSequence();
         }
 
         private void Start()
@@ -78,6 +76,20 @@ namespace Sequencer
             }
             
             StopAllCoroutines();
+        }
+
+        public void SkipSequence()
+        {
+            foreach (Action action in actions)
+            {
+                action.Behavior.SetExecuteBaseValue();
+            }
+
+            for (int i = 0; i < actions.Count; i++)
+            {
+                Action action = actions[i];
+                action.Behavior.Stop();
+            }
         }
 
         public IEnumerator ExecuteSequence()
@@ -165,5 +177,12 @@ namespace Sequencer
                 return ActionData;
             }
         }
+    }
+
+    public enum PlayMode
+    {
+        Manual,
+        Start,
+        Enable
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, IInitializableManager
 {
     [SerializeField]
     private ManagerRefs managerRefs;
@@ -10,9 +10,14 @@ public class DialogueManager : MonoBehaviour
     private List<SpecialDialogue> specialDialogues = new List<SpecialDialogue>();
 
     public List<SpecialDialogue> SpecialDialogues => specialDialogues;
-    private void Awake()
+
+    public void Register(ManagerRefs refs)
     {
         managerRefs.DialogueManager = this;
+    }
+
+    public void Init(ManagerRefs refs)
+    {
     }
 
     public void StartDialogue (DialogueData data, PNJBrain pnjBrain)
